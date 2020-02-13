@@ -9,7 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import com.queueapp.main.R
-import com.queueapp.main.database.user.UserDatabase
+import com.queueapp.main.database.user.AppDatabase
 import com.queueapp.main.databinding.ProfileFragmentBinding
 import com.queueapp.main.views.viewmodels.ProfileViewModel
 import com.queueapp.main.views.viewmodels.ProfileViewModelFactory
@@ -34,7 +34,7 @@ class ProfileFragment : Fragment() {
             false
         )
         val args = arguments?.let { ProfileFragmentArgs.fromBundle(it) }
-        viewModelFactory = args?.userId?.let { ProfileViewModelFactory(it, UserDatabase.getInstance(activity!!.application)) }!!
+        viewModelFactory = args?.userId?.let { ProfileViewModelFactory(it, AppDatabase.getInstance(activity!!.application)) }!!
         viewModel = ViewModelProviders.of(this, viewModelFactory)
             .get(ProfileViewModel::class.java)
         binding.lifecycleOwner = this

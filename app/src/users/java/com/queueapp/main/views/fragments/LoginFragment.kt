@@ -11,7 +11,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import com.queueapp.main.views.dialogs.LoginDialog
 import com.queueapp.main.R
-import com.queueapp.main.database.user.UserDatabase
+import com.queueapp.main.database.user.AppDatabase
 import com.queueapp.main.domain.local.models.ViewStatesMessageTypes.*
 import com.queueapp.main.views.adapters.SignInAdapter
 import com.queueapp.main.views.adapters.SignInListener
@@ -35,7 +35,7 @@ class LoginFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        viewModelFactory = LoginViewModelFactory(UserDatabase.getInstance(activity!!.application))
+        viewModelFactory = LoginViewModelFactory(AppDatabase.getInstance(activity!!.application))
         viewModel = ViewModelProviders.of(this, viewModelFactory)
             .get(LoginViewModel::class.java)
         return inflater.inflate(R.layout.login_fragment, container, false)

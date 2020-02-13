@@ -5,22 +5,13 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.queueapp.main.database.user.User
-import com.queueapp.main.database.user.UserDatabase
+import com.queueapp.main.database.user.AppDatabase
 import com.queueapp.main.domain.local.models.ViewStates
 import com.queueapp.main.domain.local.models.ViewStatesMessageTypes
 import kotlinx.coroutines.*
 
-@Suppress("UNCHECKED_CAST")
-class LoginViewModelFactory(private val userDatabase: UserDatabase) : ViewModelProvider.Factory {
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(LoginViewModel::class.java)) {
-            return LoginViewModel(userDatabase) as T
-        }
-        throw IllegalArgumentException("Unknown ViewModel class")
-    }
-}
 
-class LoginViewModel (private val userDatabase: UserDatabase) : ViewModel() {
+class LoginViewModel (private val appDatabase: AppDatabase) : ViewModel() {
 
     private val _currentUser: MutableLiveData<Long> = MutableLiveData()
     val currentUser: LiveData<Long>
@@ -64,7 +55,7 @@ class LoginViewModel (private val userDatabase: UserDatabase) : ViewModel() {
 
     private suspend fun executeCheckIfUserExists(selectedUser: String, selectedPass: String) {
         return withContext(Dispatchers.IO){
-            val user = userDatabase.userDatabaseDao.correctUser(selectedUser, selectedPass)
+            val user = appDatabase.userDatabaseDao.correctUser(selectedUser, selectedPass)
             if( user != null) {
                 _currentUser.postValue(user.userId)
                 _screenState.postValue(ViewStates(200, ViewStatesMessageTypes.USER_ASSIGNED))
@@ -77,8 +68,8 @@ class LoginViewModel (private val userDatabase: UserDatabase) : ViewModel() {
 
     private suspend fun executeAddUserToDatabase(user: User) {
         return withContext(Dispatchers.IO) {
-            userDatabase.userDatabaseDao.insert(user)
-            val id = userDatabase.userDatabaseDao.correctUser(user.username, user.password)?.userId
+            appDatabase.userDatabaseDao.insert(user)
+            val id = appDatabase.userDatabaseDao.correctUser(user.username, user.password)?.userId
             if(id != null) {
                 _currentUser.postValue(id)
                 _screenState.postValue(ViewStates(200, ViewStatesMessageTypes.USER_ASSIGNED))
