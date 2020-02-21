@@ -16,7 +16,7 @@ import com.qflow.main.views.dialogs.SigninDialog
 import com.qflow.main.views.dialogs.SignupDialog
 import com.qflow.main.views.viewmodels.LoginViewModel
 import kotlinx.android.synthetic.main.login_fragment.*
-import org.koin.android.architecture.ext.viewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class LoginFragment : Fragment() {
@@ -25,7 +25,7 @@ class LoginFragment : Fragment() {
     private lateinit var myChooseAccountDialog: SigninDialog
     private lateinit var mySignUpDialog: SignupDialog
 
-    private val viewModel by viewModel<LoginViewModel>()
+    private val viewModel: LoginViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
