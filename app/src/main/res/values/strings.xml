@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">QueueApp</string>
+    <string name="app_name">QFlow</string>
     <string name="loginQR">Accede con QR</string>
     <string name="loginApprender">Accede con Apprender</string>
     <string name="username">Nombre de usuario</string>

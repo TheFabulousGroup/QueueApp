@@ -8,7 +8,7 @@
     <data>
         <variable
             name="profileViewModel"
-            type="com.queueapp.main.views.viewmodels.ProfileViewModel" />
+            type="com.qflow.main.views.viewmodels.ProfileViewModel" />
     </data>
 
 

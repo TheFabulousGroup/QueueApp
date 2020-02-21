@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.queueapp.main.views.fragments.LoginFragment"
+        android:name="com.qflow.main.views.fragments.LoginFragment"
         android:label="login_fragment"
         tools:layout="@layout/login_fragment">
         <action
@@ -18,7 +18,7 @@
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.queueapp.main.views.fragments.ProfileFragment"
+        android:name="com.qflow.main.views.fragments.ProfileFragment"
         android:label="profile_fragment"
         tools:layout="@layout/profile_fragment">
         <argument

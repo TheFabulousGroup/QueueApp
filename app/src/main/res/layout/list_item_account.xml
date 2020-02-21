@@ -5,10 +5,10 @@
     <data>
         <variable
             name="user"
-            type="com.queueapp.main.database.user.User" />
+            type="com.qflow.main.domain.local.database.user.User" />
         <variable
             name="clickListener"
-            type="com.queueapp.main.views.adapters.SignInListener" />
+            type="com.qflow.main.views.adapters.SignInListener" />
     </data>
 
 
