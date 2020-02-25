@@ -9,11 +9,12 @@ import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import com.qflow.main.views.dialogs.LoginDialog
 import com.qflow.main.R
-import com.qflow.main.domain.local.models.ViewStatesMessageTypes.*
+import com.qflow.main.core.ScreenState
 import com.qflow.main.views.adapters.SignInAdapter
 import com.qflow.main.views.adapters.SignInListener
 import com.qflow.main.views.dialogs.SigninDialog
 import com.qflow.main.views.dialogs.SignupDialog
+import com.qflow.main.views.screenstates.LoginFragmentScreenState
 import com.qflow.main.views.viewmodels.LoginViewModel
 import kotlinx.android.synthetic.main.login_fragment.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -64,18 +65,27 @@ class LoginFragment : Fragment() {
 
     private fun initializeObservers() {
         viewModel.screenState.observe(viewLifecycleOwner, Observer {
-            when (it.screen){
-                USER_ASSIGNED -> {
-                    view?.let {view?.findNavController()!!.navigate(LoginFragmentDirections.actionLoginFragmentToProfileFragment(viewModel.currentUser.value!!)) }
-                }
-                LOGIN_NOT_SUCCESSFUL -> {
-                    Toast.makeText(context, "Login Failed", Toast.LENGTH_SHORT).show()
-                }
-                SIGN_IN_FAILED -> {
-                    Toast.makeText(context, "Signup Failed", Toast.LENGTH_SHORT).show()
-                }
-            }
+            updateUi(it)
         })
+    }
+
+    private fun updateUi(screenState: ScreenState<LoginFragmentScreenState>?) {
+
+        when(screenState){
+            ScreenState.Loading -> {}
+            is ScreenState.Render -> renderScreenState(screenState.renderState)
+        }
+
+    }
+
+    private fun renderScreenState(renderState: LoginFragmentScreenState) {
+
+        when(renderState){
+            is LoginFragmentScreenState.UserCreatedCorrectly -> {
+                Toast.makeText(this.context, renderState.id.toString(), Toast.LENGTH_LONG).show()
+            }
+        }
+
     }
 
     private fun openChooseAccountDialog() {
