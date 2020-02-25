@@ -28,7 +28,7 @@ class LoginDialog(override val loginViewModel: LoginViewModel) : LoginDialogsInt
         submitButton.setOnClickListener {
             val selectedUsername=textUsername.text.toString()
             val selectedPass=textPassword.text.toString()
-            loginViewModel.initiateNormalLogin(selectedUsername, selectedPass)
+//            loginViewModel.initiateNormalLogin(selectedUsername, selectedPass)
             dismiss()
         }
         return rootView
