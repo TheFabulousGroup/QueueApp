@@ -45,14 +45,14 @@ class LoginFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initializeDialogs()
-        loginApprender.setOnClickListener {
+        btnGoogle.setOnClickListener {
             openApprenderDialog()
         }
-        signUp.setOnClickListener {
+        btnTwitter.setOnClickListener {
 //            view.findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToProfileFragment("QRlog"))
             openCreateAccountDialog()
         }
-        signIn.setOnClickListener {
+        btnFacebook.setOnClickListener {
             openChooseAccountDialog()
         }
         val adapter = SignInAdapter(SignInListener { user ->

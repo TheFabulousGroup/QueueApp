@@ -6,7 +6,7 @@ import androidx.databinding.DataBindingUtil
 import com.qflow.main.R
 import com.qflow.main.databinding.ActivityMainBinding
 
-class MainActivity : AppCompatActivity() {
+class LoginActivity : AppCompatActivity() {
 
  private lateinit var binding: ActivityMainBinding
 

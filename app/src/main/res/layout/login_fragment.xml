@@ -10,64 +10,70 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <pl.droidsonroids.gif.GifImageView
-            android:id="@+id/imageView"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginBottom="16dp"
-            android:src="@drawable/girl_too_close"
-            app:layout_constraintBottom_toTopOf="@id/loginApprender"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
         <Button
-            android:id="@+id/signUp"
+            android:id="@+id/btnTwitter"
             android:layout_width="wrap_content"
-            android:layout_height="42dp"
-            android:minWidth="150dp"
-            android:layout_marginBottom="24dp"
+            android:layout_height="wrap_content"
             android:background="@drawable/login_button_selector"
             android:drawablePadding="-35dp"
             android:fontFamily="@font/roboto"
             android:maxWidth="150dp"
+            android:minWidth="150dp"
             android:text="@string/sign_in"
             android:textAllCaps="false"
             android:textColor="#0E0C0C"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/loginApprender" />
+            app:layout_constraintBottom_toBottomOf="@+id/btnFacebook"
+            app:layout_constraintEnd_toEndOf="parent" />
 
         <Button
-            android:id="@+id/signIn"
-            android:layout_width="0dp"
-            android:layout_height="41dp"
-            android:minWidth="150dp"
-            android:layout_marginBottom="24dp"
+            android:id="@+id/btnFacebook"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
             android:background="@drawable/login_button_selector"
             android:drawablePadding="-35dp"
             android:fontFamily="@font/roboto"
             android:maxWidth="150dp"
+            android:minWidth="150dp"
             android:text="@string/sign_up"
             android:textAllCaps="false"
             android:textColor="#0E0C0C"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/loginApprender" />
+            app:layout_constraintEnd_toStartOf="@+id/btnTwitter"
+            app:layout_constraintStart_toEndOf="@+id/btnGoogle"
+            app:layout_constraintTop_toBottomOf="@+id/inputPass" />
 
         <Button
-            android:id="@+id/loginApprender"
-            android:layout_width="350dp"
-            android:layout_height="40dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="16dp"
+            android:id="@+id/btnGoogle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:background="@drawable/login_button_selector"
-            android:drawableStart="@drawable/icon_apprender_wrappable"
             android:drawablePadding="-35dp"
             android:fontFamily="@font/roboto"
             android:text="@string/loginApprender"
             android:textAllCaps="false"
-            app:layout_constraintBottom_toTopOf="@+id/signUp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/btnFacebook" />
+
+        <EditText
+            android:id="@+id/inputEmail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:ems="10"
+            android:inputType="textEmailAddress"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/inputPass"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:ems="10"
+            android:inputType="textPassword"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/inputEmail" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>
