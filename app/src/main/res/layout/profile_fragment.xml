@@ -27,7 +27,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:fontFamily="@font/roboto_light"
-            android:text="@{String.valueOf(profileViewModel.currentUser.username)  }"
+            android:text="@{String.valueOf(profileViewModel.currentUserDB.username)  }"
             android:textAllCaps="false"
             android:textColor="#5B8594"
             android:textSize="36sp"

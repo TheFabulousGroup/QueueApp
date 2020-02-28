@@ -5,26 +5,28 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
-import com.qflow.main.domain.local.database.user.User
 
+/**
+ * Here we define the querys for the table user
+ * */
 @Dao
 interface UserDatabaseDao {
 
     @Insert
-    fun insert(user: User)
+    fun insert(userDB: UserDB)
 
     @Update
-    fun update(user: User)
+    fun update(userDB: UserDB)
 
     @Query("SELECT * from users_table WHERE userId = :id")
-    fun get(id: Long): User?
+    fun get(id: Long): UserDB?
 
     @Query("DELETE FROM users_table")
     fun clear()
 
     @Query("Select * FROM users_table ORDER BY userId DESC")
-    fun getAllUsers(): LiveData<List<User>>
+    fun getAllUsers(): LiveData<List<UserDB>>
 
     @Query("SELECT * from users_table WHERE username = :selectedId AND password = :selectedPass")
-    fun correctUser(selectedId: String, selectedPass: String): User?
+    fun correctUser(selectedId: String, selectedPass: String): UserDB?
 }

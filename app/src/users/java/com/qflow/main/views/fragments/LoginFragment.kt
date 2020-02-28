@@ -19,6 +19,9 @@ import com.qflow.main.views.viewmodels.LoginViewModel
 import kotlinx.android.synthetic.main.login_fragment.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
+/**
+ * Old view used for the login (pending to be deleted)
+ * */
 
 class LoginFragment : Fragment() {
 

@@ -2,10 +2,6 @@ package com.qflow.main.views.viewmodels
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.qflow.main.domain.local.database.user.User
-import com.qflow.main.domain.local.database.AppDatabase
-import com.qflow.main.domain.local.models.ViewStates
-import com.qflow.main.domain.local.models.ViewStatesMessageTypes
 import kotlinx.coroutines.*
 import org.koin.core.KoinComponent
 import com.qflow.main.core.BaseViewModel
@@ -13,7 +9,9 @@ import com.qflow.main.core.ScreenState
 import com.qflow.main.usecases.user.SaveUserInDatabase
 import com.qflow.main.views.screenstates.LoginFragmentScreenState
 
-
+/**
+ * Viewmodel of the LoginFragment, it connects with the usecases
+ * */
 class LoginViewModel(
     private val saveUserDatabase: SaveUserInDatabase
 ) : BaseViewModel(), KoinComponent {

@@ -14,6 +14,9 @@ import com.qflow.main.dinjector.useCaseModule
 import com.qflow.main.dinjector.userModule
 
 
+/**
+ * This class gets called at the startup of the application, for now it loads the DI
+ * */
 class App : Application(), KoinComponent, Application.ActivityLifecycleCallbacks
 {
 

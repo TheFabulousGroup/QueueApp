@@ -1,12 +1,14 @@
 package com.qflow.main.usecases.user
 
 import com.qflow.main.core.Failure
-import com.qflow.main.domain.local.database.user.User
 import com.qflow.main.repository.UserRepository
 import com.qflow.main.usecases.Either
 import com.qflow.main.usecases.UseCase
 import kotlinx.coroutines.CoroutineScope
 
+/**
+ * UseCaseCreateUserInDatabase
+ * */
 class SaveUserInDatabase (private val userRepository: UserRepository):
     UseCase<Long, SaveUserInDatabase.Params, CoroutineScope>() {
     override suspend fun run(params: Params): Either<Failure, Long> {

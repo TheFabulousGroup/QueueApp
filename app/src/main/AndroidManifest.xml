@@ -9,8 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
+        android:allowBackup="true"
         android:fullBackupContent="@xml/backup_descriptor">
-        <activity android:name="com.qflow.main.views.MainActivity">
+        <activity android:name="com.qflow.main.views.activities.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />

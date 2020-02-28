@@ -12,9 +12,9 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 import java.io.IOException
 
-/*
-* @author  Iván Fernández Rico, Globalincubator
-*/
+/**
+ * Example class for requests (Not used yet)
+ * */
 interface ApiService {
 
 
@@ -81,41 +81,41 @@ interface ApiService {
 
 }
 
-class HeaderInterceptor : Interceptor, KoinComponent {
-
-    @Throws(IOException::class)
-    override fun intercept(chain: Interceptor.Chain): Response {
-        var request = chain.request()
-        var requestBuilder: Request.Builder
-
-
-//        var sessionCode: String? = user?.secret
-//        var sessionUser: Int? = user?.userCode
-
-
-
-        requestBuilder = request.newBuilder()
-//                .addHeader("Secret", Constants.CREDENTIALS.SECRET)
-//                .addHeader("Token", Constants.CREDENTIALS.TOKEN)
-                .addHeader("API-apptype", "android")
-                .addHeader("Content-Type", "application/json")
-
-//        if (sessionUser != null && sessionCode != null)
-//            requestBuilder.addHeader("SESSION-GI", "$sessionUser.$sessionCode")
-
-
-//UNCOMMENT TO SEE WHAT ARE WE SENDING
-        Log.i("REQUEST",
-                String.format("Sending request %s on %s %s", request.url(), chain.connection(), request.headers()))
-
-        val response = chain.proceed(requestBuilder.build())
-
-//UNCOMMENT TO SEE WHAT ARE WE RECEIVING
-        Log.i("REQUEST",
-                String.format("Received response for %s, headers: %s", request.url(), response.body()))
-
-        val body = ResponseBody.create(response.body()?.contentType(), response.body()!!.string())
-        return response.newBuilder().body(body).build()
-    }
-}
-
+//class HeaderInterceptor : Interceptor, KoinComponent {
+//
+//    @Throws(IOException::class)
+//    override fun intercept(chain: Interceptor.Chain): Response {
+//        var request = chain.request()
+//        var requestBuilder: Request.Builder
+//
+//
+////        var sessionCode: String? = user?.secret
+////        var sessionUser: Int? = user?.userCode
+//
+//
+//
+//        requestBuilder = request.newBuilder()
+////                .addHeader("Secret", Constants.CREDENTIALS.SECRET)
+////                .addHeader("Token", Constants.CREDENTIALS.TOKEN)
+//                .addHeader("API-apptype", "android")
+//                .addHeader("Content-Type", "application/json")
+//
+////        if (sessionUser != null && sessionCode != null)
+////            requestBuilder.addHeader("SESSION-GI", "$sessionUser.$sessionCode")
+//
+//
+////UNCOMMENT TO SEE WHAT ARE WE SENDING
+//        Log.i("REQUEST",
+//                String.format("Sending request %s on %s %s", request.url(), chain.connection(), request.headers()))
+//
+//        val response = chain.proceed(requestBuilder.build())
+//
+////UNCOMMENT TO SEE WHAT ARE WE RECEIVING
+//        Log.i("REQUEST",
+//                String.format("Received response for %s, headers: %s", request.url(), response.body()))
+//
+//        val body = ResponseBody.create(response.body()?.contentType(), response.body()!!.string())
+//        return response.newBuilder().body(body).build()
+//    }
+//}
+//
