@@ -84,9 +84,7 @@ class LoginFragment : Fragment() {
     private fun renderScreenState(renderState: LoginFragmentScreenState) {
 
         when(renderState){
-            is LoginFragmentScreenState.UserCreatedCorrectly -> {
-                Toast.makeText(this.context, renderState.id.toString(), Toast.LENGTH_LONG).show()
-            }
+            //Añadir aqui estados de la aplicacion loginScreenState
         }
 
     }

@@ -9,12 +9,13 @@ import kotlinx.coroutines.CoroutineScope
 /**
  * UseCaseCreateUserInDatabase
  * */
-class SaveUserInDatabase (private val userRepository: UserRepository):
-    UseCase<Long, SaveUserInDatabase.Params, CoroutineScope>() {
+class CreateUser (private val userRepository: UserRepository):
+    UseCase<Long, CreateUser.Params, CoroutineScope>() {
     override suspend fun run(params: Params): Either<Failure, Long> {
 
         val result = userRepository
-            .saveUser(params.username, params.selectedPass, params.selectedMail)
+            .createUser(params.username, params.selectedPass, params.selectedEmail,
+                params.selectedNameLastName, params.selectedRepeatPass)
 
        return when(result){
            is Either.Left -> Either.Left(result.a)
@@ -23,7 +24,8 @@ class SaveUserInDatabase (private val userRepository: UserRepository):
 
     }
 
-    class Params(val username: String, val selectedPass: String, val selectedMail: String )
+    class Params(val username: String, val selectedPass: String, val selectedRepeatPass: String,
+                 val selectedNameLastName: String,  val selectedEmail: String )
 
 
 }

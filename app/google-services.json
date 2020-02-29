@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "192040173538",
+    "firebase_url": "https://qflow-5662e.firebaseio.com",
+    "project_id": "qflow-5662e",
+    "storage_bucket": "qflow-5662e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:192040173538:android:26f840f0aca6b5f16943bb",
+        "android_client_info": {
+          "package_name": "com.qflow.users"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "192040173538-k90g8fuorrkcgdee7gtmct6r41iifh34.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.qflow.users",
+            "certificate_hash": "8dc09078924e10ef79d78ef1e8014b42ad49973a"
+          }
+        },
+        {
+          "client_id": "192040173538-n0b60svri72uu2o9jsk52nqfgiu8kgr3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCd9IZrMJbGBfhzojYgTRGozkNqeS2xb_g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "192040173538-n0b60svri72uu2o9jsk52nqfgiu8kgr3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

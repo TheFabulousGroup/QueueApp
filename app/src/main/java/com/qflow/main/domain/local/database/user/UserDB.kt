@@ -16,10 +16,7 @@ data class UserDB (
     @ColumnInfo(name = "username")
     var username: String,
 
-    @ColumnInfo(name = "mail")
-    var mail: String,
-
-    @ColumnInfo(name = "password")
-    var password: String
+    @ColumnInfo(name = "id_firebase")
+    var id_firebase: String
 
 )

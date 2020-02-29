@@ -26,7 +26,4 @@ interface UserDatabaseDao {
 
     @Query("Select * FROM users_table ORDER BY userId DESC")
     fun getAllUsers(): LiveData<List<UserDB>>
-
-    @Query("SELECT * from users_table WHERE username = :selectedId AND password = :selectedPass")
-    fun correctUser(selectedId: String, selectedPass: String): UserDB?
 }

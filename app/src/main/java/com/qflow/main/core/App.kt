@@ -4,14 +4,12 @@ import android.app.Activity
 import android.app.Application
 import android.os.Bundle
 import android.os.Handler
-import com.qflow.main.dinjector.dataModule
+import com.google.firebase.firestore.FirebaseFirestore
+import com.qflow.main.dinjector.*
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.KoinComponent
 import org.koin.core.context.startKoin
-import com.qflow.main.dinjector.retrofitModule
-import com.qflow.main.dinjector.useCaseModule
-import com.qflow.main.dinjector.userModule
 
 
 /**
@@ -25,7 +23,7 @@ class App : Application(), KoinComponent, Application.ActivityLifecycleCallbacks
 
     override fun onCreate() {
         super.onCreate()
-
+        val db = FirebaseFirestore.getInstance()
 
         registerActivityLifecycleCallbacks(this)
 
@@ -36,7 +34,7 @@ class App : Application(), KoinComponent, Application.ActivityLifecycleCallbacks
         startKoin {
             androidLogger()
             androidContext(this@App)
-            modules(listOf(retrofitModule, dataModule, useCaseModule, userModule))
+            modules(listOf(retrofitModule, dataModule, useCaseModule, userModule, fireBaseModule))
         }
 
         //Part reserved to notifications
