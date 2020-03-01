@@ -11,9 +11,9 @@
     <string name="progress_percent">75%</string>
     <string name="sign_in">Crear una cuenta</string>
     <string name="sign_up">Iniciar sesión</string>
-    <string name="face">sig in Facebook</string>
-    <string name="twitter">sig in twitter</string>
-    <string name="Google">sig in Google</string>
+    <string name="face">Facebook</string>
+    <string name="twitter">Twitter</string>
+    <string name="Google">Google</string>
     <string name="thanks_for_signing_up">Gracias por registrarte</string>
     <string name="correo_electr_nico">Correo electrónico</string>
     <string name="usermail">Mail o nombre de usuario</string>
