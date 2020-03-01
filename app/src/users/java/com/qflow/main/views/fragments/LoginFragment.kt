@@ -4,26 +4,35 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.EditText
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import com.qflow.main.views.dialogs.LoginDialog
 import com.qflow.main.R
-import com.qflow.main.domain.local.models.ViewStatesMessageTypes.*
+import com.qflow.main.core.ScreenState
 import com.qflow.main.views.adapters.SignInAdapter
 import com.qflow.main.views.adapters.SignInListener
 import com.qflow.main.views.dialogs.SigninDialog
 import com.qflow.main.views.dialogs.SignupDialog
+import com.qflow.main.views.screenstates.LoginFragmentScreenState
 import com.qflow.main.views.viewmodels.LoginViewModel
+import kotlinx.android.synthetic.main.dialog_signup.*
 import kotlinx.android.synthetic.main.login_fragment.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
+/**
+ * Old view used for the login (pending to be deleted)
+ * */
 
 class LoginFragment : Fragment() {
 
+   /*
     private lateinit var myLoginDialog: LoginDialog
     private lateinit var myChooseAccountDialog: SigninDialog
     private lateinit var mySignUpDialog: SignupDialog
+    */
 
     private val viewModel: LoginViewModel by viewModel()
 
@@ -37,48 +46,64 @@ class LoginFragment : Fragment() {
 
 
     private fun initializeDialogs() {
-        myLoginDialog = LoginDialog(viewModel)
-        myChooseAccountDialog = SigninDialog(viewModel)
-        mySignUpDialog = SignupDialog(viewModel)
+        accept_Login.setOnClickListener{
+            val selectedEmail = inputEmail.text.toString()
+            val selectedPass = inputPass.text.toString()
+            val selectedName = inputEmail.text.toString()
+            viewModel.saveUserInDatabase(selectedEmail,selectedPass,selectedName)
+        }
+
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+/*   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initializeDialogs()
         btnGoogle.setOnClickListener {
-            openApprenderDialog()
+
         }
         btnTwitter.setOnClickListener {
 //            view.findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToProfileFragment("QRlog"))
-            openCreateAccountDialog()
+
         }
         btnFacebook.setOnClickListener {
-            openChooseAccountDialog()
+
+        }
+        btn_signUp.setOnClickListener(){
+
         }
         val adapter = SignInAdapter(SignInListener { user ->
 //            sleepTrackerViewModel.onSleepNightClicked(nightId)
             view.findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToProfileFragment(user.userId))
         })
         initializeObservers()
-    }
+    }*/
 
     private fun initializeObservers() {
         viewModel.screenState.observe(viewLifecycleOwner, Observer {
-            when (it.screen){
-                USER_ASSIGNED -> {
-                    view?.let {view?.findNavController()!!.navigate(LoginFragmentDirections.actionLoginFragmentToProfileFragment(viewModel.currentUser.value!!)) }
-                }
-                LOGIN_NOT_SUCCESSFUL -> {
-                    Toast.makeText(context, "Login Failed", Toast.LENGTH_SHORT).show()
-                }
-                SIGN_IN_FAILED -> {
-                    Toast.makeText(context, "Signup Failed", Toast.LENGTH_SHORT).show()
-                }
-            }
+            updateUi(it)
         })
     }
 
-    private fun openChooseAccountDialog() {
+    private fun updateUi(screenState: ScreenState<LoginFragmentScreenState>?) {
+
+        when(screenState){
+            ScreenState.Loading -> {}
+            is ScreenState.Render -> renderScreenState(screenState.renderState)
+        }
+
+    }
+
+    private fun renderScreenState(renderState: LoginFragmentScreenState) {
+
+        when(renderState){
+            is LoginFragmentScreenState.UserCreatedCorrectly -> {
+                Toast.makeText(this.context, renderState.id.toString(), Toast.LENGTH_LONG).show()
+            }
+        }
+
+    }
+
+   /* private fun openChooseAccountDialog() {
         activity?.let {
             myChooseAccountDialog.show(fragmentManager!!, "ChooseAccountD")
         }
@@ -95,7 +120,7 @@ class LoginFragment : Fragment() {
             myLoginDialog.show(fragmentManager!!, "login dialog")
         }
 
-    }
+    }*/
 
 //
 //    override fun onLoginClick(id: Long, userName: String) {

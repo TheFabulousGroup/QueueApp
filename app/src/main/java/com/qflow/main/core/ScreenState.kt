@@ -1,8 +1,10 @@
 package com.qflow.main.core
 
-/*
-* @author  Iván Fernández Rico, Globalincubator
-*/
+/**
+ * ScreenState main structure for the views.
+ * Either it renders a loading state
+ * Or renders whatever we want to
+ * */
 sealed class ScreenState<out T>
 {
     object Loading: ScreenState<Nothing>()

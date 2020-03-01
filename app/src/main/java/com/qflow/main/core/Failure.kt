@@ -1,7 +1,8 @@
 package com.qflow.main.core
-/*
-* @author  Iván Fernández Rico, Globalincubator
-*/
+
+/**
+ * The type of failures we can find in our model
+ * */
 sealed class Failure {
     object NetworkConnection : Failure()
     class ServerErrorCode(val code: Int): Failure()

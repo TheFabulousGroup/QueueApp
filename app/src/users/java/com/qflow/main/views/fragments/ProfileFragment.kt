@@ -13,6 +13,10 @@ import com.qflow.main.views.viewmodels.ProfileViewModel
 import kotlinx.android.synthetic.main.item_profile.*
 
 
+/**
+ * Old view used for the signin (pending to be deleted)
+ * */
+
 class ProfileFragment : Fragment() {
 
     private lateinit var viewModel: ProfileViewModel
@@ -29,7 +33,8 @@ class ProfileFragment : Fragment() {
             container,
             false
         )
-        val args = arguments?.let { ProfileFragmentArgs.fromBundle(it) }
+        //Example of how to get vars other view
+//        val args = arguments?.let { ProfileFragmentArgs.fromBundle(it) }
 
         binding.lifecycleOwner = this
         binding.profileViewModel = viewModel
@@ -47,7 +52,7 @@ class ProfileFragment : Fragment() {
     private fun getShareIntent() : Intent {
         val shareIntent = Intent(Intent.ACTION_SEND)
         shareIntent.setType("text/plain")
-            .putExtra(Intent.EXTRA_TEXT, viewModel.currentUser.value?.username )
+            .putExtra(Intent.EXTRA_TEXT, viewModel.currentUserDB.value?.username )
         return shareIntent
     }
 

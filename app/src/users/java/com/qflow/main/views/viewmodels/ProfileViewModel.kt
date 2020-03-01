@@ -3,15 +3,19 @@ package com.qflow.main.views.viewmodels
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.qflow.main.domain.local.database.user.User
+import com.qflow.main.domain.local.database.user.UserDB
 import com.qflow.main.domain.local.database.AppDatabase
 
+
+/**
+ * Old ViewModel for the profileFragment
+ * */
 class ProfileViewModel(
     private val appDatabase: AppDatabase
 ) : ViewModel() {
 
-    private val _currentUser = MutableLiveData<User>()
-    val currentUser: LiveData<User>
+    private val _currentUser = MutableLiveData<UserDB>()
+    val currentUserDB: LiveData<UserDB>
         get() = _currentUser
 
 

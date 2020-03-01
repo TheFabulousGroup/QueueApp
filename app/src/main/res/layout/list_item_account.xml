@@ -5,7 +5,7 @@
     <data>
         <variable
             name="user"
-            type="com.qflow.main.domain.local.database.user.User" />
+            type="com.qflow.main.domain.local.database.user.UserDB" />
         <variable
             name="clickListener"
             type="com.qflow.main.views.adapters.SignInListener" />

@@ -12,8 +12,12 @@ import org.koin.core.context.startKoin
 import com.qflow.main.dinjector.retrofitModule
 import com.qflow.main.dinjector.useCaseModule
 import com.qflow.main.dinjector.userModule
+//import com.google.firebase.firestore.FirebaseFirestore
 
 
+/**
+ * This class gets called at the startup of the application, for now it loads the DI
+ * */
 class App : Application(), KoinComponent, Application.ActivityLifecycleCallbacks
 {
 
@@ -22,8 +26,7 @@ class App : Application(), KoinComponent, Application.ActivityLifecycleCallbacks
 
     override fun onCreate() {
         super.onCreate()
-
-
+       // val db = FirebaseFirestore.getInstance()
         registerActivityLifecycleCallbacks(this)
 
 

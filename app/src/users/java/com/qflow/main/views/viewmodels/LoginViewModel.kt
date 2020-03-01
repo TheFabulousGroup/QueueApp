@@ -2,92 +2,97 @@ package com.qflow.main.views.viewmodels
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.qflow.main.domain.local.database.user.User
-import com.qflow.main.domain.local.database.AppDatabase
-import com.qflow.main.domain.local.models.ViewStates
-import com.qflow.main.domain.local.models.ViewStatesMessageTypes
 import kotlinx.coroutines.*
 import org.koin.core.KoinComponent
 import com.qflow.main.core.BaseViewModel
+import com.qflow.main.core.ScreenState
+import com.qflow.main.usecases.user.LoginCase
+import com.qflow.main.views.screenstates.LoginFragmentScreenState
 
-
-class LoginViewModel (private val appDatabase: AppDatabase) : BaseViewModel(), KoinComponent {
+/**
+ * Viewmodel of the LoginFragment, it connects with the usecases
+ *
+ * */
+class LoginViewModel(
+    private val userLogin: LoginCase
+) : BaseViewModel(), KoinComponent {
 
     private val _currentUser: MutableLiveData<Long> = MutableLiveData()
     val currentUser: LiveData<Long>
         get() = _currentUser
 
-    private val _screenState: MutableLiveData<ViewStates> = MutableLiveData()
-    val screenState: LiveData<ViewStates>
+    private val _screenState: MutableLiveData<ScreenState<LoginFragmentScreenState>>
+            = MutableLiveData()
+    val screenState: LiveData<ScreenState<LoginFragmentScreenState>>
         get() = _screenState
 
-    private var viewModelJob = Job()
-    private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
+    private var job = Job()
+    private var coroutineScope = CoroutineScope(Dispatchers.Default + job)
 
     fun saveUserInDatabase(
         username: String,
         selectedPass: String,
         selectedMail: String
-    ){
-        val user = User(
-            password = selectedPass,
-            username = username,
-            mail = selectedMail
+    ) {
+
+        //Execute add user to database
+        userLogin.execute({ it.either(::handleFailure, ::handleUserCreated) },
+            LoginCase.Params(username, selectedPass, selectedMail), this.coroutineScope
         )
-        uiScope.launch {
-            executeAddUserToDatabase(user)
-        }
-    }
-
-    fun getUsersFromDatabase(){
-
-        uiScope.launch {
-            executeGetAllUsers()
-        }
 
     }
 
-    fun initiateNormalLogin(selectedUser: String, selectedPass: String) {
-        uiScope.launch {
-            executeCheckIfUserExists(selectedUser, selectedPass)
-        }
+    private fun handleUserCreated(id: Long) {
+        this._screenState.value =
+            ScreenState.Render(LoginFragmentScreenState.UserCreatedCorrectly(id))
     }
 
-    private suspend fun executeCheckIfUserExists(selectedUser: String, selectedPass: String) {
-        return withContext(Dispatchers.IO){
-            val user = appDatabase.userDatabaseDao.correctUser(selectedUser, selectedPass)
-            if( user != null) {
-                _currentUser.postValue(user.userId)
-                _screenState.postValue(ViewStates(200, ViewStatesMessageTypes.USER_ASSIGNED))
-            }
-            else{
-                _screenState.postValue(ViewStates(400, ViewStatesMessageTypes.LOGIN_NOT_SUCCESSFUL))
-            }
-        }
-    }
-
-    private suspend fun executeAddUserToDatabase(user: User) {
-        return withContext(Dispatchers.IO) {
-            appDatabase.userDatabaseDao.insert(user)
-            val id = appDatabase.userDatabaseDao.correctUser(user.username, user.password)?.userId
-            if(id != null) {
-                _currentUser.postValue(id)
-                _screenState.postValue(ViewStates(200, ViewStatesMessageTypes.USER_ASSIGNED))
-            }
-            else
-                _screenState.postValue(ViewStates(400, ViewStatesMessageTypes.SIGN_IN_FAILED))
-        }
-    }
-
-    private suspend fun executeGetAllUsers(){
-        return withContext(Dispatchers.IO) {
-            //TODO [RecyclerView]ver que hacer con la lista de usuarios cuando la consigamos
-//            userDatabase.userDatabaseDao.getAllUsers()
-        }
-    }
+//    fun getUsersFromDatabase() {
+//
+//        uiScope.launch {
+//            executeGetAllUsers()
+//        }
+//
+//    }
+//
+//    fun initiateNormalLogin(selectedUser: String, selectedPass: String) {
+//        uiScope.launch {
+//            executeCheckIfUserExists(selectedUser, selectedPass)
+//        }
+//    }
+//
+//    private suspend fun executeCheckIfUserExists(selectedUser: String, selectedPass: String) {
+//        return withContext(Dispatchers.IO) {
+//            val user = appDatabase.userDatabaseDao.correctUser(selectedUser, selectedPass)
+//            if (user != null) {
+//                _currentUser.postValue(user.userId)
+//                _screenState.postValue(ViewStates(200, ViewStatesMessageTypes.USER_ASSIGNED))
+//            } else {
+//                _screenState.postValue(ViewStates(400, ViewStatesMessageTypes.LOGIN_NOT_SUCCESSFUL))
+//            }
+//        }
+//    }
+//
+//    private suspend fun executeAddUserToDatabase(user: User) {
+//        return withContext(Dispatchers.IO) {
+//            appDatabase.userDatabaseDao.insert(user)
+//            val id = appDatabase.userDatabaseDao.correctUser(user.username, user.password)?.userId
+//            if (id != null) {
+//                _currentUser.postValue(id)
+//                _screenState.postValue(ViewStates(200, ViewStatesMessageTypes.USER_ASSIGNED))
+//            } else
+//                _screenState.postValue(ViewStates(400, ViewStatesMessageTypes.SIGN_IN_FAILED))
+//        }
+//    }
+//
+//    private suspend fun executeGetAllUsers() {
+//        return withContext(Dispatchers.IO) {
+////            userDatabase.userDatabaseDao.getAllUsers()
+//        }
+//    }
 
     override fun onCleared() {
         super.onCleared()
-        viewModelJob.cancel()
+        job.cancel()
     }
 }

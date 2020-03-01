@@ -1,29 +1,53 @@
 package com.qflow.main.repository
 
 import com.qflow.main.domain.adapters.UserAdapter
-import com.qflow.main.domain.server.ApiService
 import com.qflow.main.usecases.Either
 import com.qflow.main.core.BaseRepository
 import com.qflow.main.core.Failure
+import com.qflow.main.domain.local.database.AppDatabase
+import com.qflow.main.domain.local.database.user.UserDB
+//import com.google.firebase.firestore.FirebaseFirestore
 
 
+
+
+/**
+ * UserRepository, connects with firebase and the database to gets us what we need related
+ * to the user
+ * */
 interface UserRepository {
-    fun signup(firstname: String, lastname: String, email: String): Either<Failure, Unit>
+    fun saveUser(username: String, selectedPass: String, email: String): Either<Failure, Long>
 
-    class Network
+    //class General
+    class Local
     constructor(
-        val service: ApiService,
+        private val appDatabase: AppDatabase,
         val userAdapter: UserAdapter
+        //val firebasedb: FirebaseFirestore
     ) : BaseRepository(), UserRepository {
 
-        override fun signup(
-            firstname: String,
-            lastname: String,
+        override fun saveUser(
+            username: String,
+            selectedPass: String,
             email: String
-        ): Either<Failure, Unit> {
-
-            return Either.Right(Unit)
-
+        ): Either<Failure, Long> {
+            //val user = UserDB(
+            // id_firebase = selectedPass
+            // username = username
+            // mail = mail
+            //)
+            val user = UserDB(
+                password = selectedPass,
+                username = username,
+                mail = email
+            )
+            appDatabase.userDatabaseDao.insert(user)
+            val id = appDatabase.userDatabaseDao.correctUser(user.username, user.password)?.userId
+            return if (id!= null) {
+                Either.Right(id)
+            } else {
+                Either.Left(Failure.NullResult())
+            }
         }
 
 

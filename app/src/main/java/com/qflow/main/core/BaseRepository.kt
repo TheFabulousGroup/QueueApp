@@ -2,9 +2,10 @@ package com.qflow.main.core
 
 import com.qflow.main.usecases.Either
 
-/*
-* @author  Iván Fernández Rico, Globalincubator
-*/
+/**
+ * This class is not used yet, can be used to make online requests
+ * It follows our Left/Right architecture
+ * */
 abstract class BaseRepository
 {
     fun <T, R> request(call: retrofit2.Call<T>, transform: (T) -> R, default: T): Either<Failure, R> {
