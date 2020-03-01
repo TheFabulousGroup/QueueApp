@@ -12,6 +12,7 @@
     <string name="sign_in">Crear una cuenta</string>
     <string name="sign_up">Iniciar sesión</string>
     <string name="face">Facebook</string>
+    <string name="facebook_app_id">Facebook App ID</string>
     <string name="twitter">Twitter</string>
     <string name="Google">Google</string>
     <string name="thanks_for_signing_up">Gracias por registrarte</string>
