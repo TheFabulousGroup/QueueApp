@@ -46,7 +46,7 @@ class LoginFragment : Fragment() {
 
 
     private fun initializeDialogs() {
-        accept_Login.setOnClickListener{
+        accept_login.setOnClickListener{
             val selectedEmail = inputEmail.text.toString()
             val selectedPass = inputPass.text.toString()
             val selectedName = inputEmail.text.toString()
