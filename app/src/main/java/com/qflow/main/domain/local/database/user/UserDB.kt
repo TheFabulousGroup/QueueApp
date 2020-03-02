@@ -13,8 +13,8 @@ data class UserDB (
     @PrimaryKey(autoGenerate = true)
     var userId: Long = 0L,
 
-    @ColumnInfo(name = "username")
-    var username: String,
+    //@ColumnInfo(name = "username")
+    //var username: String,
 
     @ColumnInfo(name = "mail")
     var mail: String,

@@ -30,14 +30,14 @@ class LoginViewModel(
     private var coroutineScope = CoroutineScope(Dispatchers.Default + job)
 
     fun saveUserInDatabase(
-        username: String,
         selectedPass: String,
         selectedMail: String
     ) {
 
         //Execute add user to database
         userLogin.execute({ it.either(::handleFailure, ::handleUserCreated) },
-            LoginCase.Params(username, selectedPass, selectedMail), this.coroutineScope
+            LoginCase.Params(selectedMail,selectedMail),
+            this.coroutineScope
         )
 
     }

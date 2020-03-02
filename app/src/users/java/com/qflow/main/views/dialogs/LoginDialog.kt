@@ -6,8 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import com.qflow.main.R
+import com.qflow.main.views.activities.LoginActivity
 import com.qflow.main.views.viewmodels.LoginViewModel
 import kotlinx.android.synthetic.main.login_fragment.*
 
@@ -28,11 +30,9 @@ class LoginDialog(override val loginViewModel: LoginViewModel) : LoginDialogsInt
         submitButton.setOnClickListener {
             val selectedUsername=textUsername.text.toString()
             val selectedPass=textPassword.text.toString()
-            dismiss()
+                dismiss()
         }
-        registerButton.setOnClickListener{
-            val register = btn_signUp
-        }
+
         return rootView
     }
 

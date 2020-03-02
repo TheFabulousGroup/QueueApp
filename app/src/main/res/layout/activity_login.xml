@@ -3,9 +3,11 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="#212121"
         tools:context=".views.activities.LoginActivity">
 
         <ImageView
@@ -18,7 +20,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/myopia_app_logo" />
 
-        <androidx.fragment.app.FragmentContainerView
+        <fragment
             android:id="@+id/loginFragment"
             android:name="androidx.navigation.fragment.NavHostFragment"
             android:layout_width="match_parent"
