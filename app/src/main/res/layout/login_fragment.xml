@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".views.fragments.LoginFragment">
+    tools:context=".views.fragments.LoginFragment"
+   >
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -43,11 +44,13 @@
 
         <Button
             android:id="@+id/btnGoogle"
-            android:layout_width="150dp"
-            android:layout_height="39dp"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:layout_marginStart="112dp"
             android:background="@drawable/rounded_button"
             android:drawablePadding="-35dp"
             android:fontFamily="@font/roboto"
+            android:gravity="center"
             android:hint="@string/Google"
             android:maxWidth="150dp"
             android:minWidth="150dp"
@@ -58,10 +61,11 @@
 
         <Button
             android:id="@+id/btnFacebook"
-            android:layout_width="150dp"
-            android:layout_height="39dp"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
             android:layout_marginTop="52dp"
             android:background="@drawable/rounded_button"
+            android:gravity="center"
             android:drawablePadding="-35dp"
             android:fontFamily="@font/roboto"
             android:hint="@string/face"
@@ -78,12 +82,13 @@
         <Button
             android:id="@+id/btnTwitter"
 
-            android:layout_width="150dp"
-            android:layout_height="39dp"
-            android:layout_marginEnd="8dp"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:layout_marginEnd="104dp"
             android:background="@drawable/rounded_button"
             android:drawablePadding="-35dp"
             android:fontFamily="@font/roboto"
+            android:gravity="center"
             android:hint="@string/twitter"
             android:maxWidth="150dp"
             android:minWidth="150dp"
@@ -111,17 +116,17 @@
             android:textColor="#0E0C0C"
             app:layout_constraintBottom_toTopOf="@+id/accept_login"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.452"
+            app:layout_constraintHorizontal_bias="0.457"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/btnFacebook"
-            app:layout_constraintVertical_bias="1.0" />
+            app:layout_constraintVertical_bias="0.972" />
 
         <Button
             android:id="@+id/accept_login"
             android:layout_width="150dp"
             android:layout_height="39dp"
             android:layout_marginStart="16dp"
-            android:layout_marginBottom="8dp"
+            android:layout_marginBottom="24dp"
             android:background="@drawable/oval_button"
             android:drawablePadding="-35dp"
             android:fontFamily="@font/roboto"
@@ -132,7 +137,7 @@
             android:textColor="#0E0C0C"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.455"
+            app:layout_constraintHorizontal_bias="0.457"
             app:layout_constraintStart_toStartOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
