@@ -9,6 +9,7 @@ import com.qflow.main.core.Failure
 import com.qflow.main.domain.adapters.UserAdapter
 import com.qflow.main.domain.local.database.AppDatabase
 import com.qflow.main.domain.local.database.user.UserDB
+import com.qflow.main.domain.server.models.UserServerModel
 import com.qflow.main.usecases.Either
 
 
@@ -38,22 +39,23 @@ interface UserRepository {
             var id = null
 
             if(validPassword(selectedPass, repeatPass)) {
-                val userFireBase = UserAdapter(username, selectedPass, email, nameLastName)
+                val userFireBase = UserServerModel(username, selectedPass, email, nameLastName)
+                val userMap = userFireBase.createMap()
                 //Storing into Firestore TODO
-                db.collection("users")
-                    .add(userFireBase)
-                    .addOnSuccessListener(OnSuccessListener<DocumentReference> { documentReference ->
+                firebasedb.collection("users")
+                    .add(userMap)
+                    .addOnSuccessListener(OnSuccessListener<DocumentReference> { /*documentReference ->
                         Log.d(
                             TAG,
                             "DocumentSnapshot added with ID: " + documentReference.id
-                        )
+                        )*/
                     })
-                    .addOnFailureListener(OnFailureListener { e ->
+                    .addOnFailureListener(OnFailureListener { /*e ->
                         Log.w(
                             TAG,
                             "Error adding document",
                             e
-                        )
+                        )*/
                     })
                 //Storing basic user into Local DB
                 val localUser = UserDB(id_firebase = "", username = username)

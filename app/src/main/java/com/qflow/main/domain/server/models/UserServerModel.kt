@@ -7,27 +7,34 @@ package com.qflow.main.domain.server.models
 
 
 // TODO Entran datos en el constructor y devolvemos un Map
-class UserServerModel{
+class UserServerModel (username: String,
+                                  password: String,
+                                  email: String,
+                                  nameLastname: String
+                                    ){
+    var email: String
+    var password: String
+    var username: String
+    var nameLastname: String
 
-    //values from users collection in Firestore
-    val email = ""
-    val isAdmin = false
-    val nameLastName = ""
-    val password = ""
-    val profilePicture = ""
-    val username = ""
+    init{
+        this.email = email
+        this.password = password
+        this.username = username
+        this.nameLastname = nameLastname
+        }
 
+    fun createMap(): Map<String, Any>{
+        val userFirebase = HashMap<String, Any>()
 
-     // En repo comprobamos datos de entrada, si tbien llamamos a adapter, que devuelve
-        // la clase UserSserverModel, y metemos los atributos de esta en firesotore, con lo de abajo
-    //Logica de añadir a firebase  PASAR A REPO
-   /* fun createUser{}
-    val userFirebase: Map<String, Any> = HashMap()
+        userFirebase.put("email",this.email)
+        userFirebase.put("is_admin", false)
+        userFirebase.put("name_lastname", this.nameLastname)
+        userFirebase.put("password",this.password)
+        userFirebase.put("profile_picture","")
+        userFirebase.put("username", this.username)
 
-    userFirebase.put("email",email)
-    userFirebase.put("is_admin", false)
-    userFirebase.put("name_lastname", nameLastName)
-    userFirebase.put("password",selectedPass)
-    userFirebase.put("profile_picture","")
-    userFirebase.put("username", username)*/
+        return userFirebase;
+    }
+
 }
