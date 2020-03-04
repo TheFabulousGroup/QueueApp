@@ -8,6 +8,7 @@ import com.qflow.main.core.BaseViewModel
 import com.qflow.main.core.ScreenState
 import com.qflow.main.usecases.user.LoginCase
 import com.qflow.main.views.screenstates.LoginFragmentScreenState
+import com.google.firebase.auth.FirebaseAuth
 
 /**
  * Viewmodel of the LoginFragment, it connects with the usecases
@@ -15,7 +16,10 @@ import com.qflow.main.views.screenstates.LoginFragmentScreenState
  * */
 class LoginViewModel(
     private val userLogin: LoginCase
+
+
 ) : BaseViewModel(), KoinComponent {
+    private lateinit var auth:FirebaseAuth
 
     private val _currentUser: MutableLiveData<Long> = MutableLiveData()
     val currentUser: LiveData<Long>

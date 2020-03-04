@@ -3,7 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation"
-    app:startDestination="@id/loginFragment">
+    app:startDestination="@id/loginFragment"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://schemas.android.com/apk/res/android ">
 
     <fragment
         android:id="@+id/loginFragment"
@@ -12,7 +14,7 @@
         tools:layout="@layout/login_fragment"
         app:startDestination="@id/action_loginFragment_to_profileFragment">
         <action
-            android:id="@+id/action_loginFragment_to_profileFragment"
+            android:id="@+id/accept_login"
             app:destination="@id/profileFragment"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim" />

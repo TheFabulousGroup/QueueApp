@@ -19,4 +19,8 @@
     <string name="correo_electr_nico">Correo electrónico</string>
     <string name="usermail">Mail o nombre de usuario</string>
     <string name="mail">\"Mail: \"</string>
+    <string name="repeat_password">Repeat password</string>
+    <string name="email">Email</string>
+    <string name="name_lastName">Name and last name</string>
+    <string name="accept">Accept</string>
 </resources>

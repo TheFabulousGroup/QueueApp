@@ -6,9 +6,6 @@ import com.qflow.main.core.BaseRepository
 import com.qflow.main.core.Failure
 import com.qflow.main.domain.local.database.AppDatabase
 import com.qflow.main.domain.local.database.user.UserDB
-import java.lang.NullPointerException
-
-//import com.google.firebase.firestore.FirebaseFirestore
 
 
 
@@ -19,29 +16,54 @@ import java.lang.NullPointerException
  * */
 interface UserRepository {
     fun saveUser(selectedPass: String, email: String): Either<Failure, Long>
-
     //class General
     class Local
     constructor(
         private val appDatabase: AppDatabase,
         val userAdapter: UserAdapter
-       // val firebasedb: FirebaseFirestore
+
     ) : BaseRepository(), UserRepository {
 
 
         override fun saveUser(
             //username: String,
             selectedPass: String,
-            email: String
+            selectedEmail: String
         ): Either<Failure, Long> {
             //val user = UserDB(
             // id_firebase = selectedPass
             // username = username
             // mail = mail
             //)
+           //fun sigIn(selectedEmail:String,selectedPass: String) {
+
+               // val readData = FireBaseDataBase().getInstance()
+                // val userFireBase = UserServerModel("",selectedEmail,selectedPass)
+                // val userMap = userFire.createMap()
+                // .addOnSuccessListener(OnSuccessListener<DocumentReference> { /*documentReference ->
+                //                        Log.d(
+                //                            TAG,
+                //                            "DocumentSnapshot added with ID: " + documentReference.id
+                //                        )*/
+                //                    })
+                //                    .addOnFailureListener(OnFailureListener { /*e ->
+                //                        Log.w(
+                //                            TAG,
+                //                            "Error adding document",
+                //                            e
+                //                        )*/
+                //                    })
+                //                //Storing basic user into Local DB
+                //        val localUser = UserDB(id_firebase = "", username = username)
+                //        appDatabase.userDatabaseDao.correctUser(localUser)
+                //        id = appDatabase.userDatabaseDao.correctUser(localUser.username, localUser.password)?.userId
+           // }
+
+         //
+
             val user = UserDB(
                 password = selectedPass,
-                mail = email
+                mail = selectedEmail
             )
             appDatabase.userDatabaseDao.insert(user)
             val id = appDatabase.userDatabaseDao.correctUser(user.mail,user.password)?.userId

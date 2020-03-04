@@ -29,12 +29,6 @@ import com.qflow.main.views.screenstates.LoginFragmentScreenState as LoginFragme
 
 class LoginFragment : Fragment() {
 
-
-    private lateinit var Login_Dialog: LoginDialog
-    private lateinit var ChooseAccount: SigninDialog
-    private lateinit var mySignUpDialog: SignupDialog
-
-
     private val viewModel: LoginViewModel by viewModel()
 
     override fun onCreateView(
