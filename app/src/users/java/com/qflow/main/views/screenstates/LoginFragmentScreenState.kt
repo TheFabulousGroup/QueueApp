@@ -5,5 +5,5 @@ package com.qflow.main.views.screenstates
  * This one takes care of what happens in the login fragment
  **/
 sealed class LoginFragmentScreenState {
-    class UserCreatedCorrectly(val id: Long): LoginFragmentScreenState()
+    class LoginSuccessful(val id: Long): LoginFragmentScreenState()
 }
