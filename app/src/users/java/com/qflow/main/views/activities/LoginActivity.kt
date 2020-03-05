@@ -14,6 +14,7 @@ class LoginActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this,
             R.layout.activity_login
         )
+        inputEmail.
 
     }
 }

@@ -24,31 +24,38 @@ import android.widget.Toast
 class LoginCase (private val userRepository: UserRepository):
     UseCase<Long, LoginCase.Params, CoroutineScope>() {
     private lateinit var auth: FirebaseAuth
-    private fun sigIn(email: String, pass:String){
-        auth = FirebaseAuth.getInstance()
-    }
+    private val TAG = "Msg :"
     override suspend fun run(params: Params): Either<Failure, Long> {
 
+        fun checkUser() {
+            var user = FirebaseAuth.getInstance().currentUser
+            if(user!=null) Log.d(TAG,"You´re SignIn")
+            else Log.d(TAG,"You´re not SignIn")
+
+        }
         fun validate(email:String,pass:String):Boolean{
            var valid = true
-            if (TextUtils.isEmpty(email) || TextUtils.isEmpty(pass)){
-                print("Required filds")
+            if (email.isEmpty() || pass.isEmpty()){
+                Log.d(TAG, "Required filds")
                 valid = false
             }
-            else valid=valid &&(email==null || pass==null)
+            else {
+                if(params.selectedMail!=email || params.selectedPass!=pass){
+                    Log.d(TAG, "Your email or your pass must be wrong ")
+                    valid = false
+                }
+            }
             return valid
        }
         fun signIn(email:String,pass:String) {
-            val user = auth.currentUser
+
             auth.signInWithEmailAndPassword(email, pass).addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    Log.d(TAG,"SigIn")
-                } else {
-
-                    Log.w(TAG, "createUserWithEmail:failure", task.exception)
-                    //Toast.makeText(this, "Authentication failed.",Toast.LENGTH_SHORT).show()
+                    Log.d(TAG,"You´re signin in succesfully ")
+                    val user = auth.currentUser
                 }
-
+                else
+                    Log.w(TAG, "createUserWithEmail:failure", task.exception)
             }
         }
         val result = userRepository

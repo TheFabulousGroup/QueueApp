@@ -1,11 +1,16 @@
 package com.qflow.main.repository
 
-import com.qflow.main.domain.adapters.UserAdapter
-import com.qflow.main.usecases.Either
+import com.google.android.gms.tasks.OnFailureListener
+import com.google.android.gms.tasks.OnSuccessListener
+import com.google.firebase.firestore.DocumentReference
+import com.google.firebase.firestore.FirebaseFirestore
 import com.qflow.main.core.BaseRepository
 import com.qflow.main.core.Failure
+import com.qflow.main.domain.adapters.UserAdapter
 import com.qflow.main.domain.local.database.AppDatabase
 import com.qflow.main.domain.local.database.user.UserDB
+import com.qflow.main.domain.server.models.UserServerModel
+import com.qflow.main.usecases.Either
 
 
 
@@ -16,8 +21,8 @@ import com.qflow.main.domain.local.database.user.UserDB
  * */
 interface UserRepository {
     fun saveUser(selectedPass: String, email: String): Either<Failure, Long>
-    //class General
-    class Local
+    class General
+    //class Local
     constructor(
         private val appDatabase: AppDatabase,
         val userAdapter: UserAdapter
@@ -30,10 +35,7 @@ interface UserRepository {
             selectedPass: String,
             selectedEmail: String
         ): Either<Failure, Long> {
-            //val user = UserDB(
-            // id_firebase = selectedPass
-            // username = username
-            // mail = mail
+
             //)
            //fun sigIn(selectedEmail:String,selectedPass: String) {
 
@@ -77,3 +79,6 @@ interface UserRepository {
 
     }
 }
+/*
+* private lateinit var fb
+* */
