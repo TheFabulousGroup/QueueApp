@@ -32,10 +32,10 @@ val retrofitModule = module {
 
 val userModule = module {
 
-    //val single = single<UserRepository> { UserRepository.General(get(), UserAdapter) }
+    val single = single<UserRepository> { UserRepository.General(get(), UserAdapter) }
 
-     //viewModel { LoginViewModel(get()) }
-     //viewModel { SignUpViewModel(get()) }
+     viewModel { LoginViewModel(get()) }
+     viewModel { SignUpViewModel(get()) }
 
     //    viewModel { ProfileViewModel(get(),get()) }
 

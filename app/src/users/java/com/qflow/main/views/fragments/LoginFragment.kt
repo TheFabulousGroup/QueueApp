@@ -35,6 +35,7 @@ class LoginFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        initializeObservers()
         initializeListeners()
         return inflater.inflate(R.layout.login_fragment, container, false)
     }
