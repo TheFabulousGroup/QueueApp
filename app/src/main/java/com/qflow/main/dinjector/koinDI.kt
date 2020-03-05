@@ -7,8 +7,7 @@ import com.qflow.main.domain.server.ApiService
 import com.qflow.main.repository.UserRepository
 import com.qflow.main.usecases.user.LoginCase
 import com.qflow.main.utils.Constants
-//import com.qflow.main.views.views.viewmodels.LoginViewModel
-//import com.qflow.main.views.viewmodels.SignUpViewModel
+import com.qflow.main.views.viewmodels.LoginViewModel
 import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
@@ -35,7 +34,7 @@ val userModule = module {
     val single = single<UserRepository> { UserRepository.General(get(), UserAdapter) }
 
      viewModel { LoginViewModel(get()) }
-     viewModel { SignUpViewModel(get()) }
+     //viewModel { SignUpViewModel(get()) }
 
     //    viewModel { ProfileViewModel(get(),get()) }
 
