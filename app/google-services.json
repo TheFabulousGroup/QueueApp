@@ -52,6 +52,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "192040173538-jgvhbcf6to1167vv26he1877914jnuhh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.qflow.users",
+            "certificate_hash": "58dc59d91b51c237135ecba2dda30c77c5aed006"
+          }
+        },
+        {
           "client_id": "192040173538-dg9chdlhjombgf05dfnmd01g11li55n2.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
