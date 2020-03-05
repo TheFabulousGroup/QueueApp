@@ -33,16 +33,16 @@ class LoginViewModel(
         selectedMail: String
     ) {
 
-        //Execute add user to database
-        createUserDatabase.execute({ it.either(::handleFailure, ::handleUserCreated) },
-            CreateUser.Params(username, selectedPass, selectedMail), this.coroutineScope
-        )
+//        //Execute add user to database
+//        createUserDatabase.execute({ it.either(::handleFailure, ::handleUserCreated) },
+//            CreateUser.Params(username, selectedPass, selectedMail), this.coroutineScope
+//        )
 
     }
 
     private fun handleUserCreated(id: Long) {
-        this._screenState.value =
-            ScreenState.Render(LoginFragmentScreenState.UserCreatedCorrectly(id))
+//        this._screenState.value =
+//            ScreenState.Render(LoginFragmentScreenState.UserCreatedCorrectly(id))
     }
 
 //    fun getUsersFromDatabase() {

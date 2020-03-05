@@ -17,4 +17,6 @@
     <string name="email">Email</string>
     <string name="mail">\"Mail: \"</string>
     <string name="name_lastName">Name and last name</string>
+    <string name="correo_electr_nico">mail</string>
+    <string name="cancel">cancel</string>
 </resources>

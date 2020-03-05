@@ -22,18 +22,19 @@ val retrofitModule = module {
     //API Service
     single(named("application")) {
         Retrofit.Builder()
-                .baseUrl(Constants.END_POINT_URL)
-                .client(get())
-                .build().create(ApiService::class.java)
+            .baseUrl(Constants.END_POINT_URL)
+            .client(get())
+            .build().create(ApiService::class.java)
     }
 }
 
-val fireBaseModule = FirebaseFirestore.getInstance()    //Revisar
-
+val fireBaseModule = module {
+    single { FirebaseFirestore.getInstance() }
+}
 
 val userModule = module {
 
-    single<UserRepository> { UserRepository.General(get(), UserAdapter, fireBaseModule) }
+    single<UserRepository> { UserRepository.General(get(), get(), get()) }
 
     viewModel { LoginViewModel(get()) }
     viewModel { SignUpViewModel(get()) }
