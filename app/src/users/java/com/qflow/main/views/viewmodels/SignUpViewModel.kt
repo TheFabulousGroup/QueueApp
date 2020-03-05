@@ -13,7 +13,7 @@ import org.koin.core.KoinComponent
 
 class SignUpViewModel (
 
-    private val createUserDatabase: CreateUser
+    private val createUser: CreateUser
     ) : BaseViewModel(), KoinComponent {
 
         private val _currentUser: MutableLiveData<Long> = MutableLiveData()
@@ -36,7 +36,7 @@ class SignUpViewModel (
         ) {
 
             //Execute add user to database
-            createUserDatabase.execute({ it.either(::handleFailure, ::handleUserCreated) },
+            createUser.execute({ it.either(::handleFailure, ::handleUserCreated) },
                 CreateUser.Params(selectedUsername, selectedEmail, selectedPass,
                     selectedRepeatPass, selectedNameLastName), this.coroutineScope
             )

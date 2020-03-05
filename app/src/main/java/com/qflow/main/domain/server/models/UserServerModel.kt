@@ -1,38 +1,31 @@
 package com.qflow.main.domain.server.models
 
+import javax.annotation.Nullable
+
 /**
  * This will represent the User however we have in firebase
  * Implements Firebase user logic
  * */
 
+class UserServerModel(
+    val username: String,
+    val password: String,
+    val email: String,
+    val nameLastname: String,
+    val isAdmin: Boolean = false,
+    val profilePicture: String = ""
+) {
 
-// TODO Entran datos en el constructor y devolvemos un Map
-class UserServerModel (username: String,
-                                  password: String,
-                                  email: String,
-                                  nameLastname: String
-                                    ){
-    var email: String
-    var password: String
-    var username: String
-    var nameLastname: String
 
-    init{
-        this.email = email
-        this.password = password
-        this.username = username
-        this.nameLastname = nameLastname
-        }
-
-    fun createMap(): Map<String, Any>{
+    fun createMap(): Map<String, Any> {
         val userFirebase = HashMap<String, Any>()
 
-        userFirebase.put("email",this.email)
-        userFirebase.put("is_admin", false)
-        userFirebase.put("name_lastname", this.nameLastname)
-        userFirebase.put("password",this.password)
-        userFirebase.put("profile_picture","")
-        userFirebase.put("username", this.username)
+        userFirebase["email"] = this.email
+        userFirebase["is_admin"] = false
+        userFirebase["name_lastname"] = this.nameLastname
+        userFirebase["password"] = this.password
+        userFirebase["profile_picture"] = ""
+        userFirebase["username"] = this.username
 
         return userFirebase;
     }

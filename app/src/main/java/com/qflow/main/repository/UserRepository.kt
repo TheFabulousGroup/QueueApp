@@ -1,5 +1,7 @@
 package com.qflow.main.repository
 
+import android.content.ContentValues.TAG
+import android.util.Log
 import com.google.android.gms.tasks.OnFailureListener
 import com.google.android.gms.tasks.OnSuccessListener
 import com.google.firebase.firestore.DocumentReference
@@ -18,9 +20,12 @@ import com.qflow.main.usecases.Either
  * to the user
  * */
 interface UserRepository {
-    fun createUser(username: String, selectedPass: String, email: String, repeatPass: String,
-                   nameLastName: String): Either<Failure, Long>
-    fun  validPassword(selectedPass: String, repeatPass: String): Boolean
+    fun createUser(
+        username: String, selectedPass: String, email: String, repeatPass: String,
+        nameLastName: String
+    ): Either<Failure, Long>
+
+    fun validPassword(selectedPass: String, repeatPass: String): Boolean
 
     class General
     constructor(
@@ -36,46 +41,40 @@ interface UserRepository {
             repeatPass: String,
             nameLastName: String
         ): Either<Failure, Long> {
-            var id = null
-            var TEMPORAL = false
-
-            if(validPassword(selectedPass, repeatPass)) {
-                val userFireBase = UserServerModel(username, selectedPass, email, nameLastName)
-                val userMap = userFireBase.createMap()
-                //Storing into Firestore TODO
+            //TODO move validation to UseCase
+            if (validPassword(selectedPass, repeatPass)) {
+                val userMap =
+                    UserServerModel(username, selectedPass, email, nameLastName).createMap()
+                //Storing into Firestore
                 firebasedb.collection("users")
                     .add(userMap)
-                    .addOnSuccessListener(OnSuccessListener<DocumentReference> { TEMPORAL = false;/*documentReference ->
-                        Log.d(  TODO Añadir mensaje de acierto y variable para el right
+                    .addOnSuccessListener(OnSuccessListener<DocumentReference> { documentReference ->
+                        Log.d(
                             TAG,
                             "DocumentSnapshot added with ID: " + documentReference.id
-                        )*/
+                        )
+                        //Storing basic user into Local DB
+                        val localUser = UserDB(id_firebase = "", username = username)
+                        appDatabase.userDatabaseDao.insert(localUser)
+                        //Todo: Ruben: mirar como gestionar el retorno asincrono
+//                        return@OnSuccessListener Either.Right(123L)
+                        //TODO do this comprobation
+                        //id = appDatabase.userDatabaseDao.correctUser(localUser.username)?.userId
                     })
-                    .addOnFailureListener(OnFailureListener { TEMPORAL = false/*e ->
-                        Log.w(  TODO añadir mensaje de error y variable para el left
+                    .addOnFailureListener(OnFailureListener { e ->
+                        Log.w(
                             TAG,
                             "Error adding document",
                             e
-                        )*/
+                        )
                     })
-                //Storing basic user into Local DB
-                val localUser = UserDB(id_firebase = "", username = username)
-                appDatabase.userDatabaseDao.insert(localUser)
-                //id = appDatabase.userDatabaseDao.correctUser(localUser.username)?.userId
-            }
-
-            return if (TEMPORAL/*id!= null*/) {
-                Either.Right(1)
-            } else {
-                Either.Left(Failure.NullResult())
             }
         }
-        override fun validPassword(selectedPass: String, repeatPass: String): Boolean{
+
+        override fun validPassword(selectedPass: String, repeatPass: String): Boolean {
             return selectedPass == repeatPass
         }
     }
-
-
 
 
 }

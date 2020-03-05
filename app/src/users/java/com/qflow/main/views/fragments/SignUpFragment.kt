@@ -10,10 +10,10 @@ import com.qflow.main.R
 import com.qflow.main.core.ScreenState
 import com.qflow.main.views.screenstates.LoginFragmentScreenState
 import com.qflow.main.views.viewmodels.SignUpViewModel
-import kotlinx.android.synthetic.main.fragment_signup.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import androidx.lifecycle.Observer
 import com.qflow.main.views.screenstates.SignUpFragmentScreenState
+import kotlinx.android.synthetic.users.fragment_signup.*
 
 
 class SignUpFragment : Fragment() {
@@ -25,6 +25,7 @@ class SignUpFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         initializeListeners()
+        initializeObservers()
         return inflater.inflate(R.layout.fragment_signup, container, false)
     }
 
