@@ -37,6 +37,7 @@ interface UserRepository {
             nameLastName: String
         ): Either<Failure, Long> {
             var id = null
+            var TEMPORAL = false
 
             if(validPassword(selectedPass, repeatPass)) {
                 val userFireBase = UserServerModel(username, selectedPass, email, nameLastName)
@@ -44,14 +45,14 @@ interface UserRepository {
                 //Storing into Firestore TODO
                 firebasedb.collection("users")
                     .add(userMap)
-                    .addOnSuccessListener(OnSuccessListener<DocumentReference> { /*documentReference ->
-                        Log.d(
+                    .addOnSuccessListener(OnSuccessListener<DocumentReference> { TEMPORAL = false;/*documentReference ->
+                        Log.d(  TODO Añadir mensaje de acierto y variable para el right
                             TAG,
                             "DocumentSnapshot added with ID: " + documentReference.id
                         )*/
                     })
-                    .addOnFailureListener(OnFailureListener { /*e ->
-                        Log.w(
+                    .addOnFailureListener(OnFailureListener { TEMPORAL = false/*e ->
+                        Log.w(  TODO añadir mensaje de error y variable para el left
                             TAG,
                             "Error adding document",
                             e
@@ -60,11 +61,11 @@ interface UserRepository {
                 //Storing basic user into Local DB
                 val localUser = UserDB(id_firebase = "", username = username)
                 appDatabase.userDatabaseDao.insert(localUser)
-                id = appDatabase.userDatabaseDao.correctUser(localUser.username, localUser.password)?.userId
+                //id = appDatabase.userDatabaseDao.correctUser(localUser.username)?.userId
             }
 
-            return if (id!= null) {
-                Either.Right(id)
+            return if (TEMPORAL/*id!= null*/) {
+                Either.Right(1)
             } else {
                 Either.Left(Failure.NullResult())
             }

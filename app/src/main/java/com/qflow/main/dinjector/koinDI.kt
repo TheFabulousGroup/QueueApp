@@ -28,10 +28,12 @@ val retrofitModule = module {
     }
 }
 
+val fireBaseModule = FirebaseFirestore.getInstance()    //Revisar
+
 
 val userModule = module {
 
-    single<UserRepository> { UserRepository.General(get(), UserAdapter) }
+    single<UserRepository> { UserRepository.General(get(), UserAdapter, fireBaseModule) }
 
     viewModel { LoginViewModel(get()) }
     viewModel { SignUpViewModel(get()) }
@@ -49,11 +51,5 @@ val useCaseModule = module {
 val dataModule = module {
 
     single { AppDatabase.getInstance(get()) }
-
-}
-
-val fireBaseModule = module {
-
-    single {  FirebaseFirestore.getInstance() }
 
 }

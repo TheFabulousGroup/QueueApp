@@ -33,7 +33,7 @@ class SignInDiffCallback: DiffUtil.ItemCallback<UserDB>(){
     }
 
     override fun areContentsTheSame(oldItem: UserDB, newItem: UserDB): Boolean {
-        return oldItem.username == newItem.username && oldItem.mail == newItem.mail && oldItem.password == newItem.password
+        return oldItem.username == newItem.username //&& oldItem.mail == newItem.mail && oldItem.password == newItem.password   TODO actualizar a fb
     }
 
 

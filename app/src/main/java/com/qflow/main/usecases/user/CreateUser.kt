@@ -13,9 +13,8 @@ class CreateUser (private val userRepository: UserRepository):
     UseCase<Long, CreateUser.Params, CoroutineScope>() {
     override suspend fun run(params: Params): Either<Failure, Long> {
 
-        val result = userRepository
-            .createUser(params.username, params.selectedPass, params.selectedEmail,
-                params.selectedNameLastName, params.selectedRepeatPass)
+        val result = userRepository.createUser(params.username, params.selectedPass,
+            params.selectedEmail, params.selectedNameLastName, params.selectedRepeatPass)
 
        return when(result){
            is Either.Left -> Either.Left(result.a)
