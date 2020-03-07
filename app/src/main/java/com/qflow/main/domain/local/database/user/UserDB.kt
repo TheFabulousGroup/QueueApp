@@ -3,6 +3,7 @@ package com.qflow.main.domain.local.database.user
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.google.firebase.auth.FirebaseAuth
 
 /**
  * Here we define the local database structure for the entity User
