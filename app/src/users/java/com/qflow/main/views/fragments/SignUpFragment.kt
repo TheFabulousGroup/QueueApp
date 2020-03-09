@@ -12,6 +12,7 @@ import com.qflow.main.views.screenstates.LoginFragmentScreenState
 import com.qflow.main.views.viewmodels.SignUpViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import androidx.lifecycle.Observer
+import androidx.navigation.findNavController
 import com.qflow.main.core.Failure
 import com.qflow.main.utils.enums.ValidationFailureType
 import com.qflow.main.views.screenstates.SignUpFragmentScreenState
@@ -74,7 +75,10 @@ class SignUpFragment : Fragment() {
 
         when(renderState){
             is SignUpFragmentScreenState.UserCreatedCorrectly -> {
-                Toast.makeText(this.context, renderState.id.toString(), Toast.LENGTH_LONG).show()
+                //Toast.makeText(this.context, renderState.id.toString(), Toast.LENGTH_LONG).show()
+                view?.let {view?.findNavController()!!
+                    .navigate(LoginFragmentDirections
+                        .actionLoginFragmentToProfileFragment(renderState.id)) }
             }
         }
 

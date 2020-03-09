@@ -56,7 +56,9 @@ class LoginFragment : Fragment() {
             openApprenderDialog()
         }
         signUp.setOnClickListener {
-            openCreateAccountDialog()
+            view?.let {view?.findNavController()!!
+                .navigate(LoginFragmentDirections.
+                    .action_loginFragment_to_signUpFragment()) }
         }
         signIn.setOnClickListener {
             openChooseAccountDialog()
