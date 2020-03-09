@@ -1,6 +1,8 @@
 package com.qflow.main.dinjector
 
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.FirebaseFirestoreSettings
 import com.qflow.main.domain.local.database.AppDatabase
 import com.qflow.main.domain.adapters.UserAdapter
 import com.qflow.main.domain.server.ApiService
@@ -30,11 +32,12 @@ val retrofitModule = module {
 
 val fireBaseModule = module {
     single { FirebaseFirestore.getInstance() }
+    single { FirebaseAuth.getInstance()}
 }
 
 val userModule = module {
 
-    single<UserRepository> { UserRepository.General(get(), get(), get()) }
+    single<UserRepository> { UserRepository.General(get(), get(), get(), get()) }
 
     viewModel { LoginViewModel(get()) }
     viewModel { SignUpViewModel(get()) }

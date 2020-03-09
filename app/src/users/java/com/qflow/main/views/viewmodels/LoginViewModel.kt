@@ -40,7 +40,7 @@ class LoginViewModel(
 
     }
 
-    private fun handleUserCreated(id: Long) {
+    private fun handleUserCreated(id: String) {
         this._screenState.value =
             ScreenState.Render(LoginFragmentScreenState.LoginSuccessful(id))
     }

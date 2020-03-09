@@ -43,7 +43,7 @@ class SignUpViewModel (
 
         }
 
-        private fun handleUserCreated(id: Long) {
+        private fun handleUserCreated(id: String) {
             this._screenState.value =
                 ScreenState.Render(SignUpFragmentScreenState.UserCreatedCorrectly(id))
         }

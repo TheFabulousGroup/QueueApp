@@ -2,6 +2,7 @@ package com.qflow.main.core
 
 import com.qflow.main.utils.enums.ValidationFailureType
 
+
 /**
  * The type of failures we can find in our model
  * */

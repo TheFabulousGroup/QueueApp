@@ -23,8 +23,6 @@ class App : Application(), KoinComponent, Application.ActivityLifecycleCallbacks
 
     override fun onCreate() {
         super.onCreate()
-        val db = FirebaseFirestore.getInstance()
-
         registerActivityLifecycleCallbacks(this)
 
 

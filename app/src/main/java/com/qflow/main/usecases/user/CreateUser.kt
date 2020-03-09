@@ -11,8 +11,8 @@ import kotlinx.coroutines.CoroutineScope
  * UseCaseCreateUserInDatabase
  * */
 class CreateUser(private val userRepository: UserRepository) :
-    UseCase<Long, CreateUser.Params, CoroutineScope>() {
-    override suspend fun run(params: Params): Either<Failure, Long> {
+    UseCase<String, CreateUser.Params, CoroutineScope>() {
+    override suspend fun run(params: Params): Either<Failure, String> {
 
         return when (val result = validPassword(params.selectedPass, params.selectedRepeatPass)) {
             is Either.Left -> Either.Left(result.a)

@@ -1,25 +1,24 @@
 package com.qflow.main.usecases.user
 
 
-import android.content.ContentValues.TAG
 import com.qflow.main.core.Failure
 import com.qflow.main.repository.UserRepository
 import com.qflow.main.usecases.Either
 import com.qflow.main.usecases.UseCase
+import com.qflow.main.utils.enums.ValidationFailureType
 import kotlinx.coroutines.CoroutineScope
-import android.util.Log
 
 /**
  * LoginCase
  *
  * */
 class LoginCase(private val userRepository: UserRepository) :
-    UseCase<Long, LoginCase.Params, CoroutineScope>() {
+    UseCase<String, LoginCase.Params, CoroutineScope>() {
 
-    override suspend fun run(params: Params): Either<Failure, Long> {
+    override suspend fun run(params: Params): Either<Failure, String> {
         return when(val res = validate(params.selectedMail, params.selectedPass)){
-            is Either.Left<*, *> ->  Either.Left<Failure.NullResult, Any>(Failure.NullResult())
-            is Either.Right -> userRepository.saveUser(params.selectedPass, params.selectedMail)
+            is Either.Left ->  res
+            is Either.Right -> userRepository.signIn(params.selectedPass, params.selectedMail)
         }
     }
     /**
@@ -29,8 +28,8 @@ class LoginCase(private val userRepository: UserRepository) :
     * */
     private fun validate(email: String, pass: String): Either<Failure,Unit> {
         return when(email.isEmpty() || pass.isEmpty()){
-            true -> Either.Left(Failure.)
-            false -> TODO()
+            true -> Either.Left(Failure.ValidationFailure(ValidationFailureType.EMAIL_OR_PASSWORD_EMPTY))
+            false -> Either.Right(Unit)
         }
     }
 

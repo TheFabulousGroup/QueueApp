@@ -25,18 +25,15 @@ interface UserRepository {
     fun createUser(
         username: String, selectedPass: String, email: String, repeatPass: String,
         nameLastName: String
-    ): Either<Failure, Long>
-
-    fun signIn(email: String, pass: String)
-    fun currentUserauth(): FirebaseUser?
-    fun checkUser(): Either<Failure, Any>
-    fun signOut()
+    ): Either<Failure, String>
+    fun signIn(email: String, pass: String): Either<Failure, String>
 
     class General
     constructor(
         private val appDatabase: AppDatabase,
-        val userAdapter: UserAdapter,
-        val firebasedb: FirebaseFirestore
+        private val userAdapter: UserAdapter,
+        private val firebasedb: FirebaseFirestore,
+        private val firebaseAuth: FirebaseAuth
     ) : BaseRepository(), UserRepository {
 
         override fun createUser(
@@ -45,7 +42,7 @@ interface UserRepository {
             email: String,
             repeatPass: String,
             nameLastName: String
-        ): Either<Failure, Long> {
+        ): Either<Failure, String> {
             //TODO move validation to UseCase
 
             val userMap =
@@ -73,53 +70,22 @@ interface UserRepository {
                         e
                     )
                 })
-            return Either.Right(1L)
+            return Either.Right("")
         }
 
-        /**
-         * return currentUser from firebaseAuth
-         * */
-        override fun currentUserauth(): FirebaseUser? {
-            return auth.currentUser
-        }
-        /**
-         * use FirebaseAuth method  sigInWithEmailAndPassword,
-         * validates email and pass and then sigIn a user
-         * @email
-         * @pass
-         * */
-        override fun signIn(email: String,pass: String){
-            auth.signInWithEmailAndPassword(email, pass).addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    Log.d(TAG, "You´re signin in succesfully ")
-                    //val user=currentUserauth()
+        override fun signIn(email: String,pass: String): Either<Failure, String>{
 
-                } else {
-                    Log.w(TAG, "createUserWithEmail:failure", task.exception)
-
-                }
+            firebaseAuth.signInWithEmailAndPassword(email, pass).addOnCompleteListener { task ->
+//                return if (task.isSuccessful) {
+//                    Log.d(TAG, "You´re signin in succesfully ")
+//                    Either.Right(firebaseAuth.currentUser!!.uid)
+//
+//                } else {
+//                    Log.w(TAG, "createUserWithEmail:failure", task.exception)
+//                    Either.Left(Failure.NetworkConnection)
+//                }
             }
-        }
-        /**
-         * return active session user
-         * if there not user then return null,
-         * in other cases return sussesful
-         * */
-        override fun checkUser():Either<Failure,Any> {
-            val c = currentUserauth()
-            //user session still active
-            return if (c!= null) {
-                Either.Right(c)
-            } else {
-                Either.Left<Failure.NullResult, Any>(Failure.NullResult())
-            }
-        }
-        /**
-         * use firebase method signOut
-         * to signOut a user
-         * */
-        override fun signOut() {
-           auth.signOut()
+            return Either.Right("")
         }
     }
 }

@@ -2,6 +2,6 @@ package com.qflow.main.utils.enums
 
 enum class ValidationFailureType {
 
-    PASSWORDS_NOT_THE_SAME
-
+    PASSWORDS_NOT_THE_SAME,
+    EMAIL_OR_PASSWORD_EMPTY
 }
