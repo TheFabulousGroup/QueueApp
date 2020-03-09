@@ -13,6 +13,7 @@ import com.google.firebase.auth.FirebaseAuth
 /**
  * Viewmodel of the LoginFragment, it connects with the usecases
  *
+ * 
  * */
 class LoginViewModel(
     private val userLogin: LoginCase
