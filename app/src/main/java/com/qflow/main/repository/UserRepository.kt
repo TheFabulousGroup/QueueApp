@@ -42,7 +42,6 @@ interface UserRepository {
             nameLastName: String
         ): Either<Failure, Long> {
             //TODO move validation to UseCase
-            if (validPassword(selectedPass, repeatPass)) {
                 val userMap =
                     UserServerModel(username, selectedPass, email, nameLastName).createMap()
                 //Storing into Firestore
@@ -68,12 +67,8 @@ interface UserRepository {
                             e
                         )
                     })
-            }
         }
 
-        override fun validPassword(selectedPass: String, repeatPass: String): Boolean {
-            return selectedPass == repeatPass
-        }
     }
 
 
