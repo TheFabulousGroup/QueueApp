@@ -22,4 +22,6 @@
     <string name="email">Email</string>
     <string name="name_lastName">Name and last name</string>
     <string name="accept">Accept</string>
+    <string name="sign_in">Sign In</string>
+    <string name="sign_up">Sign Up</string>
 </resources>

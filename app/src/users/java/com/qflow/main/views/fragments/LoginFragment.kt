@@ -9,9 +9,6 @@ import androidx.lifecycle.Observer
 import com.qflow.main.R
 import com.qflow.main.core.ScreenState
 import com.qflow.main.views.viewmodels.LoginViewModel
-import kotlinx.android.synthetic.main.activity_login.*
-import kotlinx.android.synthetic.main.dialog_signup.*
-import kotlinx.android.synthetic.main.login_fragment.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import com.qflow.main.views.screenstates.LoginFragmentScreenState as LoginFragmentScreenState
 

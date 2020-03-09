@@ -55,9 +55,3 @@ val dataModule = module {
     single { AppDatabase.getInstance(get()) }
 
 }
-
-val fireBaseModule = module {
-
-    single {  FirebaseFirestore.getInstance() }
-
-}

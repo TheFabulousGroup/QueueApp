@@ -27,13 +27,11 @@ class LoginCase(private val userRepository: UserRepository) :
     * @email
     * @pass
     * */
-    fun validate(email: String, pass: String): Either<Failure,Unit> {
-        var valid = true
-        if (email.isEmpty() || pass.isEmpty()) {
-            Log.d(TAG, "Required filds")
-            return Either.Left<Failure.NullResult, Any>(Failure.NullResult())
+    private fun validate(email: String, pass: String): Either<Failure,Unit> {
+        return when(email.isEmpty() || pass.isEmpty()){
+            true -> Either.Left(Failure.)
+            false -> TODO()
         }
-        return Either.Right(Unit)
     }
 
     class Params(val selectedPass: String, val selectedMail: String)

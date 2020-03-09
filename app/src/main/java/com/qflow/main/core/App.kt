@@ -5,14 +5,11 @@ import android.app.Application
 import android.os.Bundle
 import android.os.Handler
 import com.google.firebase.firestore.FirebaseFirestore
-import com.qflow.main.dinjector.dataModule
+import com.qflow.main.dinjector.*
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.KoinComponent
 import org.koin.core.context.startKoin
-import com.qflow.main.dinjector.retrofitModule
-import com.qflow.main.dinjector.useCaseModule
-import com.qflow.main.dinjector.userModule
 
 
 /**
