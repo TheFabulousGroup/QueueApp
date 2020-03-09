@@ -5,15 +5,15 @@ package com.qflow.main.core
  * */
 sealed class Failure {
     object NetworkConnection : Failure()
-    class ServerErrorCode(val code: Int): Failure()
-    class ServerException(val throwable: Throwable): Failure()
+    class ServerErrorCode(val code: Int) : Failure()
+    class ServerException(val throwable: Throwable) : Failure()
 
     /** * Extend this class for feature specific failures.*/
-    abstract class FeatureFailure: Failure()
-    class  ValidationFailure : Failure()
+    abstract class FeatureFailure : Failure()
+    class ValidationFailure : Failure()
 
-
-    class NullResult: FeatureFailure()
+    //Todo Ruben: Feature failure
+    class NullResult : FeatureFailure()
 
 
 }
