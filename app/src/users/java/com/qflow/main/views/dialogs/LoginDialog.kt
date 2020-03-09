@@ -20,8 +20,8 @@ class LoginDialog(override val loginViewModel: LoginViewModel) : LoginDialogsInt
         val rootView:View=inflater.inflate(R.layout.activity_login, container, false)
         val textUsername=rootView.findViewById<EditText>(R.id.inputEmail)
         val textPassword=rootView.findViewById<EditText>(R.id.inputPass)
-        val submitButton=rootView.findViewById<Button>(R.id.btn_login)
-        val registerButton=rootView.findViewById<Button>(R.id.btn_signUp)
+        val submitButton=rootView.findViewById<Button>(R.id.btn_signUp)
+        val registerButton=rootView.findViewById<Button>(R.id.btn_signIn)
 
 
         submitButton.setOnClickListener {

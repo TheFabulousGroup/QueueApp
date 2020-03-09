@@ -39,6 +39,8 @@ val userModule = module {
 
     single<UserRepository> { UserRepository.General(get(), get(), get(), get()) }
 
+    single { UserAdapter }
+
     viewModel { LoginViewModel(get()) }
     viewModel { SignUpViewModel(get()) }
 

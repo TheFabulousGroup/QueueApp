@@ -27,7 +27,7 @@
         tools:layout="@layout/profile_fragment">
         <argument
             android:name="userId"
-            app:argType="String" />
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/SignUpFragment"

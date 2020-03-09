@@ -13,15 +13,9 @@ import com.qflow.main.repository.UserRepository
 import kotlinx.android.synthetic.main.fragment_login.*
 
 class LoginActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityLoginBinding
-    private lateinit var auth:FirebaseAuth
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        //setContentView(R.layout.activity_login)
-        //auth = FirebaseAuth.getInstance()
-        binding = DataBindingUtil.setContentView(this,
-            R.layout.activity_login
-        )
+        setContentView(R.layout.activity_login)
     }
 
 
