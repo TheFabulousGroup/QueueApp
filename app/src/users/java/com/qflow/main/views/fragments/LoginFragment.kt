@@ -7,11 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.Observer
+import androidx.navigation.findNavController
 import com.qflow.main.R
 import com.qflow.main.core.Failure
 import com.qflow.main.core.ScreenState
 import com.qflow.main.utils.enums.ValidationFailureType
 import com.qflow.main.views.viewmodels.LoginViewModel
+import kotlinx.android.synthetic.main.fragment_login.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import com.qflow.main.views.screenstates.LoginFragmentScreenState as LoginFragmentScreenState
 
@@ -33,10 +35,20 @@ class LoginFragment : Fragment() {
     }
 
     private fun initializeListeners() {
-        viewModel.screenState.observe(viewLifecycleOwner, Observer {
-            updateUi(it)
-        })
+        initializeButtons()
+        viewModel.screenState.observe(::getLifecycle, ::updateUI)
         viewModel.failure.observe(::getLifecycle, ::handleErrors)
+    }
+
+    private fun initializeButtons() {
+        btn_login.setOnClickListener {
+            viewModel.login()
+        }
+        btn_signUp.setOnClickListener {
+            view.let {view?.findNavController()!!
+                .navigate(LoginFragmentDirections
+                    .actionLoginFragmentToSignUpFragment()) }
+        }
     }
 
     private fun handleErrors(failure: Failure?) {
@@ -53,7 +65,7 @@ class LoginFragment : Fragment() {
     }
 
 
-    private fun updateUi(screenState: ScreenState<LoginFragmentScreenState>?) {
+    private fun updateUI(screenState: ScreenState<LoginFragmentScreenState>?) {
 
         when (screenState) {
             ScreenState.Loading -> {
@@ -74,7 +86,7 @@ class LoginFragment : Fragment() {
 
     private fun initializeObservers() {
         viewModel.screenState.observe(viewLifecycleOwner, Observer {
-            updateUi(it)
+            updateUI(it)
         })
     }
 

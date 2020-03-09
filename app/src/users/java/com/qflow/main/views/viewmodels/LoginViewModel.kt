@@ -26,7 +26,7 @@ class LoginViewModel(
     private var job = Job()
     private var coroutineScope = CoroutineScope(Dispatchers.Default + job)
 
-    fun saveUserInDatabase(
+    fun login(
         selectedPass: String,
         selectedMail: String
     ) {
