@@ -6,9 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import com.qflow.main.R
+import com.qflow.main.views.activities.LoginActivity
 import com.qflow.main.views.viewmodels.LoginViewModel
+import kotlinx.android.synthetic.main.login_fragment.*
 
 class LoginDialog(override val loginViewModel: LoginViewModel) : LoginDialogsInterface, DialogFragment() {
 
@@ -17,20 +20,19 @@ class LoginDialog(override val loginViewModel: LoginViewModel) : LoginDialogsInt
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val rootView:View=inflater.inflate(R.layout.dialog_apprender, container, false)
-        val cancelButton=rootView.findViewById<Button>(R.id.dialog_cancel)
-        val submitButton=rootView.findViewById<Button>(R.id.dialog_submit)
-        val textUsername=rootView.findViewById<EditText>(R.id.dialog_username)
-        val textPassword=rootView.findViewById<EditText>(R.id.dialog_password)
+        val rootView:View=inflater.inflate(R.layout.activity_login, container, false)
+        val textUsername=rootView.findViewById<EditText>(R.id.inputEmail)
+        val textPassword=rootView.findViewById<EditText>(R.id.inputPass)
+        val submitButton=rootView.findViewById<Button>(R.id.accept_login)
+        val registerButton=rootView.findViewById<Button>(R.id.btn_signUp)
 
-        cancelButton.setOnClickListener { dismiss() }
 
         submitButton.setOnClickListener {
             val selectedUsername=textUsername.text.toString()
             val selectedPass=textPassword.text.toString()
-//            loginViewModel.initiateNormalLogin(selectedUsername, selectedPass)
-            dismiss()
+                dismiss()
         }
+
         return rootView
     }
 

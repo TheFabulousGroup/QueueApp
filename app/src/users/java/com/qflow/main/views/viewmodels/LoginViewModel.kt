@@ -6,14 +6,15 @@ import kotlinx.coroutines.*
 import org.koin.core.KoinComponent
 import com.qflow.main.core.BaseViewModel
 import com.qflow.main.core.ScreenState
-import com.qflow.main.usecases.user.CreateUser
+import com.qflow.main.usecases.user.LoginCase
 import com.qflow.main.views.screenstates.LoginFragmentScreenState
 
 /**
  * Viewmodel of the LoginFragment, it connects with the usecases
+ *
  * */
 class LoginViewModel(
-    private val createUserDatabase: CreateUser
+    private val userLogin: LoginCase
 ) : BaseViewModel(), KoinComponent {
 
     private val _currentUser: MutableLiveData<Long> = MutableLiveData()
@@ -33,16 +34,16 @@ class LoginViewModel(
         selectedMail: String
     ) {
 
-//        //Execute add user to database
-//        createUserDatabase.execute({ it.either(::handleFailure, ::handleUserCreated) },
-//            CreateUser.Params(username, selectedPass, selectedMail), this.coroutineScope
-//        )
+        //Execute add user to database
+        saveUserDatabase.execute({ it.either(::handleFailure, ::handleUserCreated) },
+            SaveUserInDatabase.Params(username, selectedPass, selectedMail), this.coroutineScope
+        )
 
     }
 
     private fun handleUserCreated(id: Long) {
-//        this._screenState.value =
-//            ScreenState.Render(LoginFragmentScreenState.UserCreatedCorrectly(id))
+        this._screenState.value =
+            ScreenState.Render(LoginFragmentScreenState.UserCreatedCorrectly(id))
     }
 
 //    fun getUsersFromDatabase() {

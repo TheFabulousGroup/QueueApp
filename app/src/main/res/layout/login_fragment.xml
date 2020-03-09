@@ -4,70 +4,148 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".views.fragments.LoginFragment">
+   >
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/primaryLightColor">
 
-        <pl.droidsonroids.gif.GifImageView
-            android:id="@+id/imageView"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginBottom="16dp"
-            android:src="@drawable/girl_too_close"
-            app:layout_constraintBottom_toTopOf="@id/loginApprender"
+        <EditText
+            android:id="@+id/inputEmail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="68dp"
+            android:autofillHints=""
+            android:backgroundTint="@color/primaryTextColor"
+            android:ems="10"
+            android:hint="@string/email"
+            android:inputType="textEmailAddress"
+            android:layerType="none"
+            android:textColor="@color/primaryTextColor"
+            android:textColorHighlight="@color/primaryTextColor"
+            android:textColorHint="@color/primaryTextColor"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.52"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="LabelFor" />
+
+        <EditText
+            android:id="@+id/inputPass"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:backgroundTint="@color/primaryTextColor"
+            android:ems="10"
+            android:hint="@string/password"
+            android:inputType="textPassword"
+            android:textColor="@color/primaryTextColor"
+            android:textColorHighlight="@color/primaryTextColor"
+            android:textColorHint="@color/primaryTextColor"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.52"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/inputEmail"
+            tools:ignore="LabelFor" />
 
         <Button
-            android:id="@+id/signUp"
-            android:layout_width="wrap_content"
-            android:layout_height="42dp"
+            android:id="@+id/btnGoogle"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:layout_marginStart="112dp"
+            android:background="@drawable/rounded_button"
+            android:drawablePadding="-35dp"
+            android:fontFamily="@font/roboto"
+            android:gravity="center"
+            android:hint="@string/Google"
+            android:maxWidth="150dp"
             android:minWidth="150dp"
-            android:layout_marginBottom="24dp"
-            android:background="@drawable/login_button_selector"
+            android:textAllCaps="false"
+            android:textColorHint="#000000"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/btnFacebook" />
+
+        <Button
+            android:id="@+id/btnFacebook"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:layout_marginTop="52dp"
+            android:background="@drawable/rounded_button"
+            android:drawablePadding="-35dp"
+            android:fontFamily="@font/roboto"
+            android:gravity="center"
+            android:hint="@string/face"
+            android:maxWidth="150dp"
+            android:minWidth="150dp"
+            android:textAllCaps="false"
+            android:textColor="#0E0C0C"
+            android:textColorHint="#000000"
+            app:layout_constraintEnd_toStartOf="@+id/btnTwitter"
+            app:layout_constraintHorizontal_bias="0.45"
+            app:layout_constraintStart_toEndOf="@+id/btnGoogle"
+            app:layout_constraintTop_toBottomOf="@+id/inputPass" />
+
+        <Button
+            android:id="@+id/btnTwitter"
+
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:layout_marginEnd="104dp"
+            android:background="@drawable/rounded_button"
+            android:drawablePadding="-35dp"
+            android:fontFamily="@font/roboto"
+            android:gravity="center"
+            android:hint="@string/twitter"
+            android:maxWidth="150dp"
+            android:minWidth="150dp"
+
+            android:textAllCaps="false"
+            android:textColor="#0E0C0C"
+            android:textColorHint="#000000"
+            app:layout_constraintBottom_toBottomOf="@+id/btnFacebook"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <Button
+            android:id="@+id/btn_signUp"
+            android:layout_width="150dp"
+            android:layout_height="39dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/oval_button"
             android:drawablePadding="-35dp"
             android:fontFamily="@font/roboto"
             android:maxWidth="150dp"
+            android:minWidth="150dp"
             android:text="@string/sign_in"
             android:textAllCaps="false"
             android:textColor="#0E0C0C"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/loginApprender" />
+            app:layout_constraintBottom_toTopOf="@+id/accept_login"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.457"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnFacebook"
+            app:layout_constraintVertical_bias="0.972" />
 
         <Button
-            android:id="@+id/signIn"
-            android:layout_width="0dp"
-            android:layout_height="41dp"
-            android:minWidth="150dp"
+            android:id="@+id/accept_login"
+            android:layout_width="150dp"
+            android:layout_height="39dp"
+            android:layout_marginStart="16dp"
             android:layout_marginBottom="24dp"
-            android:background="@drawable/login_button_selector"
+            android:background="@drawable/oval_button"
             android:drawablePadding="-35dp"
             android:fontFamily="@font/roboto"
             android:maxWidth="150dp"
+            android:minWidth="150dp"
             android:text="@string/sign_up"
             android:textAllCaps="false"
             android:textColor="#0E0C0C"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/loginApprender" />
-
-        <Button
-            android:id="@+id/loginApprender"
-            android:layout_width="350dp"
-            android:layout_height="40dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="16dp"
-            android:background="@drawable/login_button_selector"
-            android:drawableStart="@drawable/icon_apprender_wrappable"
-            android:drawablePadding="-35dp"
-            android:fontFamily="@font/roboto"
-            android:text="@string/loginApprender"
-            android:textAllCaps="false"
-            app:layout_constraintBottom_toTopOf="@+id/signUp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.457"
             app:layout_constraintStart_toStartOf="parent" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

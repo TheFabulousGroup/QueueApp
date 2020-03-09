@@ -18,7 +18,7 @@ abstract class UseCase<out Type, in Params, in Scope> where Type : Any, Scope : 
 
             val deferred = async { run(params) }
 
-            withContext(Dispatchers.Main)
+            withContext(context = Dispatchers.Main)
             {
                 onResult.invoke(deferred.await())
             }
