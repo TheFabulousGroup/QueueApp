@@ -12,6 +12,8 @@ import com.qflow.main.views.screenstates.LoginFragmentScreenState
 import com.qflow.main.views.viewmodels.SignUpViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import androidx.lifecycle.Observer
+import com.qflow.main.core.Failure
+import com.qflow.main.utils.enums.ValidationFailureType
 import com.qflow.main.views.screenstates.SignUpFragmentScreenState
 import kotlinx.android.synthetic.users.fragment_signup.*
 
@@ -42,12 +44,25 @@ class SignUpFragment : Fragment() {
     }
 
     private fun initializeObservers() {
-        viewModel.screenState.observe(viewLifecycleOwner, Observer {
-            updateUi(it)
-        })
+        viewModel.screenState.observe(::getLifecycle,::updateUI)
+        viewModel.failure.observe(::getLifecycle,::handleErrors)
     }
 
-    private fun updateUi(screenState: ScreenState<SignUpFragmentScreenState>?) {
+    private fun handleErrors(failure: Failure?) {
+        when(failure){
+            is Failure.ValidationFailure ->{
+                when(failure.validationFailureType){
+                    ValidationFailureType.PASSWORDS_NOT_THE_SAME -> {
+                        //TODO añadir aqui que hacer cuando el validador de fallo
+
+
+                    }
+                }
+            }
+        }
+    }
+
+    private fun updateUI(screenState: ScreenState<SignUpFragmentScreenState>?) {
 
         when(screenState){
             ScreenState.Loading -> {}

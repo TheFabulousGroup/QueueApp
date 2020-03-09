@@ -1,5 +1,7 @@
 package com.qflow.main.core
 
+import com.qflow.main.utils.enums.ValidationFailureType
+
 /**
  * The type of failures we can find in our model
  * */
@@ -10,10 +12,10 @@ sealed class Failure {
 
     /** * Extend this class for feature specific failures.*/
     abstract class FeatureFailure : Failure()
-    class ValidationFailure : Failure()
+
 
     //Todo Ruben: Feature failure
     class NullResult : FeatureFailure()
-
+    class ValidationFailure(val validationFailureType: ValidationFailureType) : FeatureFailure()
 
 }

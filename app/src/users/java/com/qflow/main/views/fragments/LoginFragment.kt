@@ -9,7 +9,10 @@ import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import com.qflow.main.views.dialogs.LoginDialog
 import com.qflow.main.R
+import com.qflow.main.core.Failure
 import com.qflow.main.core.ScreenState
+import com.qflow.main.utils.enums.ValidationFailureType
+import com.qflow.main.utils.enums.ValidationFailureType.PASSWORDS_NOT_THE_SAME
 import com.qflow.main.views.adapters.SignInAdapter
 import com.qflow.main.views.adapters.SignInListener
 import com.qflow.main.views.dialogs.SigninDialog
@@ -53,26 +56,33 @@ class LoginFragment : Fragment() {
             openApprenderDialog()
         }
         signUp.setOnClickListener {
-//            view.findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToProfileFragment("QRlog"))
             openCreateAccountDialog()
         }
         signIn.setOnClickListener {
             openChooseAccountDialog()
         }
-        val adapter = SignInAdapter(SignInListener { user ->
-//            sleepTrackerViewModel.onSleepNightClicked(nightId)
-            view.findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToProfileFragment(user.userId))
-        })
         initializeObservers()
     }
 
     private fun initializeObservers() {
-        viewModel.screenState.observe(viewLifecycleOwner, Observer {
-            updateUi(it)
-        })
+        viewModel.screenState.observe(::getLifecycle,::updateUI)
+        viewModel.failure.observe(::getLifecycle,::handleErrors)
     }
 
-    private fun updateUi(screenState: ScreenState<LoginFragmentScreenState>?) {
+
+    private fun handleErrors(failure: Failure?) {
+        when(failure){
+            is Failure.ValidationFailure ->{
+                when(failure.validationFailureType){
+                    PASSWORDS_NOT_THE_SAME -> {
+                        //TODO añadir aqui que hacer cuando el validador de al hacer el login no tiene por que se PasswordsNotTheSame necesariamente
+                    }
+                }
+            }
+        }
+    }
+
+    private fun updateUI(screenState: ScreenState<LoginFragmentScreenState>?) {
 
         when(screenState){
             ScreenState.Loading -> {}
@@ -84,7 +94,7 @@ class LoginFragment : Fragment() {
     private fun renderScreenState(renderState: LoginFragmentScreenState) {
 
         when(renderState){
-            //Añadir aqui estados de la aplicacion loginScreenState
+            //TODO Añadir aqui estados de la aplicacion loginScreenState
         }
 
     }

@@ -4,6 +4,7 @@ import com.qflow.main.core.Failure
 import com.qflow.main.repository.UserRepository
 import com.qflow.main.usecases.Either
 import com.qflow.main.usecases.UseCase
+import com.qflow.main.utils.enums.ValidationFailureType
 import kotlinx.coroutines.CoroutineScope
 
 /**
@@ -27,7 +28,7 @@ class CreateUser(private val userRepository: UserRepository) :
         return if (selectedPass == repeatPass)
             Either.Right(Unit)
         else
-            Either.Left(Failure.ValidationFailure())
+            Either.Left(Failure.ValidationFailure(ValidationFailureType.PASSWORDS_NOT_THE_SAME))
     }
 
     class Params(
