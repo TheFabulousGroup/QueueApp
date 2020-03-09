@@ -14,7 +14,6 @@ import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
 import retrofit2.Retrofit
-
 /**
  * Our great dependency injector, gets whatever we want wherever we desire
  * */
@@ -54,5 +53,11 @@ val useCaseModule = module {
 val dataModule = module {
 
     single { AppDatabase.getInstance(get()) }
+
+}
+
+val fireBaseModule = module {
+
+    single {  FirebaseFirestore.getInstance() }
 
 }

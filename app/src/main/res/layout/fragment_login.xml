@@ -13,9 +13,11 @@
 
         <EditText
             android:id="@+id/inputEmail"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="68dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="32dp"
             android:autofillHints=""
             android:backgroundTint="@color/primaryTextColor"
             android:ems="10"
@@ -33,9 +35,11 @@
 
         <EditText
             android:id="@+id/inputPass"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="32dp"
             android:backgroundTint="@color/primaryTextColor"
             android:ems="10"
             android:hint="@string/password"
@@ -53,8 +57,9 @@
             android:id="@+id/btnGoogle"
             android:layout_width="65dp"
             android:layout_height="65dp"
-            android:layout_marginStart="112dp"
-            android:background="@drawable/rounded_button"
+            android:layout_marginStart="110dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/circle"
             android:drawablePadding="-35dp"
             android:fontFamily="@font/roboto"
             android:gravity="center"
@@ -63,6 +68,7 @@
             android:minWidth="150dp"
             android:textAllCaps="false"
             android:textColorHint="#000000"
+            app:layout_constraintEnd_toStartOf="@+id/btnFacebook"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/btnFacebook" />
 
@@ -70,8 +76,10 @@
             android:id="@+id/btnFacebook"
             android:layout_width="65dp"
             android:layout_height="65dp"
-            android:layout_marginTop="52dp"
-            android:background="@drawable/rounded_button"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/circle"
             android:drawablePadding="-35dp"
             android:fontFamily="@font/roboto"
             android:gravity="center"
@@ -91,20 +99,24 @@
 
             android:layout_width="65dp"
             android:layout_height="65dp"
-            android:layout_marginEnd="104dp"
-            android:background="@drawable/rounded_button"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginEnd="110dp"
+            android:background="@drawable/circle"
             android:drawablePadding="-35dp"
             android:fontFamily="@font/roboto"
             android:gravity="center"
             android:hint="@string/twitter"
+
             android:maxWidth="150dp"
             android:minWidth="150dp"
-
             android:textAllCaps="false"
             android:textColor="#0E0C0C"
             android:textColorHint="#000000"
             app:layout_constraintBottom_toBottomOf="@+id/btnFacebook"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/btnFacebook"
+            app:layout_constraintTop_toBottomOf="@+id/inputPass" />
 
         <Button
             android:id="@+id/btn_signUp"
@@ -123,17 +135,17 @@
             android:textColor="#0E0C0C"
             app:layout_constraintBottom_toTopOf="@+id/accept_login"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.457"
+            app:layout_constraintHorizontal_bias="0.465"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/btnFacebook"
-            app:layout_constraintVertical_bias="0.972" />
+            app:layout_constraintVertical_bias="0.981" />
 
         <Button
             android:id="@+id/accept_login"
             android:layout_width="150dp"
             android:layout_height="39dp"
             android:layout_marginStart="16dp"
-            android:layout_marginBottom="24dp"
+            android:layout_marginBottom="48dp"
             android:background="@drawable/oval_button"
             android:drawablePadding="-35dp"
             android:fontFamily="@font/roboto"
@@ -144,7 +156,7 @@
             android:textColor="#0E0C0C"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.457"
+            app:layout_constraintHorizontal_bias="0.465"
             app:layout_constraintStart_toStartOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -11,7 +11,7 @@
     <style name="ProgressLevel" parent="Widget.AppCompat.ProgressBar.Horizontal">
         <item name="android:layout_width">@dimen/avatarDimen</item>
         <item name="android:layout_height">@dimen/avatarDimen</item>
-        <item name="android:background">@drawable/circle_shape</item>
+        <item name="android:background">@drawable/circle</item>
         <item name="android:progressDrawable">@drawable/circular_progress_bar</item>
     </style>
 

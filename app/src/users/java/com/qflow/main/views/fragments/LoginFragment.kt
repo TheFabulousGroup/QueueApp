@@ -4,18 +4,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EditText
 import android.widget.Toast
 import androidx.lifecycle.Observer
-import androidx.navigation.findNavController
-import com.qflow.main.views.dialogs.LoginDialog
 import com.qflow.main.R
 import com.qflow.main.core.ScreenState
-import com.qflow.main.views.adapters.SignInAdapter
-import com.qflow.main.views.adapters.SignInListener
-import com.qflow.main.views.dialogs.SigninDialog
-import com.qflow.main.views.dialogs.SignupDialog
 import com.qflow.main.views.viewmodels.LoginViewModel
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.dialog_signup.*
@@ -35,19 +27,9 @@ class LoginFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        initializeObservers()
         initializeListeners()
-        return inflater.inflate(R.layout.login_fragment, container, false)
-    }
-
-
-
-    private fun initializeDialogs() {
-        accept_login.setOnClickListener{
-            val selectedEmail = inputEmail.text.toString()
-            val selectedPass = inputPass.text.toString()
-            viewModel.saveUserInDatabase(selectedEmail,selectedPass)
-        }
-
+        return inflater.inflate(R.layout.fragment_login, container, false)
     }
 
     private fun initializeListeners() {
@@ -67,7 +49,9 @@ class LoginFragment : Fragment() {
     private fun renderScreenState(renderState: LoginFragmentScreenState) {
 
         when(renderState){
-            //Añadir aqui estados de la aplicacion loginScreenState
+            is LoginFragmentScreenState.LoginSuccessful -> {
+                Toast.makeText(this.context, renderState.id.toString(), Toast.LENGTH_LONG).show()
+            }
         }
 
     }

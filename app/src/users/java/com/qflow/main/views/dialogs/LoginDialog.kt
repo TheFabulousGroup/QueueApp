@@ -11,7 +11,7 @@ import androidx.fragment.app.DialogFragment
 import com.qflow.main.R
 import com.qflow.main.views.activities.LoginActivity
 import com.qflow.main.views.viewmodels.LoginViewModel
-import kotlinx.android.synthetic.main.login_fragment.*
+import kotlinx.android.synthetic.main.fragment_login.*
 
 class LoginDialog(override val loginViewModel: LoginViewModel) : LoginDialogsInterface, DialogFragment() {
 
