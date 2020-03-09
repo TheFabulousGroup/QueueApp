@@ -56,7 +56,6 @@ class SignUpFragment : Fragment() {
                     ValidationFailureType.PASSWORDS_NOT_THE_SAME -> {
                         //TODO añadir aqui que hacer cuando el validador de fallo
 
-
                     }
                 }
             }
