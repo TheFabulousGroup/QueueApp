@@ -19,7 +19,7 @@ class CreateUser(private val userRepository: UserRepository) :
             is Either.Right -> {
                 userRepository.createUser(
                     params.username, params.selectedPass,
-                    params.selectedEmail, params.selectedNameLastName, params.selectedRepeatPass)
+                    params.selectedEmail, params.selectedNameLastName)
             }
         }
     }

@@ -23,7 +23,7 @@ import com.qflow.main.domain.server.models.UserServerModel
  * */
 interface UserRepository {
     fun createUser(
-        username: String, selectedPass: String, email: String, repeatPass: String,
+        username: String, selectedPass: String, email: String,
         nameLastName: String
     ): Either<Failure, String>
     fun signIn(email: String, pass: String): Either<Failure, String>
@@ -40,7 +40,6 @@ interface UserRepository {
             username: String,
             selectedPass: String,
             email: String,
-            repeatPass: String,
             nameLastName: String
         ): Either<Failure, String> {
             //TODO move validation to UseCase
@@ -48,44 +47,51 @@ interface UserRepository {
             val userMap =
                 UserServerModel(username, selectedPass, email, nameLastName).createMap()
             //Storing into Firestore
-            firebasedb.collection("users")
+            val taskFirebase = firebasedb.collection("users")
                 .add(userMap)
-                .addOnSuccessListener(OnSuccessListener<DocumentReference> { documentReference ->
+
+            return if(taskFirebase.isSuccessful){
+                val idFire = taskFirebase.result?.id
+                if(idFire == null)
+                    Either.Left(Failure.NetworkConnection)
+                else {
                     Log.d(
                         TAG,
-                        "DocumentSnapshot added with ID: " + documentReference.id
+                        "DocumentSnapshot added with ID: " + taskFirebase.result?.id
                     )
-                    //Storing basic user into Local DB
-                    val localUser = UserDB(id_firebase = "", username = username)
-                    appDatabase.userDatabaseDao.insert(localUser)
-                    //Todo: Ruben: mirar como gestionar el retorno asincrono
-//                        return@OnSuccessListener Either.Right(123L)
-                    //TODO do this comprobation
-                    //id = appDatabase.userDatabaseDao.correctUser(localUser.username)?.userId
-                })
-                .addOnFailureListener(OnFailureListener { e ->
-                    Log.w(
-                        TAG,
-                        "Error adding document",
-                        e
-                    )
-                })
-            return Either.Right("")
+                    val localUser =
+                        taskFirebase.result?.id?.let {
+                            UserDB(
+                                id_firebase = it,
+                                username = username
+                            )
+                        }
+                    if (localUser != null) {
+                        appDatabase.userDatabaseDao.insert(localUser)
+                    }
+                    Either.Right(idFire)
+                }
+            }
+            else{
+                Log.w(
+                    TAG,
+                    "Error adding document"
+                )
+                Either.Left(Failure.NetworkConnection)
+            }
         }
 
         override fun signIn(email: String,pass: String): Either<Failure, String>{
+            val task = firebaseAuth.signInWithEmailAndPassword(email, pass)
+            return if (task.isSuccessful) {
+                    Log.d(TAG, "You´re signin in succesfully ")
+                    Either.Right(firebaseAuth.currentUser!!.uid)
 
-            firebaseAuth.signInWithEmailAndPassword(email, pass).addOnCompleteListener { task ->
-//                return if (task.isSuccessful) {
-//                    Log.d(TAG, "You´re signin in succesfully ")
-//                    Either.Right(firebaseAuth.currentUser!!.uid)
-//
-//                } else {
-//                    Log.w(TAG, "createUserWithEmail:failure", task.exception)
-//                    Either.Left(Failure.NetworkConnection)
-//                }
-            }
-            return Either.Right("")
+                } else {
+                    Log.w(TAG, "createUserWithEmail:failure", task.exception)
+                    Either.Left(Failure.NetworkConnection)
+                }
+
         }
     }
 }
