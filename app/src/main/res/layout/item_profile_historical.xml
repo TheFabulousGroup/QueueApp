@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -6,11 +7,10 @@
     android:orientation="vertical">
 
     <ScrollView
-        android:id="@+id/scroll_queue"
+        android:id="@+id/scroll_historical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scrollbarThumbHorizontal="@color/primaryDarkColor"
-        android:scrollbarThumbVertical="@color/primaryDarkColor"
+        android:scrollbarStyle="outsideInset"
         android:scrollbars="horizontal|vertical">
 
         <LinearLayout
@@ -19,38 +19,26 @@
             android:orientation="vertical">
 
             <LinearLayout
-                android:id="@+id/queueLayout"
+                android:id="@+id/historical_layout"
                 android:layout_width="match_parent"
                 android:layout_height="129dp"
                 android:layout_marginTop="20dp"
                 android:orientation="horizontal"
-                android:weightSum="3">
+                android:scrollbarThumbHorizontal="@color/primaryDarkColor"
+                android:scrollbarThumbVertical="@color/primaryDarkColor"
+                android:scrollbarTrackHorizontal="null"
+                android:weightSum="1">
 
                 <TextView
                     android:id="@+id/queue"
-                    android:layout_width="196dp"
-                    android:layout_height="68dp"
+                    android:layout_width="398dp"
+                    android:layout_height="match_parent"
                     android:layout_gravity="center|start|top|fill_vertical"
                     android:layout_marginLeft="10dp"
                     android:background="@color/primaryTextColor"
-                    android:paddingLeft="10dp"></TextView>
-
-                <Button
-                    android:id="@+id/btn_add"
-                    android:layout_width="71dp"
-                    android:layout_height="63dp"
-                    android:layout_marginRight="10dp"
-                    android:background="@drawable/oval_button"
-                    tools:text="ADD"></Button>
-
-                <Button
-                    android:layout_width="67dp"
-                    android:layout_height="63dp"
-                    android:layout_marginRight="10dp"
-                    android:background="@drawable/oval_button"
-                    tools:text="down">
-
-                </Button>
+                    android:paddingLeft="10dp"
+                    android:scrollbarThumbHorizontal="@color/primaryDarkColor"
+                    android:scrollbarThumbVertical="@color/primaryDarkColor"></TextView>
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
