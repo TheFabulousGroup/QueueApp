@@ -49,8 +49,9 @@ class LoginFragment : Fragment() {
     private fun initializeButtons() {
         btn_signIn.setOnClickListener {
             view.let {
-                view?.findNavController()!!.
-                navigate(LoginFragmentDirections.actionLoginFragmentToProfileFragment(screenState.renderState))
+                val email = inputEmail.text.toString()
+                val pass = inputPass.text.toString()
+                viewModel.login(pass, email)
             }
         }
         btn_signUp.setOnClickListener {
@@ -86,7 +87,6 @@ class LoginFragment : Fragment() {
 
         when (renderState) {
             is LoginFragmentScreenState.LoginSuccessful -> {
-                //Toast.makeText(this.context, renderState.id.toString(), Toast.LENGTH_LONG).show()
                 view?.let {
                     view?.findNavController()!!
                         .navigate(
