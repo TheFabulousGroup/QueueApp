@@ -16,6 +16,7 @@ import androidx.navigation.findNavController
 import com.qflow.main.core.Failure
 import com.qflow.main.utils.enums.ValidationFailureType
 import com.qflow.main.views.screenstates.SignUpFragmentScreenState
+import kotlinx.android.synthetic.creators.fragment_signup.*
 import kotlinx.android.synthetic.users.fragment_signup.*
 
 

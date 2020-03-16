@@ -8,6 +8,43 @@
   "client": [
     {
       "client_info": {
+        "mobilesdk_app_id": "1:192040173538:android:d0a847bb417100d66943bb",
+        "android_client_info": {
+          "package_name": "com.example.signupview"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "192040173538-mk68va0j0vp28437h6f0v53jmqfjd4p6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.signupview",
+            "certificate_hash": "58dc59d91b51c237135ecba2dda30c77c5aed006"
+          }
+        },
+        {
+          "client_id": "192040173538-n0b60svri72uu2o9jsk52nqfgiu8kgr3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCd9IZrMJbGBfhzojYgTRGozkNqeS2xb_g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "192040173538-n0b60svri72uu2o9jsk52nqfgiu8kgr3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:192040173538:android:659d6635aa1f5eed6943bb",
         "android_client_info": {
           "package_name": "com.qflow.creators"
@@ -51,59 +88,6 @@
         }
       },
       "oauth_client": [
-        {
-          "client_id": "192040173538-n0b60svri72uu2o9jsk52nqfgiu8kgr3.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyCd9IZrMJbGBfhzojYgTRGozkNqeS2xb_g"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "192040173538-n0b60svri72uu2o9jsk52nqfgiu8kgr3.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:192040173538:android:26f840f0aca6b5f16943bb",
-        "android_client_info": {
-          "package_name": "com.qflow.users"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "192040173538-jgvhbcf6to1167vv26he1877914jnuhh.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.qflow.users",
-            "certificate_hash": "58dc59d91b51c237135ecba2dda30c77c5aed006"
-          }
-        },
-        {
-          "client_id": "192040173538-dg9chdlhjombgf05dfnmd01g11li55n2.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.qflow.users",
-            "certificate_hash": "01a1884499dd82a8b069811a7b87514c4b39329f"
-          }
-        },
-        {
-          "client_id": "192040173538-k90g8fuorrkcgdee7gtmct6r41iifh34.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.qflow.users",
-            "certificate_hash": "8dc09078924e10ef79d78ef1e8014b42ad49973a"
-          }
-        },
         {
           "client_id": "192040173538-n0b60svri72uu2o9jsk52nqfgiu8kgr3.apps.googleusercontent.com",
           "client_type": 3
