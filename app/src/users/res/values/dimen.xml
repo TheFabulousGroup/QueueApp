@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="avatarDimen">110dp</dimen>
+    <dimen name="miniAvatarDimen">85dp</dimen>
+    <dimen name="largeMargin">20dp</dimen>
+    <dimen name="primaryMargin">15dp</dimen>
+    <dimen name="secondaryMargin">8dp</dimen>
+</resources>
