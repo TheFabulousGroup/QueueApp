@@ -48,10 +48,11 @@ class LoginFragment : Fragment() {
 
     private fun initializeButtons() {
      btn_signIn.setOnClickListener {
-           view.let {
-               view?.findNavController()!!.
-               navigate(LoginFragmentDirections.actionLoginFragmentToProfileFragment("userId"))
-           }
+         btn_signIn.setOnClickListener {
+             val email = inputEmail.text.toString()
+             val pass = inputPass.text.toString()
+             viewModel.login(pass, email)
+         }
        }
         btn_signUp.setOnClickListener {
             view.let {view?.findNavController()!!
@@ -92,7 +93,7 @@ class LoginFragment : Fragment() {
                     view?.findNavController()!!
                         .navigate(
                             LoginFragmentDirections
-                                .actionLoginFragmentToProfileFragment("userId")
+                                .actionLoginFragmentToProfileFragment(renderState.id)
                         )
                 }
             }
