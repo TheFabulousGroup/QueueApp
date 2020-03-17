@@ -6,37 +6,50 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.qflow.main.core.BaseRepository
 import com.qflow.main.core.Failure
+import com.qflow.main.domain.adapters.QueueAdapter
 import com.qflow.main.domain.adapters.UserAdapter
 import com.qflow.main.domain.local.database.AppDatabase
 import com.qflow.main.domain.local.database.user.UserDB
+import com.qflow.main.domain.server.models.QueueServerModel
 import com.qflow.main.domain.server.models.UserServerModel
 import com.qflow.main.usecases.Either
 
 interface QueueRepository {
 
-    //Add repository functions declaration
-    //Examples from UserRepo: fun signIn(email: String, pass: String): Either<Failure, String>
+    fun createQueue(
+        name: String,
+        description: String,
+        capacity: Integer,
+        business_associated: String,
+        date_created: String,
+        date_finished: String,
+        is_locked: Boolean
+    ): Either<Failure, String>
 
     class General
     constructor(
-        private val appDatabase: AppDatabase,
-        //private val queueAdapter: QueueAdapter,       //Todo add QueueAdapter
+        private val appDatabase: AppDatabase,       //todo Add local DB for queue ?
+        private val queueAdapter: QueueAdapter,
         private val firebasedb: FirebaseFirestore,
         private val firebaseAuth: FirebaseAuth
-    ) : BaseRepository(), UserRepository {
+    ) : BaseRepository(), UserRepository, QueueRepository {
 
-        /*override fun createUser(  //Todo create Queue (CREATORS DEBUG)
-            username: String,
-            selectedPass: String,
-            email: String,
-            nameLastName: String
+        override fun createQueue(       //todo create UserCase
+            name: String,
+            description: String,
+            capacity: Integer,
+            business_associated: String,
+            date_created: String,
+            date_finished: String,
+            is_locked: Boolean
         ): Either<Failure, String> {
 
-            val userMap =
-                UserServerModel(username, selectedPass, email, nameLastName).createMap()
+            val queueMap =
+                QueueServerModel(name, description, capacity, business_associated,
+                                 date_created, date_finished, is_locked).createMap()
             //Storing into Firestore
-            val taskFirebase = firebasedb.collection("users")
-                .add(userMap)
+            val taskFirebase = firebasedb.collection("queue")
+                .add(queueMap)
 
             return if(taskFirebase.isSuccessful){
                 val idFire = taskFirebase.result?.id
@@ -47,7 +60,7 @@ interface QueueRepository {
                         ContentValues.TAG,
                         "DocumentSnapshot added with ID: " + taskFirebase.result?.id
                     )
-                    val localUser =
+                    /*val localUser =
                         taskFirebase.result?.id?.let {
                             UserDB(
                                 id_firebase = it,
@@ -56,7 +69,7 @@ interface QueueRepository {
                         }
                     if (localUser != null) {
                         appDatabase.userDatabaseDao.insert(localUser)
-                    }
+                    }*/
                     Either.Right(idFire)
                 }
             }
@@ -67,7 +80,7 @@ interface QueueRepository {
                 )
                 Either.Left(Failure.NetworkConnection)
             }
-        }*/
+        }
 
         /*override fun signIn(email: String,pass: String): Either<Failure, String> {    //Todo joinQueue
             val task = firebaseAuth.signInWithEmailAndPassword(email, pass)

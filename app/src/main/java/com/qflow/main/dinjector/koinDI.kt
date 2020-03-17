@@ -3,9 +3,11 @@ package com.qflow.main.dinjector
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.FirebaseFirestoreSettings
+import com.qflow.main.domain.adapters.QueueAdapter
 import com.qflow.main.domain.local.database.AppDatabase
 import com.qflow.main.domain.adapters.UserAdapter
 import com.qflow.main.domain.server.ApiService
+import com.qflow.main.repository.QueueRepository
 import com.qflow.main.repository.UserRepository
 import com.qflow.main.usecases.user.CreateUser
 import com.qflow.main.usecases.user.LoginCase
@@ -38,8 +40,10 @@ val fireBaseModule = module {
 val userModule = module {
 
     single<UserRepository> { UserRepository.General(get(), get(), get(), get()) }
+    single<QueueRepository> { QueueRepository.General(get(), get(), get(), get()) }
 
     single { UserAdapter }
+    single { QueueAdapter }
 
     viewModel { LoginViewModel(get()) }
     viewModel { SignUpViewModel(get()) }
