@@ -16,7 +16,6 @@ import kotlinx.android.synthetic.creators.fragment_signup.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
-
 class SignUpFragment : Fragment() {
 
     private val viewModel: SignUpViewModel by viewModel()
@@ -37,15 +36,16 @@ class SignUpFragment : Fragment() {
 
     private fun initializeListeners() {
         accept_signUp.setOnClickListener {
-            val selectedCIF=_CIF.text.toString()
             val selectedUsername = username_SignUp.text.toString()
             val selectedPass = password.text.toString()
             val selectedRepeatPass = repeat_Password.text.toString()
             val selectedEmail = email_SignUp.text.toString()
             val selectedNameLastName = name_lastName.text.toString()
+            val selectedCIF = _CIF.text.toString()
+            val selectedLocation = location.text.toString()
             viewModel.saveUserInDatabase(
-                selectedCIF,selectedUsername, selectedPass, selectedRepeatPass,
-                selectedEmail, selectedNameLastName
+                selectedUsername, selectedPass, selectedRepeatPass,
+                selectedEmail, selectedNameLastName, selectedCIF, selectedLocation
             )
         }
     }
