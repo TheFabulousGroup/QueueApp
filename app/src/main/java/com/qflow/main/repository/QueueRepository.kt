@@ -32,7 +32,7 @@ interface QueueRepository {
         private val queueAdapter: QueueAdapter,
         private val firebasedb: FirebaseFirestore,
         private val firebaseAuth: FirebaseAuth
-    ) : BaseRepository(), UserRepository, QueueRepository {
+    ) : BaseRepository(), QueueRepository {
 
         override fun createQueue(       //todo create UserCase
             name: String,

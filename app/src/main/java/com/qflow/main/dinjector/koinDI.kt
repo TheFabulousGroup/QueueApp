@@ -40,16 +40,21 @@ val fireBaseModule = module {
 val userModule = module {
 
     single<UserRepository> { UserRepository.General(get(), get(), get(), get()) }
-    single<QueueRepository> { QueueRepository.General(get(), get(), get(), get()) }
 
     single { UserAdapter }
-    single { QueueAdapter }
 
     viewModel { LoginViewModel(get()) }
     viewModel { SignUpViewModel(get()) }
 
 //    viewModel { ProfileViewModel(get(),get()) }
 
+}
+
+val queueModule = module{
+
+    single<QueueRepository> { QueueRepository.General(get(), get(), get(), get()) }
+
+    single { QueueAdapter }
 }
 
 val useCaseModule = module {
