@@ -41,11 +41,9 @@ class SignUpFragment : Fragment() {
             val selectedRepeatPass = repeat_Password.text.toString()
             val selectedEmail = email_SignUp.text.toString()
             val selectedNameLastName = name_lastName.text.toString()
-            val selectedCIF = _CIF.text.toString()
-            val selectedLocation = location.text.toString()
             viewModel.saveUserInDatabase(
                 selectedUsername, selectedPass, selectedRepeatPass,
-                selectedEmail, selectedNameLastName, selectedCIF, selectedLocation
+                selectedEmail, selectedNameLastName
             )
         }
     }
@@ -81,7 +79,6 @@ class SignUpFragment : Fragment() {
 
         when (renderState) {
             is SignUpFragmentScreenState.UserCreatedCorrectly -> {
-                //Toast.makeText(this.context, renderState.id.toString(), Toast.LENGTH_LONG).show()
                 view?.let {
                     view?.findNavController()!!.
                     navigate(LoginFragmentDirections
@@ -92,5 +89,4 @@ class SignUpFragment : Fragment() {
         }
 
     }
-
 }

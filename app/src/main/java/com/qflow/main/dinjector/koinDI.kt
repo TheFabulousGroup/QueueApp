@@ -7,6 +7,7 @@ import com.qflow.main.domain.local.database.AppDatabase
 import com.qflow.main.domain.adapters.UserAdapter
 import com.qflow.main.domain.server.ApiService
 import com.qflow.main.repository.UserRepository
+import com.qflow.main.usecases.user.CreateAdmin
 import com.qflow.main.usecases.user.CreateUser
 import com.qflow.main.usecases.user.LoginCase
 import com.qflow.main.utils.Constants
@@ -51,6 +52,7 @@ val userModule = module {
 val useCaseModule = module {
 
     factory { CreateUser(get()) }
+    factory { CreateAdmin(get()) }
     factory { LoginCase(get()) }
 
 }

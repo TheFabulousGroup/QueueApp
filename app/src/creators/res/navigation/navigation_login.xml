@@ -18,7 +18,7 @@
             app:exitAnim="@anim/nav_default_exit_anim" />
         <action
             android:id="@+id/action_loginFragment_to_signUpFragment"
-            app:destination="@+id/SignUpFragment" />
+            app:destination="@id/SignUpFragment" />
     </fragment>
     <fragment
         android:id="@+id/profileFragment"

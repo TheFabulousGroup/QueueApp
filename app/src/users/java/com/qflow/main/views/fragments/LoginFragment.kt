@@ -7,7 +7,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import com.qflow.main.R
@@ -15,7 +14,7 @@ import com.qflow.main.core.Failure
 import com.qflow.main.core.ScreenState
 import com.qflow.main.utils.enums.ValidationFailureType
 import com.qflow.main.views.viewmodels.LoginViewModel
-import kotlinx.android.synthetic.main.fragment_login.*
+import kotlinx.android.synthetic.users.fragment_login.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import com.qflow.main.views.screenstates.LoginFragmentScreenState as LoginFragmentScreenState
 
@@ -47,16 +46,22 @@ class LoginFragment : Fragment() {
     }
 
     private fun initializeButtons() {
-     btn_signIn.setOnClickListener {
-           view.let {
-               view?.findNavController()!!.
-               navigate(LoginFragmentDirections.actionLoginFragmentToProfileFragment("userId"))
-           }
-       }
+        btn_signIn.setOnClickListener {
+            btn_signIn.setOnClickListener {
+                val email = inputEmail.text.toString()
+                val pass = inputPass.text.toString()
+                viewModel.login(pass, email)
+            }
+        }
         btn_signUp.setOnClickListener {
-            view.let {view?.findNavController()!!
-                .navigate(LoginFragmentDirections
-                    .actionLoginFragmentToSignUpFragment()) }
+            view.let {
+                view?.findNavController()!!.navigate(
+                    LoginFragmentDirections
+                        .actionLoginFragmentToSignUpFragment()
+                )
+
+                )
+            }
         }
     }
 
@@ -66,7 +71,7 @@ class LoginFragment : Fragment() {
                 when (failure.validationFailureType) {
                     ValidationFailureType.EMAIL_OR_PASSWORD_EMPTY -> {
                         //TODO añadir aqui que hacer cuando el validador de fallo
-                        Log.w(TAG,"Email or password are empty, please check")
+
                     }
                 }
             }
@@ -89,11 +94,12 @@ class LoginFragment : Fragment() {
             is LoginFragmentScreenState.LoginSuccessful -> {
                 //Toast.makeText(this.context, renderState.id.toString(), Toast.LENGTH_LONG).show()
                 view?.let {
-                    view?.findNavController()!!
-                        .navigate(
-                            LoginFragmentDirections
-                                .actionLoginFragmentToProfileFragment("userId")
-                        )
+                    view?.findNavController()!!.navigate(
+                        LoginFragmentDirections
+                            .actionLoginFragmentToProfileFragment(renderState.id)
+                    )
+
+                    )
                 }
             }
         }

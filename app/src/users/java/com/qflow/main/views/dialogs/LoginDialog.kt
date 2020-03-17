@@ -17,7 +17,7 @@ class LoginDialog(override val loginViewModel: LoginViewModel) : LoginDialogsInt
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val rootView:View=inflater.inflate(R.layout.activity_login, container, false)
+        val rootView:View=inflater.inflate(R.layout.dialog_apprender, container, false)
         val textUsername=rootView.findViewById<EditText>(R.id.inputEmail)
         val textPassword=rootView.findViewById<EditText>(R.id.inputPass)
         val submitButton=rootView.findViewById<Button>(R.id.btn_signUp)

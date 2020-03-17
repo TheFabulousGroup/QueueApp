@@ -7,22 +7,17 @@ import com.qflow.main.usecases.UseCase
 import com.qflow.main.utils.enums.ValidationFailureType
 import kotlinx.coroutines.CoroutineScope
 
-/**
- * UseCaseCreateUserInDatabase
- * */
-class CreateUser(private val userRepository: UserRepository) :
-    UseCase<String, CreateUser.Params, CoroutineScope>() {
+class CreateAdmin(private val userRepository: UserRepository) :
+    UseCase<String, CreateAdmin.Params, CoroutineScope>() {
     override suspend fun run(params: Params): Either<Failure, String> {
-
         return when (val result = validPassword(params.selectedPass, params.selectedRepeatPass)) {
             is Either.Left -> Either.Left(result.a)
             is Either.Right -> {
-                userRepository.createUser(
+                userRepository.createAdmin(
                     params.username,
                     params.selectedPass,
                     params.selectedEmail,
-                    params.selectedNameLastName
-                )
+                    params.selectedNameLastName)
             }
         }
     }
@@ -35,8 +30,11 @@ class CreateUser(private val userRepository: UserRepository) :
     }
 
     class Params(
-        val username: String, val selectedPass: String, val selectedRepeatPass: String,
-        val selectedNameLastName: String, val selectedEmail: String
+        val username: String,
+        val selectedPass: String,
+        val selectedRepeatPass: String,
+        val selectedNameLastName: String,
+        val selectedEmail: String
     )
 
 }
