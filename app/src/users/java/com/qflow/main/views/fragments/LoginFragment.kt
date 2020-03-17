@@ -1,6 +1,8 @@
 package com.qflow.main.views.fragments
 
+import android.content.ContentValues.TAG
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -45,9 +47,13 @@ class LoginFragment : Fragment() {
     }
 
     private fun initializeButtons() {
-//        btn_login.setOnClickListener {
-////            viewModel.login()
-//        }
+        btn_signIn.setOnClickListener {
+            view.let {
+                val email = inputEmail.text.toString()
+                val pass = inputPass.text.toString()
+                viewModel.login(pass, email)
+            }
+        }
         btn_signUp.setOnClickListener {
             view.let {view?.findNavController()!!
                 .navigate(LoginFragmentDirections
@@ -61,13 +67,12 @@ class LoginFragment : Fragment() {
                 when (failure.validationFailureType) {
                     ValidationFailureType.EMAIL_OR_PASSWORD_EMPTY -> {
                         //TODO añadir aqui que hacer cuando el validador de fallo
-
+                        Log.w(TAG,"Email or password are empty, please check")
                     }
                 }
             }
         }
     }
-
 
     private fun updateUI(screenState: ScreenState<LoginFragmentScreenState>?) {
 
@@ -82,17 +87,19 @@ class LoginFragment : Fragment() {
 
         when (renderState) {
             is LoginFragmentScreenState.LoginSuccessful -> {
-                Toast.makeText(this.context, renderState.id.toString(), Toast.LENGTH_LONG).show()
+                view?.let {
+                    view?.findNavController()!!
+                        .navigate(
+                            LoginFragmentDirections
+                                .actionLoginFragmentToProfileFragment(renderState.id)
+                        )
+                }
             }
         }
-
     }
-
     private fun initializeObservers() {
         viewModel.screenState.observe(viewLifecycleOwner, Observer {
             updateUI(it)
         })
     }
-
-
 }
