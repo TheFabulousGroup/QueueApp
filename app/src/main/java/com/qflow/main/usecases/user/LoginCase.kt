@@ -21,11 +21,7 @@ class LoginCase(private val userRepository: UserRepository) :
             is Either.Right -> userRepository.signIn(params.selectedPass, params.selectedMail)
         }
     }
-    /**
-    * Check email and pass
-    * @email
-    * @pass
-    * */
+
     private fun validate(email: String, pass: String): Either<Failure,Unit> {
         return when(email.isEmpty() || pass.isEmpty()){
             true -> Either.Left(Failure.ValidationFailure(ValidationFailureType.EMAIL_OR_PASSWORD_EMPTY))

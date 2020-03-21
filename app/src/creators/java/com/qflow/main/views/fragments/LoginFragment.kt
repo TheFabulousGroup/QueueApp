@@ -1,5 +1,6 @@
 package com.qflow.main.views.fragments
 
+import android.annotation.SuppressLint
 import android.content.ContentValues.TAG
 import android.os.Bundle
 import android.util.Log
@@ -11,6 +12,7 @@ import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import com.qflow.main.R
+import com.qflow.main.R.color.errorRedColor
 import com.qflow.main.core.Failure
 import com.qflow.main.core.ScreenState
 import com.qflow.main.utils.enums.ValidationFailureType
@@ -61,13 +63,16 @@ class LoginFragment : Fragment() {
         }
     }
 
+    @SuppressLint("ResourceAsColor")
     private fun handleErrors(failure: Failure?) {
         when (failure) {
             is Failure.ValidationFailure -> {
                 when (failure.validationFailureType) {
                     ValidationFailureType.EMAIL_OR_PASSWORD_EMPTY -> {
-                        //TODO añadir aqui que hacer cuando el validador de fallo
-                        Log.w(TAG,"Email or password are empty, please check")
+                        Toast.makeText(this.context,"email or password empty",
+                            Toast.LENGTH_LONG).show()
+                        inputEmail.background.setTint(errorRedColor)
+                        inputPass.background.setTint(errorRedColor)
                     }
                 }
             }

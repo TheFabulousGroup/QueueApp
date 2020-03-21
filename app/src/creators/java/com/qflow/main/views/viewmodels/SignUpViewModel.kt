@@ -34,9 +34,7 @@ class SignUpViewModel(
         selectedEmail: String,
         selectedPass: String,
         selectedRepeatPass: String,
-        selectedNameLastName: String,
-        selectedCIF: String,
-        selectedLocation: String
+        selectedNameLastName: String
 
     ) {
         //Execute add user to database
