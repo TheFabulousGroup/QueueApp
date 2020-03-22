@@ -65,8 +65,8 @@ class SignUpFragment : Fragment() {
                     ValidationFailureType.PASSWORDS_NOT_THE_SAME -> {
                         Toast.makeText(
                             this.context, "Passwords do not match", Toast.LENGTH_LONG).show()
-                        password.background.setTint(R.color.errorRedColor)
-                        repeat_Password.background.setTint(R.color.errorRedColor)
+                        password.background.setTint(resources.getColor(R.color.errorRedColor))
+                        repeat_Password.background.setTint(resources.getColor(R.color.errorRedColor))
                     }
                 }
             }

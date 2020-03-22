@@ -1,5 +1,6 @@
 package com.qflow.main.views.fragments
 
+import android.annotation.SuppressLint
 import android.content.ContentValues.TAG
 import android.os.Bundle
 import android.util.Log
@@ -16,6 +17,9 @@ import com.qflow.main.core.ScreenState
 import com.qflow.main.utils.enums.ValidationFailureType
 import com.qflow.main.views.viewmodels.LoginViewModel
 import kotlinx.android.synthetic.main.fragment_login.*
+import kotlinx.android.synthetic.main.fragment_signin.*
+import kotlinx.android.synthetic.users.fragment_signup.*
+import kotlinx.android.synthetic.users.fragment_signup.password
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import com.qflow.main.views.screenstates.LoginFragmentScreenState as LoginFragmentScreenState
 
@@ -66,8 +70,10 @@ class LoginFragment : Fragment() {
             is Failure.ValidationFailure -> {
                 when (failure.validationFailureType) {
                     ValidationFailureType.EMAIL_OR_PASSWORD_EMPTY -> {
-                        //TODO añadir aqui que hacer cuando el validador de fallo
-                        Log.w(TAG,"Email or password are empty, please check")
+                        Toast.makeText(
+                            this.context, "Email or password empty", Toast.LENGTH_LONG).show()
+                        inputPass.background.setTint(resources.getColor(R.color.errorRedColor))
+                        inputEmail.background.setTint(resources.getColor(R.color.errorRedColor))
                     }
                 }
             }
