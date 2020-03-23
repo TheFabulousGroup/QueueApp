@@ -95,7 +95,7 @@ interface UserRepository {
                 Either.Right(firebaseAuth.currentUser!!.uid)
 
             } else {
-                Log.w(TAG, "createUserWithEmail:failure", task.exception)
+                Log.w(TAG, "SignInFailure", task.exception)
                 Either.Left(Failure.NetworkConnection)
             }
 

@@ -24,20 +24,18 @@ class LoginViewModel(
         get() = _screenState
 
     private var job = Job()
-    private var coroutineScope = CoroutineScope(Dispatchers.Default + job)
+     private var coroutineScope = CoroutineScope(Dispatchers.Default + job)
 
     fun login(
         selectedPass: String,
         selectedMail: String
     ) {
-
         //Execute add user to database
         userLogin.execute(
             { it.either(::handleFailure, ::handleUserCreated) },
             LoginCase.Params(selectedPass, selectedMail),
             this.coroutineScope
         )
-
     }
 
     private fun handleUserCreated(id: String) {

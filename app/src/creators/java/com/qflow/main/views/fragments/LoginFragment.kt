@@ -49,28 +49,31 @@ class LoginFragment : Fragment() {
     }
 
     private fun initializeButtons() {
-     btn_signIn.setOnClickListener {
-         btn_signIn.setOnClickListener {
-             val email = inputEmail.text.toString()
-             val pass = inputPass.text.toString()
-             viewModel.login(pass, email)
-         }
-       }
+        btn_signIn.setOnClickListener {
+            val email = inputEmail.text.toString()
+            val pass = inputPass.text.toString()
+            viewModel.login(pass, email)
+        }
         btn_signUp.setOnClickListener {
-            view.let {view?.findNavController()!!
-                .navigate(LoginFragmentDirections
-                    .actionLoginFragmentToSignUpFragment()) }
+            view.let {
+                view?.findNavController()!!
+                    .navigate(
+                        LoginFragmentDirections
+                            .actionLoginFragmentToSignUpFragment()
+                    )
+            }
         }
     }
-
     @SuppressLint("ResourceAsColor")
     private fun handleErrors(failure: Failure?) {
         when (failure) {
             is Failure.ValidationFailure -> {
                 when (failure.validationFailureType) {
                     ValidationFailureType.EMAIL_OR_PASSWORD_EMPTY -> {
-                        Toast.makeText(this.context,"email or password empty",
-                            Toast.LENGTH_LONG).show()
+                        Toast.makeText(
+                            this.context, "email or password empty",
+                            Toast.LENGTH_LONG
+                        ).show()
                         inputEmail.background.setTint(errorRedColor)
                         inputPass.background.setTint(errorRedColor)
                     }
@@ -79,9 +82,7 @@ class LoginFragment : Fragment() {
         }
     }
 
-
     private fun updateUI(screenState: ScreenState<LoginFragmentScreenState>?) {
-
         when (screenState) {
             ScreenState.Loading -> {
             }
@@ -90,15 +91,12 @@ class LoginFragment : Fragment() {
     }
 
     private fun renderScreenState(renderState: LoginFragmentScreenState) {
-
         when (renderState) {
             is LoginFragmentScreenState.LoginSuccessful -> {
-                //Toast.makeText(this.context, renderState.id.toString(), Toast.LENGTH_LONG).show()
                 view?.let {
                     view?.findNavController()!!
                         .navigate(
-                            LoginFragmentDirections
-                                .actionLoginFragmentToProfileFragment(renderState.id)
+                            LoginFragmentDirections.actionLoginFragmentToProfileFragment(renderState.id)
                         )
                 }
             }
