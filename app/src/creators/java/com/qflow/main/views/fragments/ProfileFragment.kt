@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 
+=======
+>>>>>>> dev
 package com.qflow.main.views.fragments
 
 import android.content.Intent
@@ -17,8 +20,6 @@ import kotlinx.android.synthetic.main.item_profile.*
 /**
  * Old view used for the signin (pending to be deleted)
  * */
-
-
 class ProfileFragment : Fragment() {
 
     private lateinit var viewModel: ProfileViewModel

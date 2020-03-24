@@ -4,8 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.qflow.main.core.BaseViewModel
 import com.qflow.main.core.ScreenState
-import com.qflow.main.usecases.user.CreateAdmin
-
+import com.qflow.main.usecases.creators.CreateAdmin
 import com.qflow.main.views.screenstates.SignUpFragmentScreenState
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -49,7 +48,6 @@ class SignUpViewModel(
             ), this.coroutineScope
         )
     }
-
     private fun handleUserCreated(id: String) {
         this._screenState.value =
             ScreenState.Render(SignUpFragmentScreenState.UserCreatedCorrectly(id))

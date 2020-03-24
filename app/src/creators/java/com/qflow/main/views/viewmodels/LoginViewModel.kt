@@ -24,7 +24,9 @@ class LoginViewModel(
         get() = _screenState
 
     private var job = Job()
-     private var coroutineScope = CoroutineScope(Dispatchers.Default + job)
+    private var coroutineScope = CoroutineScope(Dispatchers.Default + job)
+    private var coroutineScope = CoroutineScope(Dispatchers.Default + job)
+
 
     fun login(
         selectedPass: String,

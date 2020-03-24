@@ -1,9 +1,11 @@
 package com.qflow.main.views.fragments
 
+
 import android.annotation.SuppressLint
 import android.content.ContentValues.TAG
 import android.os.Bundle
 import android.util.Log
+import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -61,21 +63,25 @@ class LoginFragment : Fragment() {
                         LoginFragmentDirections
                             .actionLoginFragmentToSignUpFragment()
                     )
+                }
             }
         }
     }
+
     @SuppressLint("ResourceAsColor")
+
     private fun handleErrors(failure: Failure?) {
         when (failure) {
             is Failure.ValidationFailure -> {
                 when (failure.validationFailureType) {
                     ValidationFailureType.EMAIL_OR_PASSWORD_EMPTY -> {
                         Toast.makeText(
-                            this.context, "email or password empty",
+                         this.context, "email or password empty",
                             Toast.LENGTH_LONG
                         ).show()
                         inputEmail.background.setTint(errorRedColor)
                         inputPass.background.setTint(errorRedColor)
+                    //TODO añadir aqui que hacer cuando el validador de fallo
                     }
                 }
             }
@@ -83,6 +89,7 @@ class LoginFragment : Fragment() {
     }
 
     private fun updateUI(screenState: ScreenState<LoginFragmentScreenState>?) {
+
         when (screenState) {
             ScreenState.Loading -> {
             }

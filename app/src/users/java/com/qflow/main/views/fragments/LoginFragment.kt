@@ -1,12 +1,11 @@
 package com.qflow.main.views.fragments
 
-import android.content.ContentValues.TAG
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import com.qflow.main.R
@@ -14,7 +13,7 @@ import com.qflow.main.core.Failure
 import com.qflow.main.core.ScreenState
 import com.qflow.main.utils.enums.ValidationFailureType
 import com.qflow.main.views.viewmodels.LoginViewModel
-import kotlinx.android.synthetic.users.fragment_login.*
+import kotlinx.android.synthetic.main.fragment_login.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import com.qflow.main.views.screenstates.LoginFragmentScreenState as LoginFragmentScreenState
 
@@ -47,7 +46,7 @@ class LoginFragment : Fragment() {
 
     private fun initializeButtons() {
         btn_signIn.setOnClickListener {
-            btn_signIn.setOnClickListener {
+            view.let {
                 val email = inputEmail.text.toString()
                 val pass = inputPass.text.toString()
                 viewModel.login(pass, email)
@@ -55,12 +54,11 @@ class LoginFragment : Fragment() {
         }
         btn_signUp.setOnClickListener {
             view.let {
-                view?.findNavController()!!.navigate(
-                    LoginFragmentDirections
-                        .actionLoginFragmentToSignUpFragment()
-                )
-
-                )
+                view?.findNavController()!!
+                    .navigate(
+                        LoginFragmentDirections
+                            .actionLoginFragmentToSignUpFragment()
+                    )
             }
         }
     }
@@ -70,14 +68,16 @@ class LoginFragment : Fragment() {
             is Failure.ValidationFailure -> {
                 when (failure.validationFailureType) {
                     ValidationFailureType.EMAIL_OR_PASSWORD_EMPTY -> {
-                        //TODO añadir aqui que hacer cuando el validador de fallo
-
+                        Toast.makeText(
+                            this.context, "Email or password empty", Toast.LENGTH_LONG
+                        ).show()
+                        inputPass.background.setTint(resources.getColor(R.color.errorRedColor))
+                        inputEmail.background.setTint(resources.getColor(R.color.errorRedColor))
                     }
                 }
             }
         }
     }
-
 
     private fun updateUI(screenState: ScreenState<LoginFragmentScreenState>?) {
 
@@ -92,14 +92,12 @@ class LoginFragment : Fragment() {
 
         when (renderState) {
             is LoginFragmentScreenState.LoginSuccessful -> {
-                //Toast.makeText(this.context, renderState.id.toString(), Toast.LENGTH_LONG).show()
                 view?.let {
-                    view?.findNavController()!!.navigate(
-                        LoginFragmentDirections
-                            .actionLoginFragmentToProfileFragment(renderState.id)
-                    )
-
-                    )
+                    view?.findNavController()!!
+                        .navigate(
+                            LoginFragmentDirections
+                                .actionLoginFragmentToProfileFragment(renderState.id)
+                        )
                 }
             }
         }

@@ -4,16 +4,19 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.navigation.findNavController
 import com.qflow.main.R
-import com.qflow.main.core.Failure
 import com.qflow.main.core.ScreenState
+import com.qflow.main.views.screenstates.LoginFragmentScreenState
+import com.qflow.main.views.viewmodels.SignUpViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import androidx.lifecycle.Observer
+import androidx.navigation.findNavController
+import com.qflow.main.core.Failure
 import com.qflow.main.utils.enums.ValidationFailureType
 import com.qflow.main.views.screenstates.SignUpFragmentScreenState
-import com.qflow.main.views.viewmodels.SignUpViewModel
-import kotlinx.android.synthetic.creators.fragment_signup.*
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import kotlinx.android.synthetic.users.fragment_signup.*
 
 
 class SignUpFragment : Fragment() {
@@ -52,13 +55,16 @@ class SignUpFragment : Fragment() {
         viewModel.failure.observe(::getLifecycle, ::handleErrors)
     }
 
+    @SuppressLint("ResourceAsColor")
     private fun handleErrors(failure: Failure?) {
         when (failure) {
             is Failure.ValidationFailure -> {
                 when (failure.validationFailureType) {
                     ValidationFailureType.PASSWORDS_NOT_THE_SAME -> {
-                        //TODO añadir aqui que hacer cuando el validador de fallo
-
+                        Toast.makeText(
+                            this.context, "Passwords do not match", Toast.LENGTH_LONG).show()
+                        password.background.setTint(resources.getColor(R.color.errorRedColor))
+                        repeat_Password.background.setTint(resources.getColor(R.color.errorRedColor))
                     }
                 }
             }
@@ -78,14 +84,15 @@ class SignUpFragment : Fragment() {
 
         when (renderState) {
             is SignUpFragmentScreenState.UserCreatedCorrectly -> {
+                //Toast.makeText(this.context, renderState.id.toString(), Toast.LENGTH_LONG).show()
                 view?.let {
-                    view?.findNavController()!!.navigate(
-                        SignUpFragmentDirections.
-                        actionSignUpFragmentToProfileFragment(renderState.id)
-                    )
+                    view?.findNavController()!!
+                        .navigate(
+                            LoginFragmentDirections
+                                .actionLoginFragmentToProfileFragment(renderState.id)
+                        )
                 }
             }
         }
-
     }
 }
