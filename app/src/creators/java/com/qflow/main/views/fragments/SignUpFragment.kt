@@ -1,5 +1,6 @@
 package com.qflow.main.views.fragments
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,16 +9,13 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.qflow.main.R
 import com.qflow.main.core.ScreenState
-import com.qflow.main.views.screenstates.LoginFragmentScreenState
 import com.qflow.main.views.viewmodels.SignUpViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import com.qflow.main.core.Failure
 import com.qflow.main.utils.enums.ValidationFailureType
 import com.qflow.main.views.screenstates.SignUpFragmentScreenState
-import kotlinx.android.synthetic.users.fragment_signup.*
-
+import kotlinx.android.synthetic.creators.fragment_signup.*
 
 class SignUpFragment : Fragment() {
 
@@ -32,6 +30,7 @@ class SignUpFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         initializeListeners()
         initializeObservers()
     }
@@ -94,5 +93,7 @@ class SignUpFragment : Fragment() {
                 }
             }
         }
+
     }
+
 }

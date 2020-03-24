@@ -1,10 +1,6 @@
 package com.qflow.main.views.fragments
 
-
 import android.annotation.SuppressLint
-import android.content.ContentValues.TAG
-import android.os.Bundle
-import android.util.Log
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -14,7 +10,6 @@ import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import com.qflow.main.R
-import com.qflow.main.R.color.errorRedColor
 import com.qflow.main.core.Failure
 import com.qflow.main.core.ScreenState
 import com.qflow.main.utils.enums.ValidationFailureType
@@ -57,36 +52,29 @@ class LoginFragment : Fragment() {
             viewModel.login(pass, email)
         }
         btn_signUp.setOnClickListener {
-            view.let {
-                view?.findNavController()!!
-                    .navigate(
-                        LoginFragmentDirections
-                            .actionLoginFragmentToSignUpFragment()
-                    )
-                }
-            }
+            view.let {view?.findNavController()!!
+                .navigate(LoginFragmentDirections
+                    .actionLoginFragmentToSignUpFragment()) }
         }
     }
 
     @SuppressLint("ResourceAsColor")
-
     private fun handleErrors(failure: Failure?) {
         when (failure) {
             is Failure.ValidationFailure -> {
                 when (failure.validationFailureType) {
                     ValidationFailureType.EMAIL_OR_PASSWORD_EMPTY -> {
                         Toast.makeText(
-                         this.context, "email or password empty",
-                            Toast.LENGTH_LONG
+                            this.context, "Email or password empty", Toast.LENGTH_LONG
                         ).show()
-                        inputEmail.background.setTint(errorRedColor)
-                        inputPass.background.setTint(errorRedColor)
-                    //TODO añadir aqui que hacer cuando el validador de fallo
+                        inputPass.background.setTint(resources.getColor(R.color.errorRedColor))
+                        inputEmail.background.setTint(resources.getColor(R.color.errorRedColor))
                     }
                 }
             }
         }
     }
+
 
     private fun updateUI(screenState: ScreenState<LoginFragmentScreenState>?) {
 
