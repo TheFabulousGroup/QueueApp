@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-
-=======
->>>>>>> dev
 package com.qflow.main.views.fragments
 
 import android.content.Intent
