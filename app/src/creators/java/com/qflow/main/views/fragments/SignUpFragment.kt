@@ -30,7 +30,6 @@ class SignUpFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         initializeListeners()
         initializeObservers()
     }
@@ -83,7 +82,6 @@ class SignUpFragment : Fragment() {
 
         when (renderState) {
             is SignUpFragmentScreenState.UserCreatedCorrectly -> {
-                //Toast.makeText(this.context, renderState.id.toString(), Toast.LENGTH_LONG).show()
                 view?.let {
                     view?.findNavController()!!
                         .navigate(
@@ -93,7 +91,5 @@ class SignUpFragment : Fragment() {
                 }
             }
         }
-
     }
-
 }

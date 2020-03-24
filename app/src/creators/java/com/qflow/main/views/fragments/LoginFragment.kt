@@ -35,8 +35,8 @@ class LoginFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initializeObservers()
         initializeListeners()
+        initializeObservers()
     }
 
     private fun initializeListeners() {
@@ -77,7 +77,6 @@ class LoginFragment : Fragment() {
 
 
     private fun updateUI(screenState: ScreenState<LoginFragmentScreenState>?) {
-
         when (screenState) {
             ScreenState.Loading -> {
             }

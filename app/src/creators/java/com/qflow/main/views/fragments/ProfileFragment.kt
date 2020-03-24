@@ -13,38 +13,34 @@ import com.qflow.main.views.viewmodels.ProfileViewModel
 import kotlinx.android.synthetic.main.item_profile.*
 
 
+
 /**
  * Old view used for the signin (pending to be deleted)
  * */
+
 class ProfileFragment : Fragment() {
 
     private lateinit var viewModel: ProfileViewModel
-    private lateinit var binding: ProfileFragmentBinding
+    //private lateinit var binding: ProfileFragmentBinding
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
+        inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = DataBindingUtil.inflate(
-            inflater,
-            R.layout.profile_fragment,
-            container,
-            false
-        )
-        //Example of how to get vars other view
+        return inflater.inflate(R.layout.profile_fragment, container, false)
+    }
+    //Example of how to get vars other view
 //        val args = arguments?.let { ProfileFragmentArgs.fromBundle(it) }
 
-        binding.lifecycleOwner = this
-        binding.profileViewModel = viewModel
-        return binding.root
+    /*binding.lifecycleOwner = this
+    binding.profileViewModel = viewModel
+    return binding.root*/
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        progressPercent.setOnClickListener{
-            shareSuccess()
-        }
+        //initializeListeners()
+        //initializeObservers()
     }
 
     // Creating our Share Intent
@@ -60,3 +56,4 @@ class ProfileFragment : Fragment() {
         startActivity(getShareIntent())
     }
 }
+
