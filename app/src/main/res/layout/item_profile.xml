@@ -8,7 +8,7 @@
     <ScrollView
         android:id="@+id/scroll_queue"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="111dp"
         android:scrollbarThumbHorizontal="@color/primaryDarkColor"
         android:scrollbarThumbVertical="@color/primaryDarkColor"
         android:scrollbars="horizontal|vertical">
@@ -23,34 +23,31 @@
                 android:layout_width="match_parent"
                 android:layout_height="129dp"
                 android:layout_marginTop="20dp"
-                android:orientation="horizontal"
-                android:weightSum="3">
+                android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/queue"
-                    android:layout_width="196dp"
-                    android:layout_height="68dp"
+                    android:layout_width="597dp"
+                    android:layout_height="100dp"
                     android:layout_gravity="center|start|top|fill_vertical"
                     android:layout_marginLeft="10dp"
                     android:background="@color/primaryTextColor"
-                    android:paddingLeft="10dp"></TextView>
+                    android:paddingLeft="10dp"
+                    android:scrollbarThumbHorizontal="@color/primaryDarkColor"
+                    android:scrollbarThumbVertical="@color/primaryDarkColor">
 
-                <Button
-                    android:id="@+id/btn_add"
-                    android:layout_width="71dp"
-                    android:layout_height="63dp"
-                    android:layout_marginRight="10dp"
-                    android:background="@drawable/oval_button"
-                    tools:text="ADD"></Button>
-
-                <Button
-                    android:layout_width="67dp"
-                    android:layout_height="63dp"
-                    android:layout_marginRight="10dp"
-                    android:background="@drawable/oval_button"
-                    tools:text="down"></Button>
+                </TextView>
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
+
+    <Button
+        android:id="@+id/btn_add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@drawable/oval_button"
+        tools:text="ADD"></Button>
+
 
 </LinearLayout>
