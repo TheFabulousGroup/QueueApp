@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -13,10 +14,7 @@
         android:layout_marginBottom="8dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toTopOf="@+id/email_SignUp"
-        tools:layout_editor_absoluteX="1dp">
-
-
-    </LinearLayout>
+        tools:layout_editor_absoluteX="1dp"></LinearLayout>
 
     <EditText
         android:id="@+id/email_SignUp"
