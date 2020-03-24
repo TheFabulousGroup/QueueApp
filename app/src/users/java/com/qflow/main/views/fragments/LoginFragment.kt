@@ -1,8 +1,6 @@
 package com.qflow.main.views.fragments
 
-import android.content.ContentValues.TAG
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -55,9 +53,13 @@ class LoginFragment : Fragment() {
             }
         }
         btn_signUp.setOnClickListener {
-            view.let {view?.findNavController()!!
-                .navigate(LoginFragmentDirections
-                    .actionLoginFragmentToSignUpFragment()) }
+            view.let {
+                view?.findNavController()!!
+                    .navigate(
+                        LoginFragmentDirections
+                            .actionLoginFragmentToSignUpFragment()
+                    )
+            }
         }
     }
 
@@ -66,8 +68,11 @@ class LoginFragment : Fragment() {
             is Failure.ValidationFailure -> {
                 when (failure.validationFailureType) {
                     ValidationFailureType.EMAIL_OR_PASSWORD_EMPTY -> {
-                        //TODO añadir aqui que hacer cuando el validador de fallo
-                        Log.w(TAG,"Email or password are empty, please check")
+                        Toast.makeText(
+                            this.context, "Email or password empty", Toast.LENGTH_LONG
+                        ).show()
+                        inputPass.background.setTint(resources.getColor(R.color.errorRedColor))
+                        inputEmail.background.setTint(resources.getColor(R.color.errorRedColor))
                     }
                 }
             }
@@ -97,9 +102,12 @@ class LoginFragment : Fragment() {
             }
         }
     }
+
     private fun initializeObservers() {
         viewModel.screenState.observe(viewLifecycleOwner, Observer {
             updateUI(it)
         })
     }
+
+
 }

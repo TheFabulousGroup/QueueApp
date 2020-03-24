@@ -1,0 +1,18 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/primaryColor</item>
+        <item name="colorPrimaryDark">@color/primaryDarkColor</item>
+        <item name="colorAccent">@color/primaryLightColor</item>
+    </style>
+
+    <style name="ProgressLevel" parent="Widget.AppCompat.ProgressBar.Horizontal">
+        <item name="android:layout_width">@dimen/avatarDimen</item>
+        <item name="android:layout_height">@dimen/avatarDimen</item>
+        <item name="android:background">@drawable/circle</item>
+        <item name="android:progressDrawable">@drawable/circular_progress_bar</item>
+    </style>
+
+</resources>

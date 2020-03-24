@@ -1,6 +1,5 @@
 package com.qflow.main.domain.server.models
 
-import javax.annotation.Nullable
 
 /**
  * This will represent the User however we have in firebase
@@ -12,8 +11,7 @@ class UserServerModel(
     val password: String,
     val email: String,
     val nameLastname: String,
-    val isAdmin: Boolean = false,
-    val profilePicture: String = ""
+    val isAdmin: Boolean = false
 ) {
 
 
@@ -21,12 +19,11 @@ class UserServerModel(
         val userFirebase = HashMap<String, Any>()
 
         userFirebase["email"] = this.email
-        userFirebase["is_admin"] = false
+        userFirebase["is_admin"] = this.isAdmin
         userFirebase["name_lastname"] = this.nameLastname
         userFirebase["password"] = this.password
         userFirebase["profile_picture"] = ""
         userFirebase["username"] = this.username
-
         return userFirebase;
     }
 

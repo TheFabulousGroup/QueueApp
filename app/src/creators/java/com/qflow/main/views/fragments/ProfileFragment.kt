@@ -16,7 +16,6 @@ import kotlinx.android.synthetic.main.item_profile.*
 /**
  * Old view used for the signin (pending to be deleted)
  * */
-
 class ProfileFragment : Fragment() {
 
     private lateinit var viewModel: ProfileViewModel

@@ -1,5 +1,6 @@
 package com.qflow.main.views.fragments
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -45,9 +46,11 @@ class LoginFragment : Fragment() {
     }
 
     private fun initializeButtons() {
-//        btn_login.setOnClickListener {
-////            viewModel.login()
-//        }
+        btn_signIn.setOnClickListener {
+            val email = inputEmail.text.toString()
+            val pass = inputPass.text.toString()
+            viewModel.login(pass, email)
+        }
         btn_signUp.setOnClickListener {
             view.let {view?.findNavController()!!
                 .navigate(LoginFragmentDirections
@@ -55,13 +58,17 @@ class LoginFragment : Fragment() {
         }
     }
 
+    @SuppressLint("ResourceAsColor")
     private fun handleErrors(failure: Failure?) {
         when (failure) {
             is Failure.ValidationFailure -> {
                 when (failure.validationFailureType) {
                     ValidationFailureType.EMAIL_OR_PASSWORD_EMPTY -> {
-                        //TODO añadir aqui que hacer cuando el validador de fallo
-
+                        Toast.makeText(
+                            this.context, "Email or password empty", Toast.LENGTH_LONG
+                        ).show()
+                        inputPass.background.setTint(resources.getColor(R.color.errorRedColor))
+                        inputEmail.background.setTint(resources.getColor(R.color.errorRedColor))
                     }
                 }
             }
@@ -79,13 +86,16 @@ class LoginFragment : Fragment() {
     }
 
     private fun renderScreenState(renderState: LoginFragmentScreenState) {
-
         when (renderState) {
             is LoginFragmentScreenState.LoginSuccessful -> {
-                Toast.makeText(this.context, renderState.id.toString(), Toast.LENGTH_LONG).show()
+                view?.let {
+                    view?.findNavController()!!
+                        .navigate(
+                            LoginFragmentDirections.actionLoginFragmentToProfileFragment(renderState.id)
+                        )
+                }
             }
         }
-
     }
 
     private fun initializeObservers() {
