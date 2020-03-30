@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import com.qflow.main.R
@@ -71,11 +72,15 @@ class LoginFragment : Fragment() {
                         Toast.makeText(
                             this.context, "Email or password empty", Toast.LENGTH_LONG
                         ).show()
-                        inputPass.background.setTint(resources.getColor(R.color.errorRedColor))
-                        inputEmail.background.setTint(resources.getColor(R.color.errorRedColor))
+                        this.context?.let { ContextCompat.getColor(it, R.color.errorRedColor) }?.let {
+                            inputPass.background.setTint(it)
+                            inputEmail.background.setTint(it)
+                        }
                     }
                 }
             }
+            is Failure.LoginNotSuccessful ->
+                Toast.makeText(this.context, "Login was not successful", Toast.LENGTH_SHORT).show()
         }
     }
 
