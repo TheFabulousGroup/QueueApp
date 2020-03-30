@@ -7,11 +7,8 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.qflow.main.core.BaseRepository
 import com.qflow.main.core.Failure
 import com.qflow.main.domain.adapters.QueueAdapter
-import com.qflow.main.domain.adapters.UserAdapter
 import com.qflow.main.domain.local.database.AppDatabase
-import com.qflow.main.domain.local.database.user.UserDB
 import com.qflow.main.domain.server.models.QueueServerModel
-import com.qflow.main.domain.server.models.UserServerModel
 import com.qflow.main.usecases.Either
 
 interface QueueRepository {
@@ -19,11 +16,8 @@ interface QueueRepository {
     fun createQueue(
         name: String,
         description: String,
-        capacity: Integer,
-        business_associated: String,
-        date_created: String,
-        date_finished: String,
-        is_locked: Boolean
+        capacity: String,
+        business_associated: String
     ): Either<Failure, String>
 
     class General
@@ -34,19 +28,18 @@ interface QueueRepository {
         private val firebaseAuth: FirebaseAuth
     ) : BaseRepository(), QueueRepository {
 
-        override fun createQueue(       //todo create UserCase
+        override fun createQueue(
             name: String,
             description: String,
-            capacity: Integer,
-            business_associated: String,
-            date_created: String,
+            capacity: String,
+            business_associated: String
+            /*date_created: String,
             date_finished: String,
-            is_locked: Boolean
+            is_locked: Boolean*/
         ): Either<Failure, String> {
 
             val queueMap =
-                QueueServerModel(name, description, capacity, business_associated,
-                                 date_created, date_finished, is_locked).createMap()
+                QueueServerModel(name, description, capacity.toInt(), business_associated).createMap()
             //Storing into Firestore
             val taskFirebase = firebasedb.collection("queue")
                 .add(queueMap)
