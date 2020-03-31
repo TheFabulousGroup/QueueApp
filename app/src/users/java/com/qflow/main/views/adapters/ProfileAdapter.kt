@@ -1,15 +1,18 @@
 package com.qflow.main.views.adapters
 
+
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.qflow.main.R
-import com.qflow.main.utils.TextViewHolder
-import kotlinx.android.synthetic.main.profile_fragment.view.*
 
-class ProfileAdapter:RecyclerView.Adapter<TextViewHolder>() {
-    var data = listOf<TextViewHolder>()
+
+class ProfileAdapter:RecyclerView.Adapter<ProfileAdapter.ViewHolder>() {
+
+    var data = listOf<Profile>()//¿Queue?
 
     set(value) {
         field = value
@@ -17,16 +20,31 @@ class ProfileAdapter:RecyclerView.Adapter<TextViewHolder>() {
     }
     override fun getItemCount()=data.size
 
-    override fun onBindViewHolder(holder: TextViewHolder, position: Int) {
+    override fun onBindViewHolder(holder:ViewHolder, position: Int) {
         val item = data[position]
-        holder.textView.toString()
+       holder.bind(item)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TextViewHolder {
-        val layoutInflater=LayoutInflater.from(parent.context)
-        val view = layoutInflater
-            .inflate(R.layout.item_profile, parent, false) as TextView
-        return TextViewHolder(view)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        return ViewHolder.from(parent)
     }
 
+    class ViewHolder(itemView: View):RecyclerView.ViewHolder(itemView) {
+        val textQ:TextView=itemView.findViewById(R.id.queue)
+        val textH:TextView = itemView.findViewById(R.id.historical)
+        fun bind(item:Queue){
+            val res = itemView.context.resources
+            textQ.text//= los valores de la  cola en
+            textH.text //= los valores de la cola historico
+        }
+        companion object {
+            fun from(parent: ViewGroup): ViewHolder {
+                val layoutInflater = LayoutInflater.from(parent.context)
+                val view = layoutInflater
+                    .inflate(R.layout.item_profile, parent, false)
+                return ViewHolder(view)
+            }
+        }
+
+    }
 }
