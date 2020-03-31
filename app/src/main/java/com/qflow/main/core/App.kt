@@ -2,8 +2,10 @@ package com.qflow.main.core
 
 import android.app.Activity
 import android.app.Application
+import android.content.Context
 import android.os.Bundle
 import android.os.Handler
+import com.google.firebase.FirebaseApp
 import com.google.firebase.firestore.FirebaseFirestore
 import com.qflow.main.dinjector.*
 import org.koin.android.ext.koin.androidContext
@@ -25,9 +27,7 @@ class App : Application(), KoinComponent, Application.ActivityLifecycleCallbacks
         super.onCreate()
         registerActivityLifecycleCallbacks(this)
 
-
         handlerPost = Handler()
-
 
         startKoin {
             androidLogger()

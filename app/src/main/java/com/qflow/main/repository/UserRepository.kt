@@ -84,7 +84,7 @@ interface UserRepository {
                     TAG,
                     "Error adding document"
                 )
-                Either.Left(Failure.NetworkConnection)
+                Either.Left(Failure.LoginNotSuccessful)
             }
         }
 

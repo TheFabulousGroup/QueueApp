@@ -10,7 +10,6 @@ import com.qflow.main.R
 
 import com.qflow.main.databinding.ActivityLoginBinding
 import com.qflow.main.repository.UserRepository
-import kotlinx.android.synthetic.main.fragment_login.*
 
 class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

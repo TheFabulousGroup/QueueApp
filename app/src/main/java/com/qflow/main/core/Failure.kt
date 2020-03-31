@@ -18,5 +18,7 @@ sealed class Failure {
     //Todo Ruben: Feature failure
     class NullResult : FeatureFailure()
     class ValidationFailure(val validationFailureType: ValidationFailureType) : FeatureFailure()
+    object LoginNotSuccessful : FeatureFailure()
+
 
 }

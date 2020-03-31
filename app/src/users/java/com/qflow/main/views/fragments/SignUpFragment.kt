@@ -1,10 +1,12 @@
 package com.qflow.main.views.fragments
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.qflow.main.R
 import com.qflow.main.core.ScreenState
@@ -56,13 +58,18 @@ class SignUpFragment : Fragment() {
         viewModel.failure.observe(::getLifecycle, ::handleErrors)
     }
 
+    @SuppressLint("ResourceAsColor")
     private fun handleErrors(failure: Failure?) {
         when (failure) {
             is Failure.ValidationFailure -> {
                 when (failure.validationFailureType) {
                     ValidationFailureType.PASSWORDS_NOT_THE_SAME -> {
-                        //TODO añadir aqui que hacer cuando el validador de fallo
-
+                        Toast.makeText(
+                            this.context, "Passwords do not match", Toast.LENGTH_LONG).show()
+                        this.context?.let { ContextCompat.getColor(it, R.color.errorRedColor) }?.let {
+                            password.background.setTint(it)
+                            repeat_Password.background.setTint(it)
+                        }
                     }
                 }
             }
