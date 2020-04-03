@@ -1,4 +1,4 @@
-package com.qflow.main.usecases.creator
+package com.qflow.main.usecases.queue
 
 import com.qflow.main.core.Failure
 import com.qflow.main.repository.QueueRepository

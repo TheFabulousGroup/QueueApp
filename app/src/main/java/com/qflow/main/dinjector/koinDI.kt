@@ -5,8 +5,9 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.qflow.main.domain.local.database.AppDatabase
 import com.qflow.main.domain.adapters.UserAdapter
 import com.qflow.main.domain.server.ApiService
+import com.qflow.main.repository.QueueRepository
 import com.qflow.main.repository.UserRepository
-import com.qflow.main.usecases.creator.CreateQueue
+import com.qflow.main.usecases.queue.CreateQueue
 import com.qflow.main.usecases.user.CreateAdmin
 import com.qflow.main.usecases.user.CreateUser
 import com.qflow.main.usecases.user.LoginCase
@@ -41,6 +42,7 @@ val fireBaseModule = module {
 val userModule = module {
 
     single<UserRepository> { UserRepository.General(get(), get(), get(), get()) }
+    single<QueueRepository> { QueueRepository.General(get(), get(), get(), get()) }
 
     single { UserAdapter }
 
