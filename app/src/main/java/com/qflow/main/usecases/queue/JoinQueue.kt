@@ -8,7 +8,7 @@ import com.qflow.main.utils.enums.ValidationFailureType
 import kotlinx.coroutines.CoroutineScope
 
 class JoinQueue (private val queueRepository: QueueRepository) :
-UseCase<String, JoinQueue.Params, CoroutineScope>() {
+UseCase<Unit, JoinQueue.Params, CoroutineScope>() {
     /*
     private fun validQueue(id_queue:String): Either<Failure, Unit> {
         //We need: capacity and num_datos of queue_user with that id_queue
@@ -23,7 +23,7 @@ UseCase<String, JoinQueue.Params, CoroutineScope>() {
        val id_queue: String, val id_user: String
     )
 
-    override suspend fun run(params: JoinQueue.Params): Either<Failure, String> {
+    override suspend fun run(params: JoinQueue.Params): Either<Failure, Unit> {
         //TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
         return queueRepository.joinQueue(params.id_queue, params.id_user)
         }
