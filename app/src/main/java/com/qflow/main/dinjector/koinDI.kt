@@ -13,7 +13,7 @@ import com.qflow.main.usecases.user.LoginCase
 import com.qflow.main.utils.Constants
 import com.qflow.main.views.viewmodels.CreateQueueViewModel
 import com.qflow.main.views.viewmodels.LoginViewModel
-import com.qflow.main.views.viewmodels.ProfileViewModel
+import com.qflow.main.views.viewmodels.HomeViewModel
 import com.qflow.main.views.viewmodels.SignUpViewModel
 import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.core.qualifier.named
@@ -47,7 +47,7 @@ val userModule = module {
     viewModel { LoginViewModel(get()) }
     viewModel { SignUpViewModel(get()) }
     viewModel {CreateQueueViewModel(get())}
-    viewModel { ProfileViewModel(get()) }
+    viewModel { HomeViewModel(get()) }
 
 }
 

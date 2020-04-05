@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import com.qflow.main.core.ScreenState
 import com.qflow.main.domain.local.database.user.UserDB
 import com.qflow.main.domain.local.database.AppDatabase
-import com.qflow.main.views.screenstates.ProfileFragmentScreenState
+import com.qflow.main.views.screenstates.HomeFragmentScreenState
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -15,7 +15,7 @@ import kotlinx.coroutines.Job
 /**
  * Old ViewModel for the profileFragment
  * */
-class ProfileViewModel(
+class HomeViewModel(
     private val appDatabase: AppDatabase
 ) : ViewModel() {
 
@@ -23,8 +23,8 @@ class ProfileViewModel(
     val currentUserDB: LiveData<UserDB>
         get() = _currentUser
 
-    private val _screenState: MutableLiveData<ScreenState<ProfileFragmentScreenState>> = MutableLiveData()
-    val screenState: LiveData<ScreenState<ProfileFragmentScreenState>>
+    private val _screenState: MutableLiveData<ScreenState<HomeFragmentScreenState>> = MutableLiveData()
+    val screenState: LiveData<ScreenState<HomeFragmentScreenState>>
         get() = _screenState
 
     private var job = Job()
@@ -33,7 +33,7 @@ class ProfileViewModel(
 
     private fun handleUserCreated(id: String) {
         this._screenState.value =
-            ScreenState.Render(ProfileFragmentScreenState.AccessProfile(id))
+            ScreenState.Render(HomeFragmentScreenState.AccessHome(id))
     }
 
 }

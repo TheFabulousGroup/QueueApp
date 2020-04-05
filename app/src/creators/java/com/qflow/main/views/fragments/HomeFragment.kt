@@ -10,16 +10,16 @@ import com.qflow.main.R
 import com.qflow.main.core.Failure
 import com.qflow.main.core.ScreenState
 import com.qflow.main.utils.enums.ValidationFailureType
-import com.qflow.main.views.screenstates.ProfileFragmentScreenState
-import com.qflow.main.views.viewmodels.ProfileViewModel
-import kotlinx.android.synthetic.creators.item_profile.*
+import com.qflow.main.views.screenstates.HomeFragmentScreenState
+import com.qflow.main.views.viewmodels.HomeViewModel
+import kotlinx.android.synthetic.creators.item_homecurrent.*
 
 
-class ProfileFragment : Fragment() {
+class HomeFragment : Fragment() {
 
-    lateinit var viewModel: ProfileViewModel
+    lateinit var viewModel: HomeViewModel
     /* val binding: ProfileFragmentScreenState = DataBindingUtil.inflate(
-         inflater, R.layout.profile_fragment, container, false)*/
+         inflater, R.layout.home_fragment, container, false)*/
     //val adapter = ProfileAdapter()
 
 
@@ -27,7 +27,7 @@ class ProfileFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.profile_fragment, container, false)
+        return inflater.inflate(R.layout.home_fragment, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -65,9 +65,9 @@ class ProfileFragment : Fragment() {
         }
     }
 
-    private fun renderScreenState(renderState: ProfileFragmentScreenState) {
+    private fun renderScreenState(renderState: HomeFragmentScreenState) {
         when (renderState) {
-            is ProfileFragmentScreenState.AccessProfile -> {
+            is HomeFragmentScreenState.AccessHome -> {
                 view?.let {
                     view?.findNavController()!!
                     /*.navigate(
@@ -79,7 +79,7 @@ class ProfileFragment : Fragment() {
         }
     }
 
-    private fun updateUI(screenState: ScreenState<ProfileFragmentScreenState>?) {
+    private fun updateUI(screenState: ScreenState<HomeFragmentScreenState>?) {
         when (screenState) {
             ScreenState.Loading -> {
             }

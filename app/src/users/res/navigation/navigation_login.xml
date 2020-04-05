@@ -22,7 +22,7 @@
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.qflow.main.views.fragments.ProfileFragment"
+        android:name="com.qflow.main.views.fragments.HomeFragment"
         android:label="profile_fragment"
         tools:layout="@layout/profile_fragment">
         <argument

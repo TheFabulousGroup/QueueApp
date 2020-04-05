@@ -77,7 +77,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textViewQ"
-            tools:listitem="@layout/item_profile">
+            tools:listitem="@layout/item_homecurrent">
 
 
         </androidx.recyclerview.widget.RecyclerView>
@@ -95,7 +95,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/historical"
             app:layout_constraintVertical_bias="0.0"
-            tools:listitem="@layout/item_profile_historical">
+            tools:listitem="@layout/item_home_historical">
 
         </androidx.recyclerview.widget.RecyclerView>
 
