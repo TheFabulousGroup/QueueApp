@@ -6,11 +6,14 @@ import com.qflow.main.domain.local.database.AppDatabase
 import com.qflow.main.domain.adapters.UserAdapter
 import com.qflow.main.domain.server.ApiService
 import com.qflow.main.repository.UserRepository
+import com.qflow.main.usecases.creator.CreateQueue
 import com.qflow.main.usecases.user.CreateAdmin
 import com.qflow.main.usecases.user.CreateUser
 import com.qflow.main.usecases.user.LoginCase
 import com.qflow.main.utils.Constants
+import com.qflow.main.views.viewmodels.CreateQueueViewModel
 import com.qflow.main.views.viewmodels.LoginViewModel
+import com.qflow.main.views.viewmodels.ProfileViewModel
 import com.qflow.main.views.viewmodels.SignUpViewModel
 import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.core.qualifier.named
@@ -41,11 +44,10 @@ val userModule = module {
     single<UserRepository> { UserRepository.General(get(), get(), get(), get()) }
 
     single { UserAdapter }
-
     viewModel { LoginViewModel(get()) }
     viewModel { SignUpViewModel(get()) }
-
-//    viewModel { ProfileViewModel(get(),get()) }
+    viewModel {CreateQueueViewModel(get())}
+    viewModel { ProfileViewModel(get()) }
 
 }
 
@@ -54,6 +56,7 @@ val useCaseModule = module {
     factory { CreateUser(get()) }
     factory { CreateAdmin(get()) }
     factory { LoginCase(get()) }
+    factory { CreateQueue(get()) }
 
 }
 

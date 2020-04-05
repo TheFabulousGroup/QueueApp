@@ -24,5 +24,5 @@
     <string name="accept">Accept</string>
     <string name="sign_in">Sign In</string>
     <string name="sign_up">Sign Up</string>
-    <string name="CIF">CIF</string>
+    <string name="code" />
 </resources>

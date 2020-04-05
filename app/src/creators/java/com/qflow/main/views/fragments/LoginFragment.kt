@@ -17,7 +17,7 @@ import com.qflow.main.utils.enums.ValidationFailureType
 import com.qflow.main.views.viewmodels.LoginViewModel
 import kotlinx.android.synthetic.creators.fragment_login.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import com.qflow.main.views.screenstates.LoginFragmentScreenState as LoginFragmentScreenState
+import com.qflow.main.views.screenstates.LoginFragmentScreenState
 
 /**
  * Old view used for the login (pending to be deleted)

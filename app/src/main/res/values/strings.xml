@@ -3,6 +3,7 @@
     <string name="loginQR">Accede con QR</string>
     <string name="loginApprender">Accede con Apprender</string>
     <string name="username">Username</string>
+    <string name="name">Name</string>
     <string name="password">Password</string>
     <string name="entrar">Entrar</string>
     <string name="Cancel">Cancel</string>
@@ -21,7 +22,12 @@
     <string name="repeat_password">Repeat password</string>
     <string name="email">Email</string>
     <string name="name_lastName">Name and last name</string>
+    <string name="business_associated">Business Associated</string>
+    <string name="queue_description">Description</string>
     <string name="accept">Accept</string>
     <string name="sign_in">Sign In</string>
     <string name="sign_up">Sign Up</string>
+    <string name="capacity">Capacity</string>
+    <string name="code" />
+
 </resources>
