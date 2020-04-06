@@ -1,37 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/item_historical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/primaryLightColor"
-    android:orientation="vertical">
+    android:foreground="?attr/selectableItemBackground">
 
-    <ScrollView
-        android:id="@+id/scroll_historical"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="111dp"
-        android:scrollbarThumbHorizontal="@color/primaryDarkColor"
-        android:scrollbarThumbVertical="@color/primaryDarkColor"
-        android:scrollbars="horizontal|vertical">
+        android:layout_height="match_parent"
+        android:background="@color/primaryLightColor">
 
-        <LinearLayout
-            android:id="@+id/historical_layout"
-            android:layout_width="match_parent"
-            android:layout_height="129dp"
-            android:layout_marginTop="20dp"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/historical"
-                android:layout_width="400dp"
-                android:layout_height="100dp"
-                android:layout_gravity="center|start|top|fill_vertical"
-                android:layout_marginLeft="10dp"
-                android:background="@color/primaryTextColor"
-                android:paddingLeft="10dp"
-                android:scrollbarThumbHorizontal="@color/primaryDarkColor"
-                android:scrollbarThumbVertical="@color/primaryDarkColor"></TextView>
-        </LinearLayout>
-    </ScrollView>
+        <TextView
+            android:id="@+id/historical"
+            android:layout_width="360dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center|start|top|fill_vertical"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:background="@color/primaryTextColor"
+            android:paddingLeft="10dp"
+            android:scrollbarThumbHorizontal="@color/primaryDarkColor"
+            android:scrollbarThumbVertical="@color/primaryDarkColor"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"></TextView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </LinearLayout>

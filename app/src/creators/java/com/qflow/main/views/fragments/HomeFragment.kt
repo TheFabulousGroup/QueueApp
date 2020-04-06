@@ -7,27 +7,33 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.qflow.main.R
+import com.qflow.main.R.*
 import com.qflow.main.core.Failure
 import com.qflow.main.core.ScreenState
 import com.qflow.main.utils.enums.ValidationFailureType
+import com.qflow.main.views.adapters.CurrentInfoAdapter
 import com.qflow.main.views.screenstates.HomeFragmentScreenState
 import com.qflow.main.views.viewmodels.HomeViewModel
-import kotlinx.android.synthetic.creators.item_homecurrent.*
+import kotlinx.android.synthetic.creators.home_fragment.*
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class HomeFragment : Fragment() {
 
-    lateinit var viewModel: HomeViewModel
-    /* val binding: ProfileFragmentScreenState = DataBindingUtil.inflate(
-         inflater, R.layout.home_fragment, container, false)*/
-    //val adapter = ProfileAdapter()
+    private val viewModel: HomeViewModel by viewModel()
 
+    fun activateRecyclerView(/**/){
+        //if(R.id.btn_add == view.id){
+
+    }
+    
+   // val adapter:CurrentInfoAdapter(/*QueueAdapter*/)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.home_fragment, container, false)
+        return inflater.inflate(layout.home_fragment, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -38,20 +44,22 @@ class HomeFragment : Fragment() {
 
     private fun initializeListeners() {
         initializeButtons()
-        //viewModel.screenState.observe(::getLifecycle, ::updateUI)
+        viewModel.screenState.observe(::getLifecycle, ::updateUI)
         //viewModel.failure.observe(::getLifecycle, ::handleErrors)
     }
 
     private fun initializeButtons() {
         //img_profile.setImageResource()
-        btn_add.setOnClickListener {
+        btn_create.setOnClickListener {
             view?.let {
                 view?.findNavController()!!
-                    .navigate(ProfileFragmentDirections.actionProfileFragmentToCreateQueueFragment())
+                    .navigate(HomeFragmentDirections.actionProfileFragmentToCreateQueueFragment())
             }
         }
     }
+    private fun initializeRecycler(){
 
+    }
     private fun handleErrors(failure: Failure?) {
         when (failure) {
             is Failure.ValidationFailure -> {
