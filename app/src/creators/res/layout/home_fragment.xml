@@ -69,7 +69,7 @@
             app:srcCompat="@drawable/ic_settings_black_24dp" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView2"
+            android:id="@+id/rv_adminqueues"
             android:layout_width="404dp"
             android:layout_height="90dp"
             android:layout_marginStart="8dp"
@@ -78,7 +78,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textViewQ"
-            tools:listitem="@layout/item_homecurrent">
+            tools:listitem="@layout/item_queueadmin">
 
 
         </androidx.recyclerview.widget.RecyclerView>
@@ -111,7 +111,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/recyclerView2" />
+            app:layout_constraintTop_toBottomOf="@+id/rv_adminqueues" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </LinearLayout>

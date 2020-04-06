@@ -4,8 +4,7 @@
     android:id="@+id/item_current"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/primaryLightColor"
-    android:foreground="?attr/selectableItemBackground">
+    android:background="@color/primaryLightColor">
 
 <androidx.constraintlayout.widget.ConstraintLayout
 android:layout_width="match_parent"
@@ -14,7 +13,7 @@ android:background="@color/primaryLightColor">
 
 
     <TextView
-        android:id="@+id/queue"
+        android:id="@+id/tv_queue"
         android:layout_width="262dp"
         android:layout_height="46dp"
         android:layout_gravity="center|start|top|fill_vertical"
@@ -22,7 +21,8 @@ android:background="@color/primaryLightColor">
         android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
         android:background="@color/primaryTextColor"
-        android:paddingLeft="10dp"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
         android:scrollbarThumbHorizontal="@color/primaryDarkColor"
         android:scrollbarThumbVertical="@color/primaryDarkColor"
         app:layout_constraintEnd_toStartOf="@+id/btn_add"
@@ -41,7 +41,7 @@ android:background="@color/primaryLightColor">
         android:background="@drawable/oval_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="ADD"></Button>
+        tools:text="ADD" />
 </androidx.constraintlayout.widget.ConstraintLayout>
 
 </LinearLayout>

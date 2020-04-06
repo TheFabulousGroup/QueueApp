@@ -6,12 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
-import com.qflow.main.R
 import com.qflow.main.R.*
 import com.qflow.main.core.Failure
 import com.qflow.main.core.ScreenState
 import com.qflow.main.utils.enums.ValidationFailureType
-import com.qflow.main.views.adapters.CurrentInfoAdapter
+import com.qflow.main.views.adapters.QueueAdminAdapter
 import com.qflow.main.views.screenstates.HomeFragmentScreenState
 import com.qflow.main.views.viewmodels.HomeViewModel
 import kotlinx.android.synthetic.creators.home_fragment.*
@@ -21,19 +20,20 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class HomeFragment : Fragment() {
 
     private val viewModel: HomeViewModel by viewModel()
-
-    fun activateRecyclerView(/**/){
+    private lateinit var queuesAdminAdapter: QueueAdminAdapter
+    fun activateRecyclerView(/**/) {
         //if(R.id.btn_add == view.id){
 
     }
-    
-   // val adapter:CurrentInfoAdapter(/*QueueAdapter*/)
+
+    // val adapter:CurrentInfoAdapter(/*QueueAdapter*/)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(layout.home_fragment, container, false)
+        viewModel.getQueues()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -57,9 +57,11 @@ class HomeFragment : Fragment() {
             }
         }
     }
-    private fun initializeRecycler(){
+
+    private fun initializeRecycler() {
 
     }
+
     private fun handleErrors(failure: Failure?) {
         when (failure) {
             is Failure.ValidationFailure -> {
@@ -84,7 +86,15 @@ class HomeFragment : Fragment() {
                 }*/
                 }
             }
+            is HomeFragmentScreenState.QueuesObtained -> {
+                queuesAdminAdapter = QueueAdminAdapter(renderState.queues, ::onClickOnQueue)
+                rv_adminqueues.adapter = queuesAdminAdapter
+            }
         }
+    }
+
+    private fun onClickOnQueue(s: String) {
+        //TODO navigate to queue view
     }
 
     private fun updateUI(screenState: ScreenState<HomeFragmentScreenState>?) {
