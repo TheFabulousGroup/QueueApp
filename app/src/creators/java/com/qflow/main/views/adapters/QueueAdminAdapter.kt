@@ -6,12 +6,13 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.qflow.main.R
 import com.qflow.main.domain.adapters.QueueAdapter
+import com.qflow.main.domain.local.models.Queue
 import com.qflow.main.generated.callback.OnClickListener
 import kotlinx.android.synthetic.creators.item_queueadmin.view.*
 
 //Todo cambiar el String por objeto
 class QueueAdminAdapter(
-    private val queues: List<String>,
+    private val queues: List<Queue>,
     private val onClickItemRV: (String) -> Unit
 ):RecyclerView.Adapter<QueueAdminAdapter.ViewHolder>() {
 
@@ -25,6 +26,7 @@ class QueueAdminAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        //Se le esta pasando un Queue, hay que sacar el name de esa queue
         holder.bind(queues[position])
     }
 

@@ -1,13 +1,16 @@
 package com.qflow.main.repository
 
 import android.content.ContentValues
+import android.os.Build
 import android.util.Log
+import androidx.annotation.RequiresApi
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.qflow.main.core.BaseRepository
 import com.qflow.main.core.Failure
 import com.qflow.main.domain.adapters.QueueAdapter
 import com.qflow.main.domain.local.database.AppDatabase
+import com.qflow.main.domain.local.models.Queue
 import com.qflow.main.domain.server.models.QueueServerModel
 import com.qflow.main.usecases.Either
 
@@ -20,6 +23,10 @@ interface QueueRepository {
         business_associated: String
     ): Either<Failure, String>
 
+    fun fetchAdminQueue(   //WIP: Se podra añadir booleano para si es busqueda de admin o no
+        id_user: String
+    ): Either<Failure, ArrayList<Queue>>
+
     class General
     constructor(
         private val appDatabase: AppDatabase,       //todo Add local DB for queue ?
@@ -28,6 +35,7 @@ interface QueueRepository {
         private val firebaseAuth: FirebaseAuth
     ) : BaseRepository(), QueueRepository {
 
+        @RequiresApi(Build.VERSION_CODES.O)     //TODO borrá o actualisá
         override fun createQueue(
             name: String,
             description: String,
@@ -73,6 +81,26 @@ interface QueueRepository {
                 )
                 Either.Left(Failure.NetworkConnection)
             }
+        }
+
+        override fun fetchAdminQueue(id_user: String): Either<Failure, ArrayList<Queue>> {
+            //TODO firebase functions will return queues in an array
+            //Devolvemos un array de array de strings dummie(colecciones queue del user pasado)
+
+            //Definir adaptador, de functions se devuelve un array de QueueServelModel
+            //Nos creamos dummies de QueueServerModel que llegan de FB
+                //Devolvemos QueueAdapter
+
+            var queuesArray = ArrayList<Queue>()
+
+            for(i in 0..7){
+                var queueServerModel = QueueServerModel("Cola num $i", "Bonita descripc",
+                    100, "BsnssDisney")
+
+                queuesArray[i] = QueueAdapter.adapt(queueServerModel)
+            }
+
+            return Either.Right(queuesArray)
         }
 
         /*override fun signIn(email: String,pass: String): Either<Failure, String> {    //Todo joinQueue
