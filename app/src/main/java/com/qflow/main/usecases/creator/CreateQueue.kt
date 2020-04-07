@@ -19,7 +19,7 @@ class CreateQueue(private val queueRepository: QueueRepository) :
             is Either.Right -> {
                 queueRepository.createQueue(
                     params.nameCreateQueue, params.businessAssociated,
-                    params.capacity, params.queueDescription)
+                    params.capacity.toInt(), params.queueDescription)
             }
         }
     }

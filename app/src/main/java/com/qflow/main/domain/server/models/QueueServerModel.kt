@@ -1,16 +1,18 @@
 package com.qflow.main.domain.server.models
 
+import com.google.gson.JsonParser
 import org.json.JSONArray
+import org.json.JSONObject
 import java.sql.Timestamp
 
 class QueueServerModel(
-    val name: String,
-    val description: String?,
-    val capacity: Int,
-    val business_associated: String,
-    val date_created: Timestamp? = null,
-    val date_finished: Timestamp? = null,
-    val is_locked: Boolean = false
+    var name: String,
+    var description: String?,
+    var capacity: Int,
+    var business_associated: String,
+    var date_created: Timestamp? = null,
+    var date_finished: Timestamp? = null,
+    var is_locked: Boolean = false
 ) {
     fun createMap(): Map<String, String> {
         val queueFirebase = HashMap<String, String>()
@@ -38,7 +40,24 @@ class QueueServerModel(
     companion object{
 
         fun mapToObject(resultMock: String): QueueServerModel {
-            TODO()
+
+
+            /*var name: String,
+    var description: String?,
+    var capacity: Int,
+    var business_associated: String,
+    var date_created: Timestamp? = null,
+    var date_finished: Timestamp? = null,
+    var is_locked: Boolean = false*/
+
+            var queueJsonObject = JSONObject(resultMock)
+
+            var result =  QueueServerModel(queueJsonObject["name"] as String, queueJsonObject["description"] as String,
+                queueJsonObject["capacity"] as Int, queueJsonObject["business_associated"] as String,
+                queueJsonObject["date_created"] as Timestamp?,
+                queueJsonObject["date_finished"] as Timestamp?, queueJsonObject["is_locked"] as Boolean)
+
+            return result
         }
 
         fun mapListToObjectList(resultMock: String): List<QueueServerModel> {
