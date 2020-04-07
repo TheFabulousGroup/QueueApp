@@ -6,6 +6,7 @@ import kotlinx.coroutines.*
 import org.koin.core.KoinComponent
 import com.qflow.main.core.BaseViewModel
 import com.qflow.main.core.ScreenState
+import com.qflow.main.usecases.queue.CreateQueue
 import com.qflow.main.usecases.user.LoginCase
 import com.qflow.main.views.screenstates.LoginFragmentScreenState
 
@@ -15,7 +16,8 @@ import com.qflow.main.views.screenstates.LoginFragmentScreenState
  *
  * */
 class LoginViewModel(
-    private val userLogin: LoginCase
+    private val userLogin: LoginCase,
+    private val createQueue: CreateQueue
 ) : BaseViewModel(), KoinComponent {
 
     private val _screenState: MutableLiveData<ScreenState<LoginFragmentScreenState>> =
@@ -46,5 +48,13 @@ class LoginViewModel(
     override fun onCleared() {
         super.onCleared()
         job.cancel()
+    }
+
+    fun testFeature() {
+        createQueue.execute(
+            { it.either(::handleFailure, ::handleUserCreated) },
+            CreateQueue.Params("Prueba1", "Soy una prueba", "dec", 1),
+            this.coroutineScope
+        )
     }
 }

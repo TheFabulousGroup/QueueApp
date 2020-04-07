@@ -73,7 +73,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/loginHorizontalMargin"
-
         android:layout_marginTop="8dp"
         android:layout_marginEnd="@dimen/loginHorizontalMargin"
         android:backgroundTint="@color/primaryTextColor"

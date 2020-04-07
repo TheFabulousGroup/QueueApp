@@ -25,7 +25,8 @@ UseCase<Unit, JoinQueue.Params, CoroutineScope>() {
 
     override suspend fun run(params: JoinQueue.Params): Either<Failure, Unit> {
         //TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-        return queueRepository.joinQueue(params.id_queue, params.id_user)
+         queueRepository.joinQueue(params.id_queue, params.id_user)
+            return Either.Right(Unit)
         }
 
 }

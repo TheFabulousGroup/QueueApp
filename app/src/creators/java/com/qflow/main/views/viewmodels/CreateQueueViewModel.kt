@@ -27,7 +27,7 @@ class CreateQueueViewModel (
             nameCreateQueue: String,
             businessAssociated: String,
             queueDescription: String,
-            capacity: String
+            capacity: Int
         ) {
 
             //Execute create queue

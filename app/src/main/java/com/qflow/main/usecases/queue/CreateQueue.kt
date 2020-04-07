@@ -24,8 +24,8 @@ class CreateQueue(private val queueRepository: QueueRepository) :
         }
     }
 
-    private fun validQueue(capacity: String): Either<Failure, Unit> {
-        return if (capacity.toInt() > 0)
+    private fun validQueue(capacity: Int): Either<Failure, Unit> {
+        return if (capacity > 0)
             Either.Right(Unit)
         else
             Either.Left(Failure.ValidationFailure(ValidationFailureType.CAPACITY_TOO_SMALL))
@@ -33,7 +33,7 @@ class CreateQueue(private val queueRepository: QueueRepository) :
 
     class Params(
         val nameCreateQueue: String, val businessAssociated: String, val queueDescription: String,
-        val capacity: String
+        val capacity: Int
     )
 
 
