@@ -18,13 +18,13 @@ import com.qflow.main.domain.server.models.UserServerModel
  * to the user
  * */
 interface UserRepository {
-    fun createUser(
+    suspend fun createUser(
         username: String, selectedPass: String, email: String,
         nameLastName: String
     ): Either<Failure, String>
 
-    fun signIn(email: String, pass: String): Either<Failure, String>
-    fun createAdmin(
+    suspend fun signIn(email: String, pass: String): Either<Failure, String>
+    suspend fun createAdmin(
         username: String,
         selectedPass: String,
         selectedEmail: String,
@@ -40,7 +40,7 @@ interface UserRepository {
         private val firebaseAuth: FirebaseAuth
     ) : BaseRepository(), UserRepository {
 
-        override fun createUser(
+        override suspend fun createUser(
             username: String,
             selectedPass: String,
             email: String,
@@ -58,50 +58,45 @@ interface UserRepository {
             val taskFirebase = firebasedb.collection("users")
                 .add(userMap)
 
-            return if (taskFirebase.isSuccessful) {
-                val idFire = taskFirebase.result?.id
-                if (idFire == null)
-                    Either.Left(Failure.NetworkConnection)
-                else {
-                    Log.d(
-                        TAG,
-                        "DocumentSnapshot added with ID: " + taskFirebase.result?.id
-                    )
-                    val localUser =
-                        taskFirebase.result?.id?.let {
-                            UserDB(
-                                id_firebase = it,
-                                username = username
-                            )
+            val resultFirebase = firebaseRequest(taskFirebase) {
+                it.id
+            }
+
+            return when(resultFirebase){
+                is Either.Left -> resultFirebase
+                is Either.Right -> {
+                    val idFire = taskFirebase.result?.id
+                    if (idFire == null)
+                        Either.Left(Failure.NetworkConnection)
+                    else {
+                        Log.d(
+                            TAG,
+                            "DocumentSnapshot added with ID: " + taskFirebase.result?.id
+                        )
+                        val localUser =
+                            taskFirebase.result?.id?.let {
+                                UserDB(
+                                    id_firebase = it,
+                                    username = username
+                                )
+                            }
+                        if (localUser != null) {
+                            appDatabase.userDatabaseDao.insert(localUser)
                         }
-                    if (localUser != null) {
-                        appDatabase.userDatabaseDao.insert(localUser)
+                        Either.Right(idFire)
                     }
-                    Either.Right(idFire)
                 }
-            } else {
-                Log.w(
-                    TAG,
-                    "Error adding document"
-                )
-                Either.Left(Failure.LoginNotSuccessful)
             }
         }
 
-        override fun signIn(email: String, pass: String): Either<Failure, String> {
+        override suspend fun signIn(email: String, pass: String): Either<Failure, String> {
             val task = firebaseAuth.signInWithEmailAndPassword(email, pass)
-            return if (task.isSuccessful) {
-                Log.d(TAG, "You´re signin in succesfully ")
-                Either.Right(firebaseAuth.currentUser!!.uid)
-
-            } else {
-                Log.w(TAG, "SignInFailure", task.exception)
-                Either.Left(Failure.NetworkConnection)
+            return firebaseRequest(task){
+                it.user?.uid ?: "null"
             }
-
         }
 
-        override fun createAdmin(
+        override suspend fun createAdmin(
             username: String,
             selectedPass: String,
             selectedEmail: String,
@@ -119,35 +114,34 @@ interface UserRepository {
             val taskFirebase = firebasedb.collection("users")
                 .add(adminMap)
 
-            return if (taskFirebase.isSuccessful) {
-                val idFire = taskFirebase.result?.id
-                if (idFire == null)
-                    Either.Left(Failure.NetworkConnection)
-                else {
-                    Log.d(
-                        TAG,
-                        "DocumentSnapshot added with ID: " + taskFirebase.result?.id
-                    )
-                    val localUser =
-                        taskFirebase.result?.id?.let {
-                            UserDB(
-                                id_firebase = it,
-                                username = username
-                            )
+            val resFirebase = firebaseRequest(taskFirebase) {
+                it.id
+            }
+            return when (resFirebase) {
+                is Either.Left -> resFirebase
+                is Either.Right -> {
+                    val idFire = taskFirebase.result?.id
+                    if (idFire == null)
+                        Either.Left(Failure.NetworkConnection)
+                    else {
+                        Log.d(
+                            TAG,
+                            "DocumentSnapshot added with ID: " + taskFirebase.result?.id
+                        )
+                        val localUser =
+                            taskFirebase.result?.id?.let {
+                                UserDB(
+                                    id_firebase = it,
+                                    username = username
+                                )
+                            }
+                        if (localUser != null) {
+                            appDatabase.userDatabaseDao.insert(localUser)
                         }
-                    if (localUser != null) {
-                        appDatabase.userDatabaseDao.insert(localUser)
+                        Either.Right(idFire)
                     }
-                    Either.Right(idFire)
                 }
-            } else {
-                Log.w(
-                    TAG,
-                    "Error adding document"
-                )
-                Either.Left(Failure.NetworkConnection)
             }
         }
     }
-
 }

@@ -28,6 +28,6 @@
     <string name="sign_in">Sign In</string>
     <string name="sign_up">Sign Up</string>
     <string name="capacity">Capacity</string>
+    <string name="login_not_successful">Login was not successful</string>
     <string name="code" />
-
 </resources>

@@ -1,6 +1,11 @@
 package com.qflow.main.core
 
+import com.google.android.gms.tasks.Task
+import com.google.firebase.FirebaseException
+import com.google.firebase.functions.FirebaseFunctionsException
 import com.qflow.main.usecases.Either
+import kotlinx.coroutines.tasks.await
+import java.lang.ClassCastException
 
 /**
  * This class is not used yet, can be used to make online requests
@@ -8,15 +13,22 @@ import com.qflow.main.usecases.Either
  * */
 abstract class BaseRepository
 {
-    fun <T, R> request(call: retrofit2.Call<T>, transform: (T) -> R, default: T): Either<Failure, R> {
+    suspend fun <T, R> firebaseRequest(call: Task<T>, transform: (T) -> R): Either<Failure, R> {
+        var result: Either<Failure, R> = Either.Left(Failure.NullResult())
         return try {
-            val response = call.execute()
-            when (response.isSuccessful) {
-                true -> Either.Right(transform((response.body() ?: default)))
-                false -> {
-                    Either.Left(Failure.ServerErrorCode(response.code()))
+            call.addOnSuccessListener {
+                call.result?.let { res ->  result = Either.Right(transform(res))}
+            }
+            call.addOnFailureListener {
+                result = try{
+                    it as FirebaseFunctionsException
+                    Either.Left(Failure.ServerErrorCode(it.code.ordinal))
+                } catch(ex : ClassCastException){
+                    Either.Left(Failure.ServerException(it))
                 }
             }
+            call.await()
+            result
         } catch (exception: Throwable) {
             Either.Left(Failure.ServerException(exception))
         }
