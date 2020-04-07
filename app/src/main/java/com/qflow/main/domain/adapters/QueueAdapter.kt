@@ -8,9 +8,19 @@ import com.qflow.main.domain.server.models.QueueServerModel
  * */
 object QueueAdapter {
 
-    fun adapt(queueservermodel: QueueServerModel): Queue {
-        return Queue(queueservermodel.name, queueservermodel.description,
-            queueservermodel.capacity, queueservermodel.business_associated)
+    fun queueSMToQueue(queueservermodel: QueueServerModel): Queue {
+        return Queue(
+            queueservermodel.name, queueservermodel.description,
+            queueservermodel.capacity, queueservermodel.business_associated
+        )
+    }
+
+    fun queueSMListToQueueList(queueSMList: List<QueueServerModel>): List<Queue> {
+        val resultList = ArrayList<Queue>()
+        queueSMList.forEach {
+            resultList.add(queueSMToQueue(it))
+        }
+        return resultList
     }
 
 }
