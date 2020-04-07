@@ -49,6 +49,4 @@ class QueueServerModel(
             return resList.toList()
         }
     }
-
-
 }
