@@ -36,6 +36,7 @@ class LoginFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+//        viewModel.testFeature()
         initializeListeners()
         initializeObservers()
     }
@@ -75,8 +76,8 @@ class LoginFragment : Fragment() {
                     }
                 }
             }
-            is Failure.LoginNotSuccessful ->
-                Toast.makeText(this.context, "Login was not successful", Toast.LENGTH_SHORT).show()
+            is Failure.ServerException ->
+                Toast.makeText(this.context, getString(R.string.login_not_successful), Toast.LENGTH_SHORT).show()
         }
     }
 

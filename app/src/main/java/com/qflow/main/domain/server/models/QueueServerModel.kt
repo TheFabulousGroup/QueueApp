@@ -1,27 +1,38 @@
 package com.qflow.main.domain.server.models
 
+import java.sql.Timestamp
+
 class QueueServerModel(
     val name: String,
-    val description: String,
-    val capacity: Integer,
-    val business_associated: String,
-    val date_created: String,
-    val date_finished: String = "",
-    val is_locked: Boolean = false
+    private val description: String?,
+    private val capacity: Int,
+    private val business_associated: String,
+    private val date_created: Timestamp? = null,
+    private val date_finished: Timestamp? = null,
+    private val is_locked: Boolean = false
 ) {
+    fun createMap(): Map<String, String> {
+        val queueFirebase = HashMap<String, String>()
 
-    fun createMap(): Map<String, Any> {
-        val queueFirebase = HashMap<String, Any>()
+        val dateC = if (date_created == null)
+            com.google.firebase.Timestamp.now().toString()
+        else
+            this.date_created.toString()
+        val dateF = if (date_finished == null)
+            "null"
+        else
+            this.date_finished.toString()
 
         queueFirebase["name"] = this.name
-        queueFirebase["description"] = this.description
-        queueFirebase["capacity"] = this.capacity
+        queueFirebase["description"] = this.description ?: ""
+        queueFirebase["capacity"] = this.capacity.toString()
         queueFirebase["business_associated"] = this.business_associated
-        queueFirebase["date_created"] = this.date_created
-        queueFirebase["date_finished"] = this.date_finished
-        queueFirebase["is_locked"] = this.is_locked
+        queueFirebase["date_created"] = dateC
+        queueFirebase["date_finished"] = dateF
+        queueFirebase["is_locked"] = this.is_locked.toString()
 
         return queueFirebase;
     }
+
 
 }

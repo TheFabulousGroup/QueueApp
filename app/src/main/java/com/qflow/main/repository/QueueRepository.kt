@@ -1,99 +1,140 @@
 package com.qflow.main.repository
 
-import android.content.ContentValues
-import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.functions.FirebaseFunctions
 import com.qflow.main.core.BaseRepository
 import com.qflow.main.core.Failure
 import com.qflow.main.domain.adapters.QueueAdapter
-import com.qflow.main.domain.adapters.UserAdapter
 import com.qflow.main.domain.local.database.AppDatabase
-import com.qflow.main.domain.local.database.user.UserDB
+import com.qflow.main.domain.local.models.Queue
 import com.qflow.main.domain.server.models.QueueServerModel
-import com.qflow.main.domain.server.models.UserServerModel
 import com.qflow.main.usecases.Either
 
 interface QueueRepository {
 
-    fun createQueue(
+    suspend fun createQueue(
         name: String,
         description: String,
-        capacity: Integer,
-        business_associated: String,
-        date_created: String,
-        date_finished: String,
-        is_locked: Boolean
+        capacity: Int,
+        business_associated: String
     ): Either<Failure, String>
+
+    suspend fun joinQueue(
+        id_queue: String,
+        id_name: String
+    ): Either<Failure, Queue>
 
     class General
     constructor(
         private val appDatabase: AppDatabase,       //todo Add local DB for queue ?
         private val queueAdapter: QueueAdapter,
         private val firebasedb: FirebaseFirestore,
-        private val firebaseAuth: FirebaseAuth
+        private val firebaseAuth: FirebaseAuth,
+        private val firebaseFunctions: FirebaseFunctions
     ) : BaseRepository(), QueueRepository {
 
-        override fun createQueue(       //todo create UserCase
+        override suspend fun createQueue(
             name: String,
             description: String,
-            capacity: Integer,
-            business_associated: String,
-            date_created: String,
-            date_finished: String,
-            is_locked: Boolean
+            capacity: Int,
+            business_associated: String
         ): Either<Failure, String> {
 
             val queueMap =
-                QueueServerModel(name, description, capacity, business_associated,
-                                 date_created, date_finished, is_locked).createMap()
-            //Storing into Firestore
-            val taskFirebase = firebasedb.collection("queue")
-                .add(queueMap)
+                QueueServerModel(
+                    name,
+                    description,
+                    capacity,
+                    business_associated
+                ).createMap()
 
-            return if(taskFirebase.isSuccessful){
-                val idFire = taskFirebase.result?.id
-                if(idFire == null)
-                    Either.Left(Failure.NetworkConnection)
-                else {
-                    Log.d(
-                        ContentValues.TAG,
-                        "DocumentSnapshot added with ID: " + taskFirebase.result?.id
-                    )
-                    /*val localUser =
-                        taskFirebase.result?.id?.let {
-                            UserDB(
-                                id_firebase = it,
-                                username = username
-                            )
-                        }
-                    if (localUser != null) {
-                        appDatabase.userDatabaseDao.insert(localUser)
-                    }*/
-                    Either.Right(idFire)
-                }
-            }
-            else{
-                Log.w(
-                    ContentValues.TAG,
-                    "Error adding document"
-                )
-                Either.Left(Failure.NetworkConnection)
+            val taskFunctions = firebaseFunctions.getHttpsCallable("addQueue").call(queueMap)
+            return firebaseRequest(taskFunctions) { res ->
+
+                res.data.toString()
+
             }
         }
 
-        /*override fun signIn(email: String,pass: String): Either<Failure, String> {    //Todo joinQueue
-            val task = firebaseAuth.signInWithEmailAndPassword(email, pass)
-            return if (task.isSuccessful) {
-                Log.d(TAG, "You´re signin in succesfully ")
-                Either.Right(firebaseAuth.currentUser!!.uid)
-
-            } else {
-                Log.w(TAG, "createUserWithEmail:failure", task.exception)
-                Either.Left(Failure.NetworkConnection)
+        override suspend fun joinQueue(
+            id_queue: String,
+            id_user: String
+        ): Either<Failure, Queue> {
+            val params = HashMap<String, String>()
+            params["id_queue"] = id_queue
+            params["id_user"] = id_user
+            val taskFunctions = firebaseFunctions.getHttpsCallable("joinQueue").call(params)
+            return firebaseRequest(taskFunctions) { res ->
+//                res.data.toString()
+                Queue("", "", "", 2, "")
             }
-
-        }*/
+//            //val task = firebaseAuth.signInWithEmailAndPassword(email, pass)
+//            //We need: is_active, is_admin, actualdate, capacity
+//            val docRef = firebasedb.collection(COLLECTION_QUEUE).document(id_queue)
+//            docRef.get()
+//                .addOnSuccessListener { document ->
+//                    val capa = document.toObject(QueueServerModel::class.java)
+//                    //capa?.apply {capacity}
+//                    firebasedb.collection(COLLECTION_QUEUE_USER).whereEqualTo(
+//                        "id_queue",
+//                        id_queue
+//                    ).get().addOnSuccessListener {
+//                        it.size()
+//                        var fin = 0
+//                        capa?.apply {
+//                            fin = capacity - it.size()
+//                        }
+//                        if (fin == 0) {
+//                            //FAIL
+//                            Log.d(TAG, "Full capacity")
+//                        } else {
+//                            //TODO add user
+//                            val queueaux = QueueUserServerModel(id_queue, id_user, true, false)
+//                            firebasedb.collection(COLLECTION_QUEUE).document().set(queueaux)
+//                                .addOnSuccessListener {
+//                                    val idFire = taskFirebase.result?.id
+//                                    if (idFire == null)
+//                                        Either.Left(Failure.NetworkConnection)
+//                                    else {
+//                                        Log.d(
+//                                            ContentValues.TAG,
+//                                            "DocumentSnapshot added with ID: " + taskFirebase.result?.id
+//                                        )
+//
+//                                        Either.Right(idFire)
+//                                    }
+//                                }.addOnFailureListener {
+//                                    Log.w(
+//                                        ContentValues.TAG,
+//                                        "Error adding document"
+//                                    )
+//                                    Either.Left(Failure.NetworkConnection)
+//                                }
+//                        }
+//                    }
+//
+//                    if (document != null) {
+//                        Log.d(TAG, "DocumentSnapshot data: ${document.data}")
+//                    } else {
+//                        Log.d(TAG, "No such document")
+//                    }
+//                }
+//                .addOnFailureListener { exception ->
+//                    Log.d(TAG, "get failed with ", exception)
+//                }
+//
+//
+//            return if (task.isSuccessful) {
+//                Log.d(TAG, "You´ve joined")
+//                Either.Right(firebaseAuth.currentUser!!.uid)
+//
+//            } else {
+//                Log.w(TAG, "createUserWithEmail:failure", task.exception)
+//                Either.Left(Failure.NetworkConnection)
+//            }
+//
+//        }
+        }
     }
-
 }
