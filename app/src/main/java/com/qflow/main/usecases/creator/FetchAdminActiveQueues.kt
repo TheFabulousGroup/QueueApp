@@ -10,9 +10,9 @@ import kotlinx.coroutines.CoroutineScope
 /**
  * UseCaseCreateUserInDatabase
  * */
-class FetchAdminQueueNames(private val queueRepository: QueueRepository) :
-    UseCase<ArrayList<Queue>, FetchAdminQueueNames.Params, CoroutineScope>() {
-    override suspend fun run(params: Params): Either<Failure, ArrayList<Queue>> {
+class FetchAdminActiveQueues(private val queueRepository: QueueRepository) :
+    UseCase<List<Queue>, FetchAdminActiveQueues.Params, CoroutineScope>() {
+    override suspend fun run(params: Params): Either<Failure, List<Queue>> {
 
         return when (val result = queueRepository.fetchAdminActiveQueues(params.iduser)){
             is Either.Left -> Either.Left(result.a)

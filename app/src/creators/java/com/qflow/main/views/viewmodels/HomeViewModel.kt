@@ -2,14 +2,12 @@ package com.qflow.main.views.viewmodels
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.qflow.main.core.BaseViewModel
 import com.qflow.main.core.ScreenState
 import com.qflow.main.domain.local.database.user.UserDB
-import com.qflow.main.domain.local.database.AppDatabase
 import com.qflow.main.domain.local.models.Queue
-import com.qflow.main.usecases.creator.FetchAdminQueueNames
-import com.qflow.main.usecases.user.LoginCase
+import com.qflow.main.usecases.Either
+import com.qflow.main.usecases.creator.FetchAdminActiveQueues
 import com.qflow.main.views.screenstates.HomeFragmentScreenState
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -17,7 +15,7 @@ import kotlinx.coroutines.Job
 import org.koin.core.KoinComponent
 
 class HomeViewModel(
-    private val fetchAdminQueueNames: FetchAdminQueueNames
+    private val fetchAdminActiveQueues: FetchAdminActiveQueues
 ) :  BaseViewModel(), KoinComponent {
 
     private val _currentUser = MutableLiveData<UserDB>()
@@ -31,19 +29,22 @@ class HomeViewModel(
     private var job = Job()
     private var coroutineScope = CoroutineScope(Dispatchers.Default + job)
 
-    fun getQueues(idUser: String): List<Queue> {
-        fetchAdminQueueNames.execute(
+    fun getQueues(idUser: String) /*: List<Queue> */{   //TODO
+
+        fetchAdminActiveQueues.execute(
             { it.either(::handleFailure, ::handleQueuesObtained) },
-            FetchAdminQueueNames.Params(idUser),
+            FetchAdminActiveQueues.Params(idUser),
             this.coroutineScope
         )
+
+        /*return result*/
     }
 
     //Llamar a renderStateQueue
 
-    private fun handleQueuesObtained(id: String) {
+    private fun handleQueuesObtained(queues: List<Queue>) {
         this._screenState.value =
-            ScreenState.Render(HomeFragmentScreenState.AccessHome(id))
+            ScreenState.Render(HomeFragmentScreenState.QueuesObtained(queues))
     }
 
 }

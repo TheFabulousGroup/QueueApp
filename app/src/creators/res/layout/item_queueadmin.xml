@@ -25,14 +25,14 @@ android:background="@color/primaryLightColor">
         android:paddingEnd="10dp"
         android:scrollbarThumbHorizontal="@color/primaryDarkColor"
         android:scrollbarThumbVertical="@color/primaryDarkColor"
-        app:layout_constraintEnd_toStartOf="@+id/btn_add"
+        app:layout_constraintEnd_toStartOf="@+id/btn_view"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
     </TextView>
 
     <Button
-        android:id="@+id/btn_add"
+        android:id="@+id/btn_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -41,7 +41,7 @@ android:background="@color/primaryLightColor">
         android:background="@drawable/oval_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="ADD" />
+        tools:text="VIEW" />
 </androidx.constraintlayout.widget.ConstraintLayout>
 
 </LinearLayout>

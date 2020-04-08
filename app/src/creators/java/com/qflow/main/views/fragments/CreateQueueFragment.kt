@@ -82,7 +82,7 @@ class CreateQueueFragment : Fragment() {
                 //Toast.makeText(this.context, renderState.id.toString(), Toast.LENGTH_LONG).show()
                 view?.let {
                     view?.findNavController()!!.navigate(
-                        CreateQueueFragmentDirections.actionCreateQueueFragmentToProfileFragment(
+                        CreateQueueFragmentDirections.actionCreateQueueFragmentToHomeFragment(
                             renderState.id
                         )
                     )

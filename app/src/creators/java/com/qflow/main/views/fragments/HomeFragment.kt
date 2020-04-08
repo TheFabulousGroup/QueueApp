@@ -10,6 +10,7 @@ import com.qflow.main.R.*
 import com.qflow.main.core.Failure
 import com.qflow.main.core.ScreenState
 import com.qflow.main.utils.enums.ValidationFailureType
+import com.qflow.main.views.activities.HomeActivityDirections
 import com.qflow.main.views.adapters.QueueAdminAdapter
 import com.qflow.main.views.screenstates.HomeFragmentScreenState
 import com.qflow.main.views.viewmodels.HomeViewModel
@@ -33,19 +34,19 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(layout.home_fragment, container, false)
-        viewModel.getQueues()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initializeObservers()
         initializeListeners()
+        viewModel.getQueues("Gl3rWCDvZFv9sm1LveHm")
     }
 
     private fun initializeListeners() {
         initializeButtons()
         viewModel.screenState.observe(::getLifecycle, ::updateUI)
-        //viewModel.failure.observe(::getLifecycle, ::handleErrors)
+        viewModel.failure.observe(::getLifecycle, ::handleErrors)
     }
 
     private fun initializeButtons() {
@@ -53,7 +54,7 @@ class HomeFragment : Fragment() {
         btn_create.setOnClickListener {
             view?.let {
                 view?.findNavController()!!
-                    .navigate(HomeFragmentDirections.actionProfileFragmentToCreateQueueFragment())
+                    .navigate(HomeActivityDirections.actionProfileFragmentToCreateQueueFragment())
             }
         }
     }
@@ -86,10 +87,12 @@ class HomeFragment : Fragment() {
                 }*/
                 }
             }
+            //TODO
             is HomeFragmentScreenState.QueuesObtained -> {
                 queuesAdminAdapter = QueueAdminAdapter(renderState.queues, ::onClickOnQueue)
                 rv_adminqueues.adapter = queuesAdminAdapter
             }
+            //TODO Historical
         }
     }
 

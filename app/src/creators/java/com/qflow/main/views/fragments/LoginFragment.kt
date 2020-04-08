@@ -13,6 +13,7 @@ import androidx.navigation.findNavController
 import com.qflow.main.R
 import com.qflow.main.core.Failure
 import com.qflow.main.core.ScreenState
+import com.qflow.main.usecases.Either
 import com.qflow.main.utils.enums.ValidationFailureType
 import com.qflow.main.views.viewmodels.LoginViewModel
 import kotlinx.android.synthetic.creators.fragment_login.*
@@ -96,7 +97,7 @@ class LoginFragment : Fragment() {
                 view?.let {
                     view?.findNavController()!!
                         .navigate(
-                            LoginFragmentDirections.actionLoginFragmentToProfileFragment(renderState.id)
+                                LoginFragmentDirections.actionLoginFragmentToHomeFragment(renderState.id)
                         )
                 }
             }

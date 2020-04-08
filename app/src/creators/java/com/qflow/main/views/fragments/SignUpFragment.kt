@@ -89,7 +89,7 @@ class SignUpFragment : Fragment() {
                     view?.findNavController()!!
                         .navigate(
                             LoginFragmentDirections
-                                .actionLoginFragmentToProfileFragment(renderState.id)
+                                .actionLoginFragmentToHomeFragment(renderState.id)
                         )
                 }
             }

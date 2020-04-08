@@ -7,19 +7,20 @@ import androidx.recyclerview.widget.RecyclerView
 import com.qflow.main.R
 import com.qflow.main.domain.local.models.Queue
 import kotlinx.android.synthetic.creators.item_queueadmin.view.*
+import kotlinx.android.synthetic.main.item_home_historical.view.*
 
-//Todo cambiar el String por objeto
-class QueueAdminAdapter(
+
+class QueueHistorialAdminAdapter(
     private val queues: List<Queue>,
     private val onClickItemRV: (String) -> Unit
-):RecyclerView.Adapter<QueueAdminAdapter.ViewHolder>() {
+):RecyclerView.Adapter<QueueHistorialAdminAdapter.ViewHolder>() {
 
 
     override fun getItemCount(): Int = queues.size
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
-        val view = layoutInflater.inflate(R.layout.item_queueadmin, parent, false)
+        val view = layoutInflater.inflate(R.layout.item_home_historical, parent, false)
         return ViewHolder(view)
     }
 
@@ -30,8 +31,8 @@ class QueueAdminAdapter(
 
     inner class ViewHolder(item: View) : RecyclerView.ViewHolder(item) {
         fun bind(name: String) = with(itemView) {
-            tv_queue.text = name
-            btn_view.setOnClickListener {
+            tv_queue_historical.text = name
+            btn_view_historical.setOnClickListener {
                 onClickItemRV(name)
             }
         }
