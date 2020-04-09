@@ -4,46 +4,26 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation"
     app:startDestination="@id/loginFragment">
-
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.qflow.main.views.fragments.LoginFragment"
         android:label="login_fragment"
-        tools:layout="@layout/fragment_login"
-        app:startDestination="@id/action_loginFragment_to_homeFragment">
+        tools:layout="@layout/fragment_login">
         <action
             android:id="@+id/action_loginFragment_to_signUpFragment"
             app:destination="@id/SignUpFragment" />
         <action
-            android:id="@+id/action_loginFragment_to_homeFragment"
-            app:destination="@id/homeActivity" />
+            android:id="@+id/action_loginFragment_to_navigation_home"
+            app:destination="@id/navigation_home" />
     </fragment>
-    <activity
-        android:id="@+id/homeActivity"
-        android:name="com.qflow.main.views.activities.HomeActivity"
-        android:label="profile_fragment"
-        tools:layout="@layout/activity_home">
-        <argument
-            android:name="userId"
-            app:argType="string" />
-    </activity>
     <fragment
         android:id="@+id/SignUpFragment"
         android:name="com.qflow.main.views.fragments.SignUpFragment"
         android:label="SignUpFragment"
         tools:layout="@layout/fragment_signup">
         <action
-            android:id="@+id/action_signUpFragment_to_homeFragment"
-            app:destination="@id/homeActivity"
-            app:enterAnim="@anim/nav_default_enter_anim" />
+            android:id="@+id/action_SignUpFragment_to_navigation_home"
+            app:destination="@id/navigation_home" />
     </fragment>
-    <fragment
-        android:id="@+id/createQueueFragment"
-        android:name="com.qflow.main.views.fragments.CreateQueueFragment"
-        android:label="CreateQueueFragment"
-        tools:layout="@layout/fragment_create_queue">
-        <action
-            android:id="@+id/action_createQueueFragment_to_homeFragment"
-            app:destination="@id/homeActivity" />
-    </fragment>
+    <include app:graph="@navigation/navigation_home"/>
 </navigation>

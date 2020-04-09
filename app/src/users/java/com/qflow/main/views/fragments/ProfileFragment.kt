@@ -22,7 +22,7 @@ class ProfileFragment : Fragment() {
     lateinit var viewModel: ProfileViewModel
 
     /*val binding: ProfileFragmentScreenState = DataBindingUtil.inflate(
-         inflater, R.layout.home_fragment, container, false)*/
+         inflater, R.layout.fragment_home, container, false)*/
     val adapter = ProfileAdapter()
 
 

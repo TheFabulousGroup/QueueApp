@@ -13,7 +13,6 @@ import androidx.navigation.findNavController
 import com.qflow.main.R
 import com.qflow.main.core.Failure
 import com.qflow.main.core.ScreenState
-import com.qflow.main.usecases.Either
 import com.qflow.main.utils.enums.ValidationFailureType
 import com.qflow.main.views.viewmodels.LoginViewModel
 import kotlinx.android.synthetic.creators.fragment_login.*
@@ -39,7 +38,6 @@ class LoginFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 //        viewModel.testFeature()
         initializeListeners()
-        initializeObservers()
     }
 
     private fun initializeListeners() {
@@ -55,9 +53,7 @@ class LoginFragment : Fragment() {
             viewModel.login(pass, email)
         }
         btn_signUp.setOnClickListener {
-            view.let {view?.findNavController()!!
-                .navigate(LoginFragmentDirections
-                    .actionLoginFragmentToSignUpFragment()) }
+            view?.findNavController()?.navigate(R.id.action_loginFragment_to_signUpFragment)
         }
     }
 
@@ -94,20 +90,11 @@ class LoginFragment : Fragment() {
     private fun renderScreenState(renderState: LoginFragmentScreenState) {
         when (renderState) {
             is LoginFragmentScreenState.LoginSuccessful -> {
-                view?.let {
-                    view?.findNavController()!!
-                        .navigate(
-                                LoginFragmentDirections.actionLoginFragmentToHomeFragment(renderState.id)
-                        )
-                }
+                view?.findNavController()?.navigate(
+                    R.id.action_loginFragment_to_navigation_home
+                )
             }
         }
-    }
-
-    private fun initializeObservers() {
-        viewModel.screenState.observe(viewLifecycleOwner, Observer {
-            updateUI(it)
-        })
     }
 
 

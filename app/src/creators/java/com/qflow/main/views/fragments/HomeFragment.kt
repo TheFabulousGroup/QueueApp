@@ -6,15 +6,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
+import com.qflow.main.R
 import com.qflow.main.R.*
 import com.qflow.main.core.Failure
 import com.qflow.main.core.ScreenState
 import com.qflow.main.utils.enums.ValidationFailureType
-import com.qflow.main.views.activities.HomeActivityDirections
 import com.qflow.main.views.adapters.QueueAdminAdapter
 import com.qflow.main.views.screenstates.HomeFragmentScreenState
 import com.qflow.main.views.viewmodels.HomeViewModel
-import kotlinx.android.synthetic.creators.home_fragment.*
+import kotlinx.android.synthetic.creators.fragment_home.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
@@ -33,7 +33,7 @@ class HomeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(layout.home_fragment, container, false)
+        return inflater.inflate(layout.fragment_home, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -52,10 +52,7 @@ class HomeFragment : Fragment() {
     private fun initializeButtons() {
         //img_profile.setImageResource()
         btn_create.setOnClickListener {
-            view?.let {
-                view?.findNavController()!!
-                    .navigate(HomeActivityDirections.actionProfileFragmentToCreateQueueFragment())
-            }
+            view?.findNavController()?.navigate(R.id.action_homeFragment_to_createQueueFragment)
         }
     }
 

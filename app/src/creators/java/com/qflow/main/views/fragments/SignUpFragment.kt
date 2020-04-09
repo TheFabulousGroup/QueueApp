@@ -85,13 +85,8 @@ class SignUpFragment : Fragment() {
 
         when (renderState) {
             is SignUpFragmentScreenState.UserCreatedCorrectly -> {
-                view?.let {
-                    view?.findNavController()!!
-                        .navigate(
-                            LoginFragmentDirections
-                                .actionLoginFragmentToHomeFragment(renderState.id)
-                        )
-                }
+                view?.findNavController()?.navigate(R.id.action_SignUpFragment_to_navigation_home
+                )
             }
         }
     }
