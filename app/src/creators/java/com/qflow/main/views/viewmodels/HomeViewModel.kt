@@ -29,18 +29,14 @@ class HomeViewModel(
     private var job = Job()
     private var coroutineScope = CoroutineScope(Dispatchers.Default + job)
 
-    fun getQueues(idUser: String) /*: List<Queue> */{   //TODO
+    fun getQueues(idUser: String) {   //TODO
 
         fetchAdminActiveQueues.execute(
             { it.either(::handleFailure, ::handleQueuesObtained) },
             FetchAdminActiveQueues.Params(idUser),
             this.coroutineScope
         )
-
-        /*return result*/
     }
-
-    //Llamar a renderStateQueue
 
     private fun handleQueuesObtained(queues: List<Queue>) {
         this._screenState.value =

@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_homeFragment_to_createQueueFragment"
             app:destination="@id/createQueueFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_home_info_queue_dialog"
+            app:destination="@id/home_info_queue_dialog" />
     </fragment>
     <fragment
         android:id="@+id/createQueueFragment"
@@ -23,4 +26,10 @@
             android:id="@+id/action_createQueueFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
     </fragment>
+    <dialog android:id="@+id/home_info_queue_dialog"
+        android:label="HomeInfoQueueDialog"
+        android:layout="@layout/dialog_home_info_q"
+        >
+
+    </dialog>
 </navigation>

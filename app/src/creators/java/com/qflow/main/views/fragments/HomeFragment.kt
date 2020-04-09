@@ -12,9 +12,11 @@ import com.qflow.main.core.Failure
 import com.qflow.main.core.ScreenState
 import com.qflow.main.utils.enums.ValidationFailureType
 import com.qflow.main.views.adapters.QueueAdminAdapter
+import com.qflow.main.views.adapters.QueueHistorialAdminAdapter
 import com.qflow.main.views.screenstates.HomeFragmentScreenState
 import com.qflow.main.views.viewmodels.HomeViewModel
 import kotlinx.android.synthetic.creators.fragment_home.*
+import kotlinx.android.synthetic.creators.item_queueadmin.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
@@ -22,6 +24,7 @@ class HomeFragment : Fragment() {
 
     private val viewModel: HomeViewModel by viewModel()
     private lateinit var queuesAdminAdapter: QueueAdminAdapter
+    private lateinit var queuesAdminHistory :QueueHistorialAdminAdapter
     fun activateRecyclerView(/**/) {
         //if(R.id.btn_add == view.id){
 
@@ -40,7 +43,7 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initializeObservers()
         initializeListeners()
-        viewModel.getQueues("Gl3rWCDvZFv9sm1LveHm")
+        viewModel.getQueues("bfSElIj2oqQLLqqfq9wsSl0GQdo1")
     }
 
     private fun initializeListeners() {
@@ -84,17 +87,21 @@ class HomeFragment : Fragment() {
                 }*/
                 }
             }
-            //TODO
             is HomeFragmentScreenState.QueuesObtained -> {
                 queuesAdminAdapter = QueueAdminAdapter(renderState.queues, ::onClickOnQueue)
                 rv_adminqueues.adapter = queuesAdminAdapter
             }
-            //TODO Historical
+            is HomeFragmentScreenState.QueuesHistorical -> {
+                queuesAdminHistory = QueueHistorialAdminAdapter(renderState.queues, ::onClickOnQueue)
+                rv_adminhistorial.adapter = queuesAdminHistory
+            }
         }
     }
 
     private fun onClickOnQueue(s: String) {
-        //TODO navigate to queue view
+        btn_view.setOnClickListener {
+           // view?.findNavController()?.navigate()
+        }
     }
 
     private fun updateUI(screenState: ScreenState<HomeFragmentScreenState>?) {

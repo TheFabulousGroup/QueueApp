@@ -12,10 +12,12 @@ import kotlinx.android.synthetic.creators.item_queueadmin.view.*
 class QueueAdminAdapter(
     private val queues: List<Queue>,
     private val onClickItemRV: (String) -> Unit
-):RecyclerView.Adapter<QueueAdminAdapter.ViewHolder>() {
+) : RecyclerView.Adapter<QueueAdminAdapter.ViewHolder>() {
 
 
-    override fun getItemCount(): Int = queues.size
+    override fun getItemCount(): Int {
+        return queues.size
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
