@@ -6,4 +6,4 @@ package com.qflow.main.views.screenstates
  **/
 sealed class LoginFragmentScreenState {
     class LoginSuccessful(val id: String): LoginFragmentScreenState()
-}
+}    factory { CreateQueue(get()) }

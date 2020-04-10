@@ -61,6 +61,7 @@ val useCaseModule = module {
     factory { CreateQueue(get()) }
     factory {FetchAdminActiveQueues(get())}
 
+
 }
 
 val dataModule = module {
