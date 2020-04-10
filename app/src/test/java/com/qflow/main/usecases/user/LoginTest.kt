@@ -37,7 +37,7 @@ class LoginTest {
         )
     }
     @Test
-    fun runTest_paramsCorrect_na() {
+    suspend fun runTest_paramsCorrect_na() {
         val selectedPass = "TestPass"
         val selectedEmail = "Test@mail"
         Mockito.`when`(
@@ -56,7 +56,7 @@ class LoginTest {
         }, params, coroutineScope)
     }
     @Test
-    fun runTest_paramsIncorrect_goesToError() {
+    suspend fun runTest_paramsIncorrect_goesToError() {
 
         val selectedPass = "TestPass"
         val selectedEmail = "Test@mail"

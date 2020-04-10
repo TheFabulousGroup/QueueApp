@@ -34,13 +34,13 @@ class LoginViewModel(
     ) {
         //Execute add user to database
         userLogin.execute(
-            { it.either(::handleFailure, ::handleUserCreated) },
+            { it.either(::handleFailure, ::handleLoginSuccessful) },
             LoginCase.Params(selectedPass, selectedMail),
             this.coroutineScope
         )
     }
 
-    private fun handleUserCreated(id: String) {
+    private fun handleLoginSuccessful(id: String) {
         this._screenState.value =
             ScreenState.Render(LoginFragmentScreenState.LoginSuccessful(id))
     }
@@ -52,7 +52,7 @@ class LoginViewModel(
 
     fun testFeature() {
         createQueue.execute(
-            { it.either(::handleFailure, ::handleUserCreated) },
+            { it.either(::handleFailure, ::handleLoginSuccessful) },
             CreateQueue.Params("Prueba1", "Soy una prueba", "dec", 1),
             this.coroutineScope
         )

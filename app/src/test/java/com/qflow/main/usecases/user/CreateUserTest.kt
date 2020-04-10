@@ -44,7 +44,7 @@ class CreateUserTest {
     }
 
     @Test
-    fun runTest_paramsCorrect_na() {
+    suspend fun runTest_paramsCorrect_na() {
 
         val username = "TestName"
         val selectedPass = "TestPass"
@@ -72,7 +72,7 @@ class CreateUserTest {
     }
 
     @Test
-    fun runTest_paramsIncorrect_goesToError() {
+    suspend fun runTest_paramsIncorrect_goesToError() {
 
         val username = "TestName"
         val selectedPass = "TestPass"

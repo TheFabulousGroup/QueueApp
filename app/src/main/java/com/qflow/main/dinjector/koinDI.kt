@@ -9,6 +9,7 @@ import com.qflow.main.domain.adapters.UserAdapter
 import com.qflow.main.domain.server.ApiService
 import com.qflow.main.repository.QueueRepository
 import com.qflow.main.repository.UserRepository
+import com.qflow.main.usecases.creator.FetchAdminActiveQueues
 import com.qflow.main.usecases.queue.CreateQueue
 import com.qflow.main.usecases.user.CreateAdmin
 import com.qflow.main.usecases.user.CreateUser
@@ -16,6 +17,7 @@ import com.qflow.main.usecases.user.LoginCase
 import com.qflow.main.utils.Constants
 import com.qflow.main.views.viewmodels.CreateQueueViewModel
 import com.qflow.main.views.viewmodels.LoginViewModel
+import com.qflow.main.views.viewmodels.HomeViewModel
 import com.qflow.main.views.viewmodels.SignUpViewModel
 import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.core.qualifier.named
@@ -32,7 +34,7 @@ val retrofitModule = module {
 val fireBaseModule = module {
     single { FirebaseFirestore.getInstance() }
     single { FirebaseAuth.getInstance() }
-    single { FirebaseFunctions.getInstance()}
+    single { FirebaseFunctions.getInstance() }
 }
 
 val userModule = module {
@@ -41,14 +43,13 @@ val userModule = module {
     single<QueueRepository> { QueueRepository.General(get(), get(), get(), get(), get()) }
 
     single { UserAdapter }
-    single { QueueAdapter}
+    single { QueueAdapter }
 
     viewModel { LoginViewModel(get(), get()) }
     viewModel { SignUpViewModel(get()) }
     viewModel { CreateQueueViewModel(get()) }
+    viewModel { HomeViewModel(get()) }
 
-
-//    viewModel { ProfileViewModel(get(),get()) }
 
 }
 
@@ -58,6 +59,8 @@ val useCaseModule = module {
     factory { CreateAdmin(get()) }
     factory { LoginCase(get()) }
     factory { CreateQueue(get()) }
+    factory { FetchAdminActiveQueues(get()) }
+
 
 }
 

@@ -10,6 +10,7 @@ import com.qflow.main.domain.local.database.AppDatabase
 import com.qflow.main.domain.local.models.Queue
 import com.qflow.main.domain.server.models.QueueServerModel
 import com.qflow.main.usecases.Either
+import java.util.ArrayList
 
 interface QueueRepository {
 
@@ -19,11 +20,8 @@ interface QueueRepository {
         capacity: Int,
         business_associated: String
     ): Either<Failure, String>
-
-    suspend fun joinQueue(
-        id_queue: String,
-        id_name: String
-    ): Either<Failure, Queue>
+    suspend fun joinQueue(id_queue: String, id_name: String): Either<Failure, Queue>
+    suspend fun fetchAdminActiveQueuesRepository(id_user: String): Either<Failure, List<Queue>>
 
     class General
     constructor(
@@ -66,9 +64,43 @@ interface QueueRepository {
             params["id_user"] = id_user
             val taskFunctions = firebaseFunctions.getHttpsCallable("joinQueue").call(params)
             return firebaseRequest(taskFunctions) { res ->
-//                res.data.toString()
-                Queue("", "", "", 2, "")
+                val resultMock  =
+                        "   {\n" +
+                        "      \"business_associated\":\"\",\n" +
+                        "      \"capacity\":0,\n" +
+                        "      \"date_created\":\"\",\n" +
+                        "      \"date_finished\":\"\",\n" +
+                        "      \"description\":\"\",\n" +
+                        "      \"is_locked\":false,\n" +
+                        "      \"name\":\"\"\n" +
+                        "   }\n"
+                queueAdapter.queueSMToQueue(QueueServerModel.mapToObject(resultMock))
             }
+        }
+
+        override suspend fun fetchAdminActiveQueuesRepository(id_user: String): Either<Failure, List<Queue>> {
+
+            val params = HashMap<String, String>()
+            params["id_user"] = id_user
+            params["is_active"] = true.toString()
+            val taskFunctions = firebaseFunctions.getHttpsCallable("fetchQueues").call(params)
+            return firebaseRequest(taskFunctions){
+                val resultMock  = "[\n" +
+                    "   {\n" +
+                    "      \"id\":\"1\",\n"+
+                    "      \"business_associated\":\"\",\n" +
+                    "      \"capacity\":0,\n" +
+                    "      \"date_created\":\"\",\n" +
+                    "      \"date_finished\":\"\",\n" +
+                    "      \"description\":\"\",\n" +
+                    "      \"is_locked\":false,\n" +
+                    "      \"name\":\"ejemplo\"\n" +
+                    "   }\n" +
+                    "]"
+                queueAdapter.queueSMListToQueueList(QueueServerModel.mapListToObjectList(resultMock))
+            }
+        }
+
 //            //val task = firebaseAuth.signInWithEmailAndPassword(email, pass)
 //            //We need: is_active, is_admin, actualdate, capacity
 //            val docRef = firebasedb.collection(COLLECTION_QUEUE).document(id_queue)
@@ -135,6 +167,5 @@ interface QueueRepository {
 //            }
 //
 //        }
-        }
     }
 }

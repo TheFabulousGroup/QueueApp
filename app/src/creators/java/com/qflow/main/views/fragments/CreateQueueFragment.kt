@@ -13,8 +13,6 @@ import androidx.navigation.findNavController
 import com.qflow.main.core.Failure
 import com.qflow.main.utils.enums.ValidationFailureType
 import com.qflow.main.views.screenstates.CreateQueueScreenState
-import com.qflow.main.views.screenstates.SignUpFragmentScreenState
-import kotlinx.android.synthetic.creators.fragment_signup.*
 import kotlinx.android.synthetic.main.fragment_create_queue.*
 
 
@@ -41,7 +39,7 @@ class CreateQueueFragment : Fragment() {
             val nameCreateQueue = name_create_queue.text.toString()
             val businessAssociated = business_associated.text.toString()
             val queueDescription = queue_description_create_queue.text.toString()
-            val capacity = capacity.text.toString().toInt()
+            val capacity = capacity.text.toString()
             viewModel.createQueueInDatabase(
                 nameCreateQueue, businessAssociated, queueDescription, capacity
             )
@@ -80,13 +78,7 @@ class CreateQueueFragment : Fragment() {
         when (renderState) {
             is CreateQueueScreenState.QueueCreatedCorrectly -> {
                 //Toast.makeText(this.context, renderState.id.toString(), Toast.LENGTH_LONG).show()
-                view?.let {
-                    view?.findNavController()!!
-                        .navigate(
-                            LoginFragmentDirections //TODO cambiar a CreateQUeueDirections (navigation)
-                                .actionLoginFragmentToProfileFragment(renderState.id)
-                        )
-                }
+                view?.findNavController()?.navigate(R.id.action_createQueueFragment_to_homeFragment)
             }
         }
 

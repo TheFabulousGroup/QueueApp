@@ -13,11 +13,13 @@ import androidx.navigation.findNavController
 import com.qflow.main.R
 import com.qflow.main.core.Failure
 import com.qflow.main.core.ScreenState
+import com.qflow.main.domain.adapters.QueueAdapter
+import com.qflow.main.domain.server.models.QueueServerModel
 import com.qflow.main.utils.enums.ValidationFailureType
 import com.qflow.main.views.viewmodels.LoginViewModel
 import kotlinx.android.synthetic.creators.fragment_login.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import com.qflow.main.views.screenstates.LoginFragmentScreenState as LoginFragmentScreenState
+import com.qflow.main.views.screenstates.LoginFragmentScreenState
 
 /**
  * Old view used for the login (pending to be deleted)
@@ -38,7 +40,6 @@ class LoginFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 //        viewModel.testFeature()
         initializeListeners()
-        initializeObservers()
     }
 
     private fun initializeListeners() {
@@ -54,9 +55,7 @@ class LoginFragment : Fragment() {
             viewModel.login(pass, email)
         }
         btn_signUp.setOnClickListener {
-            view.let {view?.findNavController()!!
-                .navigate(LoginFragmentDirections
-                    .actionLoginFragmentToSignUpFragment()) }
+            view?.findNavController()?.navigate(R.id.action_loginFragment_to_signUpFragment)
         }
     }
 
@@ -69,15 +68,20 @@ class LoginFragment : Fragment() {
                         Toast.makeText(
                             this.context, "Email or password empty", Toast.LENGTH_LONG
                         ).show()
-                        this.context?.let { ContextCompat.getColor(it, R.color.errorRedColor) }?.let {
-                            inputPass.background.setTint(it)
-                            inputEmail.background.setTint(it)
-                        }
+                        this.context?.let { ContextCompat.getColor(it, R.color.errorRedColor) }
+                            ?.let {
+                                inputPass.background.setTint(it)
+                                inputEmail.background.setTint(it)
+                            }
                     }
                 }
             }
             is Failure.ServerException ->
-                Toast.makeText(this.context, getString(R.string.login_not_successful), Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    this.context,
+                    getString(R.string.login_not_successful),
+                    Toast.LENGTH_SHORT
+                ).show()
         }
     }
 
@@ -93,20 +97,11 @@ class LoginFragment : Fragment() {
     private fun renderScreenState(renderState: LoginFragmentScreenState) {
         when (renderState) {
             is LoginFragmentScreenState.LoginSuccessful -> {
-                view?.let {
-                    view?.findNavController()!!
-                        .navigate(
-                            LoginFragmentDirections.actionLoginFragmentToProfileFragment(renderState.id)
-                        )
-                }
+                view?.findNavController()?.navigate(
+                    R.id.action_loginFragment_to_navigation_home
+                )
             }
         }
-    }
-
-    private fun initializeObservers() {
-        viewModel.screenState.observe(viewLifecycleOwner, Observer {
-            updateUI(it)
-        })
     }
 
 

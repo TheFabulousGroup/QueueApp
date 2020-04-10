@@ -5,22 +5,22 @@
     android:id="@+id/id_profile"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/primaryLightColor"
-    android:foreground="?attr/selectableItemBackground">
+    android:background="@color/primaryLightColor">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:background="@color/primaryLightColor"
         android:id="@+id/list_profile"
-        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/primaryLightColor">
+        android:layout_width="match_parent"
+        tools:context=".views.fragments.ProfileFragment">
 
         <ImageView
             android:id="@+id/img_profile"
-            android:layout_width="97dp"
             android:layout_height="76dp"
+            android:layout_marginEnd="50dp"
             android:layout_marginStart="50dp"
             android:layout_marginTop="8dp"
-            android:layout_marginEnd="50dp"
+            android:layout_width="97dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -28,11 +28,11 @@
 
         <TextView
             android:id="@+id/textViewQ"
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="65dp"
             android:layout_marginStart="65dp"
             android:layout_marginTop="8dp"
-            android:layout_marginEnd="65dp"
+            android:layout_width="wrap_content"
             android:text="Queues"
             android:textColor="@color/primaryTextColor"
             app:layout_constraintEnd_toEndOf="parent"
@@ -40,13 +40,13 @@
             app:layout_constraintTop_toBottomOf="@+id/img_profile" />
 
         <TextView
+            android:gravity="center"
             android:id="@+id/historical"
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="32dp"
             android:layout_marginStart="32dp"
             android:layout_marginTop="52dp"
-            android:layout_marginEnd="32dp"
-            android:gravity="center"
+            android:layout_width="wrap_content"
             android:scrollbars="vertical"
             android:text="Historical"
             android:textColor="@color/primaryTextColor"
@@ -57,10 +57,10 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView2"
-            android:layout_width="385dp"
             android:layout_height="88dp"
-            android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_width="385dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textViewQ"
@@ -71,12 +71,12 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
-            android:layout_width="385dp"
             android:layout_height="88dp"
+            android:layout_marginBottom="50dp"
+            android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="50dp"
+            android:layout_width="385dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.539"
@@ -88,14 +88,14 @@
         </androidx.recyclerview.widget.RecyclerView>
 
         <Button
+            android:background="@drawable/oval_button"
             android:id="@+id/qr_btn"
-            android:layout_width="40dp"
             android:layout_height="40dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="4dp"
             android:layout_marginStart="50dp"
             android:layout_marginTop="8dp"
-            android:layout_marginEnd="4dp"
-            android:layout_marginBottom="8dp"
-            android:background="@drawable/oval_button"
+            android:layout_width="40dp"
             android:text="QR"
             app:layout_constraintBottom_toTopOf="@+id/historical"
             app:layout_constraintEnd_toStartOf="@+id/code_btn"
@@ -103,16 +103,19 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/join"
             app:layout_constraintVertical_bias="0.0" />
+        <!--android:enabled="@{ProfileViewModel}"
+        android:onClick="@{ProfileViewModel}"-->
+        />
 
         <Button
+            android:background="@drawable/oval_button"
             android:id="@+id/code_btn"
-            android:layout_width="40dp"
             android:layout_height="40dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="32dp"
             android:layout_marginStart="4dp"
             android:layout_marginTop="8dp"
-            android:layout_marginEnd="32dp"
-            android:layout_marginBottom="8dp"
-            android:background="@drawable/oval_button"
+            android:layout_width="40dp"
             android:text="code"
             app:layout_constraintBottom_toTopOf="@+id/historical"
             app:layout_constraintEnd_toEndOf="parent"
@@ -121,14 +124,14 @@
             app:layout_constraintVertical_bias="0.0" />
 
         <TextView
-            android:id="@+id/join"
-            android:layout_width="92dp"
-            android:layout_height="26dp"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="32dp"
             android:backgroundTint="@color/primaryTextColor"
             android:gravity="center"
+            android:id="@+id/join"
+            android:layout_height="26dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="8dp"
+            android:layout_width="92dp"
             android:text="Join Queue"
             android:textColor="@color/primaryTextColor"
             android:textColorHighlight="@color/primaryTextColor"
