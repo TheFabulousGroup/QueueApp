@@ -30,7 +30,9 @@
         android:id="@+id/home_info_queue_dialog"
         android:name="com.qflow.main.views.dialogs.InfoQueueDialog"
         android:label="HomeInfoQueueDialog"
-        android:layout="@layout/dialog_home_info_q">
-
+        tools:layout="@layout/dialog_home_info_q">
+        <argument
+            android:name="idQueue"
+            app:argType="string" />
     </dialog>
 </navigation>

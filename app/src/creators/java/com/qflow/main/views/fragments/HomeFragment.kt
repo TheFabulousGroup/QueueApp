@@ -5,16 +5,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.navigation.Navigator
 import androidx.navigation.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.qflow.main.R
 import com.qflow.main.R.*
-import com.qflow.main.core.Failure
 import com.qflow.main.core.ScreenState
 import com.qflow.main.domain.local.models.Queue
-import com.qflow.main.utils.enums.ValidationFailureType
 import com.qflow.main.views.adapters.QueueAdminAdapter
-import com.qflow.main.views.adapters.QueueHistorialAdminAdapter
 import com.qflow.main.views.screenstates.HomeFragmentScreenState
 import com.qflow.main.views.viewmodels.HomeViewModel
 import kotlinx.android.synthetic.creators.fragment_home.*
@@ -26,7 +24,7 @@ class HomeFragment : Fragment() {
 
     private val viewModel: HomeViewModel by viewModel()
     private lateinit var queuesAdminAdapter: QueueAdminAdapter
-    private lateinit var queuesAdminHistory :QueueHistorialAdminAdapter
+    private lateinit var queuesAdminHistory :QueueAdminAdapter
     fun activateRecyclerView(/**/) {
         //if(R.id.btn_add == view.id){
 
@@ -45,13 +43,11 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initializeObservers()
         initializeListeners()
-        viewModel.getQueues("bfSElIj2oqQLLqqfq9wsSl0GQdo1")
+        initializeRecycler()
     }
 
     private fun initializeListeners() {
         initializeButtons()
-        viewModel.screenState.observe(::getLifecycle, ::updateUI)
-        viewModel.failure.observe(::getLifecycle, ::handleErrors)
     }
 
     private fun initializeButtons() {
@@ -62,48 +58,42 @@ class HomeFragment : Fragment() {
     }
 
     private fun initializeRecycler() {
-
+        queuesAdminHistory = QueueAdminAdapter(ArrayList(), ::onClickOnQueue)
+        queuesAdminAdapter = QueueAdminAdapter(ArrayList(), ::onClickOnQueue)
+        rv_adminqueues.adapter = queuesAdminAdapter
+        rv_adminhistorial.adapter = queuesAdminHistory
+        rv_adminhistorial.layoutManager = GridLayoutManager(context, 1, RecyclerView.VERTICAL, false)
+        rv_adminqueues.layoutManager = GridLayoutManager(context, 1, RecyclerView.VERTICAL, false)
+        viewModel.getQueues("id")
     }
-
-    private fun handleErrors(failure: Failure?) {
-        when (failure) {
-            is Failure.ValidationFailure -> {
-                when (failure.validationFailureType) {
-                    ValidationFailureType.EMAIL_OR_PASSWORD_EMPTY -> {//Cambiar por profile
-                        //TODO añadir aqui que hacer cuando el validador de fallo
-
-                    }
-                }
-            }
-        }
-    }
+//
+//    private fun handleErrors(failure: Failure?) {
+//        when () {
+//
+//            else -> {}
+//        }
+//    }
 
     private fun renderScreenState(renderState: HomeFragmentScreenState) {
         when (renderState) {
-            is HomeFragmentScreenState.AccessHome -> {
-                view?.let {
-                    view?.findNavController()!!
-                    /*.navigate(
-                   ¿Siguiente vista?
-                )
-                }*/
-                }
+            is HomeFragmentScreenState.QueuesActiveObtained -> {
+                queuesAdminAdapter.setData(renderState.queues)
             }
-            is HomeFragmentScreenState.QueuesObtained -> {
-                queuesAdminAdapter = QueueAdminAdapter(renderState.queues, ::onClickOnQueue)
-                rv_adminqueues.adapter = queuesAdminAdapter
-            }
-            is HomeFragmentScreenState.QueuesHistorical -> {
-                queuesAdminHistory = QueueHistorialAdminAdapter(renderState.queues, ::onClickOnQueue)
-                rv_adminhistorial.adapter = queuesAdminHistory
+            is HomeFragmentScreenState.QueuesHistoricalObtained -> {
             }
         }
     }
 
     private fun onClickOnQueue(queue: Queue) {
         btn_view.setOnClickListener {
-            //TODO
-            view?.findNavController()?.navigate(R.id.action_homeFragment_to_home_info_queue_dialog)
+            val action =
+                queue.id?.let { it1 ->
+                    HomeFragmentDirections
+                        .actionHomeFragmentToHomeInfoQueueDialog(it1)
+                }
+            if (action != null) {
+                view?.findNavController()?.navigate(action)
+            }
         }
     }
 
@@ -116,10 +106,8 @@ class HomeFragment : Fragment() {
     }
 
     private fun initializeObservers() {
-        viewModel.screenState.observe(viewLifecycleOwner, androidx.lifecycle.Observer
-        {
-            updateUI(it)
-        })
+        viewModel.screenState.observe(::getLifecycle, ::updateUI)
+//        viewModel.failure.observe(::getLifecycle, ::handleErrors)
     }
 
 }

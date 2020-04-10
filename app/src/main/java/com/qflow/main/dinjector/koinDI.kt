@@ -34,7 +34,7 @@ val retrofitModule = module {
 val fireBaseModule = module {
     single { FirebaseFirestore.getInstance() }
     single { FirebaseAuth.getInstance() }
-    single { FirebaseFunctions.getInstance()}
+    single { FirebaseFunctions.getInstance() }
 }
 
 val userModule = module {
@@ -43,11 +43,11 @@ val userModule = module {
     single<QueueRepository> { QueueRepository.General(get(), get(), get(), get(), get()) }
 
     single { UserAdapter }
-    single { QueueAdapter}
+    single { QueueAdapter }
 
     viewModel { LoginViewModel(get(), get()) }
     viewModel { SignUpViewModel(get()) }
-    viewModel {CreateQueueViewModel(get())}
+    viewModel { CreateQueueViewModel(get()) }
     viewModel { HomeViewModel(get()) }
 
 
@@ -59,7 +59,7 @@ val useCaseModule = module {
     factory { CreateAdmin(get()) }
     factory { LoginCase(get()) }
     factory { CreateQueue(get()) }
-    factory {FetchAdminActiveQueues(get())}
+    factory { FetchAdminActiveQueues(get()) }
 
 
 }

@@ -10,8 +10,8 @@ import kotlinx.android.synthetic.creators.item_queueadmin.view.*
 
 //Todo cambiar el String por objeto
 class QueueAdminAdapter(
-    private val queues: List<Queue>,
-    private val onClickItemRV: (String) -> Unit
+    private var queues: List<Queue>,
+    private val onClickItemRV: (Queue) -> Unit
 ) : RecyclerView.Adapter<QueueAdminAdapter.ViewHolder>() {
 
 
@@ -27,11 +27,16 @@ class QueueAdminAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         //Se le esta pasando un Queue, hay que sacar el name de esa queue
-        queues[position].name?.let { holder.bind(it) }
+        queues[position].let { holder.onBind(it) }
+    }
+
+    fun setData(queuesUpdate: List<Queue>){
+        this.queues = queuesUpdate
+        notifyDataSetChanged()
     }
 
     inner class ViewHolder(item: View) : RecyclerView.ViewHolder(item) {
-        fun bind(queue: Queue) = with(itemView) {
+        fun onBind(queue: Queue) = with(itemView) {
             tv_queue.text = queue.name
 
             btn_view.setOnClickListener {

@@ -8,10 +8,10 @@ import com.qflow.main.domain.server.models.QueueServerModel
  * */
 object QueueAdapter {
 
-    fun queueSMToQueue(queueservermodel: QueueServerModel): Queue {
+    fun queueSMToQueue(queueServerModel: QueueServerModel): Queue {
         return Queue(
-            queueservermodel.name, queueservermodel.description,
-            queueservermodel.capacity, queueservermodel.business_associated
+            queueServerModel.name, queueServerModel.description,
+            queueServerModel.capacity, queueServerModel.business_associated, queueServerModel.id
         )
     }
 

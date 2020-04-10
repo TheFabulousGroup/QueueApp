@@ -1,7 +1,6 @@
 package com.qflow.main.domain.server.models
 
-import android.os.Build
-import androidx.annotation.RequiresApi
+import com.qflow.main.core.extensions.empty
 import org.json.JSONArray
 import org.json.JSONObject
 import java.sql.Date
@@ -13,7 +12,8 @@ class QueueServerModel(
     var business_associated: String,
     var date_created: java.util.Date? = null,
     var date_finished: java.util.Date? = null,
-    var is_locked: Boolean = false
+    var is_locked: Boolean = false,
+    val id: String = String.empty()
 ) {
     fun createMap(): Map<String, String> {
         val queueFirebase = HashMap<String, String>()
@@ -27,12 +27,13 @@ class QueueServerModel(
         else
             this.date_finished.toString()
 
+        queueFirebase["id"] = this.id
         queueFirebase["name"] = this.name
         queueFirebase["description"] = this.description ?: ""
         queueFirebase["capacity"] = this.capacity.toString()
         queueFirebase["business_associated"] = this.business_associated
-        queueFirebase["date_created"] = dateC.toString()
-        queueFirebase["date_finished"] = dateF.toString()
+        queueFirebase["date_created"] = dateC
+        queueFirebase["date_finished"] = dateF
         queueFirebase["is_locked"] = this.is_locked.toString()
 
         return queueFirebase;
@@ -40,20 +41,15 @@ class QueueServerModel(
 
     companion object{
 
-        @RequiresApi(Build.VERSION_CODES.O)
         fun mapToObject(resultMock: String): QueueServerModel {
 
-            /*var name: String,
-    var description: String?,
-    var capacity: Int,
-    var business_associated: String,
-    var date_created: Timestamp? = null,
-    var date_finished: Timestamp? = null,
-    var is_locked: Boolean = false*/
+            val queueJsonObject = JSONObject(resultMock)
+            val result : QueueServerModel
 
+            val id: String =
+                if(queueJsonObject.has("id")) queueJsonObject.getString("id")
+                else ""
 
-            var queueJsonObject = JSONObject(resultMock)
-            var result : QueueServerModel
 
             if(queueJsonObject["date_created"] == "" && queueJsonObject["date_created"] == ""){
                 result = QueueServerModel(queueJsonObject["name"] as String, queueJsonObject["description"] as String,
@@ -77,17 +73,18 @@ class QueueServerModel(
 
                 result = QueueServerModel(queueJsonObject["name"] as String, queueJsonObject["description"] as String,
                     queueJsonObject["capacity"] as Int, queueJsonObject["business_associated"] as String,
-                    formattedDateCreated, formattedDateFinished, queueJsonObject["is_locked"] as Boolean)
+                    formattedDateCreated, formattedDateFinished, queueJsonObject["is_locked"] as Boolean,
+                    id
+                )
             }
 
             return result
         }
 
-        @RequiresApi(Build.VERSION_CODES.O)
         fun mapListToObjectList(resultMock: String): List<QueueServerModel> {
             val jsonArray = JSONArray(resultMock)
             val resList = ArrayList<QueueServerModel>()
-            for (i in 0 until jsonArray.length()-1)
+            for (i in 0 until jsonArray.length())
                 resList.add(mapToObject( jsonArray.get(i).toString()))
             return resList.toList()
         }

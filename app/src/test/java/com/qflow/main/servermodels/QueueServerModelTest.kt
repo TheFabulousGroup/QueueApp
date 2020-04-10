@@ -71,11 +71,11 @@ class QueueServerModelTest {
             "BusinessTwo", null, null, false
         )
 
-        val queueServerModelArrayTest = listOf<QueueServerModel>(qsmOne, qsmTwo)
+        val queueServerModelArrayTest = listOf(qsmOne, qsmTwo)
         val result = mapListToObjectList(JSONMock)
 
 
-        assertEquals(queueServerModelArrayTest.get(0).name  , result.get(0).name)     //Assert del nombre, comprobamos debuggeando
+        assertEquals(queueServerModelArrayTest[0].name  , result[0].name)     //Assert del nombre, comprobamos debuggeando
     }
 
 }

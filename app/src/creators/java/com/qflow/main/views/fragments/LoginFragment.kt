@@ -13,6 +13,8 @@ import androidx.navigation.findNavController
 import com.qflow.main.R
 import com.qflow.main.core.Failure
 import com.qflow.main.core.ScreenState
+import com.qflow.main.domain.adapters.QueueAdapter
+import com.qflow.main.domain.server.models.QueueServerModel
 import com.qflow.main.utils.enums.ValidationFailureType
 import com.qflow.main.views.viewmodels.LoginViewModel
 import kotlinx.android.synthetic.creators.fragment_login.*
@@ -66,15 +68,20 @@ class LoginFragment : Fragment() {
                         Toast.makeText(
                             this.context, "Email or password empty", Toast.LENGTH_LONG
                         ).show()
-                        this.context?.let { ContextCompat.getColor(it, R.color.errorRedColor) }?.let {
-                            inputPass.background.setTint(it)
-                            inputEmail.background.setTint(it)
-                        }
+                        this.context?.let { ContextCompat.getColor(it, R.color.errorRedColor) }
+                            ?.let {
+                                inputPass.background.setTint(it)
+                                inputEmail.background.setTint(it)
+                            }
                     }
                 }
             }
             is Failure.ServerException ->
-                Toast.makeText(this.context, getString(R.string.login_not_successful), Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    this.context,
+                    getString(R.string.login_not_successful),
+                    Toast.LENGTH_SHORT
+                ).show()
         }
     }
 

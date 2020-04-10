@@ -14,7 +14,10 @@ class FetchAdminActiveQueues(private val queueRepository: QueueRepository) :
     UseCase<List<Queue>, FetchAdminActiveQueues.Params, CoroutineScope>() {
     override suspend fun run(params: Params): Either<Failure, List<Queue>> {
 
-        return when (val result = queueRepository.fetchAdminActiveQueues(params.iduser)){
+        return when (
+            val result = queueRepository.fetchAdminActiveQueuesRepository(params.iduser)
+            )
+        {
             is Either.Left -> Either.Left(result.a)
             is Either.Right -> Either.Right(result.b)
         }
