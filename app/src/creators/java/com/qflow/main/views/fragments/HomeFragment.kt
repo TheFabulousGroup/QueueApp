@@ -5,11 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.Navigator
 import androidx.navigation.findNavController
 import com.qflow.main.R
 import com.qflow.main.R.*
 import com.qflow.main.core.Failure
 import com.qflow.main.core.ScreenState
+import com.qflow.main.domain.local.models.Queue
 import com.qflow.main.utils.enums.ValidationFailureType
 import com.qflow.main.views.adapters.QueueAdminAdapter
 import com.qflow.main.views.adapters.QueueHistorialAdminAdapter
@@ -98,9 +100,10 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun onClickOnQueue(s: String) {
+    private fun onClickOnQueue(queue: Queue) {
         btn_view.setOnClickListener {
-           // view?.findNavController()?.navigate()
+            //TODO
+            view?.findNavController()?.navigate(R.id.action_homeFragment_to_home_info_queue_dialog)
         }
     }
 

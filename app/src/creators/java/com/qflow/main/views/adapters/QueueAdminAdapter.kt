@@ -31,10 +31,11 @@ class QueueAdminAdapter(
     }
 
     inner class ViewHolder(item: View) : RecyclerView.ViewHolder(item) {
-        fun bind(name: String) = with(itemView) {
-            tv_queue.text = name
+        fun bind(queue: Queue) = with(itemView) {
+            tv_queue.text = queue.name
+
             btn_view.setOnClickListener {
-                onClickItemRV(name)
+                onClickItemRV(queue)
             }
         }
     }

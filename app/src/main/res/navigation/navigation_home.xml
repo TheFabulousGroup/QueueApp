@@ -26,10 +26,11 @@
             android:id="@+id/action_createQueueFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
     </fragment>
-    <dialog android:id="@+id/home_info_queue_dialog"
+    <dialog
+        android:id="@+id/home_info_queue_dialog"
+        android:name="com.qflow.main.views.dialogs.InfoQueueDialog"
         android:label="HomeInfoQueueDialog"
-        android:layout="@layout/dialog_home_info_q"
-        >
+        android:layout="@layout/dialog_home_info_q">
 
     </dialog>
 </navigation>
