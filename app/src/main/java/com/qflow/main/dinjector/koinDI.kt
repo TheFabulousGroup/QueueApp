@@ -10,6 +10,7 @@ import com.qflow.main.domain.server.ApiService
 import com.qflow.main.repository.QueueRepository
 import com.qflow.main.repository.UserRepository
 import com.qflow.main.usecases.creator.FetchAdminActiveQueues
+import com.qflow.main.usecases.creator.FetchAdminNotActiveQueues
 import com.qflow.main.usecases.queue.CreateQueue
 import com.qflow.main.usecases.user.CreateAdmin
 import com.qflow.main.usecases.user.CreateUser
@@ -48,7 +49,7 @@ val userModule = module {
     viewModel { LoginViewModel(get(), get()) }
     viewModel { SignUpViewModel(get()) }
     viewModel { CreateQueueViewModel(get()) }
-    viewModel { HomeViewModel(get()) }
+    viewModel { HomeViewModel(get(),get()) }
 
 
 }
@@ -60,6 +61,7 @@ val useCaseModule = module {
     factory { LoginCase(get()) }
     factory { CreateQueue(get()) }
     factory { FetchAdminActiveQueues(get()) }
+    factory {FetchAdminNotActiveQueues(get())}
 
 
 }
