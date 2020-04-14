@@ -16,6 +16,7 @@ import androidx.navigation.findNavController
 import com.qflow.main.core.Failure
 import com.qflow.main.utils.enums.ValidationFailureType
 import com.qflow.main.views.screenstates.SignUpFragmentScreenState
+import kotlinx.android.synthetic.creators.fragment_login.*
 import kotlinx.android.synthetic.creators.fragment_signup.*
 
 class SignUpFragment : Fragment() {
@@ -60,6 +61,7 @@ class SignUpFragment : Fragment() {
             is Failure.ValidationFailure -> {
                 when (failure.validationFailureType) {
                     ValidationFailureType.PASSWORDS_NOT_THE_SAME -> {
+                        loadingComplete()
                         Toast.makeText(
                             this.context, "Passwords do not match", Toast.LENGTH_LONG).show()
                         this.context?.let { ContextCompat.getColor(it, R.color.errorRedColor) }?.let {
@@ -76,18 +78,29 @@ class SignUpFragment : Fragment() {
 
         when (screenState) {
             ScreenState.Loading -> {
+                //add loading
+                loading()
             }
             is ScreenState.Render -> renderScreenState(screenState.renderState)
         }
     }
 
     private fun renderScreenState(renderState: SignUpFragmentScreenState) {
-
+        loadingComplete()
         when (renderState) {
             is SignUpFragmentScreenState.UserCreatedCorrectly -> {
                 view?.findNavController()?.navigate(R.id.action_SignUpFragment_to_navigation_home
                 )
             }
         }
+    }
+
+    private fun loading(){
+        //Make sure you've added the loader to the view
+        loading_bar.visibility = View.VISIBLE
+    }
+
+    private fun loadingComplete(){
+        loading_bar.visibility = View.INVISIBLE
     }
 }

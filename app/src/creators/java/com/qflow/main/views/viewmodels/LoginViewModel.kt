@@ -32,6 +32,8 @@ class LoginViewModel(
         selectedPass: String,
         selectedMail: String
     ) {
+        //Change screenstate to loading to activate loader
+        _screenState.value = ScreenState.Loading
         //Execute add user to database
         userLogin.execute(
             { it.either(::handleFailure, ::handleLoginSuccessful) },

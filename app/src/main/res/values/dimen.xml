@@ -4,5 +4,6 @@
     <dimen name="miniAvatarDimen">85dp</dimen>
     <dimen name="largeMargin">20dp</dimen>
     <dimen name="primaryMargin">15dp</dimen>
+    <dimen name="normalCircularDiameter">60dp</dimen>
     <dimen name="secondaryMargin">8dp</dimen>
 </resources>
