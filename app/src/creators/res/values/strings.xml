@@ -24,9 +24,10 @@
     <string name="accept">Accept</string>
     <string name="sign_in">Sign In</string>
     <string name="sign_up">Sign Up</string>
-    <string name="date_created">date_created</string>
-    <string name="date_finished">date_finished</string>
-    <string name="is_active">is_active</string>
+    <string name="date_created">Date Created</string>
+    <string name="date_finished">Date Finished</string>
+    <string name="is_active">Active</string>
     <string name="join_code">join_code</string>
     <string name="edit_queue">edit queue</string>
+
 </resources>

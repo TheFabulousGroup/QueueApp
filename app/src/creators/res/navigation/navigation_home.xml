@@ -23,8 +23,8 @@
         android:label="CreateQueueFragment"
         tools:layout="@layout/fragment_create_queue">
         <action
-            android:id="@+id/action_createQueueFragment_to_homeFragment"
-            app:destination="@id/homeFragment" />
+            android:id="@+id/action_createQueueFragment_to_editQueueFragment"
+            app:destination="@id/editQueueFragment" />
     </fragment>
     <dialog
         android:id="@+id/home_info_queue_dialog"
@@ -35,4 +35,13 @@
             android:name="idQueue"
             app:argType="string" />
     </dialog>
+    <fragment
+        android:id="@+id/editQueueFragment"
+        android:name="com.qflow.main.views.fragments.EditQueueFragment"
+        android:label="EditQueueFragment"
+        tools:layout="@layout/fragment_edit_queue">
+        <argument
+            android:name="id_queue_edit"
+            app:argType="string" />
+    </fragment>
 </navigation>

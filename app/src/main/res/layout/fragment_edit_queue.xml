@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fragment_queue"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/primaryLightColor">
+
+    <EditText
+        android:id="@+id/name_edit_queue"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/loginHorizontalMargin"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="@dimen/loginHorizontalMargin"
+        android:backgroundTint="@color/primaryTextColor"
+        android:ems="10"
+
+        android:gravity="center"
+        android:hint="@string/name"
+        android:inputType="textPersonName"
+        android:textColor="@color/primaryTextColor"
+        android:textColorHighlight="@color/primaryTextColor"
+        android:textColorHint="@color/primaryTextColor"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/business_associated_edit_queue"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/loginHorizontalMargin"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="@dimen/loginHorizontalMargin"
+        android:backgroundTint="@color/primaryTextColor"
+        android:ems="10"
+
+        android:gravity="center"
+        android:hint="@string/business_associated"
+        android:inputType="text"
+        android:textColor="@color/primaryTextColor"
+        android:textColorHighlight="@color/primaryTextColor"
+        android:textColorHint="@color/primaryTextColor"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/name_edit_queue" />
+
+    <EditText
+        android:id="@+id/queue_description_edit_queue"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/loginHorizontalMargin"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="@dimen/loginHorizontalMargin"
+        android:autofillHints=""
+        android:backgroundTint="@color/primaryTextColor"
+        android:ems="10"
+        android:gravity="center"
+
+        android:hint="@string/queue_description"
+        android:inputType="textEmailAddress"
+        android:layerType="none"
+        android:textColor="@color/primaryTextColor"
+        android:textColorHighlight="@color/primaryTextColor"
+        android:textColorHint="@color/primaryTextColor"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/business_associated_edit_queue" />
+
+    <EditText
+        android:id="@+id/capacity_edit_queue"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/loginHorizontalMargin"
+
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="@dimen/loginHorizontalMargin"
+        android:backgroundTint="@color/primaryTextColor"
+        android:ems="10"
+        android:gravity="center"
+        android:hint="@string/capacity"
+        android:inputType="number"
+        android:textColor="@color/primaryTextColor"
+        android:textColorHighlight="@color/primaryTextColor"
+        android:textColorHint="@color/primaryTextColor"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/queue_description_edit_queue" />
+
+    <EditText
+        android:id="@+id/date_created_edit_queue"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/loginHorizontalMargin"
+
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="@dimen/loginHorizontalMargin"
+        android:backgroundTint="@color/primaryTextColor"
+        android:ems="10"
+        android:gravity="center"
+        android:hint="@string/date_created"
+        android:inputType="date"
+        android:textColor="@color/primaryTextColor"
+        android:textColorHighlight="@color/primaryTextColor"
+        android:textColorHint="@color/primaryTextColor"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/capacity_edit_queue" />
+
+    <EditText
+        android:id="@+id/date_finished_edit_queue"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/loginHorizontalMargin"
+
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="@dimen/loginHorizontalMargin"
+        android:backgroundTint="@color/primaryTextColor"
+        android:ems="10"
+        android:gravity="center"
+        android:hint="@string/date_finished"
+        android:inputType="date"
+        android:textColor="@color/primaryTextColor"
+        android:textColorHighlight="@color/primaryTextColor"
+        android:textColorHint="@color/primaryTextColor"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/date_created_edit_queue" />
+
+    <Button
+        android:id="@+id/btn_accept_edit_queue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="32dp"
+        android:background="@drawable/oval_button"
+        android:gravity="center"
+        android:text="@string/accept"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/is_active_edit_queue" />
+
+    <Switch
+        android:id="@+id/is_active_edit_queue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/is_active"
+        tools:layout_editor_absoluteX="166dp"
+        tools:layout_editor_absoluteY="478dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/date_finished_edit_queue"
+        android:textColor="@color/primaryTextColor"/>
+
+    <TextView
+        android:id="@+id/id_queue_edit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ID"
+        tools:layout_editor_absoluteX="178dp"
+        tools:layout_editor_absoluteY="505dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_accept_edit_queue"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
