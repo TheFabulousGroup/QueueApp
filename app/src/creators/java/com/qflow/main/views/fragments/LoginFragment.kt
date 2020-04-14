@@ -1,11 +1,10 @@
 package com.qflow.main.views.fragments
 
 import android.annotation.SuppressLint
+import android.opengl.Visibility
 import android.os.Bundle
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
@@ -63,6 +62,8 @@ class LoginFragment : Fragment() {
     private fun handleErrors(failure: Failure?) {
         when (failure) {
             is Failure.ValidationFailure -> {
+                //Remember to stop loading when you need to
+                loadingComplete()
                 when (failure.validationFailureType) {
                     ValidationFailureType.EMAIL_OR_PASSWORD_EMPTY -> {
                         Toast.makeText(
@@ -76,12 +77,14 @@ class LoginFragment : Fragment() {
                     }
                 }
             }
-            is Failure.ServerException ->
+            is Failure.ServerException -> {
+                loadingComplete()
                 Toast.makeText(
                     this.context,
                     getString(R.string.login_not_successful),
                     Toast.LENGTH_SHORT
                 ).show()
+            }
         }
     }
 
@@ -89,12 +92,15 @@ class LoginFragment : Fragment() {
     private fun updateUI(screenState: ScreenState<LoginFragmentScreenState>?) {
         when (screenState) {
             ScreenState.Loading -> {
+                //Start loading when state is change to loading in ViewModel
+                loading()
             }
             is ScreenState.Render -> renderScreenState(screenState.renderState)
         }
     }
 
     private fun renderScreenState(renderState: LoginFragmentScreenState) {
+        loadingComplete()
         when (renderState) {
             is LoginFragmentScreenState.LoginSuccessful -> {
                 view?.findNavController()?.navigate(
@@ -104,5 +110,14 @@ class LoginFragment : Fragment() {
         }
     }
 
+
+    private fun loading(){
+        //Make sure you've added the loader to the view
+        loading_bar.visibility = View.VISIBLE
+    }
+
+    private fun loadingComplete(){
+        loading_bar.visibility = View.INVISIBLE
+    }
 
 }
