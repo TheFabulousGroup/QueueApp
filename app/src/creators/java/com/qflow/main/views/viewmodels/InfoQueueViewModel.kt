@@ -9,40 +9,44 @@ import com.qflow.main.domain.local.models.Queue
 import com.qflow.main.usecases.creator.FetchAdminActiveQueues
 import com.qflow.main.usecases.queue.FetchQueueById
 import com.qflow.main.views.screenstates.HomeFragmentScreenState
+import com.qflow.main.views.screenstates.InfoQueueScreenState
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import org.koin.core.KoinComponent
 
-class HomeViewModel(
-    private val fetchAdminActiveQueues: FetchAdminActiveQueues
+class InfoQueueViewModel(
+    private val fetchQueueById: FetchQueueById
 ) : BaseViewModel(), KoinComponent {
 
     private val _currentUser = MutableLiveData<UserDB>()
     val currentUserDB: LiveData<UserDB>
         get() = _currentUser
 
-    private val _screenState: MutableLiveData<ScreenState<HomeFragmentScreenState>> =
+    private val _screenState: MutableLiveData<ScreenState<InfoQueueScreenState>> =
         MutableLiveData()
-    val screenState: LiveData<ScreenState<HomeFragmentScreenState>>
+    val screenState: LiveData<ScreenState<InfoQueueScreenState>>
         get() = _screenState
 
     private var job = Job()
     private var coroutineScope = CoroutineScope(Dispatchers.Default + job)
 
-    fun getQueues(idUser: String) {
+    private lateinit var queueObtained: Queue
 
-        fetchAdminActiveQueues.execute(
-            { it.either(::handleFailure, ::handleQueuesObtained) },
-            FetchAdminActiveQueues.Params(idUser),
+    fun fetchQueueById(idQueue: String){
+        /*return when(val res = fetchQueueById.execute())
+            is Either.Left ->*/
+        var queue : Queue
+
+        fetchQueueById.execute(
+            { it.either(::handleFailure, ::handleQueueObtained) },
+            FetchQueueById.Params(idQueue),
             this.coroutineScope
         )
     }
 
-    private fun handleQueuesObtained(queues: List<Queue>) {
-        this._screenState.value =
-            ScreenState.Render(HomeFragmentScreenState.QueuesActiveObtained(queues))
+    private fun handleQueueObtained(queue: Queue) {
+        this._screenState.value = ScreenState.Render(InfoQueueScreenState.QueueObtained(queue))
     }
-
 
 }

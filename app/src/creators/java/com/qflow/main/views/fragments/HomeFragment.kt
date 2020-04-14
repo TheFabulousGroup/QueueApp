@@ -84,6 +84,7 @@ class HomeFragment : Fragment() {
         }
     }
 
+    //TODO Ver como hacer la prueba con una cola
     private fun onClickOnQueue(queue: Queue) {
         btn_view.setOnClickListener {
             val action =
