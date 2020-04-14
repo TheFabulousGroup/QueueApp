@@ -14,7 +14,6 @@ import kotlinx.coroutines.Job
 import org.koin.core.KoinComponent
 
 class CreateQueueViewModel (
-
     private val createQueue: CreateQueue
     ) : BaseViewModel(), KoinComponent {
 
@@ -33,14 +32,14 @@ class CreateQueueViewModel (
         ) {
 
             //Execute create queue
-            createQueue.execute({ it.either(::handleFailure, ::handleUserCreated) },
+            createQueue.execute({ it.either(::handleFailure, ::handleQueueCreated) },
                 CreateQueue.Params(nameCreateQueue, businessAssociated, queueDescription,
                     capacity), this.coroutineScope
             )
 
         }
 
-        private fun handleUserCreated(id: String) {
+        private fun handleQueueCreated(id: String) {
             this._screenState.value =
                 ScreenState.Render(CreateQueueScreenState.QueueCreatedCorrectly(id))
         }
