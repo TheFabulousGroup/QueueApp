@@ -9,7 +9,6 @@ import com.qflow.main.domain.local.models.Queue
 import kotlinx.android.synthetic.creators.item_queueadmin.view.*
 import kotlinx.android.synthetic.main.item_home_historical.view.*
 
-//Todo cambiar el String por objeto
 class QueueAdminAdapter(
     private var queues: List<Queue>,
     private var onClickItemRV: (Queue) -> Unit
