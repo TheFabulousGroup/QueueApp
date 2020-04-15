@@ -34,10 +34,6 @@ class ProfileAdapter : RecyclerView.Adapter<ProfileAdapter.ViewHolder>() {
             textQ.text = item.description
             textQ.text = item.capacity.toString()
 
-            textH.text = item.name
-            textH.text = item.description
-            textH.text = item.capacity.toString()
-
         }
 
         companion object {
