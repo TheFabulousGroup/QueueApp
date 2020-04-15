@@ -25,4 +25,7 @@
     <string name="sign_in">Sign In</string>
     <string name="sign_up">Sign Up</string>
     <string name="code" />
+    <string name="your_current_queues">Your current queues</string>
+    <string name="join_queue">Join queue</string>
+    <string name="user_profile_picture_text">User profile picture</string>
 </resources>

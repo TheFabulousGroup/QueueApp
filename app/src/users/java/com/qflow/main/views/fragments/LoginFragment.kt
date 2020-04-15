@@ -54,13 +54,7 @@ class LoginFragment : Fragment() {
             }
         }
         btn_signUp.setOnClickListener {
-            view.let {
-                view?.findNavController()!!
-                    .navigate(
-                        LoginFragmentDirections
-                            .actionLoginFragmentToSignUpFragment()
-                    )
-            }
+            view?.findNavController()?.navigate(R.id.action_loginFragment_to_signUpFragment)
         }
     }
 
@@ -97,13 +91,9 @@ class LoginFragment : Fragment() {
 
         when (renderState) {
             is LoginFragmentScreenState.LoginSuccessful -> {
-                view?.let {
-                    view?.findNavController()!!
-                        .navigate(
-                            LoginFragmentDirections
-                                .actionLoginFragmentToProfileFragment(renderState.id)
-                        )
-                }
+                view?.findNavController()?.navigate(
+                    R.id.action_loginFragment_to_navigation_home
+                )
             }
         }
     }

@@ -90,13 +90,7 @@ class SignUpFragment : Fragment() {
         when (renderState) {
             is SignUpFragmentScreenState.UserCreatedCorrectly -> {
                 //Toast.makeText(this.context, renderState.id.toString(), Toast.LENGTH_LONG).show()
-                view?.let {
-                    view?.findNavController()!!
-                        .navigate(
-                            LoginFragmentDirections
-                                .actionLoginFragmentToProfileFragment(renderState.id)
-                        )
-                }
+                view?.findNavController()?.navigate(R.id.action_SignUpFragment_to_navigation_home
             }
         }
 

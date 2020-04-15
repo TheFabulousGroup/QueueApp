@@ -4,10 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.findNavController
 import com.qflow.main.R
 import com.qflow.main.core.Failure
 import com.qflow.main.core.ScreenState
@@ -15,9 +13,9 @@ import com.qflow.main.utils.enums.ValidationFailureType
 import com.qflow.main.views.adapters.ProfileAdapter
 import com.qflow.main.views.screenstates.ProfileFragmentScreenState
 import com.qflow.main.views.viewmodels.ProfileViewModel
-import kotlinx.android.synthetic.users.profile_fragment.*
+import kotlinx.android.synthetic.users.fragment_home.*
 
-class ProfileFragment : Fragment() {
+class HomeFragment : Fragment() {
 
     lateinit var viewModel: ProfileViewModel
 
@@ -30,7 +28,7 @@ class ProfileFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.profile_fragment, container, false)
+        return inflater.inflate(R.layout.fragment_home, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -48,13 +46,12 @@ class ProfileFragment : Fragment() {
     private fun initializeButtons() {
         //img_profile.setImageResource()
 
-        code_btn.setOnClickListener {
-            view.let {
-                view?.findNavController()!!
-                    .navigate(ProfileFragmentDirections.actionProfileFragmentToCodeFragment())
-            }
-        }
-        qr_btn.setOnClickListener {
+        btn_join_queue.setOnClickListener {
+            /*
+            *                 view?.findNavController()?.navigate(
+                    R.id.action_loginFragment_to_navigation_home
+                )
+            * */
             view.let {
                 view?.findNavController()!!
                     .navigate(ProfileFragmentDirections.actionProfileFragmentToQrFragment())

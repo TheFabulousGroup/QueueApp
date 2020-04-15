@@ -24,7 +24,7 @@
         android:id="@+id/profileFragment"
         android:name="com.qflow.main.views.fragments.HomeFragment"
         android:label="profile_fragment"
-        tools:layout="@layout/profile_fragment">
+        tools:layout="@layout/fragment_home">
         <argument
             android:name="userId"
             app:argType="string" />

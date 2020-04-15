@@ -108,19 +108,6 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun onClickOnQueueHistorical(queue: Queue){
-        btn_view_historical.setOnClickListener {
-            val action =
-                queue.id?.let { it1 ->
-                    /* HomeFragmentDirections
-                         .actionHomeFragmentToHomeInfoQueueDialog(it1)*/
-                }
-            if (action != null) {
-                //view?.findNavController()?.navigate(action)
-            }
-        }
-    }
-
     private fun updateUI(screenState: ScreenState<HomeFragmentScreenState>?) {
         when (screenState) {
             ScreenState.Loading -> {
