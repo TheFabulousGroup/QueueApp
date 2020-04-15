@@ -78,7 +78,7 @@ class CreateQueueFragment : Fragment() {
         when (renderState) {
             is CreateQueueScreenState.QueueCreatedCorrectly -> {
                 //Toast.makeText(this.context, renderState.id.toString(), Toast.LENGTH_LONG).show()
-                view?.findNavController()?.navigate(R.id.action_createQueueFragment_to_homeFragment())
+                //view?.findNavController()?.navigate(R.id.action_createQueueFragment_to_homeFragment())
             }
         }
 
