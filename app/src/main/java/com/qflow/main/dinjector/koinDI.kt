@@ -47,7 +47,7 @@ val userModule = module {
     viewModel { LoginViewModel(get(), get()) }
     viewModel { SignUpViewModel(get()) }
     viewModel { CreateQueueViewModel(get()) }
-    viewModel { HomeViewModel(get()) }
+    viewModel { HomeViewModel(get(), get()) }
     viewModel { InfoQueueViewModel(get()) }
 
 }
@@ -60,7 +60,7 @@ val useCaseModule = module {
     factory { CreateQueue(get()) }
     factory { FetchAdminActiveQueues(get()) }
     factory { FetchQueueById(get()) }
-    factory {FetchAdminNotActiveQueues(get())}
+    factory { FetchAdminNotActiveQueues(get()) }
 
 
 }
