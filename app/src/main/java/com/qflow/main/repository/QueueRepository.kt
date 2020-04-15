@@ -10,7 +10,6 @@ import com.qflow.main.domain.local.database.AppDatabase
 import com.qflow.main.domain.local.models.Queue
 import com.qflow.main.domain.server.models.QueueServerModel
 import com.qflow.main.usecases.Either
-import java.util.ArrayList
 
 interface QueueRepository {
 
@@ -21,8 +20,7 @@ interface QueueRepository {
         business_associated: String
     ): Either<Failure, String>
     suspend fun joinQueue(id_queue: String, id_name: String): Either<Failure, Queue>
-    suspend fun fetchAdminActiveQueuesRepository(id_user: String): Either<Failure, List<Queue>>
-    suspend fun fetchAdminNotActiveQueuesRepository(id_user: String): Either<Failure, List<Queue>>
+    suspend fun fetchAdminQueuesRepository(id_user: String, isActive: Boolean): Either<Failure, List<Queue>>
     suspend fun fetchQueueById(id_queue: String): Either<Failure, Queue>
 
     class General
@@ -80,10 +78,10 @@ interface QueueRepository {
             }
         }
 
-        override suspend fun fetchAdminActiveQueuesRepository(id_user: String): Either<Failure, List<Queue>> {
+        override suspend fun fetchAdminQueuesRepository(idUser: String, isActive: Boolean): Either<Failure, List<Queue>> {
 
             val params = HashMap<String, String>()
-            params["id_user"] = id_user
+            params["id_user"] = idUser
             params["is_active"] = true.toString()
             val taskFunctions = firebaseFunctions.getHttpsCallable("fetchQueues").call(params)
             return firebaseRequest(taskFunctions){
@@ -99,28 +97,6 @@ interface QueueRepository {
                     "      \"name\":\"ejemplo\"\n" +
                     "   }\n" +
                     "]"
-                queueAdapter.queueSMListToQueueList(QueueServerModel.mapListToObjectList(resultMock))
-            }
-        }
-
-        override suspend fun fetchAdminNotActiveQueuesRepository(id_user: String): Either<Failure, List<Queue>> {
-            val params = HashMap<String, String>()
-            params["id_user"] = id_user
-            params["is_active"] = false.toString()
-            val taskFunctions = firebaseFunctions.getHttpsCallable("fetchQueues").call(params)
-            return firebaseRequest(taskFunctions){
-                val resultMock  = "[\n" +
-                        "   {\n" +
-                        "      \"id\":\"1\",\n"+
-                        "      \"business_associated\":\"\",\n" +
-                        "      \"capacity\":0,\n" +
-                        "      \"date_created\":\"\",\n" +
-                        "      \"date_finished\":\"\",\n" +
-                        "      \"description\":\"\",\n" +
-                        "      \"is_active\":false,\n" +
-                        "      \"name\":\"ejemplo\"\n" +
-                        "   }\n" +
-                        "]"
                 queueAdapter.queueSMListToQueueList(QueueServerModel.mapListToObjectList(resultMock))
             }
         }

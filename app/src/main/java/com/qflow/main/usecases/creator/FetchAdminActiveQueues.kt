@@ -15,7 +15,7 @@ class FetchAdminActiveQueues(private val queueRepository: QueueRepository) :
     override suspend fun run(params: Params): Either<Failure, List<Queue>> {
 
         return when (
-            val result = queueRepository.fetchAdminActiveQueuesRepository(params.iduser)
+            val result = queueRepository.fetchAdminQueuesRepository(params.iduser, true)
             )
         {
             is Either.Left -> Either.Left(result.a)

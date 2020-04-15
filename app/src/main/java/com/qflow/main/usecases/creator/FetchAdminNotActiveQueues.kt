@@ -9,11 +9,11 @@ import kotlinx.coroutines.CoroutineScope
 
 class FetchAdminNotActiveQueues(private val queueRepository: QueueRepository) :
     UseCase<List<Queue>, FetchAdminNotActiveQueues.Params, CoroutineScope>() {
-    override suspend fun run(params: FetchAdminNotActiveQueues.Params): Either<Failure, List<Queue>> {
+    override suspend fun run(params: Params): Either<Failure, List<Queue>> {
 
         return when (
             val result =
-                queueRepository.fetchAdminNotActiveQueuesRepository(params.id_user)
+                queueRepository.fetchAdminQueuesRepository(params.idUser, false)
             ) {
             is Either.Left -> Either.Left(result.a)
             is Either.Right -> Either.Right(result.b)
@@ -22,6 +22,6 @@ class FetchAdminNotActiveQueues(private val queueRepository: QueueRepository) :
     }
 
     class Params(
-        val id_user: String
+        val idUser: String
     )
 }
