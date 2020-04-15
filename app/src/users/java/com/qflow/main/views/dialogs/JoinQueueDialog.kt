@@ -13,13 +13,15 @@ import com.qflow.main.R
 import com.qflow.main.core.Failure
 import com.qflow.main.core.ScreenState
 import com.qflow.main.utils.enums.ValidationFailureType
+import com.qflow.main.views.screenstates.JoinQueueScreenStates
 import com.qflow.main.views.screenstates.SignUpFragmentScreenState
+import com.qflow.main.views.viewmodels.JoinQueueViewModel
 import kotlinx.android.synthetic.users.dialog_join_queue.*
 import kotlinx.android.synthetic.users.fragment_signup.*
 
 class JoinQueueDialog : DialogFragment(){
 
-    val viewModel: JoinQueueDialogViewModel by viewmodel()
+    private val viewModel: JoinQueueViewModel by viewModel()
 
 
     override fun onCreateView(
@@ -36,13 +38,13 @@ class JoinQueueDialog : DialogFragment(){
     }
 
     private fun initializeListeners() {
-        btn_join_queue_by_code{
+        btn_join_queue_by_code.setOnClickListener{
 
         }
     }
 
     private fun initializeObservers() {
-        viewModel.screenState.observe(::getLifecycle, ::updateUI)
+        viewModel.screenState.observe(this.viewLifecycleOwner, ::updateUI)
         viewModel.failure.observe(::getLifecycle, ::handleErrors)
     }
 
@@ -64,7 +66,7 @@ class JoinQueueDialog : DialogFragment(){
         }
     }
 
-    private fun updateUI(screenState: ScreenState<SignUpFragmentScreenState>?) {
+    private fun updateUI(screenState: ScreenState<JoinQueueScreenStates>) {
 
         when (screenState) {
             ScreenState.Loading -> {
@@ -73,10 +75,10 @@ class JoinQueueDialog : DialogFragment(){
         }
     }
 
-    private fun renderScreenState(renderState: SignUpFragmentScreenState) {
+    private fun renderScreenState(renderState: JoinQueueScreenStates) {
 
         when (renderState) {
-            is SignUpFragmentScreenState.UserCreatedCorrectly -> {
+            is JoinQueueScreenStates.UserCreatedCorrectly -> {
                 //Toast.makeText(this.context, renderState.id.toString(), Toast.LENGTH_LONG).show()
                 view?.findNavController()?.navigate(R.id.action_SignUpFragment_to_navigation_home)
             }
