@@ -40,7 +40,10 @@ class JoinQueueDialog : DialogFragment(){
 
     private fun initializeListeners() {
         btn_join_queue_by_code.setOnClickListener{
-
+            view.let {
+                val join_code = dialog_join_code.text.toString()
+                mViewModel.joinQueue(join_code)
+            }
         }
     }
 
@@ -54,17 +57,11 @@ class JoinQueueDialog : DialogFragment(){
     @SuppressLint("ResourceAsColor")
     private fun handleErrors(failure: Failure?) {
         when (failure) {
-            is Failure.ValidationFailure -> {
-                when (failure.validationFailureType) {
-                    ValidationFailureType.PASSWORDS_NOT_THE_SAME -> {
-                        Toast.makeText(
-                            this.context, "Passwords do not match", Toast.LENGTH_LONG).show()
-                        this.context?.let { ContextCompat.getColor(it, R.color.errorRedColor) }?.let {
-                            password.background.setTint(it)
-                            repeat_Password.background.setTint(it)
-                        }
-                    }
-                }
+            is Failure.JoinNotSuccessful -> {
+                Toast.makeText(this.context, "Join was not successful", Toast.LENGTH_SHORT).show()
+            }
+            is Failure.NullResult -> {
+                view?.findNavController()?.navigate(R.id.action_joinQueueDialog_to_homeFragment)
             }
         }
     }
@@ -81,11 +78,20 @@ class JoinQueueDialog : DialogFragment(){
     private fun renderScreenState(renderState: JoinQueueScreenStates) {
 
         when (renderState) {
-            is JoinQueueScreenStates.UserCreatedCorrectly -> {
+            is JoinQueueScreenStates.JoinSuccessful -> {
                 //Toast.makeText(this.context, renderState.id.toString(), Toast.LENGTH_LONG).show()
-                view?.findNavController()?.navigate(R.id.action_SignUpFragment_to_navigation_home)
+                view?.findNavController()?.navigate(R.id.action_joinQueueDialog_to_homeFragment)
             }
         }
 
+    }
+
+    private fun loading(){
+        //Make sure you've added the loader to the view
+        loading_bar.visibility = View.VISIBLE
+    }
+
+    private fun loadingComplete(){
+        loading_bar.visibility = View.INVISIBLE
     }
 }

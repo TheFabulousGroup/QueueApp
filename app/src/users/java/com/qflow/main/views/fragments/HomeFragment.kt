@@ -12,12 +12,12 @@ import com.qflow.main.core.ScreenState
 import com.qflow.main.utils.enums.ValidationFailureType
 import com.qflow.main.views.adapters.ProfileAdapter
 import com.qflow.main.views.screenstates.HomeFragmentScreenState
-import com.qflow.main.views.viewmodels.ProfileViewModel
+import com.qflow.main.views.viewmodels.HomeViewModel
 import kotlinx.android.synthetic.users.fragment_home.*
 
 class HomeFragment : Fragment() {
 
-    lateinit var viewModel: ProfileViewModel
+    lateinit var viewModel: HomeViewModel
 
     /*val binding: ProfileFragmentScreenState = DataBindingUtil.inflate(
          inflater, R.layout.fragment_home, container, false)*/
