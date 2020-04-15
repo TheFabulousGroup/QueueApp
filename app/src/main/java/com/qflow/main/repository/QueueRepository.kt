@@ -95,7 +95,7 @@ interface QueueRepository {
                     "      \"date_created\":\"\",\n" +
                     "      \"date_finished\":\"\",\n" +
                     "      \"description\":\"\",\n" +
-                    "      \"is_locked\":false,\n" +
+                    "      \"is_active\":false,\n" +
                     "      \"name\":\"ejemplo\"\n" +
                     "   }\n" +
                     "]"
@@ -117,7 +117,7 @@ interface QueueRepository {
                         "      \"date_created\":\"\",\n" +
                         "      \"date_finished\":\"\",\n" +
                         "      \"description\":\"\",\n" +
-                        "      \"is_locked\":false,\n" +
+                        "      \"is_active\":false,\n" +
                         "      \"name\":\"ejemplo\"\n" +
                         "   }\n" +
                         "]"
@@ -133,18 +133,18 @@ interface QueueRepository {
             //TODO add fetchQueueById
             val taskFunctions = firebaseFunctions.getHttpsCallable("fetchQueues").call(params)
             return firebaseRequest(taskFunctions){
-                val resultMock  = "[\n" +
+                val resultMock  =
                         "   {\n" +
                         "      \"id\":\"1\",\n"+
                         "      \"business_associated\":\"Empresa de prueba\",\n" +
-                        "      \"capacity\":0,\n" +
+                        "      \"capacity\":155,\n" +
                         "      \"date_created\":\"\",\n" +
                         "      \"date_finished\":\"\",\n" +
-                        "      \"description\":\"Descripcion de prueba a mostrar\",\n" +
-                        "      \"is_locked\":false,\n" +
+                        "      \"description\":\"Descripcion pr\",\n" +
+                        "      \"is_active\":false,\n" +
                         "      \"name\":\"Cola de ejemplo\"\n" +
-                        "   }\n" +
-                        "]"
+                        "   }\n"
+
                 queueAdapter.queueSMToQueue(QueueServerModel.mapToObject(resultMock))
                 //queueAdapter.queueSMListToQueueList(QueueServerModel.mapListToObjectList(resultMock))
             }

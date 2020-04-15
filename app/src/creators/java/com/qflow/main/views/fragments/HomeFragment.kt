@@ -54,7 +54,7 @@ class HomeFragment : Fragment() {
 
     private fun initializeRecycler() {
 
-        queuesAdminHistory = QueueAdminAdapter(ArrayList(), ::onClickOnQueue)
+        queuesAdminHistory = QueueAdminAdapter(ArrayList(), ::onClickOnQueueHistorical)
         queuesAdminAdapter = QueueAdminAdapter(ArrayList(), ::onClickOnQueue)
         rv_admin_queues.adapter = queuesAdminAdapter
         rv_admin_historical.adapter = queuesAdminHistory
@@ -96,12 +96,14 @@ class HomeFragment : Fragment() {
                 view?.findNavController()?.navigate(action)
             }
         }
+    }
 
+    private fun onClickOnQueueHistorical(queue: Queue){
         btn_view_historical.setOnClickListener {
             val action =
                 queue.id?.let { it1 ->
-                   /* HomeFragmentDirections
-                        .actionHomeFragmentToHomeInfoQueueDialog(it1)*/
+                    /* HomeFragmentDirections
+                         .actionHomeFragmentToHomeInfoQueueDialog(it1)*/
                 }
             if (action != null) {
                 //view?.findNavController()?.navigate(action)

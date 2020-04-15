@@ -74,10 +74,9 @@ class InfoQueueDialog : DialogFragment() {
                 home_info_description_queue.text = renderState.queue.description
                 home_info_bss_asoc_queue.text = renderState.queue.business_associated
                 home_info_capacity_queue.text = renderState.queue.capacity.toString()
-                //TODO Add parameters to Queue object
-                home_info_dt_created.text = "Date created (add)"
-                home_info_dt_finished_queue.text = "Date finished (add)"
-                home_info_is_active.text = "Is active (add)"
+                home_info_dt_created.text = renderState.queue.date_created.toString()
+                home_info_dt_finished_queue.text = renderState.queue.date_finished.toString()
+                home_info_is_active.text = renderState.queue.is_active.toString()
                 home_info_join_id.text = "Join ID (add)"
             }
         }

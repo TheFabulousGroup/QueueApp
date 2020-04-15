@@ -11,7 +11,8 @@ object QueueAdapter {
     fun queueSMToQueue(queueServerModel: QueueServerModel): Queue {
         return Queue(
             queueServerModel.name, queueServerModel.description,
-            queueServerModel.capacity, queueServerModel.business_associated, queueServerModel.id
+            queueServerModel.capacity, queueServerModel.business_associated, queueServerModel.id,
+            queueServerModel.date_created, queueServerModel.date_finished, queueServerModel.is_active
         )
     }
 
