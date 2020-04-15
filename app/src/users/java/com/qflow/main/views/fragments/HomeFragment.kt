@@ -11,7 +11,7 @@ import com.qflow.main.core.Failure
 import com.qflow.main.core.ScreenState
 import com.qflow.main.utils.enums.ValidationFailureType
 import com.qflow.main.views.adapters.ProfileAdapter
-import com.qflow.main.views.screenstates.ProfileFragmentScreenState
+import com.qflow.main.views.screenstates.HomeFragmentScreenState
 import com.qflow.main.views.viewmodels.ProfileViewModel
 import kotlinx.android.synthetic.users.fragment_home.*
 
@@ -72,9 +72,9 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun renderScreenState(renderState: ProfileFragmentScreenState) {
+    private fun renderScreenState(renderState: HomeFragmentScreenState) {
         when (renderState) {
-            is ProfileFragmentScreenState.AccessProfile -> {
+            is HomeFragmentScreenState.AccessProfile -> {
                 view?.let {
                     view?.findNavController()!!
                     /*.navigate(
@@ -87,7 +87,7 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun updateUI(screenState: ScreenState<ProfileFragmentScreenState>?) {
+    private fun updateUI(screenState: ScreenState<HomeFragmentScreenState>?) {
         when (screenState) {
             ScreenState.Loading -> {
             }

@@ -9,5 +9,18 @@
         android:id="@+id/homeFragment"
         tools:layout="@layout/fragment_home"
         android:name="com.qflow.main.views.fragments.HomeFragment"
-        android:label="HomeFragment" />
+        android:label="HomeFragment" >
+        <action
+            android:id="@+id/action_homeFragment_to_joinQueueDialog"
+            app:destination="@id/joinQueueDialog" />
+    </fragment>
+    <dialog
+        android:id="@+id/joinQueueDialog"
+        tools:layout="@layout/dialog_join_queue"
+        android:name="com.qflow.main.views.dialogs.JoinQueueDialog"
+        android:label="JoinQueueDialog" >
+        <action
+            android:id="@+id/action_joinQueueDialog_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </dialog>
 </navigation>

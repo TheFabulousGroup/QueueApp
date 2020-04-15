@@ -8,20 +8,21 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
+import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import com.qflow.main.R
 import com.qflow.main.core.Failure
 import com.qflow.main.core.ScreenState
 import com.qflow.main.utils.enums.ValidationFailureType
 import com.qflow.main.views.screenstates.JoinQueueScreenStates
-import com.qflow.main.views.screenstates.SignUpFragmentScreenState
 import com.qflow.main.views.viewmodels.JoinQueueViewModel
 import kotlinx.android.synthetic.users.dialog_join_queue.*
 import kotlinx.android.synthetic.users.fragment_signup.*
+import org.koin.android.architecture.ext.viewModel
 
 class JoinQueueDialog : DialogFragment(){
 
-    private val viewModel: JoinQueueViewModel by viewModel()
+    private val mViewModel: JoinQueueViewModel by viewModel()
 
 
     override fun onCreateView(
@@ -44,8 +45,10 @@ class JoinQueueDialog : DialogFragment(){
     }
 
     private fun initializeObservers() {
-        viewModel.screenState.observe(this.viewLifecycleOwner, ::updateUI)
-        viewModel.failure.observe(::getLifecycle, ::handleErrors)
+        mViewModel.screenState.observe(this.viewLifecycleOwner, Observer {
+            updateUI(it)
+        })
+        mViewModel.failure.observe(::getLifecycle, ::handleErrors)
     }
 
     @SuppressLint("ResourceAsColor")

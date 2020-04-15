@@ -28,7 +28,6 @@ class ProfileAdapter : RecyclerView.Adapter<ProfileAdapter.ViewHolder>() {
 
     class ViewHolder(itemView:View) : RecyclerView.ViewHolder(itemView) {
         private val textQ: TextView = itemView.findViewById(R.id.queue)
-        private val textH: TextView = itemView.findViewById(R.id.historical)
         fun bind(item: QueueServerModel) {
             //val res = itemView.context.resources
             textQ.text = item.name

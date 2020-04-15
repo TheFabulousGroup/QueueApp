@@ -9,8 +9,7 @@
         android:id="@+id/loginFragment"
         android:name="com.qflow.main.views.fragments.LoginFragment"
         android:label="login_fragment"
-        tools:layout="@layout/fragment_login"
-        app:startDestination="@id/action_loginFragment_to_profileFragment">
+        tools:layout="@layout/fragment_login">
         <action
             android:id="@+id/action_loginFragment_to_signUpFragment"
             app:destination="@+id/SignUpFragment" />
