@@ -22,6 +22,8 @@ interface QueueRepository {
     ): Either<Failure, String>
     suspend fun joinQueue(id_queue: String, id_name: String): Either<Failure, Queue>
     suspend fun fetchAdminActiveQueuesRepository(id_user: String): Either<Failure, List<Queue>>
+    suspend fun fetchAdminNotActiveQueuesRepository(id_user: String): Either<Failure, List<Queue>>
+    suspend fun fetchQueueById(id_queue: String): Either<Failure, Queue>
 
     class General
     constructor(
@@ -93,11 +95,58 @@ interface QueueRepository {
                     "      \"date_created\":\"\",\n" +
                     "      \"date_finished\":\"\",\n" +
                     "      \"description\":\"\",\n" +
-                    "      \"is_locked\":false,\n" +
+                    "      \"is_active\":false,\n" +
                     "      \"name\":\"ejemplo\"\n" +
                     "   }\n" +
                     "]"
                 queueAdapter.queueSMListToQueueList(QueueServerModel.mapListToObjectList(resultMock))
+            }
+        }
+
+        override suspend fun fetchAdminNotActiveQueuesRepository(id_user: String): Either<Failure, List<Queue>> {
+            val params = HashMap<String, String>()
+            params["id_user"] = id_user
+            params["is_active"] = false.toString()
+            val taskFunctions = firebaseFunctions.getHttpsCallable("fetchQueues").call(params)
+            return firebaseRequest(taskFunctions){
+                val resultMock  = "[\n" +
+                        "   {\n" +
+                        "      \"id\":\"1\",\n"+
+                        "      \"business_associated\":\"\",\n" +
+                        "      \"capacity\":0,\n" +
+                        "      \"date_created\":\"\",\n" +
+                        "      \"date_finished\":\"\",\n" +
+                        "      \"description\":\"\",\n" +
+                        "      \"is_active\":false,\n" +
+                        "      \"name\":\"ejemplo\"\n" +
+                        "   }\n" +
+                        "]"
+                queueAdapter.queueSMListToQueueList(QueueServerModel.mapListToObjectList(resultMock))
+            }
+        }
+
+        override suspend fun fetchQueueById(id_queue: String): Either<Failure, Queue> {
+
+            val params = HashMap<String, String>()
+            params["id_queue"] = id_queue
+            params["is_active"] = true.toString()
+            //TODO add fetchQueueById
+            val taskFunctions = firebaseFunctions.getHttpsCallable("fetchQueues").call(params)
+            return firebaseRequest(taskFunctions){
+                val resultMock  =
+                        "   {\n" +
+                        "      \"id\":\"1\",\n"+
+                        "      \"business_associated\":\"Empresa de prueba\",\n" +
+                        "      \"capacity\":155,\n" +
+                        "      \"date_created\":\"\",\n" +
+                        "      \"date_finished\":\"\",\n" +
+                        "      \"description\":\"Descripcion pr\",\n" +
+                        "      \"is_active\":false,\n" +
+                        "      \"name\":\"Cola de ejemplo\"\n" +
+                        "   }\n"
+
+                queueAdapter.queueSMToQueue(QueueServerModel.mapToObject(resultMock))
+                //queueAdapter.queueSMListToQueueList(QueueServerModel.mapListToObjectList(resultMock))
             }
         }
 

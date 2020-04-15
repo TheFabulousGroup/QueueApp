@@ -10,15 +10,14 @@ import com.qflow.main.domain.server.ApiService
 import com.qflow.main.repository.QueueRepository
 import com.qflow.main.repository.UserRepository
 import com.qflow.main.usecases.creator.FetchAdminActiveQueues
+import com.qflow.main.usecases.creator.FetchAdminNotActiveQueues
 import com.qflow.main.usecases.queue.CreateQueue
+import com.qflow.main.usecases.queue.FetchQueueById
 import com.qflow.main.usecases.user.CreateAdmin
 import com.qflow.main.usecases.user.CreateUser
 import com.qflow.main.usecases.user.LoginCase
 import com.qflow.main.utils.Constants
-import com.qflow.main.views.viewmodels.CreateQueueViewModel
-import com.qflow.main.views.viewmodels.LoginViewModel
-import com.qflow.main.views.viewmodels.HomeViewModel
-import com.qflow.main.views.viewmodels.SignUpViewModel
+import com.qflow.main.views.viewmodels.*
 import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
@@ -48,8 +47,8 @@ val userModule = module {
     viewModel { LoginViewModel(get(), get()) }
     viewModel { SignUpViewModel(get()) }
     viewModel { CreateQueueViewModel(get()) }
-    viewModel { HomeViewModel(get()) }
-
+    viewModel { HomeViewModel(get(), get()) }
+    viewModel { InfoQueueViewModel(get()) }
 
 }
 
@@ -60,6 +59,8 @@ val useCaseModule = module {
     factory { LoginCase(get()) }
     factory { CreateQueue(get()) }
     factory { FetchAdminActiveQueues(get()) }
+    factory { FetchQueueById(get()) }
+    factory { FetchAdminNotActiveQueues(get()) }
 
 
 }
