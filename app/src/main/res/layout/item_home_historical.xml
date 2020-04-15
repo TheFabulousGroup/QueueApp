@@ -41,7 +41,7 @@
             android:background="@drawable/oval_button"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="VIEW" />
+            tools:text="@string/show_disable_queues" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </LinearLayout>
