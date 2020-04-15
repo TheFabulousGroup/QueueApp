@@ -15,7 +15,7 @@ import kotlinx.coroutines.Job
 /**
  * Old ViewModel for the profileFragment
  * */
-class ProfileViewModel(
+class HomeViewModel(
     private val appDatabase: AppDatabase
 ) : ViewModel() {
     private lateinit var  info:QueueServerModel
