@@ -16,23 +16,11 @@ class FetchAdminActiveQueues(private val queueRepository: QueueRepository) :
 
         return when (
             val result = queueRepository.fetchAdminQueuesRepository(params.iduser, true)
-            )
-        {
+            ) {
             is Either.Left -> Either.Left(result.a)
             is Either.Right -> Either.Right(result.b)
         }
-
-
-  /*      var namesArray = ArrayList<String>()
-        queueArray.forEach(){
-            it.name?.let { it1 -> namesArray.add(it1) }
-        }
-
-        return if(namesArray.size < 0)
-             Either.Left(Failure.NetworkConnection)
-                else Either.Right(namesArray)
-                */
-        }
+    }
 
 
     class Params(
