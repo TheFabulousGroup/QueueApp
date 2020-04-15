@@ -14,10 +14,12 @@ import com.qflow.main.views.adapters.ProfileAdapter
 import com.qflow.main.views.screenstates.HomeFragmentScreenState
 import com.qflow.main.views.viewmodels.HomeViewModel
 import kotlinx.android.synthetic.users.fragment_home.*
+import org.koin.androidx.viewmodel.ext.android.viewModel
+
 
 class HomeFragment : Fragment() {
 
-    lateinit var viewModel: HomeViewModel
+    private val mViewModel: HomeViewModel by viewModel()
 
     /*val binding: ProfileFragmentScreenState = DataBindingUtil.inflate(
          inflater, R.layout.fragment_home, container, false)*/
@@ -26,7 +28,7 @@ class HomeFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceSHometate: Bundle?
     ): View? {
         return inflater.inflate(R.layout.fragment_home, container, false)
     }
@@ -39,7 +41,7 @@ class HomeFragment : Fragment() {
 
     private fun initializeListeners() {
         initializeButtons()
-        viewModel.screenState.observe(::getLifecycle, ::updateUI)
+        mViewModel.screenState.observe(::getLifecycle, ::updateUI)
         //viewModel.failure.observe(::getLifecycle, ::handleErrors)
     }
 
@@ -47,15 +49,8 @@ class HomeFragment : Fragment() {
         //img_profile.setImageResource()
 
         btn_join_queue.setOnClickListener {
-            /*
-            *                 view?.findNavController()?.navigate(
-                    R.id.action_loginFragment_to_navigation_home
-                )
-            * */
-            view.let {
-                view?.findNavController()!!
-                    .navigate(ProfileFragmentDirections.actionProfileFragmentToQrFragment())
-            }
+            view?.findNavController()?.navigate(R.id.action_homeFragment_to_joinQueueDialog)
+
         }
     }
 
@@ -96,7 +91,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun initializeObservers() =
-        viewModel.screenState.observe(viewLifecycleOwner, androidx.lifecycle.Observer
+        mViewModel.screenState.observe(viewLifecycleOwner, androidx.lifecycle.Observer
         {
             updateUI(it)
         })

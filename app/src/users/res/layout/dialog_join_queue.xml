@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:padding="16dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
+        android:background="@color/primaryLightColor"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -16,6 +18,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="72dp"
             android:text="@string/join"
+            android:background="@color/secondaryDarkColor"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/btn_scan_qr"
             app:layout_constraintTop_toBottomOf="@+id/dialog_join_code" />
@@ -26,6 +29,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="72dp"
             android:layout_marginEnd="16dp"
+            android:background="@color/secondaryDarkColor"
             android:text="@string/scan_qr"
             app:layout_constraintEnd_toStartOf="@+id/btn_join_queue_by_code"
             app:layout_constraintStart_toStartOf="parent"
@@ -39,10 +43,22 @@
             android:layout_marginBottom="8dp"
             android:ems="10"
             android:inputType="textPersonName"
-            android:text="@string/join_code"
+            android:hint="@string/join_code"
+            android:textColorHint="@color/primaryTextColor"
             app:layout_constraintBottom_toTopOf="@+id/btn_join_queue_by_code"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <include
+            android:id="@+id/loading_bar_dialog"
+            layout="@layout/layout_progress_bar"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </RelativeLayout>

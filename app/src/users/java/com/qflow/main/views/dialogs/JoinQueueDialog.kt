@@ -18,7 +18,8 @@ import com.qflow.main.views.screenstates.JoinQueueScreenStates
 import com.qflow.main.views.viewmodels.JoinQueueViewModel
 import kotlinx.android.synthetic.users.dialog_join_queue.*
 import kotlinx.android.synthetic.users.fragment_signup.*
-import org.koin.android.architecture.ext.viewModel
+import org.koin.android.viewmodel.ext.android.viewModel
+
 
 class JoinQueueDialog : DialogFragment(){
 
@@ -58,10 +59,13 @@ class JoinQueueDialog : DialogFragment(){
     private fun handleErrors(failure: Failure?) {
         when (failure) {
             is Failure.JoinNotSuccessful -> {
+                loadingComplete()
                 Toast.makeText(this.context, "Join was not successful", Toast.LENGTH_SHORT).show()
             }
             is Failure.NullResult -> {
-                view?.findNavController()?.navigate(R.id.action_joinQueueDialog_to_homeFragment)
+                loadingComplete()
+//                view?.findNavController()?.navigate(R.id.action_joinQueueDialog_to_homeFragment)
+                this.dismiss()
             }
         }
     }
@@ -70,28 +74,32 @@ class JoinQueueDialog : DialogFragment(){
 
         when (screenState) {
             ScreenState.Loading -> {
+                loading()
             }
             is ScreenState.Render -> renderScreenState(screenState.renderState)
         }
     }
 
     private fun renderScreenState(renderState: JoinQueueScreenStates) {
+        loadingComplete()
 
         when (renderState) {
             is JoinQueueScreenStates.JoinSuccessful -> {
                 //Toast.makeText(this.context, renderState.id.toString(), Toast.LENGTH_LONG).show()
-                view?.findNavController()?.navigate(R.id.action_joinQueueDialog_to_homeFragment)
+//                view?.findNavController()?.navigate(R.id.action_joinQueueDialog_to_homeFragment)
+                this.dismiss()
             }
         }
 
     }
 
+
     private fun loading(){
         //Make sure you've added the loader to the view
-        loading_bar.visibility = View.VISIBLE
+        loading_bar_dialog.visibility = View.VISIBLE
     }
 
     private fun loadingComplete(){
-        loading_bar.visibility = View.INVISIBLE
+        loading_bar_dialog.visibility = View.INVISIBLE
     }
 }

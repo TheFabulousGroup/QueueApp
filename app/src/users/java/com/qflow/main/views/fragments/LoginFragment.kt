@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.ContextCompat
-import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import com.qflow.main.R
 import com.qflow.main.core.Failure
@@ -41,8 +40,6 @@ class LoginFragment : Fragment() {
 
     private fun initializeListeners() {
         initializeButtons()
-        viewModel.screenState.observe(::getLifecycle, ::updateUI)
-        viewModel.failure.observe(::getLifecycle, ::handleErrors)
     }
 
     private fun initializeButtons() {
@@ -61,6 +58,7 @@ class LoginFragment : Fragment() {
     private fun handleErrors(failure: Failure?) {
         when (failure) {
             is Failure.ValidationFailure -> {
+                loadingComplete()
                 when (failure.validationFailureType) {
                     ValidationFailureType.EMAIL_OR_PASSWORD_EMPTY -> {
                         Toast.makeText(
@@ -73,8 +71,10 @@ class LoginFragment : Fragment() {
                     }
                 }
             }
-            is Failure.LoginNotSuccessful ->
+            is Failure.LoginNotSuccessful -> {
+                loadingComplete()
                 Toast.makeText(this.context, "Login was not successful", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 
@@ -82,12 +82,15 @@ class LoginFragment : Fragment() {
 
         when (screenState) {
             ScreenState.Loading -> {
+                loading()
+
             }
             is ScreenState.Render -> renderScreenState(screenState.renderState)
         }
     }
 
     private fun renderScreenState(renderState: LoginFragmentScreenState) {
+        loadingComplete()
 
         when (renderState) {
             is LoginFragmentScreenState.LoginSuccessful -> {
@@ -99,9 +102,19 @@ class LoginFragment : Fragment() {
     }
 
     private fun initializeObservers() {
-        viewModel.screenState.observe(viewLifecycleOwner, Observer {
-            updateUI(it)
-        })
+        viewModel.screenState.observe(::getLifecycle, ::updateUI)
+        viewModel.failure.observe(::getLifecycle, ::handleErrors)
+    }
+
+
+
+    private fun loading(){
+        //Make sure you've added the loader to the view
+        loading_bar.visibility = View.VISIBLE
+    }
+
+    private fun loadingComplete(){
+        loading_bar.visibility = View.INVISIBLE
     }
 
 

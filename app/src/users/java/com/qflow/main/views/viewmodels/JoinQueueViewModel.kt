@@ -23,8 +23,8 @@ class JoinQueueViewModel(private val joinQueueUC: JoinQueue): BaseViewModel(), K
     private var coroutineScope = CoroutineScope(Dispatchers.Default + job)
 
     fun joinQueue(idQueue:String){
-
-        //Execute add user to database
+        _screenState.value = ScreenState.Loading
+                //Execute add user to database
         joinQueueUC.execute(
             { it.either(::handleFailure, ::handleJoinQueue) },
             JoinQueue.Params(idQueue),
@@ -33,7 +33,7 @@ class JoinQueueViewModel(private val joinQueueUC: JoinQueue): BaseViewModel(), K
 
     }
 
-    private fun handleJoinQueue(id: String): Any {
-
+    private fun handleJoinQueue(id: String) {
+        _screenState.value = ScreenState.Render(JoinQueueScreenStates.JoinSuccessful(id))
     }
 }

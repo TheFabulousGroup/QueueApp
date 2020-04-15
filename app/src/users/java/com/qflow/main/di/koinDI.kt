@@ -13,6 +13,7 @@ import com.qflow.main.usecases.creator.FetchAdminActiveQueues
 import com.qflow.main.usecases.creator.FetchAdminNotActiveQueues
 import com.qflow.main.usecases.queue.CreateQueue
 import com.qflow.main.usecases.queue.FetchQueueById
+import com.qflow.main.usecases.queue.JoinQueue
 import com.qflow.main.usecases.user.CreateAdmin
 import com.qflow.main.usecases.user.CreateUser
 import com.qflow.main.usecases.user.LoginCase
@@ -47,6 +48,7 @@ val userModule = module {
     viewModel { LoginViewModel(get()) }
     viewModel { SignUpViewModel(get()) }
     viewModel { JoinQueueViewModel(get()) }
+    viewModel { HomeViewModel()}
 
 }
 
@@ -58,6 +60,7 @@ val useCaseModule = module {
     factory { CreateQueue(get()) }
     factory { FetchAdminActiveQueues(get()) }
     factory { FetchQueueById(get()) }
+    factory { JoinQueue(get()) }
     factory { FetchAdminNotActiveQueues(get()) }
 
 
