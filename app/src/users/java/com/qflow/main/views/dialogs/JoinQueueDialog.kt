@@ -1,4 +1,4 @@
-package com.qflow.main.views.fragments
+package com.qflow.main.views.dialogs
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -7,49 +7,37 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.ContextCompat
-import androidx.fragment.app.Fragment
-import com.qflow.main.R
-import com.qflow.main.core.ScreenState
-import com.qflow.main.views.screenstates.LoginFragmentScreenState
-import com.qflow.main.views.viewmodels.SignUpViewModel
-import org.koin.androidx.viewmodel.ext.android.viewModel
-import androidx.lifecycle.Observer
+import androidx.fragment.app.DialogFragment
 import androidx.navigation.findNavController
+import com.qflow.main.R
 import com.qflow.main.core.Failure
+import com.qflow.main.core.ScreenState
 import com.qflow.main.utils.enums.ValidationFailureType
 import com.qflow.main.views.screenstates.SignUpFragmentScreenState
+import kotlinx.android.synthetic.users.dialog_join_queue.*
 import kotlinx.android.synthetic.users.fragment_signup.*
 
+class JoinQueueDialog : DialogFragment(){
 
-class SignUpFragment : Fragment() {
+    val viewModel: JoinQueueDialogViewModel by viewmodel()
 
-    private val viewModel: SignUpViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_signup, container, false)
+        return inflater.inflate(R.layout.dialog_join_queue, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        initializeListeners()
-        initializeObservers()
+        this.initializeObservers()
+        this.initializeListeners()
     }
 
     private fun initializeListeners() {
-        accept_signUp.setOnClickListener {
-            val selectedUsername = username_SignUp.text.toString()
-            val selectedPass = password.text.toString()
-            val selectedRepeatPass = repeat_Password.text.toString()
-            val selectedEmail = email_SignUp.text.toString()
-            val selectedNameLastName = name_lastName.text.toString()
-            viewModel.saveUserInDatabase(
-                selectedUsername, selectedPass, selectedRepeatPass,
-                selectedEmail, selectedNameLastName
-            )
+        btn_join_queue_by_code{
+
         }
     }
 
@@ -95,5 +83,4 @@ class SignUpFragment : Fragment() {
         }
 
     }
-
 }

@@ -12,30 +12,11 @@
         tools:layout="@layout/fragment_login"
         app:startDestination="@id/action_loginFragment_to_profileFragment">
         <action
-            android:id="@+id/action_loginFragment_to_profileFragment"
-            app:destination="@id/profileFragment"
-            app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim" />
-        <action
             android:id="@+id/action_loginFragment_to_signUpFragment"
             app:destination="@+id/SignUpFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/profileFragment"
-        android:name="com.qflow.main.views.fragments.HomeFragment"
-        android:label="profile_fragment"
-        tools:layout="@layout/fragment_home">
-        <argument
-            android:name="userId"
-            app:argType="string" />
         <action
-            android:id="@+id/action_profileFragment_to_Qr_fragment"
-            app:destination="@id/QrFragment"
-            app:enterAnim="@anim/nav_default_pop_enter_anim" />
-        <action
-            android:id="@+id/action_profileFragment_to_codeFragment"
-            app:destination="@id/codeFragment"
-            app:enterAnim="@anim/nav_default_pop_enter_anim" />
+            android:id="@+id/action_loginFragment_to_navigation_home"
+            app:destination="@id/navigation_home" />
     </fragment>
     <fragment
         android:id="@+id/SignUpFragment"
@@ -43,25 +24,8 @@
         android:label="SignUpFragment"
         tools:layout="@layout/fragment_signup">
         <action
-            android:id="@+id/action_signUpFragment_to_profileFragment"
-            app:destination="@id/profileFragment"
-            app:enterAnim="@anim/nav_default_enter_anim" />
+            android:id="@+id/action_SignUpFragment_to_navigation_home"
+            app:destination="@id/navigation_home" />
     </fragment>
-    <fragment
-        android:id="@+id/QrFragment"
-        android:label="qr_fragment"
-        tools:layout="@layout/qr_fragment">
-        <action
-            android:id="@+id/action_Qr_fragment_to_profileFragment"
-            app:destination="@id/profileFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/codeFragment"
-        android:label="code_fragment"
-        tools:layout="@layout/code_fragment">
-        <action
-            android:id="@+id/action_codeFragment_to_profileFragment"
-            app:destination="@id/profileFragment"
-            app:enterAnim="@anim/nav_default_pop_enter_anim" />
-    </fragment>
+    <include app:graph="@navigation/navigation_home" />
 </navigation>
