@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.qflow.main.core.BaseViewModel
 import com.qflow.main.core.ScreenState
+import com.qflow.main.core.ScreenState.*
 import com.qflow.main.domain.local.database.user.UserDB
 import com.qflow.main.domain.local.models.Queue
 import com.qflow.main.usecases.creator.FetchAdminActiveQueues
@@ -30,7 +31,7 @@ class HomeViewModel(
     private var coroutineScope = CoroutineScope(Dispatchers.Default + job)
 
     fun getQueues(idUser: String) {
-
+        _screenState.value = Loading
         fetchAdminActiveQueues.execute(
             { it.either(::handleFailure, ::handleQueuesObtained) },
             FetchAdminActiveQueues.Params(idUser),
@@ -40,7 +41,7 @@ class HomeViewModel(
 
     private fun handleQueuesObtained(queues: List<Queue>) {
         this._screenState.value =
-            ScreenState.Render(HomeFragmentScreenState.QueuesActiveObtained(queues))
+            Render(HomeFragmentScreenState.QueuesActiveObtained(queues))
     }
 
 }

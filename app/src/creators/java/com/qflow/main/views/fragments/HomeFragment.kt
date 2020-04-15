@@ -16,6 +16,7 @@ import com.qflow.main.views.adapters.QueueAdminAdapter
 import com.qflow.main.views.screenstates.HomeFragmentScreenState
 import com.qflow.main.views.viewmodels.HomeViewModel
 import kotlinx.android.synthetic.creators.fragment_home.*
+import kotlinx.android.synthetic.creators.fragment_login.*
 import kotlinx.android.synthetic.creators.item_queueadmin.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -24,7 +25,7 @@ class HomeFragment : Fragment() {
 
     private val viewModel: HomeViewModel by viewModel()
     private lateinit var queuesAdminAdapter: QueueAdminAdapter
-    private lateinit var queuesAdminHistory :QueueAdminAdapter
+    private lateinit var queuesAdminHistory: QueueAdminAdapter
     fun activateRecyclerView(/**/) {
         //if(R.id.btn_add == view.id){
 
@@ -46,6 +47,7 @@ class HomeFragment : Fragment() {
         initializeRecycler()
     }
 
+
     private fun initializeListeners() {
         initializeButtons()
     }
@@ -62,7 +64,8 @@ class HomeFragment : Fragment() {
         queuesAdminAdapter = QueueAdminAdapter(ArrayList(), ::onClickOnQueue)
         rv_adminqueues.adapter = queuesAdminAdapter
         rv_adminhistorial.adapter = queuesAdminHistory
-        rv_adminhistorial.layoutManager = GridLayoutManager(context, 1, RecyclerView.VERTICAL, false)
+        rv_adminhistorial.layoutManager =
+            GridLayoutManager(context, 1, RecyclerView.VERTICAL, false)
         rv_adminqueues.layoutManager = GridLayoutManager(context, 1, RecyclerView.VERTICAL, false)
         viewModel.getQueues("id")
     }
@@ -75,12 +78,14 @@ class HomeFragment : Fragment() {
 //    }
 
     private fun renderScreenState(renderState: HomeFragmentScreenState) {
+        loadingComplete()
         when (renderState) {
             is HomeFragmentScreenState.QueuesActiveObtained -> {
                 queuesAdminAdapter.setData(renderState.queues)
             }
             is HomeFragmentScreenState.QueuesHistoricalObtained -> {
             }
+
         }
     }
 
@@ -100,6 +105,7 @@ class HomeFragment : Fragment() {
     private fun updateUI(screenState: ScreenState<HomeFragmentScreenState>?) {
         when (screenState) {
             ScreenState.Loading -> {
+                loading()
             }
             is ScreenState.Render -> renderScreenState(screenState.renderState)
         }
@@ -110,6 +116,14 @@ class HomeFragment : Fragment() {
 //        viewModel.failure.observe(::getLifecycle, ::handleErrors)
     }
 
+    private fun loading() {
+        //Make sure you've added the loader to the view
+        loading_bar_home.visibility = View.VISIBLE
+    }
+
+    private fun loadingComplete() {
+        loading_bar_home.visibility = View.INVISIBLE
+    }
 }
 
 

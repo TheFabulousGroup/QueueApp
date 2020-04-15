@@ -97,10 +97,10 @@ class SignUpFragment : Fragment() {
 
     private fun loading(){
         //Make sure you've added the loader to the view
-        loading_bar.visibility = View.VISIBLE
+        loading_bar_signUp.visibility = View.VISIBLE
     }
 
     private fun loadingComplete(){
-        loading_bar.visibility = View.INVISIBLE
+        loading_bar_signUp.visibility = View.INVISIBLE
     }
 }

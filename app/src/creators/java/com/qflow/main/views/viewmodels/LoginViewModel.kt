@@ -6,6 +6,7 @@ import kotlinx.coroutines.*
 import org.koin.core.KoinComponent
 import com.qflow.main.core.BaseViewModel
 import com.qflow.main.core.ScreenState
+import com.qflow.main.core.ScreenState.*
 import com.qflow.main.usecases.queue.CreateQueue
 import com.qflow.main.usecases.user.LoginCase
 import com.qflow.main.views.screenstates.LoginFragmentScreenState
@@ -33,7 +34,7 @@ class LoginViewModel(
         selectedMail: String
     ) {
         //Change screenstate to loading to activate loader
-        _screenState.value = ScreenState.Loading
+        _screenState.value = Loading
         //Execute add user to database
         userLogin.execute(
             { it.either(::handleFailure, ::handleLoginSuccessful) },
@@ -44,7 +45,7 @@ class LoginViewModel(
 
     private fun handleLoginSuccessful(id: String) {
         this._screenState.value =
-            ScreenState.Render(LoginFragmentScreenState.LoginSuccessful(id))
+            Render(LoginFragmentScreenState.LoginSuccessful(id))
     }
 
     override fun onCleared() {
