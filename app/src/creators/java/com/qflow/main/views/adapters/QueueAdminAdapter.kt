@@ -7,11 +7,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.qflow.main.R
 import com.qflow.main.domain.local.models.Queue
 import kotlinx.android.synthetic.creators.item_queueadmin.view.*
+import kotlinx.android.synthetic.main.item_home_historical.view.*
 
-//Todo cambiar el String por objeto
 class QueueAdminAdapter(
     private var queues: List<Queue>,
-    private val onClickItemRV: (Queue) -> Unit
+    private var onClickItemRV: (Queue) -> Unit
 ) : RecyclerView.Adapter<QueueAdminAdapter.ViewHolder>() {
 
 
@@ -34,6 +34,7 @@ class QueueAdminAdapter(
         this.queues = queuesUpdate
         notifyDataSetChanged()
     }
+
 
     inner class ViewHolder(item: View) : RecyclerView.ViewHolder(item) {
         fun onBind(queue: Queue) = with(itemView) {
