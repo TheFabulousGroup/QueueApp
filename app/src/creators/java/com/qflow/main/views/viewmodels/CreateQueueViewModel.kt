@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.qflow.main.core.BaseViewModel
 import com.qflow.main.core.ScreenState
-import com.qflow.main.usecases.creator.CreateQueue
+import com.qflow.main.usecases.queue.CreateQueue
 import com.qflow.main.views.screenstates.CreateQueueScreenState
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -15,7 +15,8 @@ class CreateQueueViewModel (
     private val createQueueUC: CreateQueue
     ) : BaseViewModel(), KoinComponent {
 
-        private val _screenState: MutableLiveData<ScreenState<CreateQueueScreenState>> = MutableLiveData()
+        private val _screenState: MutableLiveData<ScreenState<CreateQueueScreenState>> =
+            MutableLiveData()
         val screenState: LiveData<ScreenState<CreateQueueScreenState>>
         get() = _screenState
 
@@ -32,7 +33,7 @@ class CreateQueueViewModel (
             //Execute create queue
             createQueueUC.execute({ it.either(::handleFailure, ::handleQueueCreated) },
                 CreateQueue.Params(nameCreateQueue, businessAssociated, queueDescription,
-                    capacity), this.coroutineScope
+                    capacity.toInt()), this.coroutineScope
             )
 
         }
