@@ -74,6 +74,7 @@ class CreateQueueFragment : Fragment() {
 
         when (screenState) {
             ScreenState.Loading -> {
+                loading()
             }
             is ScreenState.Render -> renderScreenState(screenState.renderState)
         }
@@ -83,16 +84,27 @@ class CreateQueueFragment : Fragment() {
 
         when (renderState) {
             is CreateQueueScreenState.QueueCreatedCorrectly -> {
+                /*
                 //Toast.makeText(this.context, renderState.id.toString(), Toast.LENGTH_LONG).show()
                 val action =
                     this.id?.let { it1 ->
                         CreateQueueFragmentDirections.
                             actionCreateQueueFragmentToEditQueueFragment(it1.toString())
                     }
-                view?.findNavController()?.navigate(action)
+                view?.findNavController()?.navigate(action)*/
+                this.dismiss()
             }
         }
 
+    }
+
+    private fun loading(){
+        //Make sure you've added the loader to the view
+        loading_bar_dialog.visibility = View.VISIBLE
+    }
+
+    private fun loadingComplete(){
+        loading_bar_dialog.visibility = View.INVISIBLE
     }
 
 }
