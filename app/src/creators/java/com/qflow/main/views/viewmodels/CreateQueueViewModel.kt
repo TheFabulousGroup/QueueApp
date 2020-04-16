@@ -5,16 +5,14 @@ import androidx.lifecycle.MutableLiveData
 import com.qflow.main.core.BaseViewModel
 import com.qflow.main.core.ScreenState
 import com.qflow.main.usecases.creator.CreateQueue
-import com.qflow.main.usecases.user.CreateUser
 import com.qflow.main.views.screenstates.CreateQueueScreenState
-import com.qflow.main.views.screenstates.SignUpFragmentScreenState
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import org.koin.core.KoinComponent
 
 class CreateQueueViewModel (
-    private val createQueue: CreateQueue
+    private val createQueueUC: CreateQueue
     ) : BaseViewModel(), KoinComponent {
 
         private val _screenState: MutableLiveData<ScreenState<CreateQueueScreenState>> = MutableLiveData()
@@ -32,7 +30,7 @@ class CreateQueueViewModel (
         ) {
 
             //Execute create queue
-            createQueue.execute({ it.either(::handleFailure, ::handleQueueCreated) },
+            createQueueUC.execute({ it.either(::handleFailure, ::handleQueueCreated) },
                 CreateQueue.Params(nameCreateQueue, businessAssociated, queueDescription,
                     capacity), this.coroutineScope
             )

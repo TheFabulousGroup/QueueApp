@@ -1,12 +1,12 @@
 package com.qflow.main.views.fragments
 
+
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
-import androidx.lifecycle.observe
+//import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.qflow.main.R
 import com.qflow.main.core.ScreenState
@@ -14,7 +14,6 @@ import com.qflow.main.views.viewmodels.CreateQueueViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import androidx.navigation.findNavController
 import com.qflow.main.core.Failure
-import com.qflow.main.usecases.creator.CreateQueue
 import com.qflow.main.utils.enums.ValidationFailureType
 import com.qflow.main.views.screenstates.CreateQueueScreenState
 import kotlinx.android.synthetic.main.fragment_create_queue.*
@@ -25,7 +24,8 @@ import kotlinx.android.synthetic.main.fragment_create_queue.*
 
 class CreateQueueFragment : Fragment() {
 
-    private val viewModel: CreateQueueViewModel by viewModel()
+    private val mViewModel: CreateQueueViewModel by viewModel()
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,8 +37,9 @@ class CreateQueueFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        initializeListeners()
         initializeObservers()
+        initializeListeners()
+
     }
 
     private fun initializeListeners() {
@@ -47,7 +48,7 @@ class CreateQueueFragment : Fragment() {
             val businessAssociated = business_associated.text.toString()
             val queueDescription = queue_description_create_queue.text.toString()
             val capacity = capacity.text.toString()
-            viewModel.createQueueInDatabase(
+            mViewModel.createQueueInDatabase(
                 nameCreateQueue, businessAssociated, queueDescription, capacity
             )
         }
@@ -55,11 +56,10 @@ class CreateQueueFragment : Fragment() {
 
 
     private fun initializeObservers() {
-        viewModel.screenState.observe(this.viewLifecycleOwner, Observer {
+        mViewModel.screenState.observe(this.viewLifecycleOwner, Observer {
             updateUI(it)
         })
-
-        viewModel.failure.observe(::getLifecycle, ::handleErrors)
+        mViewModel.failure.observe(::getLifecycle, ::handleErrors)
     }
 
     private fun handleErrors(failure: Failure?) {

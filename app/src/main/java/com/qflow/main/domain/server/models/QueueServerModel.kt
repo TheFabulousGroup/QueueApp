@@ -42,7 +42,42 @@ class QueueServerModel(
     companion object{
 
         fun mapToObject(resultMock: String): QueueServerModel {
+            val queueJsonObject = JSONObject(resultMock)
 
+            val name: String =
+                if (queueJsonObject.has("name")) queueJsonObject.getString("name")
+                else ""
+            val description: String =
+                if (queueJsonObject.has("description")) queueJsonObject.getString("description")
+                else ""
+            val capacity: Int =
+                if (queueJsonObject.has("capacity")) queueJsonObject.getInt("capacity")
+                else -1
+            val businessAssociated: String =
+                if (queueJsonObject.has("business_associated")) queueJsonObject.getString("business_associated")
+                else ""
+            val isActive: Boolean =
+                if (queueJsonObject.has("is_active")) queueJsonObject.getBoolean("is_active")
+                else false
+            val id: String =
+                if (queueJsonObject.has("id")) queueJsonObject.getString("id")
+                else ""
+            val dateCreated: String? =
+                if (queueJsonObject.has("date_created")) queueJsonObject.getString("date_created")
+                else null
+
+            val dateFinished: String? =
+                if (queueJsonObject.has("date_finished")) queueJsonObject.getString("date_finished")
+                else null
+
+            val formattedDateCreated = dateCreated?.let { Date.valueOf(it) }
+            val formattedDateFinished = dateFinished?.let { Date.valueOf(it) }
+
+            return QueueServerModel(
+                name, description, capacity, businessAssociated,
+                formattedDateCreated, formattedDateFinished, isActive, id
+            )
+            /*
             val queueJsonObject = JSONObject(resultMock)
             val result : QueueServerModel
 
@@ -78,7 +113,7 @@ class QueueServerModel(
                 )
             }
 
-            return result
+            return result*/
         }
 
         fun mapListToObjectList(resultMock: String): List<QueueServerModel> {

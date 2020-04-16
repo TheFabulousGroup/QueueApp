@@ -68,8 +68,6 @@ interface QueueRepository {
                         "   {\n" +
                         "      \"business_associated\":\"\",\n" +
                         "      \"capacity\":0,\n" +
-                        "      \"date_created\":\"\",\n" +
-                        "      \"date_finished\":\"\",\n" +
                         "      \"description\":\"\",\n" +
                         "      \"is_locked\":false,\n" +
                         "      \"name\":\"\"\n" +
@@ -89,9 +87,7 @@ interface QueueRepository {
                     "   {\n" +
                     "      \"id\":\"1\",\n"+
                     "      \"business_associated\":\"\",\n" +
-                    "      \"capacity\":0,\n" +
-                    "      \"date_created\":\"\",\n" +
-                    "      \"date_finished\":\"\",\n" +
+                    "      \"capacity\":0,\n"+
                     "      \"description\":\"\",\n" +
                     "      \"is_locked\":false,\n" +
                     "      \"name\":\"ejemplo\"\n" +
