@@ -4,22 +4,22 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.findNavController
 import com.qflow.main.R
 import com.qflow.main.core.Failure
 import com.qflow.main.core.ScreenState
 import com.qflow.main.utils.enums.ValidationFailureType
 import com.qflow.main.views.adapters.ProfileAdapter
-import com.qflow.main.views.screenstates.ProfileFragmentScreenState
-import com.qflow.main.views.viewmodels.ProfileViewModel
-import kotlinx.android.synthetic.users.profile_fragment.*
+import com.qflow.main.views.screenstates.HomeFragmentScreenState
+import com.qflow.main.views.viewmodels.HomeViewModel
+import kotlinx.android.synthetic.users.fragment_home.*
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class ProfileFragment : Fragment() {
 
-    lateinit var viewModel: ProfileViewModel
+class HomeFragment : Fragment() {
+
+    private val mViewModel: HomeViewModel by viewModel()
 
     /*val binding: ProfileFragmentScreenState = DataBindingUtil.inflate(
          inflater, R.layout.fragment_home, container, false)*/
@@ -28,9 +28,9 @@ class ProfileFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceSHometate: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.profile_fragment, container, false)
+        return inflater.inflate(R.layout.fragment_home, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -41,24 +41,16 @@ class ProfileFragment : Fragment() {
 
     private fun initializeListeners() {
         initializeButtons()
-        viewModel.screenState.observe(::getLifecycle, ::updateUI)
+        mViewModel.screenState.observe(::getLifecycle, ::updateUI)
         //viewModel.failure.observe(::getLifecycle, ::handleErrors)
     }
 
     private fun initializeButtons() {
         //img_profile.setImageResource()
 
-        code_btn.setOnClickListener {
-            view.let {
-                view?.findNavController()!!
-                    .navigate(ProfileFragmentDirections.actionProfileFragmentToCodeFragment())
-            }
-        }
-        qr_btn.setOnClickListener {
-            view.let {
-                view?.findNavController()!!
-                    .navigate(ProfileFragmentDirections.actionProfileFragmentToQrFragment())
-            }
+        btn_join_queue.setOnClickListener {
+            view?.findNavController()?.navigate(R.id.action_homeFragment_to_joinQueueDialog)
+
         }
     }
 
@@ -75,9 +67,9 @@ class ProfileFragment : Fragment() {
         }
     }
 
-    private fun renderScreenState(renderState: ProfileFragmentScreenState) {
+    private fun renderScreenState(renderState: HomeFragmentScreenState) {
         when (renderState) {
-            is ProfileFragmentScreenState.AccessProfile -> {
+            is HomeFragmentScreenState.AccessProfile -> {
                 view?.let {
                     view?.findNavController()!!
                     /*.navigate(
@@ -90,7 +82,7 @@ class ProfileFragment : Fragment() {
         }
     }
 
-    private fun updateUI(screenState: ScreenState<ProfileFragmentScreenState>?) {
+    private fun updateUI(screenState: ScreenState<HomeFragmentScreenState>?) {
         when (screenState) {
             ScreenState.Loading -> {
             }
@@ -99,7 +91,7 @@ class ProfileFragment : Fragment() {
     }
 
     private fun initializeObservers() =
-        viewModel.screenState.observe(viewLifecycleOwner, androidx.lifecycle.Observer
+        mViewModel.screenState.observe(viewLifecycleOwner, androidx.lifecycle.Observer
         {
             updateUI(it)
         })

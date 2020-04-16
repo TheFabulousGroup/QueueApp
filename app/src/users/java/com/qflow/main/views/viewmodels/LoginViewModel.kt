@@ -30,7 +30,7 @@ class LoginViewModel(
         selectedPass: String,
         selectedMail: String
     ) {
-
+        _screenState.value = ScreenState.Loading
         //Execute add user to database
         userLogin.execute(
             { it.either(::handleFailure, ::handleUserCreated) },

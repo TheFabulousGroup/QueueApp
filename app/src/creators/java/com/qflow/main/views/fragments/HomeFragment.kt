@@ -56,11 +56,11 @@ class HomeFragment : Fragment() {
 
         queuesAdminHistory = QueueAdminAdapter(ArrayList(), ::onClickOnQueueHistorical)
         queuesAdminAdapter = QueueAdminAdapter(ArrayList(), ::onClickOnQueue)
-        rv_adminqueues.adapter = queuesAdminAdapter
-        rv_adminhistorial.adapter = queuesAdminHistory
-        rv_adminhistorial.layoutManager =
+        rv_admin_queues.adapter = queuesAdminAdapter
+        rv_admin_historical.adapter = queuesAdminHistory
+        rv_admin_historical.layoutManager =
             GridLayoutManager(context, 1, RecyclerView.VERTICAL, false)
-        rv_adminqueues.layoutManager =
+        rv_admin_queues.layoutManager =
             GridLayoutManager(context, 1, RecyclerView.VERTICAL, false)
         viewModel.getQueues("id")
         viewModel.getHistory("id")
