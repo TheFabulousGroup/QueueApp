@@ -5,10 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import com.qflow.main.R
 import com.qflow.main.core.ScreenState
 import com.qflow.main.views.viewmodels.CreateQueueViewModel
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.android.viewmodel.ext.android.viewModel
 import androidx.navigation.findNavController
 import com.qflow.main.core.Failure
 import com.qflow.main.usecases.creator.CreateQueue
@@ -47,8 +48,12 @@ class CreateQueueFragment : Fragment() {
         }
     }
 
+
     private fun initializeObservers() {
-        viewModel.screenState.observe(::getLifecycle, ::updateUI)
+        viewModel.screenState.observe(this.viewLifecycleOwner, Observer {
+            updateUI(it)
+        })
+
         viewModel.failure.observe(::getLifecycle, ::handleErrors)
     }
 
