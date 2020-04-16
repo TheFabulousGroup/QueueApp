@@ -62,7 +62,6 @@ class SignUpFragment : Fragment() {
     private fun handleErrors(failure: Failure?) {
         when (failure) {
             is Failure.ValidationFailure -> {
-                loadingComplete()
                 when (failure.validationFailureType) {
                     ValidationFailureType.PASSWORDS_NOT_THE_SAME -> {
                         Toast.makeText(
@@ -81,33 +80,26 @@ class SignUpFragment : Fragment() {
 
         when (screenState) {
             ScreenState.Loading -> {
-                loading()
             }
             is ScreenState.Render -> renderScreenState(screenState.renderState)
         }
     }
 
     private fun renderScreenState(renderState: SignUpFragmentScreenState) {
-        loadingComplete()
 
         when (renderState) {
             is SignUpFragmentScreenState.UserCreatedCorrectly -> {
                 //Toast.makeText(this.context, renderState.id.toString(), Toast.LENGTH_LONG).show()
-                view?.findNavController()?.navigate(R.id.action_SignUpFragment_to_navigation_home)
+                view?.let {
+                    view?.findNavController()!!
+                        .navigate(
+                            LoginFragmentDirections
+                                .actionLoginFragmentToProfileFragment(renderState.id)
+                        )
+                }
             }
         }
 
-    }
-
-
-
-    private fun loading(){
-        //Make sure you've added the loader to the view
-        loading_bar.visibility = View.VISIBLE
-    }
-
-    private fun loadingComplete(){
-        loading_bar.visibility = View.INVISIBLE
     }
 
 }

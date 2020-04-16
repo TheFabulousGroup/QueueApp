@@ -34,7 +34,7 @@ class SignUpViewModel (
             selectedRepeatPass: String,
             selectedNameLastName: String
         ) {
-            this._screenState.value =ScreenState.Loading
+
             //Execute add user to database
             createUser.execute({ it.either(::handleFailure, ::handleUserCreated) },
                 CreateUser.Params(selectedUsername, selectedEmail, selectedPass,

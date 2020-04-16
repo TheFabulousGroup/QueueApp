@@ -19,6 +19,6 @@ sealed class Failure {
     class NullResult : FeatureFailure()
     class ValidationFailure(val validationFailureType: ValidationFailureType) : FeatureFailure()
     object LoginNotSuccessful : FeatureFailure()
-    object JoinNotSuccessful : FeatureFailure()
+
 
 }

@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import com.qflow.main.R
 import com.qflow.main.core.Failure
@@ -40,6 +41,8 @@ class LoginFragment : Fragment() {
 
     private fun initializeListeners() {
         initializeButtons()
+        viewModel.screenState.observe(::getLifecycle, ::updateUI)
+        viewModel.failure.observe(::getLifecycle, ::handleErrors)
     }
 
     private fun initializeButtons() {
@@ -51,14 +54,19 @@ class LoginFragment : Fragment() {
             }
         }
         btn_signUp.setOnClickListener {
-            view?.findNavController()?.navigate(R.id.action_loginFragment_to_signUpFragment)
+            view.let {
+                view?.findNavController()!!
+                    .navigate(
+                        LoginFragmentDirections
+                            .actionLoginFragmentToSignUpFragment()
+                    )
+            }
         }
     }
 
     private fun handleErrors(failure: Failure?) {
         when (failure) {
             is Failure.ValidationFailure -> {
-                loadingComplete()
                 when (failure.validationFailureType) {
                     ValidationFailureType.EMAIL_OR_PASSWORD_EMPTY -> {
                         Toast.makeText(
@@ -71,10 +79,8 @@ class LoginFragment : Fragment() {
                     }
                 }
             }
-            is Failure.LoginNotSuccessful -> {
-                loadingComplete()
+            is Failure.LoginNotSuccessful ->
                 Toast.makeText(this.context, "Login was not successful", Toast.LENGTH_SHORT).show()
-            }
         }
     }
 
@@ -82,39 +88,30 @@ class LoginFragment : Fragment() {
 
         when (screenState) {
             ScreenState.Loading -> {
-                loading()
-
             }
             is ScreenState.Render -> renderScreenState(screenState.renderState)
         }
     }
 
     private fun renderScreenState(renderState: LoginFragmentScreenState) {
-        loadingComplete()
 
         when (renderState) {
             is LoginFragmentScreenState.LoginSuccessful -> {
-                view?.findNavController()?.navigate(
-                    R.id.action_loginFragment_to_navigation_home
-                )
+                view?.let {
+                    view?.findNavController()!!
+                        .navigate(
+                            LoginFragmentDirections
+                                .actionLoginFragmentToProfileFragment(renderState.id)
+                        )
+                }
             }
         }
     }
 
     private fun initializeObservers() {
-        viewModel.screenState.observe(::getLifecycle, ::updateUI)
-        viewModel.failure.observe(::getLifecycle, ::handleErrors)
-    }
-
-
-
-    private fun loading(){
-        //Make sure you've added the loader to the view
-        loading_bar.visibility = View.VISIBLE
-    }
-
-    private fun loadingComplete(){
-        loading_bar.visibility = View.INVISIBLE
+        viewModel.screenState.observe(viewLifecycleOwner, Observer {
+            updateUI(it)
+        })
     }
 
 
