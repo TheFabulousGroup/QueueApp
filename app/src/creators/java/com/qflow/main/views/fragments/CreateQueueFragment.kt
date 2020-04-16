@@ -5,17 +5,22 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.observe
 import androidx.lifecycle.Observer
 import com.qflow.main.R
 import com.qflow.main.core.ScreenState
 import com.qflow.main.views.viewmodels.CreateQueueViewModel
-import org.koin.android.viewmodel.ext.android.viewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import androidx.navigation.findNavController
 import com.qflow.main.core.Failure
 import com.qflow.main.usecases.creator.CreateQueue
 import com.qflow.main.utils.enums.ValidationFailureType
 import com.qflow.main.views.screenstates.CreateQueueScreenState
 import kotlinx.android.synthetic.main.fragment_create_queue.*
+
+
+
 
 
 class CreateQueueFragment : Fragment() {
@@ -74,7 +79,7 @@ class CreateQueueFragment : Fragment() {
 
         when (screenState) {
             ScreenState.Loading -> {
-                loading()
+
             }
             is ScreenState.Render -> renderScreenState(screenState.renderState)
         }
@@ -84,6 +89,7 @@ class CreateQueueFragment : Fragment() {
 
         when (renderState) {
             is CreateQueueScreenState.QueueCreatedCorrectly -> {
+                view?.findNavController()?.navigate(R.id.action_createQueueFragment_to_editQueueFragment)
                 /*
                 //Toast.makeText(this.context, renderState.id.toString(), Toast.LENGTH_LONG).show()
                 val action =
@@ -92,19 +98,9 @@ class CreateQueueFragment : Fragment() {
                             actionCreateQueueFragmentToEditQueueFragment(it1.toString())
                     }
                 view?.findNavController()?.navigate(action)*/
-                this.dismiss()
             }
         }
 
-    }
-
-    private fun loading(){
-        //Make sure you've added the loader to the view
-        loading_bar_dialog.visibility = View.VISIBLE
-    }
-
-    private fun loadingComplete(){
-        loading_bar_dialog.visibility = View.INVISIBLE
     }
 
 }
