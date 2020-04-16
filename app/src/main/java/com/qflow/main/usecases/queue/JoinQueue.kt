@@ -7,26 +7,26 @@ import com.qflow.main.usecases.UseCase
 import com.qflow.main.utils.enums.ValidationFailureType
 import kotlinx.coroutines.CoroutineScope
 
-class JoinQueue (private val queueRepository: QueueRepository) :
-UseCase<Unit, JoinQueue.Params, CoroutineScope>() {
-    /*
-    private fun validQueue(id_queue:String): Either<Failure, Unit> {
-        //We need: capacity and num_datos of queue_user with that id_queue
+class JoinQueue(private val queueRepository: QueueRepository) :
+    UseCase<String, JoinQueue.Params, CoroutineScope>() {
 
-        return if (capacity.toInt() > 0)
-            Either.Right(Unit)
-        else
-            Either.Left(Failure.ValidationFailure(ValidationFailureType.FULL_CAPACITY))
-    }*/
+    override suspend fun run(params: Params): Either<Failure, String> {
+        //TODO change id to get with shared
+        return when (val res = queueRepository.joinQueue(params.id_queue, " ")) {
+            is Either.Left -> res
+            is Either.Right -> {
+                if (res.b.id != null)
+                    Either.Right(res.b.id)
+                else
+                    Either.Left(Failure.NullResult())
+            }
+        }
+
+
+    }
 
     class Params(
-       val id_queue: String, val id_user: String
+        val id_queue: String
     )
-
-    override suspend fun run(params: JoinQueue.Params): Either<Failure, Unit> {
-        //TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-         queueRepository.joinQueue(params.id_queue, params.id_user)
-            return Either.Right(Unit)
-        }
 
 }
