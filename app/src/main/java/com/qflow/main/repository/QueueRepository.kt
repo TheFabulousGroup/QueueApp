@@ -88,8 +88,6 @@ interface QueueRepository {
                     "      \"id\":\"1\",\n"+
                     "      \"business_associated\":\"\",\n" +
                     "      \"capacity\":0,\n" +
-                    "      \"date_created\":\"\",\n" +
-                    "      \"date_finished\":\"\",\n" +
                     "      \"description\":\"\",\n" +
                     "      \"is_active\":false,\n" +
                     "      \"name\":\"ejemplo\"\n" +
@@ -112,8 +110,6 @@ interface QueueRepository {
                         "      \"id\":\"1\",\n"+
                         "      \"business_associated\":\"Empresa de prueba\",\n" +
                         "      \"capacity\":155,\n" +
-                        "      \"date_created\":\"\",\n" +
-                        "      \"date_finished\":\"\",\n" +
                         "      \"description\":\"Descripcion pr\",\n" +
                         "      \"is_active\":false,\n" +
                         "      \"name\":\"Cola de ejemplo\"\n" +
