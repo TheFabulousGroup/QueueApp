@@ -49,7 +49,7 @@ class HomeViewModel(
     }
     /*disable queues*/
      fun getHistory(idUser: String) {
-
+        _screenState.value = Loading
         fetchAdminNotActiveQueues.execute(
             { it.either(::handleFailure, ::handleHistoryQueues) },
             FetchAdminNotActiveQueues.Params(idUser),
