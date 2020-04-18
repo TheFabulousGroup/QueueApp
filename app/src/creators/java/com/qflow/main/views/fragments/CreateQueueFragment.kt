@@ -56,9 +56,7 @@ class CreateQueueFragment : Fragment() {
 
 
     private fun initializeObservers() {
-        mViewModel.screenState.observe(this.viewLifecycleOwner, Observer {
-            updateUI(it)
-        })
+        mViewModel.screenState.observe(::getLifecycle, ::updateUI)
         mViewModel.failure.observe(::getLifecycle, ::handleErrors)
     }
 
@@ -89,15 +87,14 @@ class CreateQueueFragment : Fragment() {
 
         when (renderState) {
             is CreateQueueScreenState.QueueCreatedCorrectly -> {
-                view?.findNavController()?.navigate(R.id.action_createQueueFragment_to_editQueueFragment)
-                /*
+//                view?.findNavController()?.navigate(R.id.action_createQueueFragment_to_editQueueFragment)
+
                 //Toast.makeText(this.context, renderState.id.toString(), Toast.LENGTH_LONG).show()
                 val action =
-                    this.id?.let { it1 ->
-                        CreateQueueFragmentDirections.
-                            actionCreateQueueFragmentToEditQueueFragment(it1.toString())
+                    this.id.let { it1 ->
+                        CreateQueueFragmentDirections.actionCreateQueueFragmentToEditQueueFragment(it1.toString())
                     }
-                view?.findNavController()?.navigate(action)*/
+                view?.findNavController()?.navigate(action)
             }
         }
 
