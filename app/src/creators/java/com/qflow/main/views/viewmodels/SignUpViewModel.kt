@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.qflow.main.core.BaseViewModel
 import com.qflow.main.core.ScreenState
+import com.qflow.main.core.ScreenState.Loading
 import com.qflow.main.usecases.user.CreateUser
 import com.qflow.main.views.screenstates.SignUpFragmentScreenState
 import kotlinx.coroutines.CoroutineScope
@@ -34,8 +35,7 @@ class SignUpViewModel (
             selectedRepeatPass: String,
             selectedNameLastName: String
         ) {
-            _screenState.value = ScreenState.Loading
-
+           this. _screenState.value = Loading
             //Execute add user to database
             createUser.execute({ it.either(::handleFailure, ::handleUserCreated) },
                 CreateUser.Params(selectedUsername, selectedEmail, selectedPass,

@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.qflow.main.core.BaseViewModel
 import com.qflow.main.core.ScreenState
+import com.qflow.main.core.ScreenState.Loading
 import com.qflow.main.domain.local.database.user.UserDB
 import com.qflow.main.domain.local.models.Queue
 import com.qflow.main.usecases.creator.FetchAdminActiveQueues
@@ -34,6 +35,7 @@ class HomeViewModel(
 
     /*enable queues*/
     fun getQueues(idUser: String) {
+        _screenState.value = Loading
         fetchAdminActiveQueues.execute(
             { it.either(::handleFailure, ::handleQueuesObtained) },
             FetchAdminActiveQueues.Params(idUser),
@@ -47,7 +49,7 @@ class HomeViewModel(
     }
     /*disable queues*/
      fun getHistory(idUser: String) {
-
+        _screenState.value = Loading
         fetchAdminNotActiveQueues.execute(
             { it.either(::handleFailure, ::handleHistoryQueues) },
             FetchAdminNotActiveQueues.Params(idUser),

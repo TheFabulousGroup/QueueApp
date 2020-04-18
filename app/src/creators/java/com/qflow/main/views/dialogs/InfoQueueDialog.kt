@@ -4,12 +4,22 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.EditText
+import android.widget.TextView
 import androidx.fragment.app.DialogFragment
 import com.qflow.main.R
 import com.qflow.main.core.ScreenState
+import com.qflow.main.views.adapters.QueueAdminAdapter
+import com.qflow.main.views.screenstates.HomeFragmentScreenState
 import com.qflow.main.views.screenstates.InfoQueueScreenState
+import com.qflow.main.views.viewmodels.CreateQueueViewModel
+import com.qflow.main.views.viewmodels.HomeViewModel
 import com.qflow.main.views.viewmodels.InfoQueueViewModel
-import kotlinx.android.synthetic.creators.dialog_home_info_q.*
+import kotlinx.android.synthetic.creators.item_queueadmin.*
+import kotlinx.android.synthetic.main.dialog_home_info_q.*
+import kotlinx.android.synthetic.main.dialog_home_info_q.view.*
+import kotlinx.android.synthetic.main.dialog_home_info_q.view.home_info_capacity_queue
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 

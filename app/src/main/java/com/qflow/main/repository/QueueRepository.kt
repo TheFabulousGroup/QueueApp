@@ -68,6 +68,8 @@ interface QueueRepository {
                         "   {\n" +
                         "      \"business_associated\":\"\",\n" +
                         "      \"capacity\":0,\n" +
+                        "      \"date_created\":\"\",\n" +
+                        "      \"date_finished\":\"\",\n" +
                         "      \"description\":\"\",\n" +
                         "      \"is_locked\":false,\n" +
                         "      \"name\":\"\"\n" +

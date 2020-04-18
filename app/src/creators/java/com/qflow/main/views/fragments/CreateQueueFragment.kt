@@ -44,6 +44,7 @@ class CreateQueueFragment : Fragment() {
                 nameCreateQueue, businessAssociated, queueDescription, capacity
             )
         }
+
     }
 
     private fun initializeObservers() {
@@ -68,13 +69,14 @@ class CreateQueueFragment : Fragment() {
 
         when (screenState) {
             ScreenState.Loading -> {
+                loading()
             }
             is ScreenState.Render -> renderScreenState(screenState.renderState)
         }
     }
 
     private fun renderScreenState(renderState: CreateQueueScreenState) {
-
+        loadingComplete()
         when (renderState) {
             is CreateQueueScreenState.QueueCreatedCorrectly -> {
                 //Toast.makeText(this.context, renderState.id.toString(), Toast.LENGTH_LONG).show()
@@ -83,5 +85,12 @@ class CreateQueueFragment : Fragment() {
         }
 
     }
+    private fun loading(){
+        //Make sure you've added the loader to the view
+        loading_bar_create_queue.visibility = View.VISIBLE
+    }
 
+    private fun loadingComplete(){
+        loading_bar_create_queue.visibility = View.INVISIBLE
+    }
 }

@@ -20,9 +20,7 @@ import kotlinx.android.synthetic.creators.fragment_login.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import com.qflow.main.views.screenstates.LoginFragmentScreenState
 
-/**
- * Old view used for the login (pending to be deleted)
- * */
+
 
 class LoginFragment : Fragment() {
 

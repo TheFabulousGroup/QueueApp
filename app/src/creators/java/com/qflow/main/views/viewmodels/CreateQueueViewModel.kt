@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.qflow.main.core.BaseViewModel
 import com.qflow.main.core.ScreenState
+import com.qflow.main.core.ScreenState.Loading
 import com.qflow.main.usecases.creator.CreateQueue
 import com.qflow.main.usecases.user.CreateUser
 import com.qflow.main.views.screenstates.CreateQueueScreenState
@@ -31,7 +32,7 @@ class CreateQueueViewModel (
             queueDescription: String,
             capacity: String
         ) {
-
+            _screenState.value = Loading
             //Execute create queue
             createQueue.execute({ it.either(::handleFailure, ::handleUserCreated) },
                 CreateQueue.Params(nameCreateQueue, businessAssociated, queueDescription,
