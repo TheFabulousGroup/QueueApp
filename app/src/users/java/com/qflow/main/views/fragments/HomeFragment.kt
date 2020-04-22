@@ -7,9 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.qflow.main.R
-import com.qflow.main.core.Failure
 import com.qflow.main.core.ScreenState
-import com.qflow.main.utils.enums.ValidationFailureType
 import com.qflow.main.views.adapters.ProfileAdapter
 import com.qflow.main.views.screenstates.HomeFragmentScreenState
 import com.qflow.main.views.viewmodels.HomeViewModel
@@ -41,7 +39,6 @@ class HomeFragment : Fragment() {
 
     private fun initializeListeners() {
         initializeButtons()
-        mViewModel.screenState.observe(::getLifecycle, ::updateUI)
         //viewModel.failure.observe(::getLifecycle, ::handleErrors)
     }
 
@@ -51,19 +48,6 @@ class HomeFragment : Fragment() {
         btn_join_queue.setOnClickListener {
             view?.findNavController()?.navigate(R.id.action_homeFragment_to_joinQueueDialog)
 
-        }
-    }
-
-    private fun handleErrors(failure: Failure?) {
-        when (failure) {
-            is Failure.ValidationFailure -> {
-                when (failure.validationFailureType) {
-                    ValidationFailureType.EMAIL_OR_PASSWORD_EMPTY -> {//Cambiar por profile
-                        //TODO añadir aqui que hacer cuando el validador de fallo
-
-                    }
-                }
-            }
         }
     }
 
@@ -91,9 +75,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun initializeObservers() =
-        mViewModel.screenState.observe(viewLifecycleOwner, androidx.lifecycle.Observer
-        {
-            updateUI(it)
-        })
+        mViewModel.screenState.observe(::getLifecycle, ::updateUI)
+
 
 }

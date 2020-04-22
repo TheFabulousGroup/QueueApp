@@ -31,4 +31,5 @@
     <string name="join_code">Join Code </string>
     <string name="join">Join</string>
     <string name="scan_qr">Scan QR </string>
+    <string name="NameApp">Qflow users</string>
 </resources>

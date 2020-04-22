@@ -1,4 +1,4 @@
-package com.qflow.main.dinjector
+package com.qflow.main.di
 
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -6,6 +6,7 @@ import com.google.firebase.functions.FirebaseFunctions
 import com.qflow.main.domain.adapters.QueueAdapter
 import com.qflow.main.domain.local.database.AppDatabase
 import com.qflow.main.domain.adapters.UserAdapter
+import com.qflow.main.domain.local.SharedPrefsRepository
 import com.qflow.main.domain.server.ApiService
 import com.qflow.main.repository.QueueRepository
 import com.qflow.main.repository.UserRepository
@@ -49,14 +50,15 @@ val userModule = module {
     viewModel { CreateQueueViewModel(get()) }
     viewModel { HomeViewModel(get(), get()) }
     viewModel { InfoQueueViewModel(get()) }
+    viewModel { SplashScreenViewModel(get()) }
 
 }
 
 val useCaseModule = module {
 
-    factory { CreateUser(get()) }
-    factory { CreateAdmin(get()) }
-    factory { LoginCase(get()) }
+    factory { CreateUser(get(),get()) }
+    factory { CreateAdmin(get(),get()) }
+    factory { LoginCase(get(),get()) }
     factory { CreateQueue(get()) }
     factory { FetchAdminActiveQueues(get()) }
     factory { FetchQueueById(get()) }
@@ -68,5 +70,6 @@ val useCaseModule = module {
 val dataModule = module {
 
     single { AppDatabase.getInstance(get()) }
+    single { SharedPrefsRepository(get()) }
 
 }
