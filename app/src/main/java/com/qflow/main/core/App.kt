@@ -2,12 +2,9 @@ package com.qflow.main.core
 
 import android.app.Activity
 import android.app.Application
-import android.content.Context
 import android.os.Bundle
 import android.os.Handler
-import com.google.firebase.FirebaseApp
-import com.google.firebase.firestore.FirebaseFirestore
-import com.qflow.main.dinjector.*
+import com.qflow.main.di.*
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.KoinComponent

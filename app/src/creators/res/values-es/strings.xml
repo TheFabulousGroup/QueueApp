@@ -1,2 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="app_name">QFlow</string>
+    <string name="loginQR">Accede con QR</string>
+    <string name="loginApprender">Accede con Apprender</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="entrar">Entrar</string>
+    <string name="Cancel">Cancel</string>
+    <string name="app_name_icon">app_name</string>
+    <string name="name_profile">Javier</string>
+    <string name="progress_percent">75%</string>
+    <string name="thanks_for_signing_up">Thanks for signing up</string>
+    <string name="face">Facebook</string>
+    <string name="facebook_app_id">Facebook App ID</string>
+    <string name="twitter">Twitter</string>
+    <string name="Google">Google</string>
+    <string name="usermail">Mail o nombre de usuario</string>
+    <string name="mail">\"Mail: \"</string>
+    <string name="correo_electr_nico">mail</string>
+    <string name="cancel">cancel</string>
+    <string name="repeat_password">Repeat password</string>
+    <string name="email">Email</string>
+    <string name="name_lastName">Name and last name</string>
+    <string name="accept">Accept</string>
+    <string name="sign_in">Sign In</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="date_created">date_created</string>
+    <string name="date_finished">date_finished</string>
+    <string name="is_active">is_active</string>
+    <string name="join_code">join_code</string>
+    <string name="edit_queue">edit queue</string>
+    <string name="create">create</string>
+    <string name="show_active_queues">Show</string>
+    <string name="show_disable_queues">Show</string>
+
+    <string name="NameApp">Qflow creators</string>
+</resources>

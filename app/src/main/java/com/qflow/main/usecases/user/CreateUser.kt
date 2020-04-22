@@ -1,6 +1,7 @@
 package com.qflow.main.usecases.user
 
 import com.qflow.main.core.Failure
+import com.qflow.main.domain.local.SharedPrefsRepository
 import com.qflow.main.repository.UserRepository
 import com.qflow.main.usecases.Either
 import com.qflow.main.usecases.UseCase
@@ -10,19 +11,28 @@ import kotlinx.coroutines.CoroutineScope
 /**
  * UseCaseCreateUserInDatabase
  * */
-class CreateUser(private val userRepository: UserRepository) :
+class CreateUser(
+    private val userRepository: UserRepository,
+    private val sharedPrefsRepository: SharedPrefsRepository
+    ) :
     UseCase<String, CreateUser.Params, CoroutineScope>() {
     override suspend fun run(params: Params): Either<Failure, String> {
 
         return when (val result = validPassword(params.selectedPass, params.selectedRepeatPass)) {
             is Either.Left -> Either.Left(result.a)
             is Either.Right -> {
-                userRepository.createUser(
+                when(val res = userRepository.createUser(
                     params.username,
                     params.selectedPass,
                     params.selectedEmail,
                     params.selectedNameLastName
-                )
+                )){
+                    is Either.Left -> Either.Left(res.a)
+                    is Either.Right ->{
+                        sharedPrefsRepository.putUserId(res.b)
+                        Either.Right(res.b)
+                    }
+                }
             }
         }
     }

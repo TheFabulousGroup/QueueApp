@@ -32,4 +32,7 @@
     <string name="create">create</string>
     <string name="show_active_queues">Show</string>
     <string name="show_disable_queues">Show</string>
+    <string name="NameApp">Qflow creators</string>
+
+
 </resources>
