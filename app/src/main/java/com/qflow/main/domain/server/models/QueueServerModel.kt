@@ -35,7 +35,7 @@ class QueueServerModel(
         queueFirebase["business_associated"] = this.business_associated
         queueFirebase["date_created"] = dateC
         queueFirebase["date_finished"] = dateF
-        queueFirebase["is_active"] = this.is_active.toString()
+        queueFirebase["is_locked"] = this.is_active.toString()
 
         return queueFirebase;
     }
@@ -59,7 +59,7 @@ class QueueServerModel(
                 if (queueJsonObject.has("business_associated")) queueJsonObject.getString("business_associated")
                 else ""
             val isActive: Boolean =
-                if (queueJsonObject.has("is_active")) queueJsonObject.getBoolean("is_active")
+                if (queueJsonObject.has("is_locked")) queueJsonObject.getBoolean("is_locked")
                 else false
             val id: String =
                 if (queueJsonObject.has("id")) queueJsonObject.getString("id")

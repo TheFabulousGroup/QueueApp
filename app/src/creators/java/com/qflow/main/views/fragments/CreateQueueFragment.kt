@@ -4,12 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.qflow.main.R
 import com.qflow.main.core.ScreenState
 import com.qflow.main.views.viewmodels.CreateQueueViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import androidx.navigation.findNavController
 import com.qflow.main.core.Failure
 import com.qflow.main.utils.enums.ValidationFailureType
 import com.qflow.main.views.screenstates.CreateQueueScreenState
@@ -18,7 +18,7 @@ import kotlinx.android.synthetic.main.fragment_create_queue.*
 
 class CreateQueueFragment : Fragment() {
 
-    private val viewModel: CreateQueueViewModel by viewModel()
+    private val mViewModel: CreateQueueViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,17 +39,17 @@ class CreateQueueFragment : Fragment() {
             val nameCreateQueue = name_create_queue.text.toString()
             val businessAssociated = business_associated.text.toString()
             val queueDescription = queue_description_create_queue.text.toString()
-            val capacity = capacity.text.toString()
-            viewModel.createQueueInDatabase(
-                nameCreateQueue, businessAssociated, queueDescription, capacity
+            val cap = Integer.parseInt(capacity.text.toString())
+            mViewModel.createQueueInDatabase(
+                nameCreateQueue, businessAssociated, queueDescription, cap
             )
         }
 
     }
 
     private fun initializeObservers() {
-        viewModel.screenState.observe(::getLifecycle, ::updateUI)
-        viewModel.failure.observe(::getLifecycle, ::handleErrors)
+        mViewModel.screenState.observe(::getLifecycle, ::updateUI)
+        mViewModel.failure.observe(::getLifecycle, ::handleErrors)
     }
 
     private fun handleErrors(failure: Failure?) {
@@ -79,7 +79,7 @@ class CreateQueueFragment : Fragment() {
         loadingComplete()
         when (renderState) {
             is CreateQueueScreenState.QueueCreatedCorrectly -> {
-                //Toast.makeText(this.context, renderState.id.toString(), Toast.LENGTH_LONG).show()
+                Toast.makeText(this.context, renderState.id, Toast.LENGTH_LONG).show()
                 //view?.findNavController()?.navigate(R.id.action_createQueueFragment_to_homeFragment())
             }
         }
