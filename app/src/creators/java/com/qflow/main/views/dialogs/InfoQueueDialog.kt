@@ -23,7 +23,7 @@ class InfoQueueDialog : DialogFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val idQueue = arguments?.getString("idQueue")
+        val idQueue = arguments?.getInt("idQueue")
         if (idQueue != null) {
             viewModel.fetchQueueById(idQueue)
         }

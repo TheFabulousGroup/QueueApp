@@ -8,11 +8,11 @@ import com.qflow.main.utils.enums.ValidationFailureType
 import kotlinx.coroutines.CoroutineScope
 
 class JoinQueue(private val queueRepository: QueueRepository) :
-    UseCase<String, JoinQueue.Params, CoroutineScope>() {
+    UseCase<Int, JoinQueue.Params, CoroutineScope>() {
 
-    override suspend fun run(params: Params): Either<Failure, String> {
+    override suspend fun run(params: Params): Either<Failure, Int> {
         //TODO change id to get with shared
-        return when (val res = queueRepository.joinQueue(params.id_queue, " ")) {
+        return when (val res = queueRepository.joinQueue(params.id_queue)) {
             is Either.Left -> res
             is Either.Right -> {
                 if (res.b.id != null)
@@ -26,7 +26,7 @@ class JoinQueue(private val queueRepository: QueueRepository) :
     }
 
     class Params(
-        val id_queue: String
+        val id_queue: Int
     )
 
 }

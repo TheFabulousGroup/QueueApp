@@ -13,7 +13,7 @@ class QueueServerModel(
     var date_created: java.util.Date? = null,
     var date_finished: java.util.Date? = null,
     var is_active: Boolean = false,
-    val id: String = String.empty()
+    val id: Int = -1
 
 ) {
     fun createMap(): Map<String, String> {
@@ -28,7 +28,7 @@ class QueueServerModel(
         else
             this.date_finished.toString()
 
-        queueFirebase["id"] = this.id
+        queueFirebase["id"] = this.id.toString()
         queueFirebase["name"] = this.name
         queueFirebase["description"] = this.description ?: ""
         queueFirebase["capacity"] = this.capacity.toString()
@@ -61,9 +61,9 @@ class QueueServerModel(
             val isActive: Boolean =
                 if (queueJsonObject.has("is_locked")) queueJsonObject.getBoolean("is_locked")
                 else false
-            val id: String =
-                if (queueJsonObject.has("id")) queueJsonObject.getString("id")
-                else ""
+            val id: Int =
+                if (queueJsonObject.has("id")) queueJsonObject.getInt("id")
+                else -1
             val dateCreated: String? =
                 if (queueJsonObject.has("date_created")) queueJsonObject.getString("date_created")
                 else null

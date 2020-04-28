@@ -29,7 +29,7 @@ class CreateUser(
                 )){
                     is Either.Left -> Either.Left(res.a)
                     is Either.Right ->{
-                        sharedPrefsRepository.putUserId(res.b)
+                        sharedPrefsRepository.putUserToken(res.b)
                         Either.Right(res.b)
                     }
                 }

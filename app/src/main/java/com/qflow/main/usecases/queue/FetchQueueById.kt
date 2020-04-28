@@ -24,7 +24,7 @@ class FetchQueueById(private val queueRepository: QueueRepository) :
     }
 
     class Params(
-        val idQueue: String
+        val idQueue: Int
     )
 
 }
