@@ -16,8 +16,6 @@ import org.koin.core.context.startKoin
  * */
 class App : Application(), KoinComponent, Application.ActivityLifecycleCallbacks
 {
-
-
     private lateinit var handlerPost: Handler
 
     override fun onCreate() {

@@ -1,7 +1,6 @@
 package com.qflow.main.di
 
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.functions.FirebaseFunctions
 import com.qflow.main.domain.adapters.QueueAdapter
 import com.qflow.main.domain.adapters.UserAdapter
@@ -21,7 +20,7 @@ import com.qflow.main.usecases.user.LoginCase
 import com.qflow.main.utils.Constants
 import com.qflow.main.views.viewmodels.*
 import okhttp3.OkHttpClient
-import org.koin.android.viewmodel.dsl.viewModel
+import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.scalars.ScalarsConverterFactory
@@ -31,8 +30,6 @@ import java.util.concurrent.TimeUnit
  * Our great dependency injector, gets whatever we want wherever we desire
  * */
 val retrofitModule = module {
-
-
     single {
         OkHttpClient.Builder()
             .connectTimeout(60, TimeUnit.SECONDS)
@@ -52,7 +49,6 @@ val retrofitModule = module {
 }
 
 val fireBaseModule = module {
-    single { FirebaseFirestore.getInstance() }
     single { FirebaseAuth.getInstance() }
     single { FirebaseFunctions.getInstance() }
 }

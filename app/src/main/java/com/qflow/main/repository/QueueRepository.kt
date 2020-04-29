@@ -2,7 +2,6 @@ package com.qflow.main.repository
 
 import androidx.security.crypto.EncryptedSharedPreferences
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.functions.FirebaseFunctions
 import com.qflow.main.core.BaseRepository
 import com.qflow.main.core.Failure

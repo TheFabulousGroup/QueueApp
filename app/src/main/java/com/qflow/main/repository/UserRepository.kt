@@ -3,7 +3,6 @@ package com.qflow.main.repository
 import com.google.firebase.auth.FirebaseAuth
 import android.content.ContentValues.TAG
 import android.util.Log
-import com.google.firebase.firestore.FirebaseFirestore
 import com.qflow.main.core.BaseRepository
 import com.qflow.main.core.Failure
 import com.qflow.main.core.extensions.empty

@@ -20,7 +20,7 @@ class QueueServerModel(
         val queueFirebase = HashMap<String, String>()
 
         val dateC = if (date_created == null)
-            com.google.firebase.Timestamp.now().toString()
+            System.currentTimeMillis()
         else
             this.date_created.toString()
         val dateF = if (date_finished == null)
@@ -33,7 +33,7 @@ class QueueServerModel(
         queueFirebase["description"] = this.description ?: ""
         queueFirebase["capacity"] = this.capacity.toString()
         queueFirebase["business_associated"] = this.business_associated
-        queueFirebase["date_created"] = dateC
+        queueFirebase["date_created"] = dateC.toString()
         queueFirebase["date_finished"] = dateF
         queueFirebase["is_locked"] = this.is_active.toString()
 
