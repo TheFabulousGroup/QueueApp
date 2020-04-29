@@ -1,12 +1,11 @@
 package com.qflow.main.di
 
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.functions.FirebaseFunctions
 import com.qflow.main.domain.adapters.QueueAdapter
 import com.qflow.main.domain.adapters.UserAdapter
 import com.qflow.main.domain.local.SharedPrefsRepository
 import com.qflow.main.domain.local.database.AppDatabase
+import com.qflow.main.domain.server.ApiService
+import com.qflow.main.domain.server.HeaderInterceptor
 import com.qflow.main.repository.QueueRepository
 import com.qflow.main.repository.UserRepository
 import com.qflow.main.usecases.creator.FetchAdminActiveQueues
@@ -17,12 +16,15 @@ import com.qflow.main.usecases.queue.JoinQueue
 import com.qflow.main.usecases.user.CreateAdmin
 import com.qflow.main.usecases.user.CreateUser
 import com.qflow.main.usecases.user.LoginCase
+import com.qflow.main.utils.Constants
 import com.qflow.main.views.viewmodels.*
-import org.koin.android.viewmodel.dsl.viewModel
+import okhttp3.OkHttpClient
+import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.scalars.ScalarsConverterFactory
-import okhttp3.OkHttpClient
+import java.util.concurrent.TimeUnit
+
 /**
  * Our great dependency injector, gets whatever we want wherever we desire
  * */
@@ -45,16 +47,10 @@ val retrofitModule = module {
     }
 }
 
-val fireBaseModule = module {
-    single { FirebaseFirestore.getInstance() }
-    single { FirebaseAuth.getInstance() }
-    single { FirebaseFunctions.getInstance() }
-}
-
 val userModule = module {
 
-    single<UserRepository> { UserRepository.General(get(), get(), get(), get()) }
-    single<QueueRepository> { QueueRepository.General(get(), get(), get(), get(), get()) }
+    single<UserRepository> { UserRepository.General(get(), get()) }
+    single<QueueRepository> { QueueRepository.General(get(), get()) }
 
     single { UserAdapter }
     single { QueueAdapter }

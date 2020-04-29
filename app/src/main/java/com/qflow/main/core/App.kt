@@ -27,7 +27,7 @@ class App : Application(), KoinComponent, Application.ActivityLifecycleCallbacks
         startKoin {
             androidLogger()
             androidContext(this@App)
-            modules(listOf(retrofitModule, dataModule, useCaseModule, userModule, fireBaseModule))
+            modules(listOf(retrofitModule, dataModule, useCaseModule, userModule))
         }
 
         //Part reserved to notifications

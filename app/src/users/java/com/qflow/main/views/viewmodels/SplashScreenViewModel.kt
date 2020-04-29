@@ -17,11 +17,9 @@ class SplashScreenViewModel(private val sharedPrefsRepository: SharedPrefsReposi
         get() = _screenState
 
     fun checkIfUserIsLogged() {
-        if (sharedPrefsRepository.getUserId() != null)
+        if (sharedPrefsRepository.getUserToken() != null)
             _screenState.value = ScreenState.Render(SplashScreenScreenState.UserIsLogged)
         else
             _screenState.value = ScreenState.Render(SplashScreenScreenState.UserIsNotLogged)
     }
-
-
 }

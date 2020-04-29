@@ -48,11 +48,6 @@ val retrofitModule = module {
     }
 }
 
-val fireBaseModule = module {
-    single { FirebaseAuth.getInstance() }
-    single { FirebaseFunctions.getInstance() }
-}
-
 val userModule = module {
 
     single<UserRepository> { UserRepository.General(get(), get()) }

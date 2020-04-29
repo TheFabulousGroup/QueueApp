@@ -26,7 +26,7 @@ class JoinQueue(private val queueRepository: QueueRepository) :
     }
 
     class Params(
-        val id_queue: Int
+        val id_queue: String
     )
 
 }
