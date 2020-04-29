@@ -9,6 +9,6 @@ import java.util.*
 @IgnoreExtraProperties
 data class Queue(
     val name: String? = null, val description: String? = null, val capacity: Int? = null,
-    val business_associated: String? = null, val id: String? = null, val date_created: Date? = null,
+    val business_associated: String? = null, val id: Int? = -1, val date_created: Date? = null,
     val date_finished: Date? = null, val is_active: Boolean = false
 )

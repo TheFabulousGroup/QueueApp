@@ -33,6 +33,6 @@
         tools:layout="@layout/dialog_home_info_q">
         <argument
             android:name="idQueue"
-            app:argType="string" />
+            app:argType="integer" />
     </dialog>
 </navigation>

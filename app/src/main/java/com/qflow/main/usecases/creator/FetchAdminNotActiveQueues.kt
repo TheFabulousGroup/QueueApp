@@ -13,7 +13,7 @@ class FetchAdminNotActiveQueues(private val queueRepository: QueueRepository) :
 
         return when (
             val result =
-                queueRepository.fetchAdminQueuesRepository(params.idUser, false)
+                queueRepository.fetchAdminQueuesRepository(false)
             ) {
             is Either.Left -> Either.Left(result.a)
             is Either.Right -> Either.Right(result.b)

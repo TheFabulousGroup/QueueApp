@@ -19,10 +19,6 @@ class InfoQueueViewModel(
     private val fetchQueueById: FetchQueueById
 ) : BaseViewModel(), KoinComponent {
 
-    private val _currentUser = MutableLiveData<UserDB>()
-    val currentUserDB: LiveData<UserDB>
-        get() = _currentUser
-
     private val _screenState: MutableLiveData<ScreenState<InfoQueueScreenState>> =
         MutableLiveData()
     val screenState: LiveData<ScreenState<InfoQueueScreenState>>
@@ -33,10 +29,10 @@ class InfoQueueViewModel(
 
     private lateinit var queueObtained: Queue
 
-    fun fetchQueueById(idQueue: String){
+    fun fetchQueueById(idQueue: Int) {
         /*return when(val res = fetchQueueById.execute())
             is Either.Left ->*/
-        var queue : Queue
+        var queue: Queue
 
         fetchQueueById.execute(
             { it.either(::handleFailure, ::handleQueueObtained) },

@@ -16,8 +16,6 @@ import org.koin.core.context.startKoin
  * */
 class App : Application(), KoinComponent, Application.ActivityLifecycleCallbacks
 {
-
-
     private lateinit var handlerPost: Handler
 
     override fun onCreate() {
@@ -29,7 +27,7 @@ class App : Application(), KoinComponent, Application.ActivityLifecycleCallbacks
         startKoin {
             androidLogger()
             androidContext(this@App)
-            modules(listOf(retrofitModule, dataModule, useCaseModule, userModule, fireBaseModule))
+            modules(listOf(retrofitModule, dataModule, useCaseModule, userModule))
         }
 
         //Part reserved to notifications

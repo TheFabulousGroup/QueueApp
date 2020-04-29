@@ -33,7 +33,7 @@ class JoinQueueViewModel(private val joinQueueUC: JoinQueue): BaseViewModel(), K
 
     }
 
-    private fun handleJoinQueue(id: String) {
+    private fun handleJoinQueue(id: Int) {
         _screenState.value = ScreenState.Render(JoinQueueScreenStates.JoinSuccessful(id))
     }
 }

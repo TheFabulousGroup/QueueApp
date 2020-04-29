@@ -13,14 +13,14 @@ class QueueServerModel(
     var date_created: java.util.Date? = null,
     var date_finished: java.util.Date? = null,
     var is_active: Boolean = false,
-    val id: String = String.empty()
+    val id: Int = -1
 
 ) {
     fun createMap(): Map<String, String> {
         val queueFirebase = HashMap<String, String>()
 
         val dateC = if (date_created == null)
-            com.google.firebase.Timestamp.now().toString()
+            System.currentTimeMillis()
         else
             this.date_created.toString()
         val dateF = if (date_finished == null)
@@ -28,12 +28,12 @@ class QueueServerModel(
         else
             this.date_finished.toString()
 
-        queueFirebase["id"] = this.id
+        queueFirebase["id"] = this.id.toString()
         queueFirebase["name"] = this.name
         queueFirebase["description"] = this.description ?: ""
         queueFirebase["capacity"] = this.capacity.toString()
         queueFirebase["business_associated"] = this.business_associated
-        queueFirebase["date_created"] = dateC
+        queueFirebase["date_created"] = dateC.toString()
         queueFirebase["date_finished"] = dateF
         queueFirebase["is_locked"] = this.is_active.toString()
 
@@ -61,9 +61,9 @@ class QueueServerModel(
             val isActive: Boolean =
                 if (queueJsonObject.has("is_locked")) queueJsonObject.getBoolean("is_locked")
                 else false
-            val id: String =
-                if (queueJsonObject.has("id")) queueJsonObject.getString("id")
-                else ""
+            val id: Int =
+                if (queueJsonObject.has("id")) queueJsonObject.getInt("id")
+                else -1
             val dateCreated: String? =
                 if (queueJsonObject.has("date_created")) queueJsonObject.getString("date_created")
                 else null
