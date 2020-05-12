@@ -1,6 +1,7 @@
 package com.qflow.main.domain.server
 
 import android.util.Log
+import com.google.android.gms.common.internal.safeparcel.SafeParcelable
 import com.qflow.main.domain.local.SharedPrefsRepository
 import okhttp3.Interceptor
 import okhttp3.Request
@@ -22,8 +23,8 @@ interface ApiService {
         const val POST_CREATE_QUEUE = "queue/create"
         const val GET_QUEUES = "queue/"
         const val GET_QUEUE = "queue/{$PARAM_QUEUE_ID}"
-        const val POST_CREATE_USER = "user/create"
-        const val POST_LOGIN_USER = "user/"
+        const val POST_CREATE_USER = "qflow/user"
+        const val POST_LOGIN_USER = "qflow/user"
 
     }
 
@@ -33,11 +34,14 @@ interface ApiService {
     @GET(GET_QUEUE)
     fun getQueue(@Path(PARAM_QUEUE_ID) queueId: Int): Call<String>
 
-    @Headers("Content-type: application/json")
+    //@Headers("{is_admin:isAdmin}")
+    @Headers("{is_admin:true}")
     @POST(POST_CREATE_USER)
+
     fun postCreateUser(@Body body: String): Call<String>
 
-    @Headers("Content-type: application/json")
+    //@Headers("{is_admin:isAdmin}","{email:mail}","{password:password}")
+    @Headers("{is_admin:true}","{email:ro@prueba.es}","{password:12345}")
     @POST(POST_LOGIN_USER)
     fun postLoginUser(@Body body: String): Call<String>
 
