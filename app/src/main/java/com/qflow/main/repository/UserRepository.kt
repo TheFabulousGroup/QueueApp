@@ -1,17 +1,12 @@
 package com.qflow.main.repository
 
-import com.google.firebase.auth.FirebaseAuth
-import android.content.ContentValues.TAG
-import android.util.Log
+import com.google.gson.Gson
 import com.qflow.main.core.BaseRepository
 import com.qflow.main.core.Failure
 import com.qflow.main.core.extensions.empty
 import com.qflow.main.domain.adapters.UserAdapter
-import com.qflow.main.domain.local.database.AppDatabase
-import com.qflow.main.domain.local.database.user.UserDB
 import com.qflow.main.domain.server.ApiService
 import com.qflow.main.usecases.Either
-import com.qflow.main.domain.server.models.UserServerModel
 
 
 /**
@@ -38,23 +33,18 @@ interface UserRepository {
         private val userAdapter: UserAdapter,
         private val apiService: ApiService
     ) : BaseRepository(), UserRepository {
-
         override suspend fun createUser(
             username: String,
             selectedPass: String,
             email: String,
             nameLastName: String
         ): Either<Failure, String> {
-            val userMap =
-                UserServerModel(
-                    username,
-                    selectedPass,
-                    email,
-                    nameLastName,
-                    false
-                ).createMap()
-
-            return request(apiService.postCreateUser(userMap.toString()), {
+            val userMap = HashMap<String,String>()
+            userMap["username"] = username
+            userMap["email"] = email
+            userMap["password"] = selectedPass
+            userMap["nameLastName"] = nameLastName
+            return request(apiService.postCreateUser(Gson().toJson(userMap),false), {
                 it
             }, String.empty())
         }
@@ -63,7 +53,7 @@ interface UserRepository {
             val task = HashMap<String, String>()
             task["email"] = email
             task["pass"] = pass
-            return request(apiService.postLoginUser(task.toString()), {
+            return request(apiService.postLoginUser(Gson().toJson(task),false,task.toString(),task.toString()), {
                 it
             }, String.empty())
         }
@@ -74,16 +64,12 @@ interface UserRepository {
             selectedEmail: String,
             selectedNameLastName: String
         ): Either<Failure, String> {
-            val adminMap =
-                UserServerModel(
-                    username,
-                    selectedPass,
-                    selectedEmail,
-                    selectedNameLastName,
-                    true
-                ).createMap()
-
-            return request(apiService.postCreateUser(adminMap.toString()), {
+            val adminMap = HashMap<String,String>()
+            adminMap["username"] = username
+            adminMap["email"] = selectedEmail
+            adminMap["password"] = selectedPass
+            adminMap["nameLastName"] = selectedNameLastName
+            return request(apiService.postCreateUser(Gson().toJson(adminMap),true), {
                 it
             }, String.empty())
         }

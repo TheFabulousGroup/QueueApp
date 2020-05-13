@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import com.qflow.main.core.BaseViewModel
 import com.qflow.main.core.ScreenState
 import com.qflow.main.core.ScreenState.Loading
+import com.qflow.main.usecases.user.CreateAdmin
 import com.qflow.main.usecases.user.CreateUser
 import com.qflow.main.views.screenstates.SignUpFragmentScreenState
 import kotlinx.coroutines.CoroutineScope
@@ -14,7 +15,7 @@ import org.koin.core.KoinComponent
 
 class SignUpViewModel (
 
-    private val createUser: CreateUser
+    private val createAdmin: CreateAdmin
     ) : BaseViewModel(), KoinComponent {
 
         private val _currentUser: MutableLiveData<Long> = MutableLiveData()
@@ -37,8 +38,8 @@ class SignUpViewModel (
         ) {
            this. _screenState.value = Loading
             //Execute add user to database
-            createUser.execute({ it.either(::handleFailure, ::handleUserCreated) },
-                CreateUser.Params(selectedUsername, selectedEmail, selectedPass,
+            createAdmin.execute({ it.either(::handleFailure, ::handleUserCreated) },
+                CreateAdmin.Params(selectedUsername, selectedEmail, selectedPass,
                     selectedRepeatPass, selectedNameLastName), this.coroutineScope
             )
 

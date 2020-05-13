@@ -1,7 +1,6 @@
 package com.qflow.main.domain.server
 
 import android.util.Log
-import com.google.android.gms.common.internal.safeparcel.SafeParcelable
 import com.qflow.main.domain.local.SharedPrefsRepository
 import okhttp3.Interceptor
 import okhttp3.Request
@@ -18,13 +17,16 @@ interface ApiService {
 
     companion object Factory {
         const val PARAM_QUEUE_ID = "queueId"
-
+        const val HEADER_IS_ADMIN = "isAdmin"
+        const val HEADER_EMAIL = "email"
+        const val HEADER_PASS = "password"
         const val POST_JOIN_QUEUE = "queue/join"
         const val POST_CREATE_QUEUE = "queue/create"
         const val GET_QUEUES = "queue/"
         const val GET_QUEUE = "queue/{$PARAM_QUEUE_ID}"
-        const val POST_CREATE_USER = "qflow/user"
+        const val POST_CREATE_USER = "qflow/user/" //? mirar barra
         const val POST_LOGIN_USER = "qflow/user"
+
 
     }
 
@@ -34,16 +36,19 @@ interface ApiService {
     @GET(GET_QUEUE)
     fun getQueue(@Path(PARAM_QUEUE_ID) queueId: Int): Call<String>
 
-    //@Headers("{is_admin:isAdmin}")
-    @Headers("{is_admin:true}")
+    @Headers("Content-type: application/json")
     @POST(POST_CREATE_USER)
-
-    fun postCreateUser(@Body body: String): Call<String>
+    fun postCreateUser(@Body body: String, @Header(HEADER_IS_ADMIN) admin: Boolean): Call<String>
 
     //@Headers("{is_admin:isAdmin}","{email:mail}","{password:password}")
-    @Headers("{is_admin:true}","{email:ro@prueba.es}","{password:12345}")
+    @Headers("Content-type: application/json")
     @POST(POST_LOGIN_USER)
-    fun postLoginUser(@Body body: String): Call<String>
+    fun postLoginUser(
+        @Body body: String,
+        @Header(HEADER_IS_ADMIN) admin: Boolean,
+        @Header(HEADER_EMAIL) email: String,
+        @Header(HEADER_PASS) password:String
+    ): Call<String>
 
     @Headers("Content-type: application/json")
     @POST(POST_CREATE_QUEUE)
@@ -80,7 +85,7 @@ class HeaderInterceptor : Interceptor, KoinComponent {
 
         val response = chain.proceed(requestBuilder.build())
 
-            //UNCOMMENT TO SEE WHAT ARE WE RECEIVING
+        //UNCOMMENT TO SEE WHAT ARE WE RECEIVING
         Log.i(
             "REQUEST",
             String.format("Received response for %s, headers: %s", request.url(), response.body())
