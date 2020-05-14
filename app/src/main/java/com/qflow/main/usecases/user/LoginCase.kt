@@ -22,7 +22,7 @@ class LoginCase(
         return when (val res = validate(params.selectedMail, params.selectedPass)) {
             is Either.Left -> res
             is Either.Right ->
-                when (val res = userRepository.signIn(params.selectedMail, params.selectedPass)) {
+                when (val res = userRepository.signIn(params.isAdmin,params.selectedMail, params.selectedPass)) {
                     is Either.Left -> Either.Left(res.a)
                     is Either.Right -> {
                         sharedPrefsRepository.putUserToken(res.b)
@@ -39,7 +39,7 @@ class LoginCase(
         }
     }
 
-    class Params(val selectedPass: String, val selectedMail: String)
+    class Params(val isAdmin: Boolean, val selectedPass: String, val selectedMail: String)
 
 
 }

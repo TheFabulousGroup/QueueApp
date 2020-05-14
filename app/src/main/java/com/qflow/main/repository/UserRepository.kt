@@ -19,7 +19,7 @@ interface UserRepository {
         nameLastName: String
     ): Either<Failure, String>
 
-    suspend fun signIn(email: String, pass: String): Either<Failure, String>
+    suspend fun signIn(isAdmin:Boolean, email: String, pass: String): Either<Failure, String>
     suspend fun createAdmin(
         username: String,
         selectedPass: String,
@@ -49,11 +49,13 @@ interface UserRepository {
             }, String.empty())
         }
 
-        override suspend fun signIn(email: String, pass: String): Either<Failure, String> {
+        override suspend fun signIn(isAdmin: Boolean, email: String, pass: String): Either<Failure, String> {
             val task = HashMap<String, String>()
             task["email"] = email
             task["pass"] = pass
-            return request(apiService.postLoginUser(Gson().toJson(task),false,task.toString(),task.toString()), {
+            task["isAdmin"] = isAdmin.toString()
+
+            return request(apiService.postLoginUser(isAdmin,email,pass), {
                 it
             }, String.empty())
         }
