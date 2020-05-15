@@ -7,9 +7,7 @@ import com.qflow.main.core.ScreenState
 import com.qflow.main.core.ScreenState.Loading
 import com.qflow.main.domain.local.database.user.UserDB
 import com.qflow.main.domain.local.models.Queue
-import com.qflow.main.usecases.creator.FetchAdminActiveQueues
-import com.qflow.main.usecases.creator.FetchAdminNotActiveQueues
-import com.qflow.main.usecases.queue.FetchQueueById
+import com.qflow.main.usecases.queue.FetchQueuesByUser
 import com.qflow.main.views.screenstates.HomeFragmentScreenState
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -17,8 +15,7 @@ import kotlinx.coroutines.Job
 import org.koin.core.KoinComponent
 
 class HomeViewModel(
-    private val fetchAdminActiveQueues: FetchAdminActiveQueues,
-    private val fetchAdminNotActiveQueues: FetchAdminNotActiveQueues
+    private val fetchQueuesByUser: FetchQueuesByUser
 ) : BaseViewModel(), KoinComponent {
 
     private val _currentUser = MutableLiveData<UserDB>()
@@ -34,11 +31,11 @@ class HomeViewModel(
     private var coroutineScope = CoroutineScope(Dispatchers.Default + job)
 
     /*enable queues*/
-    fun getQueues(idUser: String) {
+    fun getQueues(expand: String?, locked: Boolean?) {
         _screenState.value = Loading
-        fetchAdminActiveQueues.execute(
+        fetchQueuesByUser.execute(
             { it.either(::handleFailure, ::handleQueuesObtained) },
-            FetchAdminActiveQueues.Params(idUser),
+            FetchQueuesByUser.Params(expand, locked),
             this.coroutineScope
         )
     }
@@ -48,11 +45,11 @@ class HomeViewModel(
             ScreenState.Render(HomeFragmentScreenState.QueuesActiveObtained(queues))
     }
     /*disable queues*/
-     fun getHistory(idUser: String) {
+     fun getHistory(expand: String?, locked: Boolean?) {
         _screenState.value = Loading
-        fetchAdminNotActiveQueues.execute(
+        fetchQueuesByUser.execute(
             { it.either(::handleFailure, ::handleHistoryQueues) },
-            FetchAdminNotActiveQueues.Params(idUser),
+            FetchQueuesByUser.Params(expand, locked),   //TODO expand a finished
             this.coroutineScope
         )
     }

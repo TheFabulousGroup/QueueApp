@@ -2,6 +2,7 @@ package com.qflow.main.domain.server
 
 import android.util.Log
 import com.qflow.main.domain.local.SharedPrefsRepository
+import com.qflow.main.domain.local.models.Queue
 import okhttp3.Interceptor
 import okhttp3.Request
 import okhttp3.Response
@@ -16,27 +17,32 @@ interface ApiService {
 
     val prefs : SharedPrefsRepository
     companion object Factory {
-        const val PARAM_QUEUE_ID = "queueId"
+        const val PARAM_QUEUE_ID = "idQueue"
         const val HEADER_IS_ADMIN = "isAdmin"
         const val HEADER_EMAIL = "mail"
         const val HEADER_PASS = "password"
         const val HEADER_TOKEN = "token"
+        const val PARAM_LOCKED = "locked"
+        const val PARAM_EXPAND = "expand"
+
         const val POST_JOIN_QUEUE = "queue/join"
         const val POST_CREATE_QUEUE = "qflow/queues/"
-        const val GET_QUEUES = "queue/"
-        const val GET_QUEUE = "queue/{$PARAM_QUEUE_ID}"
+        const val GET_QUEUE_USERID = "qflow/queues/byIdUser/{$HEADER_TOKEN}"
+        const val GET_QUEUE_QUEUEID = "qflow/queues/byIdQueue/{$PARAM_QUEUE_ID}"
         const val POST_CREATE_USER = "qflow/user/"
         const val PUT_LOGIN_USER = "qflow/user/"
 
-
-
     }
 
-    @GET(GET_QUEUES)
-    fun getQueues(): Call<String>
+    @GET(GET_QUEUE_USERID)
+    fun getQueuesByUser(
+        @Path(HEADER_TOKEN) token: String,
+        @Query(PARAM_EXPAND) expand: String?,
+        @Query(PARAM_LOCKED) locked: Boolean?
+    ) : Call<String>
 
-    @GET(GET_QUEUE)
-    fun getQueue(@Path(PARAM_QUEUE_ID) queueId: Int): Call<String>
+    @GET(GET_QUEUE_QUEUEID)
+    fun getQueueByQueueId(@Path(PARAM_QUEUE_ID) idQueue: Int): Call<String>
 
     @Headers("Content-type: application/json")
     @POST(POST_CREATE_USER)

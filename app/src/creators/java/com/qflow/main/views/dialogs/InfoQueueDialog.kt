@@ -62,11 +62,11 @@ class InfoQueueDialog : DialogFragment() {
             is InfoQueueScreenState.QueueObtained -> {
                 home_info_queue_name.text = renderState.queue.name
                 home_info_description_queue.text = renderState.queue.description
-                home_info_bss_asoc_queue.text = renderState.queue.business_associated
+                home_info_bss_asoc_queue.text = renderState.queue.businessAssociated
                 home_info_capacity_queue.text = renderState.queue.capacity.toString()
-                home_info_dt_created.text = renderState.queue.date_created.toString()
-                home_info_dt_finished_queue.text = renderState.queue.date_finished.toString()
-                home_info_is_active.text = renderState.queue.is_active.toString()
+                home_info_dt_created.text = renderState.queue.dateCreated.toString()
+                home_info_dt_finished_queue.text = renderState.queue.dateFinished.toString()
+                home_info_is_active.text = renderState.queue.isLock.toString()
                 home_info_join_id.text = "Join ID (add)"
             }
         }

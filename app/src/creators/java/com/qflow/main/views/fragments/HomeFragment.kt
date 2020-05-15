@@ -62,8 +62,8 @@ class HomeFragment : Fragment() {
             GridLayoutManager(context, 1, RecyclerView.VERTICAL, false)
         rv_adminqueues.layoutManager =
             GridLayoutManager(context, 1, RecyclerView.VERTICAL, false)
-        viewModel.getQueues("id")
-        viewModel.getHistory("id")
+        viewModel.getQueues("all", false) //alluser, null All queues from that user
+        viewModel.getHistory("all", false) //history, null All queues with a dateFinished
     }
 
     private fun renderScreenState(renderState: HomeFragmentScreenState) {
