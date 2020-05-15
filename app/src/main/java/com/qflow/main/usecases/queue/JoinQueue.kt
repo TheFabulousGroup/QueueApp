@@ -11,15 +11,15 @@ class JoinQueue(private val queueRepository: QueueRepository) :
 
     override suspend fun run(params: Params): Either<Failure,String> {
         //TODO change id to get with shared
-        return when (val res = queueRepository.joinQueue(params.idQueue,params.token)) {
+        return when (val res = queueRepository.joinQueue(params.joinCode,params.token)) {
             is Either.Left -> Either.Left(res.a)
             is Either.Right -> {
-               queueRepository.joinQueue(params.idQueue,params.token)
+               queueRepository.joinQueue(params.joinCode,params.token)
             }
         }
     }
     class Params(
-        val idQueue: Int,
+        val joinCode: Int,
         val token: String
     )
 

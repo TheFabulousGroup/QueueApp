@@ -22,18 +22,18 @@ class JoinQueueViewModel(private val joinQueueUC: JoinQueue): BaseViewModel(), K
     private var job = Job()
     private var coroutineScope = CoroutineScope(Dispatchers.Default + job)
 
-    fun joinQueue(idQueue: Int, token: String){
+    fun joinQueue(joinCode: Int, token: String){
         _screenState.value = ScreenState.Loading
 
         joinQueueUC.execute(
-            { it.either(::handleFailure, ::handleJoinQueue(idQueue)) },
-            JoinQueue.Params(idQueue,token),
+            { it.either(::handleFailure, ::handleJoinQueue) },
+            JoinQueue.Params(joinCode,token),
             this.coroutineScope
         )
 
     }
 
-    private fun handleJoinQueue(idQueue: Int) {
+    private fun handleJoinQueue(idQueue: String) {
         _screenState.value = ScreenState.Render(JoinQueueScreenStates.JoinSuccessful(idQueue))
     }
 }
