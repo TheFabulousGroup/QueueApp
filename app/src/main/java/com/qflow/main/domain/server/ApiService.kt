@@ -16,12 +16,12 @@ interface ApiService {
 
     val prefs : SharedPrefsRepository
     companion object Factory {
-        const val PARAM_QUEUE_ID = "queueId"
+        const val PARAM_QUEUE_ID = "idQueue"
         const val HEADER_IS_ADMIN = "isAdmin"
         const val HEADER_EMAIL = "mail"
         const val HEADER_PASS = "password"
         const val HEADER_TOKEN = "token"
-        const val POST_JOIN_QUEUE = "queue/join"
+        const val POST_JOIN_QUEUE = "qflow/queues/joinQueue/{$PARAM_QUEUE_ID}"
         const val POST_CREATE_QUEUE = "qflow/queues/"
         const val GET_QUEUES = "queue/"
         const val GET_QUEUE = "queue/{$PARAM_QUEUE_ID}"
@@ -56,9 +56,10 @@ interface ApiService {
 
     @Headers("Content-type: application/json")
     @POST(POST_JOIN_QUEUE)
-    fun postJoinQueue(@Body body: String): Call<String>
-
-    fun getQueueByJoinId(idJoin: Int): Call<String>
+    fun postJoinQueue(
+        @Path(PARAM_QUEUE_ID) idQueue: Int,
+        @Header(HEADER_TOKEN) token: String
+    ): Call<String>
 }
 
 class HeaderInterceptor : Interceptor, KoinComponent {

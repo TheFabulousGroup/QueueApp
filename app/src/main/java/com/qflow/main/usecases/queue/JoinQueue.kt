@@ -7,25 +7,20 @@ import com.qflow.main.usecases.UseCase
 import kotlinx.coroutines.CoroutineScope
 
 class JoinQueue(private val queueRepository: QueueRepository) :
-    UseCase<Int, JoinQueue.Params, CoroutineScope>() {
+    UseCase<String, JoinQueue.Params, CoroutineScope>() {
 
-    override suspend fun run(params: Params): Either<Failure, Int> {
+    override suspend fun run(params: Params): Either<Failure,String> {
         //TODO change id to get with shared
-        return when (val res = queueRepository.joinQueue(params.id_queue)) {
-            is Either.Left -> res
+        return when (val res = queueRepository.joinQueue(params.idQueue,params.token)) {
+            is Either.Left -> Either.Left(res.a)
             is Either.Right -> {
-                if (res.b.id != null)
-                    Either.Right(res.b.id)
-                else
-                    Either.Left(Failure.NullResult())
+               queueRepository.joinQueue(params.idQueue,params.token)
             }
         }
-
-
     }
-
     class Params(
-        val id_queue: Int
+        val idQueue: Int,
+        val token: String
     )
 
 }

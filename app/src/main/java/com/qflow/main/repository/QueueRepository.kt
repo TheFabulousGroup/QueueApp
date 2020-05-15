@@ -20,7 +20,7 @@ interface QueueRepository {
         business_associated: String
     ): Either<Failure, String>
 
-    suspend fun joinQueue(id_queue: Int): Either<Failure, Queue>
+    suspend fun joinQueue(idQueue: Int, token: String): Either<Failure, String>
     suspend fun fetchAdminQueuesRepository(isActive: Boolean): Either<Failure, List<Queue>>
     suspend fun fetchQueueById(id_queue: Int): Either<Failure, Queue>
     suspend fun fetchQueueByJoinId(idJoin: Int): Either<Failure, Queue>
@@ -56,20 +56,11 @@ interface QueueRepository {
         }
 
         override suspend fun joinQueue(
-            id_queue: Int
-        ): Either<Failure, Queue> {
-            val params = HashMap<String, String>()
-            params["id_queue"] = id_queue
-            return request(apiService.postJoinQueue(params.toString()), { res ->
-                val resultMock =
-                    "   {\n" +
-                            "      \"business_associated\":\"\",\n" +
-                            "      \"capacity\":0,\n" +
-                            "      \"description\":\"\",\n" +
-                            "      \"is_locked\":false,\n" +
-                            "      \"name\":\"\"\n" +
-                            "   }\n"
-                queueAdapter.queueSMToQueue(QueueServerModel.mapToObject(resultMock))
+            idQueue: Int,
+            token: String
+        ): Either<Failure, String> {
+            return request(apiService.postJoinQueue(idQueue,token), {
+                it
             }, String.empty())
         }
 
