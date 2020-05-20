@@ -10,6 +10,7 @@ import com.qflow.main.core.ScreenState
 import com.qflow.main.views.screenstates.InfoQueueScreenState
 import com.qflow.main.views.viewmodels.InfoQueueViewModel
 import kotlinx.android.synthetic.creators.dialog_home_info_q.*
+import net.glxn.qrgen.android.QRCode
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
@@ -27,13 +28,11 @@ class InfoQueueDialog : DialogFragment() {
         if (idQueue != null) {
             viewModel.fetchQueueById(idQueue)
         }
-
         return inflater.inflate(R.layout.dialog_home_info_q, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         initializeObservers()
         initializeListeners()
     }
@@ -60,6 +59,9 @@ class InfoQueueDialog : DialogFragment() {
     private fun renderScreenState(renderState: InfoQueueScreenState) {
         when (renderState) {
             is InfoQueueScreenState.QueueObtained -> {
+                val myBitmap = QRCode.from("\"QflowQueue\": \""
+                        + renderState.queue.joinId + "\"").withSize(250,250).bitmap()
+                qrImageview?.setImageBitmap(myBitmap)
                 home_info_queue_name.text = renderState.queue.name
                 home_info_description_queue.text = renderState.queue.description
                 home_info_bss_asoc_queue.text = renderState.queue.businessAssociated
