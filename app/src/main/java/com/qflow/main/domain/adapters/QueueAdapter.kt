@@ -2,7 +2,9 @@ package com.qflow.main.domain.adapters
 
 import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
+import com.qflow.main.core.Failure
 import com.qflow.main.domain.local.models.Queue
+import com.qflow.main.usecases.Either
 
 /**
  * This will be used in the future to parse the firebase repository with the model we use here
@@ -60,7 +62,7 @@ object QueueAdapter {
         )*/
     }
 
-    fun jsonStringToQueueList(jsonQueueList: String): List<Queue> {
+    fun jsonStringToQueueList(jsonQueueList: String): Either<Failure, List<Queue>> {
 
         val gsonBuilder =  GsonBuilder()
         gsonBuilder.setDateFormat("yyyy-MM-dd hh:mm:ss")  //TODO check server format

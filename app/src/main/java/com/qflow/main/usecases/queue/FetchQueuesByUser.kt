@@ -1,6 +1,7 @@
 package com.qflow.main.usecases.queue
 
 import com.qflow.main.core.Failure
+import com.qflow.main.domain.adapters.QueueAdapter
 import com.qflow.main.domain.local.models.Queue
 import com.qflow.main.repository.QueueRepository
 import com.qflow.main.usecases.Either
@@ -10,12 +11,13 @@ import kotlinx.coroutines.CoroutineScope
 /**
  * UseCaseCreateUserInDatabase
  * */
-class FetchQueuesByUser(private val queueRepository: QueueRepository) :
+class FetchQueuesByUser(private val queueAdapter: QueueAdapter,
+                        private val queueRepository: QueueRepository) :
     UseCase<List<Queue>, FetchQueuesByUser.Params, CoroutineScope>() {
     override suspend fun run(params: Params): Either<Failure, List<Queue>> {
 
         return when (
-            val result = queueRepository.fetchQueuesByUser(params.expand, params.locked)
+            val result = queueAdapter.jsonStringToQueueList(queueRepository.fetchQueuesByUser(params.expand, params.locked))
             )
         {
             is Either.Left -> Either.Left(result.a)

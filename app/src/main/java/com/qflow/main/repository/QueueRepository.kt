@@ -23,11 +23,10 @@ interface QueueRepository {
 
     suspend fun joinQueue(idQueue: String): Either<Failure, Queue>
     suspend fun fetchQueueById(idQueue: Int): Either<Failure, Queue>
-    suspend fun fetchQueuesByUser(expand: String?, locked: Boolean?): Either<Failure, List<Queue>>
+    suspend fun fetchQueuesByUser(expand: String?, locked: Boolean?): Either<Failure, String>
 
     class General
     constructor(
-        private val queueAdapter: QueueAdapter,
         private val apiService: ApiService,
         private val prefsRepository: SharedPrefsRepository
     ) : BaseRepository(), QueueRepository {
@@ -71,14 +70,14 @@ interface QueueRepository {
             }, String.empty())
         }
 
-        override suspend fun fetchQueuesByUser(expand: String?, locked: Boolean?): Either<Failure, List<Queue>> {
+        override suspend fun fetchQueuesByUser(expand: String?, locked: Boolean?): Either<Failure, String> {
             return request(
                 apiService.getQueuesByUser(
                     prefsRepository.getUserToken().toString(),
                     expand,
                     locked
                 ), {
-                    queueAdapter.jsonStringToQueueList(it)
+                    it
                 }, String.empty()
             )
         }

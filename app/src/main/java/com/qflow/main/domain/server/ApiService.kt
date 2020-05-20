@@ -36,7 +36,7 @@ interface ApiService {
 
     @GET(GET_QUEUE_USERID)
     fun getQueuesByUser(
-        @Path(HEADER_TOKEN) token: String,
+        @Header(HEADER_TOKEN) token: String,
         @Query(PARAM_EXPAND) expand: String?,
         @Query(PARAM_LOCKED) locked: Boolean?
     ) : Call<String>
