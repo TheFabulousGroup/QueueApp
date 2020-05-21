@@ -11,16 +11,12 @@
         android:name="com.qflow.main.views.fragments.HomeFragment"
         android:label="HomeFragment" >
         <action
-            android:id="@+id/action_homeFragment_to_joinQueueDialog"
-            app:destination="@id/joinQueueDialog" />
+            android:id="@+id/action_homeFragment_to_QRFragment"
+            app:destination="@id/QRFragment" />
     </fragment>
-    <dialog
-        android:id="@+id/joinQueueDialog"
-        tools:layout="@layout/dialog_join_queue"
-        android:name="com.qflow.main.views.dialogs.JoinQueueDialog"
-        android:label="JoinQueueDialog" >
-        <action
-            android:id="@+id/action_joinQueueDialog_to_homeFragment"
-            app:destination="@id/homeFragment" />
-    </dialog>
+    <fragment
+        tools:layout="@layout/fragment_qr"
+        android:id="@+id/QRFragment"
+        android:name="com.qflow.main.views.fragments.QRFragment"
+        android:label="QRFragment" />
 </navigation>

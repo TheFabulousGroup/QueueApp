@@ -31,4 +31,6 @@
     <string name="login_not_successful">Login was not successful</string>
     <string name="join_code">Join Code </string>
     <string name="splashscreen">SplashScreen icon</string>
+    <string name="QRLoadingErrorMessage">QR does not contain a QFlowQueue</string>
+    <string name="QueueLoadingError">It was not possible to load the Qflow queue</string>
 </resources>
