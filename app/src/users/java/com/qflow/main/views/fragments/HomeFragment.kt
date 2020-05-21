@@ -11,6 +11,7 @@ import com.qflow.main.core.ScreenState
 import com.qflow.main.views.adapters.ProfileAdapter
 import com.qflow.main.views.screenstates.HomeFragmentScreenState
 import com.qflow.main.views.viewmodels.HomeViewModel
+import kotlinx.android.synthetic.users.dialog_join_queue.*
 import kotlinx.android.synthetic.users.fragment_home.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -43,11 +44,12 @@ class HomeFragment : Fragment() {
     }
 
     private fun initializeButtons() {
-        //img_profile.setImageResource()
-
         btn_join_queue.setOnClickListener {
-            view?.findNavController()?.navigate(R.id.action_homeFragment_to_joinQueueDialog)
+            //TODO:LoadDialogJoinQueueById
 
+        }
+        btn_scan_qr.setOnClickListener{
+            view?.findNavController()?.navigate(R.id.action_homeFragment_to_QRFragment)
         }
     }
 
