@@ -111,11 +111,10 @@ class QRFragment : Fragment(), QRCodeReaderView.OnQRCodeReadListener {
     }
 
     private fun handleQRQueue(text: String) {
-
         try {
             val jsonObject = JSONObject(text)
             if (jsonObject.has("QflowQueue")) {
-                mViewModel.loadQueueToJoin()
+                mViewModel.loadQueueToJoin(jsonObject.getString("QflowQueue"))
             } else
                 throw JSONException("QR does not contain a QFlowQueue")
         } catch (ex: JSONException) {
@@ -124,8 +123,6 @@ class QRFragment : Fragment(), QRCodeReaderView.OnQRCodeReadListener {
         } finally {
             isProcessing.set(false)
         }
-
-
     }
 
     override fun onResume() {

@@ -14,7 +14,7 @@ class QRFragmentViewModel : BaseViewModel(), KoinComponent {
     val screenState: LiveData<ScreenState<QRFragmentScreenState>>
         get() = _screenState
 
-    fun loadQueueToJoin() {
+    fun loadQueueToJoin(get: String) {
 
         _screenState.value = ScreenState.Loading
         TODO("Not yet implemented")

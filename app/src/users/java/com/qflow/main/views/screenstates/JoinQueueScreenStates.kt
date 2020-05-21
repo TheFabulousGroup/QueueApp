@@ -1,5 +1,5 @@
 package com.qflow.main.views.screenstates
 
 sealed class JoinQueueScreenStates {
-    class JoinSuccessful(val id: Int): JoinQueueScreenStates()
+    class QueueLoaded(val id: Int): JoinQueueScreenStates()
 }

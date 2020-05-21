@@ -6,18 +6,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.Observer
-import androidx.navigation.findNavController
 import com.qflow.main.R
 import com.qflow.main.core.Failure
 import com.qflow.main.core.ScreenState
-import com.qflow.main.utils.enums.ValidationFailureType
 import com.qflow.main.views.screenstates.JoinQueueScreenStates
 import com.qflow.main.views.viewmodels.JoinQueueViewModel
 import kotlinx.android.synthetic.users.dialog_join_queue.*
-import kotlinx.android.synthetic.users.fragment_signup.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
 
@@ -60,12 +56,7 @@ class JoinQueueDialog : DialogFragment(){
         when (failure) {
             is Failure.JoinNotSuccessful -> {
                 loadingComplete()
-                Toast.makeText(this.context, "Join was not successful", Toast.LENGTH_SHORT).show()
-            }
-            is Failure.NullResult -> {
-                loadingComplete()
-//                view?.findNavController()?.navigate(R.id.action_joinQueueDialog_to_homeFragment)
-                this.dismiss()
+                Toast.makeText(this.context, getString(R.string.QueueLoadingError), Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -84,9 +75,8 @@ class JoinQueueDialog : DialogFragment(){
         loadingComplete()
 
         when (renderState) {
-            is JoinQueueScreenStates.JoinSuccessful -> {
-                //Toast.makeText(this.context, renderState.id.toString(), Toast.LENGTH_LONG).show()
-//                view?.findNavController()?.navigate(R.id.action_joinQueueDialog_to_homeFragment)
+            is JoinQueueScreenStates.QueueLoaded -> {
+                //TODO call to fragment function
                 this.dismiss()
             }
         }
@@ -95,7 +85,6 @@ class JoinQueueDialog : DialogFragment(){
 
 
     private fun loading(){
-        //Make sure you've added the loader to the view
         loading_bar_dialog.visibility = View.VISIBLE
     }
 

@@ -5,9 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import com.qflow.main.core.BaseViewModel
 import com.qflow.main.core.ScreenState
 import com.qflow.main.usecases.queue.JoinQueue
-import com.qflow.main.usecases.user.LoginCase
 import com.qflow.main.views.screenstates.JoinQueueScreenStates
-import com.qflow.main.views.screenstates.LoginFragmentScreenState
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -34,6 +32,6 @@ class JoinQueueViewModel(private val joinQueueUC: JoinQueue): BaseViewModel(), K
     }
 
     private fun handleJoinQueue(id: Int) {
-        _screenState.value = ScreenState.Render(JoinQueueScreenStates.JoinSuccessful(id))
+        _screenState.value = ScreenState.Render(JoinQueueScreenStates.QueueLoaded(id))
     }
 }
