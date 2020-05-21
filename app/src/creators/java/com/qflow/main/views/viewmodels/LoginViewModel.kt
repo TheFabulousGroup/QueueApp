@@ -37,7 +37,7 @@ class LoginViewModel(
         //Execute add user to database
         userLogin.execute(
             { it.either(::handleFailure, ::handleLoginSuccessful) },
-            LoginCase.Params(selectedPass, selectedMail),
+            LoginCase.Params(true,selectedPass, selectedMail),
             this.coroutineScope
         )
     }

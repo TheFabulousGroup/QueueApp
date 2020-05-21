@@ -14,16 +14,21 @@ import java.io.IOException
 
 interface ApiService {
 
-
+    val prefs : SharedPrefsRepository
     companion object Factory {
         const val PARAM_QUEUE_ID = "queueId"
-
+        const val HEADER_IS_ADMIN = "isAdmin"
+        const val HEADER_EMAIL = "mail"
+        const val HEADER_PASS = "password"
+        const val HEADER_TOKEN = "token"
         const val POST_JOIN_QUEUE = "queue/join"
-        const val POST_CREATE_QUEUE = "queue/create"
+        const val POST_CREATE_QUEUE = "qflow/queues/"
         const val GET_QUEUES = "queue/"
         const val GET_QUEUE = "queue/{$PARAM_QUEUE_ID}"
-        const val POST_CREATE_USER = "user/create"
-        const val POST_LOGIN_USER = "user/"
+        const val POST_CREATE_USER = "qflow/user/"
+        const val PUT_LOGIN_USER = "qflow/user/"
+
+
 
     }
 
@@ -35,15 +40,19 @@ interface ApiService {
 
     @Headers("Content-type: application/json")
     @POST(POST_CREATE_USER)
-    fun postCreateUser(@Body body: String): Call<String>
+    fun postCreateUser(@Body body: String, @Header(HEADER_IS_ADMIN) admin: Boolean): Call<String>
 
     @Headers("Content-type: application/json")
-    @POST(POST_LOGIN_USER)
-    fun postLoginUser(@Body body: String): Call<String>
+    @PUT(PUT_LOGIN_USER)
+    fun postLoginUser(
+        @Header(HEADER_IS_ADMIN) admin: Boolean,
+        @Header(HEADER_EMAIL) email: String,
+        @Header(HEADER_PASS) password:String
+    ): Call<String>
 
     @Headers("Content-type: application/json")
     @POST(POST_CREATE_QUEUE)
-    fun postQueue(@Body body: String): Call<String>
+    fun postQueue(@Header(HEADER_TOKEN) token:String, @Body body: String): Call<String>
 
     @Headers("Content-type: application/json")
     @POST(POST_JOIN_QUEUE)
@@ -76,7 +85,7 @@ class HeaderInterceptor : Interceptor, KoinComponent {
 
         val response = chain.proceed(requestBuilder.build())
 
-            //UNCOMMENT TO SEE WHAT ARE WE RECEIVING
+        //UNCOMMENT TO SEE WHAT ARE WE RECEIVING
         Log.i(
             "REQUEST",
             String.format("Received response for %s, headers: %s", request.url(), response.body())
