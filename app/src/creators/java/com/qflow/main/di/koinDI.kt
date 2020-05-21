@@ -27,7 +27,7 @@ import retrofit2.converter.scalars.ScalarsConverterFactory
 import java.util.concurrent.TimeUnit
 
 /**
- * Our great dependency injector, gets whatever we want wherever we desire
+ * Our dependency injector, gets whatever we want wherever we desire
  * */
 val retrofitModule = module {
     single {
