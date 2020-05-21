@@ -62,7 +62,7 @@ object QueueAdapter {
         )*/
     }
 
-    fun jsonStringToQueueList(jsonQueueList: String): Either<Failure, List<Queue>> {
+    fun jsonStringToQueueList(jsonQueueList: String): List<Queue> {
 
         val gsonBuilder =  GsonBuilder()
         gsonBuilder.setDateFormat("yyyy-MM-dd hh:mm:ss")  //TODO check server format

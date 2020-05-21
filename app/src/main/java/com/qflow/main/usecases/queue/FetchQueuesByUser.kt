@@ -11,13 +11,13 @@ import kotlinx.coroutines.CoroutineScope
 /**
  * UseCaseCreateUserInDatabase
  * */
-class FetchQueuesByUser(private val queueAdapter: QueueAdapter,
+class FetchQueuesByUser(
                         private val queueRepository: QueueRepository) :
     UseCase<List<Queue>, FetchQueuesByUser.Params, CoroutineScope>() {
     override suspend fun run(params: Params): Either<Failure, List<Queue>> {
 
         return when (
-            val result = queueAdapter.jsonStringToQueueList(queueRepository.fetchQueuesByUser(params.expand, params.locked))
+            val result = queueRepository.fetchQueuesByUser(params.expand, params.locked)
             )
         {
             is Either.Left -> Either.Left(result.a)

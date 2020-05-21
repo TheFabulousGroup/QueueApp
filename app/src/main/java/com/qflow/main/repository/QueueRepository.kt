@@ -2,6 +2,7 @@ package com.qflow.main.repository
 
 import android.util.Log
 import com.google.gson.Gson
+import com.google.gson.TypeAdapter
 import com.qflow.main.core.BaseRepository
 import com.qflow.main.core.Failure
 import com.qflow.main.core.extensions.empty
@@ -23,12 +24,13 @@ interface QueueRepository {
 
     suspend fun joinQueue(idQueue: String): Either<Failure, Queue>
     suspend fun fetchQueueById(idQueue: Int): Either<Failure, Queue>
-    suspend fun fetchQueuesByUser(expand: String?, locked: Boolean?): Either<Failure, String>
+    suspend fun fetchQueuesByUser(expand: String?, locked: Boolean?): Either<Failure, List<Queue>>
 
     class General
     constructor(
         private val apiService: ApiService,
-        private val prefsRepository: SharedPrefsRepository
+        private val prefsRepository: SharedPrefsRepository,
+        private val queueAdapter: QueueAdapter
     ) : BaseRepository(), QueueRepository {
 
         override suspend fun createQueue(
@@ -70,14 +72,14 @@ interface QueueRepository {
             }, String.empty())
         }
 
-        override suspend fun fetchQueuesByUser(expand: String?, locked: Boolean?): Either<Failure, String> {
+        override suspend fun fetchQueuesByUser(expand: String?, locked: Boolean?): Either<Failure, List<Queue>> {
             return request(
                 apiService.getQueuesByUser(
                     prefsRepository.getUserToken().toString(),
                     expand,
                     locked
                 ), {
-                    it
+                    queueAdapter.jsonStringToQueueList(it)
                 }, String.empty()
             )
         }
