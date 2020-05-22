@@ -16,6 +16,7 @@ import com.qflow.main.usecases.Either
 interface QueueRepository {
 
     suspend fun createQueue(
+        token: String,
         name: String,
         description: String,
         capacity: Int,
@@ -24,16 +25,16 @@ interface QueueRepository {
 
    // suspend fun joinQueue(idQueue: String): Either<Failure, Queue>
     suspend fun fetchQueueById(idQueue: Int): Either<Failure, Queue>
-    suspend fun fetchQueuesByUser(expand: String?, locked: Boolean?): Either<Failure, List<Queue>>
+    suspend fun fetchQueuesByUser(token: String, expand: String?, locked: Boolean?): Either<Failure, List<Queue>>
 
     class General
     constructor(
         private val apiService: ApiService,
-        private val prefsRepository: SharedPrefsRepository,
         private val queueAdapter: QueueAdapter
     ) : BaseRepository(), QueueRepository {
 
         override suspend fun createQueue(
+            token: String,
             name: String,
             description: String,
             capacity: Int,
@@ -45,7 +46,7 @@ interface QueueRepository {
 
             return request(
                 apiService.postQueue(
-                    prefsRepository.getUserToken().toString(),
+                    token,
                     Gson().toJson(queueMap)
                 ), {
                     it
@@ -71,11 +72,11 @@ interface QueueRepository {
                 queueAdapter.jsonStringToQueue(it)
             }, String.empty())
         }
-*/
-        override suspend fun fetchQueuesByUser(expand: String?, locked: Boolean?): Either<Failure, List<Queue>> {
+
+        override suspend fun fetchQueuesByUser(token: String, expand: String?, locked: Boolean?): Either<Failure, List<Queue>> {
             return request(
                 apiService.getQueuesByUser(
-                    prefsRepository.getUserToken().toString(),
+                    token,
                     expand,
                     locked
                 ), {

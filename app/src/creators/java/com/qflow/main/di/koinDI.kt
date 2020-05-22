@@ -48,7 +48,7 @@ val retrofitModule = module {
 val userModule = module {
 
     single<UserRepository> { UserRepository.General(get(), get()) }
-    single<QueueRepository> { QueueRepository.General(get(), get(), get()) }
+    single<QueueRepository> { QueueRepository.General(get(), get()) }
 
     single { UserAdapter }
     single { QueueAdapter }
@@ -67,8 +67,8 @@ val useCaseModule = module {
     factory { CreateUser(get(),get()) }
     factory { CreateAdmin(get(),get()) }
     factory { LoginCase(get(),get()) }
-    factory { CreateQueue(get()) }
-    factory { FetchQueuesByUser(get()) }
+    factory { CreateQueue(get(), get()) }
+    factory { FetchQueuesByUser(get(), get()) }
     factory { FetchQueueById(get()) }
 
 
