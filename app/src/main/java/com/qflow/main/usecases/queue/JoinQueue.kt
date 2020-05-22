@@ -4,7 +4,6 @@ import com.qflow.main.core.Failure
 import com.qflow.main.repository.QueueRepository
 import com.qflow.main.usecases.Either
 import com.qflow.main.usecases.UseCase
-import com.qflow.main.utils.enums.ValidationFailureType
 import kotlinx.coroutines.CoroutineScope
 
 class JoinQueue(private val queueRepository: QueueRepository) :
@@ -26,7 +25,7 @@ class JoinQueue(private val queueRepository: QueueRepository) :
     }
 
     class Params(
-        val id_queue: String
+        val id_queue: Int
     )
 
 }

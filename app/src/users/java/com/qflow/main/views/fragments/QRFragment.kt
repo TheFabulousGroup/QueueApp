@@ -83,7 +83,7 @@ class QRFragment : Fragment(), QRCodeReaderView.OnQRCodeReadListener, InfoQueueD
         when (screenState) {
             is QRFragmentScreenState.QueueLoaded -> {
                 mQueueDialog = InfoQueueDialog(screenState.queue, true)
-                mQueueDialog
+                mQueueDialog!!.show(this.parentFragmentManager, "JOINDIALOG")
             }
             is QRFragmentScreenState.JoinedQueue ->
                 view?.findNavController()?.navigate(R.id.action_QRFragment_to_homeFragment)
@@ -122,7 +122,7 @@ class QRFragment : Fragment(), QRCodeReaderView.OnQRCodeReadListener, InfoQueueD
         try {
             val jsonObject = JSONObject(text)
             if (jsonObject.has("QflowQueue")) {
-                mViewModel.loadQueueToJoin(jsonObject.getString("QflowQueue"))
+                mViewModel.loadQueueToJoin(jsonObject.getInt("QflowQueue"))
             } else
                 throw JSONException("QR does not contain a QFlowQueue")
         } catch (ex: JSONException) {
@@ -143,7 +143,7 @@ class QRFragment : Fragment(), QRCodeReaderView.OnQRCodeReadListener, InfoQueueD
         qrDecoderView.stopCamera()
     }
 
-    override fun handleQRCall(queue: Queue) {
+    override fun handleJoinQueueRequest(queue: Queue) {
         mQueueDialog?.dismiss()
         mViewModel.joinToQueue(queue.id)
     }

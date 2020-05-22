@@ -42,7 +42,7 @@
             android:layout_marginTop="64dp"
             android:layout_marginBottom="8dp"
             android:ems="10"
-            android:inputType="textPersonName"
+            android:inputType="number"
             android:hint="@string/join_code"
             android:textColorHint="@color/primaryTextColor"
             app:layout_constraintBottom_toTopOf="@+id/btn_join_queue_by_code"

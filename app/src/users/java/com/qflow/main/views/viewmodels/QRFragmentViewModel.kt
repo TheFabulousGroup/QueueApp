@@ -26,12 +26,12 @@ class QRFragmentViewModel(
     private var job = Job()
     private var coroutineScope = CoroutineScope(Dispatchers.Default + job)
 
-    fun loadQueueToJoin(get: String) {
+    fun loadQueueToJoin(get: Int) {
 
         _screenState.value = ScreenState.Loading
         findQueueByJoinID.execute(
             { it.either(::handleFailure, ::handleQueuesObtained) },
-            FetchQueueByJoinID.Params(get.toInt()), this.coroutineScope
+            FetchQueueByJoinID.Params(get), this.coroutineScope
         )
 
     }
@@ -42,10 +42,12 @@ class QRFragmentViewModel(
 
     fun joinToQueue(id: Int?) {
         _screenState.value = ScreenState.Loading
-        joinQueue.execute(
-            { it.either(::handleFailure, ::handleJoinCompleted) },
-            JoinQueue.Params(id.toString()), this.coroutineScope
-        )
+        id?.let { JoinQueue.Params(it) }?.let {
+            joinQueue.execute(
+                { it.either(::handleFailure, ::handleJoinCompleted) },
+                it, this.coroutineScope
+            )
+        }
     }
 
     private fun handleJoinCompleted(i: Int) {
