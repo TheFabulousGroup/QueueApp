@@ -1,6 +1,7 @@
 package com.qflow.main.views.dialogs
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,16 +12,18 @@ import androidx.lifecycle.Observer
 import com.qflow.main.R
 import com.qflow.main.core.Failure
 import com.qflow.main.core.ScreenState
-import com.qflow.main.views.screenstates.JoinQueueScreenStates
-import com.qflow.main.views.viewmodels.JoinQueueViewModel
+import com.qflow.main.domain.local.models.Queue
 import kotlinx.android.synthetic.users.dialog_join_queue.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
 
 class JoinQueueDialog : DialogFragment(){
 
-    private val mViewModel: JoinQueueViewModel by viewModel()
+    interface OnJoinButtonClick {
+        fun onJoinButtonClick(joinID: Int)
+    }
 
+    private var mOnJoinButtonClick : OnJoinButtonClick? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,64 +34,27 @@ class JoinQueueDialog : DialogFragment(){
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        this.initializeObservers()
-        this.initializeListeners()
+
+        initializeListeners()
     }
 
     private fun initializeListeners() {
         btn_join_queue_by_code.setOnClickListener{
             view.let {
-                val join_code = dialog_join_code.text.toString()
-                mViewModel.joinQueue(join_code)
+                val joinCode = dialog_join_code.text.toString()
+                mOnJoinButtonClick?.onJoinButtonClick(joinCode.toInt())
             }
         }
     }
 
-    private fun initializeObservers() {
-        mViewModel.screenState.observe(this.viewLifecycleOwner, Observer {
-            updateUI(it)
-        })
-        mViewModel.failure.observe(::getLifecycle, ::handleErrors)
-    }
+    override fun onAttach(activity: Context) {
+        super.onAttach(activity)
 
-    @SuppressLint("ResourceAsColor")
-    private fun handleErrors(failure: Failure?) {
-        when (failure) {
-            is Failure.JoinNotSuccessful -> {
-                loadingComplete()
-                Toast.makeText(this.context, getString(R.string.QueueLoadingError), Toast.LENGTH_SHORT).show()
-            }
+        try {
+            mOnJoinButtonClick = context as OnJoinButtonClick
+        } catch (e: ClassCastException){
+            throw ClassCastException("$activity must implement OnJoinQR")
         }
     }
 
-    private fun updateUI(screenState: ScreenState<JoinQueueScreenStates>) {
-
-        when (screenState) {
-            ScreenState.Loading -> {
-                loading()
-            }
-            is ScreenState.Render -> renderScreenState(screenState.renderState)
-        }
-    }
-
-    private fun renderScreenState(renderState: JoinQueueScreenStates) {
-        loadingComplete()
-
-        when (renderState) {
-            is JoinQueueScreenStates.QueueLoaded -> {
-                //TODO call to fragment function
-                this.dismiss()
-            }
-        }
-
-    }
-
-
-    private fun loading(){
-        loading_bar_dialog.visibility = View.VISIBLE
-    }
-
-    private fun loadingComplete(){
-        loading_bar_dialog.visibility = View.INVISIBLE
-    }
 }

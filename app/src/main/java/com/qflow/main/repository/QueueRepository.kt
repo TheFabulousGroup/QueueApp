@@ -20,7 +20,7 @@ interface QueueRepository {
         business_associated: String
     ): Either<Failure, String>
 
-    suspend fun joinQueue(id_queue: String): Either<Failure, Queue>
+    suspend fun joinQueue(id_queue: Int): Either<Failure, Queue>
     suspend fun fetchAdminQueuesRepository(isActive: Boolean): Either<Failure, List<Queue>>
     suspend fun fetchQueueById(id_queue: Int): Either<Failure, Queue>
     suspend fun fetchQueueByJoinId(idJoin: Int): Either<Failure, Queue>
@@ -56,7 +56,7 @@ interface QueueRepository {
         }
 
         override suspend fun joinQueue(
-            id_queue: String
+            id_queue: Int
         ): Either<Failure, Queue> {
             val params = HashMap<String, String>()
             params["id_queue"] = id_queue
