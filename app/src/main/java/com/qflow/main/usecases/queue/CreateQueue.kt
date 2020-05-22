@@ -1,6 +1,7 @@
 package com.qflow.main.usecases.queue
 
 import com.qflow.main.core.Failure
+import com.qflow.main.domain.local.SharedPrefsRepository
 import com.qflow.main.repository.QueueRepository
 import com.qflow.main.usecases.Either
 import com.qflow.main.usecases.UseCase
@@ -10,7 +11,8 @@ import kotlinx.coroutines.CoroutineScope
 /**
  * UseCaseCreateUserInDatabase
  * */
-class CreateQueue(private val queueRepository: QueueRepository) :
+class CreateQueue(private val queueRepository: QueueRepository,
+                  private val prefsRepository: SharedPrefsRepository) :
     UseCase<String, CreateQueue.Params, CoroutineScope>() {
     override suspend fun run(params: Params): Either<Failure, String> {
 
@@ -18,6 +20,7 @@ class CreateQueue(private val queueRepository: QueueRepository) :
             is Either.Left -> Either.Left(result.a)
             is Either.Right -> {
                 queueRepository.createQueue(
+                    prefsRepository.getUserToken().toString(),
                     params.nameCreateQueue, params.businessAssociated,
                     params.capacity, params.queueDescription)
             }

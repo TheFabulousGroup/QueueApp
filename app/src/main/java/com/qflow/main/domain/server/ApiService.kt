@@ -27,8 +27,8 @@ interface ApiService {
 
         const val POST_JOIN_QUEUE = "queue/join"
         const val POST_CREATE_QUEUE = "qflow/queues/"
-        const val GET_QUEUE_USERID = "qflow/queues/byIdUser/{$HEADER_TOKEN}"
-        const val GET_QUEUE_QUEUEID = "qflow/queues/byIdQueue/{$PARAM_QUEUE_ID}"
+        const val GET_QUEUE_USERID = "qflow/queues/byIdUser/"
+        const val GET_QUEUE_QUEUEID = "qflow/queues/byIdQueue/"
         const val POST_CREATE_USER = "qflow/user/"
         const val PUT_LOGIN_USER = "qflow/user/"
 
