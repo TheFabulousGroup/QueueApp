@@ -57,6 +57,8 @@ interface ApiService {
     @Headers("Content-type: application/json")
     @POST(POST_JOIN_QUEUE)
     fun postJoinQueue(@Body body: String): Call<String>
+
+    fun getQueueByJoinId(idJoin: Int): Call<String>
 }
 
 class HeaderInterceptor : Interceptor, KoinComponent {

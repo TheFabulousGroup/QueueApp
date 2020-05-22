@@ -33,4 +33,5 @@
     <string name="splashscreen">SplashScreen icon</string>
     <string name="QRLoadingErrorMessage">QR does not contain a QFlowQueue</string>
     <string name="QueueLoadingError">It was not possible to load the Qflow queue</string>
+    <string name="JoinQueue">Join Queue</string>
 </resources>

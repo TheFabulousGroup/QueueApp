@@ -18,5 +18,9 @@
         tools:layout="@layout/fragment_qr"
         android:id="@+id/QRFragment"
         android:name="com.qflow.main.views.fragments.QRFragment"
-        android:label="QRFragment" />
+        android:label="QRFragment" >
+        <action
+            android:id="@+id/action_QRFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
 </navigation>

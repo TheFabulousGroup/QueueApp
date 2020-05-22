@@ -7,10 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
 import com.dlazaro66.qrcodereaderview.QRCodeReaderView
 import com.qflow.main.R
 import com.qflow.main.core.Failure
 import com.qflow.main.core.ScreenState
+import com.qflow.main.domain.local.models.Queue
+import com.qflow.main.views.dialogs.InfoQueueDialog
 import com.qflow.main.views.screenstates.QRFragmentScreenState
 import com.qflow.main.views.viewmodels.QRFragmentViewModel
 import kotlinx.android.synthetic.users.fragment_qr.*
@@ -19,10 +22,12 @@ import org.json.JSONObject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.concurrent.atomic.AtomicBoolean
 
-class QRFragment : Fragment(), QRCodeReaderView.OnQRCodeReadListener {
+class QRFragment : Fragment(), QRCodeReaderView.OnQRCodeReadListener, InfoQueueDialog.OnJoinClick {
 
     private val mViewModel: QRFragmentViewModel by viewModel()
     private var isProcessing: AtomicBoolean = AtomicBoolean(false)
+    private var mQueueDialog: InfoQueueDialog? = null
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -77,9 +82,12 @@ class QRFragment : Fragment(), QRCodeReaderView.OnQRCodeReadListener {
         hideLoader()
         when (screenState) {
             is QRFragmentScreenState.QueueLoaded -> {
-                //TODO: LoadInfoQueueDialogToJoin
-
+                mQueueDialog = InfoQueueDialog(screenState.queue, true)
+                mQueueDialog
             }
+            is QRFragmentScreenState.JoinedQueue ->
+                view?.findNavController()?.navigate(R.id.action_QRFragment_to_homeFragment)
+
         }
     }
 
@@ -133,5 +141,10 @@ class QRFragment : Fragment(), QRCodeReaderView.OnQRCodeReadListener {
     override fun onPause() {
         super.onPause()
         qrDecoderView.stopCamera()
+    }
+
+    override fun handleQRCall(queue: Queue) {
+        mQueueDialog?.dismiss()
+        mViewModel.joinToQueue(queue.id)
     }
 }
