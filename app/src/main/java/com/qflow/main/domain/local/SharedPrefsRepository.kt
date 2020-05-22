@@ -31,12 +31,8 @@ class SharedPrefsRepository(c : Context) {
 
     }
 
-    fun putUserToken(dataUser : String){
-        //TODO futuro userAdapter.JSONToUserDto(string)
-        //.token de lo que queda devolvido
-
-        UserAdapter.jsonStringToUserDTO(dataUser)
-        encryptedShared.edit().putString(ID_USER, dataUser).apply()
+    fun putUserToken(token : String){
+        encryptedShared.edit().putString(ID_USER, token).apply()
     }
 
     fun removeUserToken(){

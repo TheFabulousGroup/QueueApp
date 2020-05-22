@@ -2,6 +2,7 @@ package com.qflow.main.usecases.user
 
 
 import com.qflow.main.core.Failure
+import com.qflow.main.domain.adapters.UserAdapter
 import com.qflow.main.domain.local.SharedPrefsRepository
 import com.qflow.main.repository.UserRepository
 import com.qflow.main.usecases.Either
@@ -25,7 +26,8 @@ class LoginCase(
                 when (val res = userRepository.signIn(params.isAdmin,params.selectedMail, params.selectedPass)) {
                     is Either.Left -> Either.Left(res.a)
                     is Either.Right -> {
-                        sharedPrefsRepository.putUserToken(res.b)
+                        val userDTO = UserAdapter.jsonStringToUserDTO(res.b)
+                        sharedPrefsRepository.putUserToken(userDTO.token.toString())
                         Either.Right(res.b)
                     }
                 }
