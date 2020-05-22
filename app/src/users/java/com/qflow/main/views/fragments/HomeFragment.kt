@@ -63,8 +63,12 @@ class HomeFragment : Fragment(), JoinQueueDialog.OnJoinDialogButtonClick,
     private fun renderScreenState(renderState: HomeFragmentScreenState) {
         when (renderState) {
             is HomeFragmentScreenState.JoinedQueue -> {
+                mQueueDialog?.dismiss()
+                //TODO actualizar RecyclerViews con las colas y llamar a hideLoader cuando se acabe de ejecutar
             }
             is HomeFragmentScreenState.QueueLoaded -> {
+                hideLoader()
+                mJoinQueueDialog?.dismiss()
                 mQueueDialog = InfoQueueDialog(renderState.queue, true)
                 mQueueDialog!!.show(this.parentFragmentManager, "JOINDIALOG")
             }
