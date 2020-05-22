@@ -56,10 +56,12 @@ class HomeViewModel(
 
     fun joinToQueue(id: Int?) {
         _screenState.value = ScreenState.Loading
-        joinQueue.execute(
-            { it.either(::handleFailure, ::handleJoinCompleted) },
-            JoinQueue.Params(id.toString()), this.coroutineScope
-        )
+        id?.let { JoinQueue.Params(it) }?.let { it ->
+            joinQueue.execute(
+                { it.either(::handleFailure, ::handleJoinCompleted) },
+                it, this.coroutineScope
+            )
+        }
     }
 
     private fun handleJoinCompleted(i: Int) {

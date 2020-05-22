@@ -1,7 +1,6 @@
 package com.qflow.main.views.fragments
 
 import android.os.Bundle
-import android.provider.Settings.Global.getString
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +10,7 @@ import androidx.navigation.findNavController
 import com.qflow.main.R
 import com.qflow.main.core.Failure
 import com.qflow.main.core.ScreenState
+import com.qflow.main.domain.local.models.Queue
 import com.qflow.main.views.adapters.ProfileAdapter
 import com.qflow.main.views.dialogs.InfoQueueDialog
 import com.qflow.main.views.dialogs.JoinQueueDialog
@@ -18,12 +18,11 @@ import com.qflow.main.views.screenstates.HomeFragmentScreenState
 import com.qflow.main.views.viewmodels.HomeViewModel
 import kotlinx.android.synthetic.users.dialog_join_queue.*
 import kotlinx.android.synthetic.users.fragment_home.*
-import kotlinx.android.synthetic.users.fragment_qr.*
-import kotlinx.android.synthetic.users.item_profile.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
-class HomeFragment : Fragment(), JoinQueueDialog.OnJoinButtonClick {
+class HomeFragment : Fragment(), JoinQueueDialog.OnJoinDialogButtonClick,
+    InfoQueueDialog.OnJoinClick {
 
     private val mViewModel: HomeViewModel by viewModel()
 
@@ -52,7 +51,8 @@ class HomeFragment : Fragment(), JoinQueueDialog.OnJoinButtonClick {
 
     private fun initializeButtons() {
         btn_join_queue.setOnClickListener {
-            //TODO:LoadDialogJoinQueueById
+            mJoinQueueDialog = JoinQueueDialog()
+            mJoinQueueDialog!!.show(this.parentFragmentManager, "INFOQUEUEDIALOG")
 
         }
         btn_scan_qr.setOnClickListener {
@@ -64,8 +64,10 @@ class HomeFragment : Fragment(), JoinQueueDialog.OnJoinButtonClick {
         when (renderState) {
             is HomeFragmentScreenState.JoinedQueue -> {
             }
-            is HomeFragmentScreenState.QueueLoaded ->
-                mViewModel.joinToQueue(queue.id)
+            is HomeFragmentScreenState.QueueLoaded -> {
+                mQueueDialog = InfoQueueDialog(renderState.queue, true)
+                mQueueDialog!!.show(this.parentFragmentManager, "JOINDIALOG")
+            }
         }
 
     }
@@ -110,5 +112,9 @@ class HomeFragment : Fragment(), JoinQueueDialog.OnJoinButtonClick {
     private fun initializeObservers() {
         mViewModel.screenState.observe(::getLifecycle, ::updateUI)
         mViewModel.failure.observe(::getLifecycle, ::handleErrors)
+    }
+
+    override fun handleJoinQueueRequest(queue: Queue) {
+        mViewModel.joinToQueue(queue.id)
     }
 }

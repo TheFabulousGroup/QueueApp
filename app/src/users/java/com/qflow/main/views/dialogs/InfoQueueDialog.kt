@@ -17,7 +17,7 @@ class InfoQueueDialog(
 ) : DialogFragment() {
 
     interface OnJoinClick {
-        fun handleQRCall(queue: Queue)
+        fun handleJoinQueueRequest(queue: Queue)
     }
 
     private var mOnJoinClick: OnJoinClick? = null
@@ -46,7 +46,7 @@ class InfoQueueDialog(
         if (joinable)
             btnQueueJoinQueue.visibility = View.VISIBLE
         btnQueueJoinQueue.setOnClickListener {
-            mOnJoinClick?.handleQRCall(queue)
+            mOnJoinClick?.handleJoinQueueRequest(queue)
         }
     }
 

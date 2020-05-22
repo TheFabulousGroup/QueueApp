@@ -6,5 +6,5 @@ sealed class HomeFragmentScreenState {
     object JoinedQueue : HomeFragmentScreenState()
 
     class AccessProfile(val id: String): HomeFragmentScreenState()
-    class QueueLoaded(queue: Queue) : HomeFragmentScreenState()
+    class QueueLoaded(val queue: Queue) : HomeFragmentScreenState()
 }
