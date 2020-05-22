@@ -1,4 +1,4 @@
-package com.qflow.main.usecases.queue
+/*package com.qflow.main.usecases.queue
 
 import com.qflow.main.core.Failure
 import com.qflow.main.repository.QueueRepository
@@ -29,4 +29,4 @@ class JoinQueue(private val queueRepository: QueueRepository) :
         val id_queue: String
     )
 
-}
+}*/

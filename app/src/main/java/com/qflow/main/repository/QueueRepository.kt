@@ -22,7 +22,7 @@ interface QueueRepository {
         business_associated: String
     ): Either<Failure, String>
 
-    suspend fun joinQueue(idQueue: String): Either<Failure, Queue>
+   // suspend fun joinQueue(idQueue: String): Either<Failure, Queue>
     suspend fun fetchQueueById(idQueue: Int): Either<Failure, Queue>
     suspend fun fetchQueuesByUser(expand: String?, locked: Boolean?): Either<Failure, List<Queue>>
 
@@ -61,7 +61,7 @@ interface QueueRepository {
         }
 
 
-        override suspend fun joinQueue(
+     /*   override suspend fun joinQueue(
             idQueue: String
         ): Either<Failure, Queue> {
             val params = HashMap<String, String>()
@@ -71,7 +71,7 @@ interface QueueRepository {
                 queueAdapter.jsonStringToQueue(it)
             }, String.empty())
         }
-
+*/
         override suspend fun fetchQueuesByUser(expand: String?, locked: Boolean?): Either<Failure, List<Queue>> {
             return request(
                 apiService.getQueuesByUser(
@@ -83,14 +83,6 @@ interface QueueRepository {
                 }, String.empty()
             )
         }
-
-        /*override suspend fun fetchAdminQueuesRepository(isActive: Boolean): Either<Failure, List<Queue>> {
-            //TODO Añadir "expand", "locked"
-
-            return request(apiService.getQueues(), {
-                queueAdapter.jsonStringToQueueList(it)
-            }, String.empty())
-        }*/
     }
 }
 

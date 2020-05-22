@@ -42,7 +42,8 @@ class SharedPrefsRepository(c : Context) {
     }
 
     fun getUserToken() : String?{
-        return encryptedShared.getString(ID_USER, null)
+        return (encryptedShared.getString(ID_USER, null))
+
     }
 
     fun clearNormal(){

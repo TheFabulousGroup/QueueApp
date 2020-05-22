@@ -10,28 +10,6 @@ import java.lang.ClassCastException
 
 abstract class BaseRepository
 {
-
-    suspend fun <T, R> firebaseRequest(call: Task<T>, transform: (T) -> R): Either<Failure, R> {
-        var result: Either<Failure, R> = Either.Left(Failure.NullResult())
-        return try {
-            call.addOnSuccessListener {
-                call.result?.let { res ->  result = Either.Right(transform(res))}
-            }
-            call.addOnFailureListener {
-                result = try{
-                    it as FirebaseFunctionsException
-                    Either.Left(Failure.ServerErrorCode(it.code.ordinal))
-                } catch(ex : ClassCastException){
-                    Either.Left(Failure.ServerException(it))
-                }
-            }
-            call.await()
-            result
-        } catch (exception: Throwable) {
-            Either.Left(Failure.ServerException(exception))
-        }
-    }
-
     fun <T, R> request(call: Call<T>, transform: (T) -> R, default: T): Either<Failure,R> {
         return try {
             val response = call.execute()

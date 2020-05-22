@@ -33,7 +33,7 @@ interface ApiService {
         const val PUT_LOGIN_USER = "qflow/user/"
 
     }
-
+    @Headers("Content-type: application/json")
     @GET(GET_QUEUE_USERID)
     fun getQueuesByUser(
         @Header(HEADER_TOKEN) token: String,
