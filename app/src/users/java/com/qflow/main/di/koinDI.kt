@@ -60,7 +60,7 @@ val userModule = module {
     viewModel { JoinQueueViewModel(get()) }
     viewModel { HomeViewModel()}
     viewModel { SplashScreenViewModel(get()) }
-    viewModel { QRFragmentViewModel() }
+    viewModel { QRFragmentViewModel(get(), get()) }
 
 }
 
