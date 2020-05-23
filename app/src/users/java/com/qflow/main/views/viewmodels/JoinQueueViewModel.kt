@@ -27,13 +27,13 @@ class JoinQueueViewModel(private val joinQueueUC: JoinQueue): BaseViewModel(), K
 
         joinQueueUC.execute(
             { it.either(::handleFailure, ::handleJoinQueue) },
-            JoinQueue.Params(joinCode,token),
+            JoinQueue.Params(joinCode),
             this.coroutineScope
         )
 
     }
 
-    private fun handleJoinQueue(idQueue: String) {
+    private fun handleJoinQueue(idQueue: Int) {
         _screenState.value = ScreenState.Render(JoinQueueScreenStates.JoinSuccessful(idQueue))
     }
 }

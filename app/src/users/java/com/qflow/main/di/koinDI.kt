@@ -8,10 +8,9 @@ import com.qflow.main.domain.server.ApiService
 import com.qflow.main.domain.server.HeaderInterceptor
 import com.qflow.main.repository.QueueRepository
 import com.qflow.main.repository.UserRepository
-import com.qflow.main.usecases.creator.FetchAdminActiveQueues
-import com.qflow.main.usecases.creator.FetchAdminNotActiveQueues
 import com.qflow.main.usecases.queue.CreateQueue
 import com.qflow.main.usecases.queue.FetchQueueById
+import com.qflow.main.usecases.queue.FetchQueueByJoinID
 import com.qflow.main.usecases.queue.JoinQueue
 import com.qflow.main.usecases.user.CreateAdmin
 import com.qflow.main.usecases.user.CreateUser
@@ -58,7 +57,7 @@ val userModule = module {
     viewModel { LoginViewModel(get()) }
     viewModel { SignUpViewModel(get()) }
     viewModel { JoinQueueViewModel(get()) }
-    viewModel { HomeViewModel()}
+    viewModel { HomeViewModel(get(), get())}
     viewModel { SplashScreenViewModel(get()) }
     viewModel { QRFragmentViewModel(get(), get()) }
 
@@ -69,12 +68,10 @@ val useCaseModule = module {
     factory { CreateUser(get(), get()) }
     factory { CreateAdmin(get(), get()) }
     factory { LoginCase(get(), get()) }
-    factory { CreateQueue(get()) }
-    factory { FetchAdminActiveQueues(get()) }
+    factory { CreateQueue(get(), get()) }
     factory { FetchQueueById(get()) }
-    factory { JoinQueue(get()) }
-    factory { FetchAdminNotActiveQueues(get()) }
-
+    factory { JoinQueue(get(), get(), get()) }
+    factory { FetchQueueByJoinID(get()) }
 
 }
 

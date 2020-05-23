@@ -83,4 +83,10 @@ object QueueAdapter {
         val myType = object : TypeToken<QueueDTO>() {}.type
         return gson.fromJson(jsonQueueString, myType)
     }
+
+    fun jsonStringToQueueId(jsonQueueString: String): Int {
+        val gson = Gson()
+        val myType = object : TypeToken<Int>() {}.type
+        return gson.fromJson(jsonQueueString, myType)
+    }
 }

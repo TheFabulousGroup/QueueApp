@@ -1,6 +1,9 @@
-/*package com.qflow.main.usecases.queue
+package com.qflow.main.usecases.queue
 
+import androidx.annotation.IntegerRes
+import com.google.gson.Gson
 import com.qflow.main.core.Failure
+import com.qflow.main.domain.adapters.QueueAdapter
 import com.qflow.main.domain.local.SharedPrefsRepository
 import com.qflow.main.repository.QueueRepository
 import com.qflow.main.usecases.Either
@@ -8,23 +11,25 @@ import com.qflow.main.usecases.UseCase
 import kotlinx.coroutines.CoroutineScope
 
 class JoinQueue(private val queueRepository: QueueRepository,
-                private val sharedPrefsRepository: SharedPrefsRepository
+                private val sharedPrefsRepository: SharedPrefsRepository,
+                private val queueAdapter: QueueAdapter
 ) :
-    UseCase<String, JoinQueue.Params, CoroutineScope>() {
+    UseCase<Int, JoinQueue.Params, CoroutineScope>() {
 
-    override suspend fun run(params: Params): Either<Failure,String> {
+    override suspend fun run(params: Params): Either<Failure, Int> {
         //TODO change id to get with shared
-        return when (val res = queueRepository.joinQueue(params.joinCode, params.token)) {
+        return when (val res = queueRepository.joinQueue(params.joinCode,
+            sharedPrefsRepository.getUserToken().toString())) {
             is Either.Left -> Either.Left(res.a)
             is Either.Right -> {
-                sharedPrefsRepository.putUserToken(res.b)
-                Either.Right(res.b)
+                val idQueue = queueAdapter.jsonStringToQueueId(res.b)
+
+                Either.Right(idQueue)
             }
         }
     }
     class Params(
-        val joinCode: Int,
-        val token: String
+        val joinCode: Int
     )
 
-}*/
+}

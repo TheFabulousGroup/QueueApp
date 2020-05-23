@@ -24,7 +24,7 @@ interface QueueRepository {
     ): Either<Failure, String>
 
     suspend fun joinQueue(joinId: Int, token: String): Either<Failure, String>
-    suspend fun fetchAdminQueuesRepository(isActive: Boolean): Either<Failure, List<Queue>>
+    //suspend fun fetchAdminQueuesRepository(isActive: Boolean): Either<Failure, List<Queue>>
     suspend fun fetchQueueByJoinId(idJoin: Int): Either<Failure, Queue>
     suspend fun fetchQueueById(idQueue: Int): Either<Failure, Queue>
     suspend fun fetchQueuesByUser(token: String, expand: String?, locked: Boolean?): Either<Failure, List<Queue>>
@@ -75,21 +75,9 @@ interface QueueRepository {
         }
 
         override suspend fun fetchQueueByJoinId(idJoin: Int): Either<Failure, Queue> {
-            return request(apiService.getQueueByJoinId(idJoin), {
-                val resultMock =
-                    "   {\n" +
-                            "      \"id\":\"1\",\n" +
-                            "      \"business_associated\":\"Empresa de prueba\",\n" +
-                            "      \"capacity\":155,\n" +
-                            "      \"description\":\"Descripcion pr\",\n" +
-                            "      \"is_active\":false,\n" +
-                            "      \"name\":\"Cola de ejemplo\"\n" +
-                            "   }\n"
-
-                queueAdapter.queueSMToQueue(QueueServerModel.mapToObject(resultMock))
-                //queueAdapter.queueSMListToQueueList(QueueServerModel.mapListToObjectList(resultMock))
-            }, String.empty())
+            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
         }
+
 
         override suspend fun fetchQueuesByUser(token: String, expand: String?, locked: Boolean?): Either<Failure, List<Queue>> {
             return request(
