@@ -7,6 +7,7 @@ import com.qflow.main.core.ScreenState
 import com.qflow.main.core.ScreenState.Loading
 import com.qflow.main.usecases.queue.CreateQueue
 import com.qflow.main.views.screenstates.CreateQueueScreenState
+import com.qflow.main.views.screenstates.HomeFragmentScreenState
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -16,9 +17,9 @@ class CreateQueueViewModel(
     private val createQueue: CreateQueue
 ) : BaseViewModel(), KoinComponent {
 
-    private val _screenState: MutableLiveData<ScreenState<CreateQueueScreenState>> =
+    private val _screenState: MutableLiveData<ScreenState<HomeFragmentScreenState>> =
         MutableLiveData()
-    val screenState: LiveData<ScreenState<CreateQueueScreenState>>
+    val screenState: LiveData<ScreenState<HomeFragmentScreenState>>
         get() = _screenState
 
     private var job = Job()
@@ -33,7 +34,7 @@ class CreateQueueViewModel(
         _screenState.value = Loading
         //Execute create queue
         createQueue.execute(
-            { it.either(::handleFailure, ::handleUserCreated) },
+            { it.either(::handleFailure, ::handleQueueCreated) },
             CreateQueue.Params(
                 nameCreateQueue, queueDescription,
                 capacity, businessAssociated
@@ -42,9 +43,9 @@ class CreateQueueViewModel(
 
     }
 
-    private fun handleUserCreated(id: String) {
+    private fun handleQueueCreated(id: String) {
         this._screenState.value =
-            ScreenState.Render(CreateQueueScreenState.QueueCreatedCorrectly(id))
+            ScreenState.Render(HomeFragmentScreenState.QueueCreatedCorrectly(id))
     }
 
 

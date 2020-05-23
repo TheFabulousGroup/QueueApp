@@ -32,8 +32,6 @@ class CreateQueue(
                 )) {
                     is Either.Left -> Either.Left(res.a)
                     is Either.Right -> {
-                        val queueAdapt = QueueAdapter.jsonStringToQueue(res.b)
-                        //prefsRepository.putUserToken(queueAdapt.token.toString())
                         Either.Right(res.b)
                     }
                 }

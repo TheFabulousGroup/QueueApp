@@ -43,11 +43,12 @@ interface QueueRepository {
 
             val queueMap =
                 QueueServerModel(name, description, capacity, business_associated).createMap()
+            val prueba = Gson().toJson(queueMap)
 
             return request(
                 apiService.postQueue(
-                    token,
-                    Gson().toJson(queueMap)
+                    prueba,
+                    token
                 ), {
                     it
                 },
