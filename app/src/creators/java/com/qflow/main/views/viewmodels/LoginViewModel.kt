@@ -56,7 +56,7 @@ class LoginViewModel(
     fun testFeature() {
         createQueue.execute(
             { it.either(::handleFailure, ::handleLoginSuccessful) },
-            CreateQueue.Params("Prueba1", "Soy una prueba", "dec", 1),
+            CreateQueue.Params("Prueba1", "Soy una prueba", 1,"dec"),
             this.coroutineScope
         )
     }

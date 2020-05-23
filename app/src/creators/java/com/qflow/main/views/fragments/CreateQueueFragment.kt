@@ -41,7 +41,7 @@ class CreateQueueFragment : Fragment() {
             val queueDescription = queue_description_create_queue.text.toString()
             val cap = Integer.parseInt(capacity.text.toString())
             mViewModel.createQueueInDatabase(
-                nameCreateQueue, businessAssociated, queueDescription, cap
+                nameCreateQueue,queueDescription, cap,businessAssociated
             )
         }
 
