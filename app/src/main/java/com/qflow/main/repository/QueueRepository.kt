@@ -1,6 +1,8 @@
 package com.qflow.main.repository
 
+import android.util.Log
 import com.google.gson.Gson
+import com.google.gson.TypeAdapter
 import com.qflow.main.core.BaseRepository
 import com.qflow.main.core.Failure
 import com.qflow.main.core.extensions.empty
@@ -14,6 +16,7 @@ import com.qflow.main.usecases.Either
 interface QueueRepository {
 
     suspend fun createQueue(
+        token: String,
         name: String,
         description: String,
         capacity: Int,
@@ -22,8 +25,9 @@ interface QueueRepository {
 
     suspend fun joinQueue(joinId: Int, token: String): Either<Failure, String>
     suspend fun fetchAdminQueuesRepository(isActive: Boolean): Either<Failure, List<Queue>>
-    suspend fun fetchQueueById(id_queue: Int): Either<Failure, Queue>
-    //suspend fun fetchQueueByJoinId(idJoin: Int): Either<Failure, Queue>
+    suspend fun fetchQueueByJoinId(idJoin: Int): Either<Failure, Queue>
+    suspend fun fetchQueueById(idQueue: Int): Either<Failure, Queue>
+    suspend fun fetchQueuesByUser(token: String, expand: String?, locked: Boolean?): Either<Failure, List<Queue>>
 
     class General
     constructor(
@@ -33,6 +37,7 @@ interface QueueRepository {
     ) : BaseRepository(), QueueRepository {
 
         override suspend fun createQueue(
+            token: String,
             name: String,
             description: String,
             capacity: Int,
@@ -40,19 +45,24 @@ interface QueueRepository {
         ): Either<Failure, String> {
 
             val queueMap =
-                QueueServerModel(
-                    name,
-                    description,
-                    capacity,
-                    business_associated
-                ).createMap()
+                QueueServerModel(name, description, capacity, business_associated).createMap()
+            val prueba = Gson().toJson(queueMap)
 
             return request(
-                apiService.postQueue(prefsRepository.getUserToken().toString(), Gson().toJson(queueMap)), {
+                apiService.postQueue(
+                    prueba,
+                    token
+                ), {
                     it
                 },
                 String.empty()
             )
+        }
+
+        override suspend fun fetchQueueById(idQueue: Int): Either<Failure, Queue> {
+            return request(apiService.getQueueByQueueId(idQueue), {
+                queueAdapter.jsonStringToQueue(it)
+                    }, String.empty())
         }
 
         override suspend fun joinQueue(
@@ -64,43 +74,6 @@ interface QueueRepository {
             }, String.empty())
         }
 
-        override suspend fun fetchAdminQueuesRepository(isActive: Boolean): Either<Failure, List<Queue>> {
-
-            val params = HashMap<String, String>()
-            params["is_active"] = true.toString()
-            return request(apiService.getQueues(), {
-                val resultMock = "[\n" +
-                        "   {\n" +
-                        "      \"id\":\"1\",\n" +
-                        "      \"business_associated\":\"\",\n" +
-                        "      \"capacity\":0,\n" +
-                        "      \"description\":\"\",\n" +
-                        "      \"is_active\":false,\n" +
-                        "      \"name\":\"ejemplo\"\n" +
-                        "   }\n" +
-                        "]"
-                queueAdapter.queueSMListToQueueList(QueueServerModel.mapListToObjectList(resultMock))
-            }, String.empty())
-        }
-
-        override suspend fun fetchQueueById(id_queue: Int): Either<Failure, Queue> {
-
-            return request(apiService.getQueue(id_queue), {
-                val resultMock =
-                    "   {\n" +
-                            "      \"id\":\"1\",\n" +
-                            "      \"business_associated\":\"Empresa de prueba\",\n" +
-                            "      \"capacity\":155,\n" +
-                            "      \"description\":\"Descripcion pr\",\n" +
-                            "      \"is_active\":false,\n" +
-                            "      \"name\":\"Cola de ejemplo\"\n" +
-                            "   }\n"
-
-                queueAdapter.queueSMToQueue(QueueServerModel.mapToObject(resultMock))
-                //queueAdapter.queueSMListToQueueList(QueueServerModel.mapListToObjectList(resultMock))
-            }, String.empty())
-        }
-    /*
         override suspend fun fetchQueueByJoinId(idJoin: Int): Either<Failure, Queue> {
             return request(apiService.getQueueByJoinId(idJoin), {
                 val resultMock =
@@ -117,8 +90,17 @@ interface QueueRepository {
                 //queueAdapter.queueSMListToQueueList(QueueServerModel.mapListToObjectList(resultMock))
             }, String.empty())
         }
-        */
+
+        override suspend fun fetchQueuesByUser(token: String, expand: String?, locked: Boolean?): Either<Failure, List<Queue>> {
+            return request(
+                apiService.getQueuesByUser(
+                    token,
+                    expand,
+                    locked
+                ), {
+                    queueAdapter.jsonStringToQueueList(it)
+                }, String.empty()
+            )
+        }
     }
-
-
 }

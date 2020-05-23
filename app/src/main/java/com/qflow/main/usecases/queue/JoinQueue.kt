@@ -1,4 +1,4 @@
-package com.qflow.main.usecases.queue
+/*package com.qflow.main.usecases.queue
 
 import com.qflow.main.core.Failure
 import com.qflow.main.domain.local.SharedPrefsRepository
@@ -27,4 +27,4 @@ class JoinQueue(private val queueRepository: QueueRepository,
         val token: String
     )
 
-}
+}*/

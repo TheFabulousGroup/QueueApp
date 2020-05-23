@@ -7,41 +7,46 @@ import com.qflow.main.core.ScreenState
 import com.qflow.main.core.ScreenState.Loading
 import com.qflow.main.usecases.queue.CreateQueue
 import com.qflow.main.views.screenstates.CreateQueueScreenState
+import com.qflow.main.views.screenstates.HomeFragmentScreenState
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import org.koin.core.KoinComponent
 
-class CreateQueueViewModel (
+class CreateQueueViewModel(
     private val createQueue: CreateQueue
-    ) : BaseViewModel(), KoinComponent {
+) : BaseViewModel(), KoinComponent {
 
-        private val _screenState: MutableLiveData<ScreenState<CreateQueueScreenState>> = MutableLiveData()
-        val screenState: LiveData<ScreenState<CreateQueueScreenState>>
+    private val _screenState: MutableLiveData<ScreenState<HomeFragmentScreenState>> =
+        MutableLiveData()
+    val screenState: LiveData<ScreenState<HomeFragmentScreenState>>
         get() = _screenState
 
-        private var job = Job()
-        private var coroutineScope = CoroutineScope(Dispatchers.Default + job)
+    private var job = Job()
+    private var coroutineScope = CoroutineScope(Dispatchers.Default + job)
 
-        fun createQueueInDatabase(
-            nameCreateQueue: String,
-            businessAssociated: String,
-            queueDescription: String,
-            capacity: Int
-        ) {
-            _screenState.value = Loading
-            //Execute create queue
-            createQueue.execute({ it.either(::handleFailure, ::handleUserCreated) },
-                CreateQueue.Params(nameCreateQueue, businessAssociated, queueDescription,
-                    capacity), this.coroutineScope
-            )
-
-        }
-
-        private fun handleUserCreated(id: String) {
-            this._screenState.value =
-                ScreenState.Render(CreateQueueScreenState.QueueCreatedCorrectly(id))
-        }
-
+    fun createQueueInDatabase(
+        nameCreateQueue: String,
+        queueDescription: String,
+        capacity: Int,
+        businessAssociated: String
+    ) {
+        _screenState.value = Loading
+        //Execute create queue
+        createQueue.execute(
+            { it.either(::handleFailure, ::handleQueueCreated) },
+            CreateQueue.Params(
+                nameCreateQueue, queueDescription,
+                capacity, businessAssociated
+            ), this.coroutineScope
+        )
 
     }
+
+    private fun handleQueueCreated(id: String) {
+        this._screenState.value =
+            ScreenState.Render(HomeFragmentScreenState.QueueCreatedCorrectly(id))
+    }
+
+
+}

@@ -1,7 +1,5 @@
 package com.qflow.main.di
 
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.functions.FirebaseFunctions
 import com.qflow.main.domain.adapters.QueueAdapter
 import com.qflow.main.domain.adapters.UserAdapter
 import com.qflow.main.domain.local.SharedPrefsRepository
@@ -10,10 +8,9 @@ import com.qflow.main.domain.server.ApiService
 import com.qflow.main.domain.server.HeaderInterceptor
 import com.qflow.main.repository.QueueRepository
 import com.qflow.main.repository.UserRepository
-import com.qflow.main.usecases.creator.FetchAdminActiveQueues
-import com.qflow.main.usecases.creator.FetchAdminNotActiveQueues
 import com.qflow.main.usecases.queue.CreateQueue
 import com.qflow.main.usecases.queue.FetchQueueById
+import com.qflow.main.usecases.queue.FetchQueuesByUser
 import com.qflow.main.usecases.user.CreateAdmin
 import com.qflow.main.usecases.user.CreateUser
 import com.qflow.main.usecases.user.LoginCase
@@ -51,7 +48,7 @@ val retrofitModule = module {
 val userModule = module {
 
     single<UserRepository> { UserRepository.General(get(), get()) }
-    single<QueueRepository> { QueueRepository.General(get(), get(), get()) }
+    single<QueueRepository> { QueueRepository.General(get(), get()) }
 
     single { UserAdapter }
     single { QueueAdapter }
@@ -59,7 +56,7 @@ val userModule = module {
     viewModel { LoginViewModel(get(), get()) }
     viewModel { SignUpViewModel(get()) }
     viewModel { CreateQueueViewModel(get()) }
-    viewModel { HomeViewModel(get(), get()) }
+    viewModel { HomeViewModel(get()) }
     viewModel { InfoQueueViewModel(get()) }
     viewModel { SplashScreenViewModel(get()) }
 
@@ -70,10 +67,9 @@ val useCaseModule = module {
     factory { CreateUser(get(),get()) }
     factory { CreateAdmin(get(),get()) }
     factory { LoginCase(get(),get()) }
-    factory { CreateQueue(get()) }
-    factory { FetchAdminActiveQueues(get()) }
+    factory { CreateQueue(get(), get()) }
+    factory { FetchQueuesByUser(get(), get()) }
     factory { FetchQueueById(get()) }
-    factory { FetchAdminNotActiveQueues(get()) }
 
 
 }

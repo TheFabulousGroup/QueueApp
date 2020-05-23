@@ -76,19 +76,16 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0'
     implementation 'androidx.security:security-crypto:1.0.0-rc01'
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.2.2'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.2.2'
+    implementation "de.hdodenhof:circleimageview:3.0.0"
+
     implementation 'com.google.firebase:firebase-database:19.3.0'
     implementation 'com.google.firebase:firebase-auth:19.3.1'
     implementation 'com.google.firebase:firebase-core:17.4.0'
     implementation 'com.google.firebase:firebase-storage:19.1.1'
     implementation 'com.google.firebase:firebase-functions:19.0.2'
     implementation 'com.google.firebase:firebase-analytics:17.4.0'
-    testImplementation 'junit:junit:4.13'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
-    implementation 'androidx.navigation:navigation-fragment-ktx:2.2.2'
-    implementation 'androidx.navigation:navigation-ui-ktx:2.2.2'
-    implementation "de.hdodenhof:circleimageview:3.0.0"
-
 
     implementation "com.squareup.retrofit2:retrofit:2.5.0"
     implementation "com.squareup.retrofit2:converter-gson:2.5.0"
@@ -119,7 +116,6 @@ dependencies {
 
 
     testImplementation 'junit:junit:4.13'
-
     // Required -- JUnit 4 framework
     testImplementation 'junit:junit:4.13'
     // Optional -- Robolectric environment
@@ -129,6 +125,8 @@ dependencies {
     // required if you want to use Mockito for Android tests
     androidTestImplementation 'org.mockito:mockito-android:2.7.22'
     testImplementation 'org.json:json:20141113'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 }
 
 kapt {

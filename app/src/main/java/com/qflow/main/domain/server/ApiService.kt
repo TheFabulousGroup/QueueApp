@@ -2,6 +2,7 @@ package com.qflow.main.domain.server
 
 import android.util.Log
 import com.qflow.main.domain.local.SharedPrefsRepository
+import com.qflow.main.domain.local.models.Queue
 import okhttp3.Interceptor
 import okhttp3.Request
 import okhttp3.Response
@@ -23,21 +24,26 @@ interface ApiService {
         const val HEADER_TOKEN = "token"
         const val PARAM_JOIN_ID = "joinId"
         const val POST_JOIN_QUEUE = "qflow/queues/joinQueue/{$PARAM_JOIN_ID}"
+        const val PARAM_LOCKED = "locked"
+        const val PARAM_EXPAND = "expand"
+
         const val POST_CREATE_QUEUE = "qflow/queues/"
-        const val GET_QUEUES = "queue/"
-        const val GET_QUEUE = "queue/{$PARAM_QUEUE_ID}"
+        const val GET_QUEUE_USERID = "qflow/queues/byIdUser/"
+        const val GET_QUEUE_QUEUEID = "qflow/queues/byIdQueue/"
         const val POST_CREATE_USER = "qflow/user/"
         const val PUT_LOGIN_USER = "qflow/user/"
 
-
-
     }
+    @Headers("Content-type: application/json")
+    @GET(GET_QUEUE_USERID)
+    fun getQueuesByUser(
+        @Header(HEADER_TOKEN) token: String,
+        @Query(PARAM_EXPAND) expand: String?,
+        @Query(PARAM_LOCKED) locked: Boolean?
+    ) : Call<String>
 
-    @GET(GET_QUEUES)
-    fun getQueues(): Call<String>
-
-    @GET(GET_QUEUE)
-    fun getQueue(@Path(PARAM_QUEUE_ID) queueId: Int): Call<String>
+    @GET(GET_QUEUE_QUEUEID)
+    fun getQueueByQueueId(@Path(PARAM_QUEUE_ID) idQueue: Int): Call<String>
 
     @Headers("Content-type: application/json")
     @POST(POST_CREATE_USER)
@@ -53,14 +59,16 @@ interface ApiService {
 
     @Headers("Content-type: application/json")
     @POST(POST_CREATE_QUEUE)
-    fun postQueue(@Header(HEADER_TOKEN) token:String, @Body body: String): Call<String>
+    fun postQueue(@Body body: String,
+                  @Header(HEADER_TOKEN) token: String
+    ): Call<String>
 
     @Headers("Content-type: application/json")
     @POST(POST_JOIN_QUEUE)
-    fun postJoinQueue(
-        @Path(PARAM_JOIN_ID) joinId: Int,
-        @Header(HEADER_TOKEN) token: String
-    ): Call<String>
+    fun postJoinQueue( @Path(PARAM_JOIN_ID) joinId: Int,
+                       @Header(HEADER_TOKEN) token: String): Call<String>
+
+    fun getQueueByJoinId(idJoin: Int): Call<String>
 }
 
 class HeaderInterceptor : Interceptor, KoinComponent {
