@@ -20,10 +20,10 @@ interface QueueRepository {
         business_associated: String
     ): Either<Failure, String>
 
-    suspend fun joinQueue(idQueue: Int, token: String): Either<Failure, String>
+    suspend fun joinQueue(joinId: Int, token: String): Either<Failure, String>
     suspend fun fetchAdminQueuesRepository(isActive: Boolean): Either<Failure, List<Queue>>
     suspend fun fetchQueueById(id_queue: Int): Either<Failure, Queue>
-    suspend fun fetchQueueByJoinId(idJoin: Int): Either<Failure, Queue>
+    //suspend fun fetchQueueByJoinId(idJoin: Int): Either<Failure, Queue>
 
     class General
     constructor(
@@ -56,10 +56,10 @@ interface QueueRepository {
         }
 
         override suspend fun joinQueue(
-            idQueue: Int,
+            joinId: Int,
             token: String
         ): Either<Failure, String> {
-            return request(apiService.postJoinQueue(idQueue,token), {
+            return request(apiService.postJoinQueue(joinId,token), {
                 it
             }, String.empty())
         }
@@ -100,7 +100,7 @@ interface QueueRepository {
                 //queueAdapter.queueSMListToQueueList(QueueServerModel.mapListToObjectList(resultMock))
             }, String.empty())
         }
-
+    /*
         override suspend fun fetchQueueByJoinId(idJoin: Int): Either<Failure, Queue> {
             return request(apiService.getQueueByJoinId(idJoin), {
                 val resultMock =
@@ -117,5 +117,8 @@ interface QueueRepository {
                 //queueAdapter.queueSMListToQueueList(QueueServerModel.mapListToObjectList(resultMock))
             }, String.empty())
         }
+        */
     }
+
+
 }

@@ -21,7 +21,8 @@ interface ApiService {
         const val HEADER_EMAIL = "mail"
         const val HEADER_PASS = "password"
         const val HEADER_TOKEN = "token"
-        const val POST_JOIN_QUEUE = "qflow/queues/joinQueue/{$PARAM_QUEUE_ID}"
+        const val PARAM_JOIN_ID = "joinId"
+        const val POST_JOIN_QUEUE = "qflow/queues/joinQueue/{$PARAM_JOIN_ID}"
         const val POST_CREATE_QUEUE = "qflow/queues/"
         const val GET_QUEUES = "queue/"
         const val GET_QUEUE = "queue/{$PARAM_QUEUE_ID}"
@@ -57,7 +58,7 @@ interface ApiService {
     @Headers("Content-type: application/json")
     @POST(POST_JOIN_QUEUE)
     fun postJoinQueue(
-        @Path(PARAM_QUEUE_ID) idQueue: Int,
+        @Path(PARAM_JOIN_ID) joinId: Int,
         @Header(HEADER_TOKEN) token: String
     ): Call<String>
 }
