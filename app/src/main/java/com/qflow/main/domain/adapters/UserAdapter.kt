@@ -14,7 +14,6 @@ object UserAdapter {
         val gson = Gson()
         val myType = object : TypeToken<UserDTO>() {}.type
         return gson.fromJson(jsonUserString, myType)
-
     }
 
 }

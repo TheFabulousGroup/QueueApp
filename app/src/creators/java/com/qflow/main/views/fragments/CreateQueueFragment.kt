@@ -6,13 +6,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.observe
+import androidx.navigation.findNavController
 import com.qflow.main.R
 import com.qflow.main.core.ScreenState
 import com.qflow.main.views.viewmodels.CreateQueueViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import com.qflow.main.core.Failure
 import com.qflow.main.utils.enums.ValidationFailureType
-import com.qflow.main.views.screenstates.CreateQueueScreenState
+import com.qflow.main.views.screenstates.HomeFragmentScreenState
 import kotlinx.android.synthetic.main.fragment_create_queue.*
 
 
@@ -41,7 +43,7 @@ class CreateQueueFragment : Fragment() {
             val queueDescription = queue_description_create_queue.text.toString()
             val cap = Integer.parseInt(capacity.text.toString())
             mViewModel.createQueueInDatabase(
-                nameCreateQueue, businessAssociated, queueDescription, cap
+                nameCreateQueue,queueDescription, cap,businessAssociated
             )
         }
 
@@ -65,7 +67,7 @@ class CreateQueueFragment : Fragment() {
         }
     }
 
-    private fun updateUI(screenState: ScreenState<CreateQueueScreenState>?) {
+    private fun updateUI(screenState: ScreenState<HomeFragmentScreenState>?) {
 
         when (screenState) {
             ScreenState.Loading -> {
@@ -75,12 +77,12 @@ class CreateQueueFragment : Fragment() {
         }
     }
 
-    private fun renderScreenState(renderState: CreateQueueScreenState) {
+    private fun renderScreenState(renderState: HomeFragmentScreenState) {
         loadingComplete()
         when (renderState) {
-            is CreateQueueScreenState.QueueCreatedCorrectly -> {
+            is HomeFragmentScreenState.QueueCreatedCorrectly -> {
                 Toast.makeText(this.context, renderState.id, Toast.LENGTH_LONG).show()
-                //view?.findNavController()?.navigate(R.id.action_createQueueFragment_to_homeFragment())
+                view?.findNavController()?.navigate(R.id.action_createQueueFragment_to_homeFragment)
             }
         }
 

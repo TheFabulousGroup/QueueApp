@@ -40,7 +40,6 @@ class SharedPrefsRepository(c : Context) {
     }
 
     fun getUserToken() : String?{
-        //TONTO
         return (encryptedShared.getString(ID_USER, null))
 
     }

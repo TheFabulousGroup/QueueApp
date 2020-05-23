@@ -58,7 +58,9 @@ interface ApiService {
 
     @Headers("Content-type: application/json")
     @POST(POST_CREATE_QUEUE)
-    fun postQueue(@Header(HEADER_TOKEN) token:String, @Body body: String): Call<String>
+    fun postQueue(@Body body: String,
+                  @Header(HEADER_TOKEN) token: String
+    ): Call<String>
 
     @Headers("Content-type: application/json")
     @POST(POST_JOIN_QUEUE)
