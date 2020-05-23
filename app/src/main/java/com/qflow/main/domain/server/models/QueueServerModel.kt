@@ -4,43 +4,27 @@ import com.qflow.main.core.extensions.empty
 import org.json.JSONArray
 import org.json.JSONObject
 import java.sql.Date
+import java.sql.Timestamp
 
 class QueueServerModel(
     var name: String,
     var description: String?,
     var capacity: Int,
-    var business_associated: String,
-    var date_created: java.util.Date? = null,
-    var date_finished: java.util.Date? = null,
-    var is_active: Boolean = false,
-    val id: Int = -1
+    var businessAssociated: String
 
-) {
+    ) {
     fun createMap(): Map<String, String> {
-        val queueFirebase = HashMap<String, String>()
+        val task = HashMap<String, String>()
 
-        val dateC = if (date_created == null)
-            System.currentTimeMillis()
-        else
-            this.date_created.toString()
-        val dateF = if (date_finished == null)
-            "null"
-        else
-            this.date_finished.toString()
+        task["name"] = this.name
+        task["description"] = this.description ?: ""
+        task["capacity"] = this.capacity.toString()
+        task["businessAssociated"] = this.businessAssociated
 
-        queueFirebase["id"] = this.id.toString()
-        queueFirebase["name"] = this.name
-        queueFirebase["description"] = this.description ?: ""
-        queueFirebase["capacity"] = this.capacity.toString()
-        queueFirebase["business_associated"] = this.business_associated
-        queueFirebase["date_created"] = dateC.toString()
-        queueFirebase["date_finished"] = dateF
-        queueFirebase["is_locked"] = this.is_active.toString()
-
-        return queueFirebase;
+        return task;
     }
 
-    companion object {
+    /*companion object {
 
         fun mapToObject(resultMock: String): QueueServerModel {
 
@@ -76,46 +60,46 @@ class QueueServerModel(
             val formattedDateFinished = dateFinished?.let { Date.valueOf(it) }
 
             return QueueServerModel(
-                name, description, capacity, businessAssociated,
+                id, name, description, joinId, capacity, businessAssociated,
                 formattedDateCreated, formattedDateFinished, isActive, id
             )
-//            var name: String,
-//            var description: String?,
-//            var capacity: Int,
-//            var business_associated: String,
-//            var date_created: java.util.Date? = null,
-//            var date_finished: java.util.Date? = null,
-//            var is_active: Boolean = false,
-//            val id: String = String.empty()
-//            if(queueJsonObject["date_created"] == "" && queueJsonObject["date_created"] == ""){
-//                result = QueueServerModel(queueJsonObject["name"] as String, queueJsonObject["description"] as String,
-//                    queueJsonObject["capacity"] as Int, queueJsonObject["business_associated"] as String,
-//                    null, null, queueJsonObject["is_active"] as Boolean)
-//            }else if(queueJsonObject["date_created"] == ""){
-//                val formattedDateFinished =  Date.valueOf(queueJsonObject["date_finished"] as String?)
-//
-//                result = QueueServerModel(queueJsonObject["name"] as String, queueJsonObject["description"] as String,
-//                    queueJsonObject["capacity"] as Int, queueJsonObject["business_associated"] as String,
-//                    null, formattedDateFinished, queueJsonObject["is_active"] as Boolean)
-//            }else if(queueJsonObject["date_finished"] == ""){
-//                val formattedDateCreated =  Date.valueOf(queueJsonObject["date_created"] as String?)
-//
-//                result = QueueServerModel(queueJsonObject["name"] as String, queueJsonObject["description"] as String,
-//                    queueJsonObject["capacity"] as Int, queueJsonObject["business_associated"] as String,
-//                    formattedDateCreated, null, queueJsonObject["is_active"] as Boolean)
-//            }else{
-//                val formattedDateCreated =  Date.valueOf(queueJsonObject["date_created"] as String?)
-//                val formattedDateFinished =  Date.valueOf(queueJsonObject["date_finished"] as String?)
-//
-//                result = QueueServerModel(queueJsonObject["name"] as String, queueJsonObject["description"] as String,
-//                    queueJsonObject["capacity"] as Int, queueJsonObject["business_associated"] as String,
-//                    formattedDateCreated, formattedDateFinished, queueJsonObject["is_active"] as Boolean,
-//                    id
-//                )
-//            }
-//
-//            return result
-        }
+            var name: String,
+            var description: String?,
+            var capacity: Int,
+            var business_associated: String,
+            var date_created: java.util.Date? = null,
+            var date_finished: java.util.Date? = null,
+            var is_active: Boolean = false,
+            val id: String = String.empty()
+            if(queueJsonObject["date_created"] == "" && queueJsonObject["date_created"] == ""){
+                result = QueueServerModel(queueJsonObject["name"] as String, queueJsonObject["description"] as String,
+                    queueJsonObject["capacity"] as Int, queueJsonObject["business_associated"] as String,
+                    null, null, queueJsonObject["is_active"] as Boolean)
+            }else if(queueJsonObject["date_created"] == ""){
+                val formattedDateFinished =  Date.valueOf(queueJsonObject["date_finished"] as String?)
+
+                result = QueueServerModel(queueJsonObject["name"] as String, queueJsonObject["description"] as String,
+                    queueJsonObject["capacity"] as Int, queueJsonObject["business_associated"] as String,
+                    null, formattedDateFinished, queueJsonObject["is_active"] as Boolean)
+            }else if(queueJsonObject["date_finished"] == ""){
+                val formattedDateCreated =  Date.valueOf(queueJsonObject["date_created"] as String?)
+
+                result = QueueServerModel(queueJsonObject["name"] as String, queueJsonObject["description"] as String,
+                    queueJsonObject["capacity"] as Int, queueJsonObject["business_associated"] as String,
+                    formattedDateCreated, null, queueJsonObject["is_active"] as Boolean)
+            }else{
+                val formattedDateCreated =  Date.valueOf(queueJsonObject["date_created"] as String?)
+               val formattedDateFinished =  Date.valueOf(queueJsonObject["date_finished"] as String?)
+
+                result = QueueServerModel(queueJsonObject["name"] as String, queueJsonObject["description"] as String,
+                    queueJsonObject["capacity"] as Int, queueJsonObject["business_associated"] as String,
+                    formattedDateCreated, formattedDateFinished, queueJsonObject["is_active"] as Boolean,
+                    id
+                )
+            }
+
+            return result
+            }
 
         fun mapListToObjectList(resultMock: String): List<QueueServerModel> {
             val jsonArray = JSONArray(resultMock)
@@ -124,5 +108,5 @@ class QueueServerModel(
                 resList.add(mapToObject(jsonArray.get(i).toString()))
             return resList.toList()
         }
-    }
+    }*/
 }

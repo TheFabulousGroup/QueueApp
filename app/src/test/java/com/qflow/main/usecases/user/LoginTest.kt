@@ -1,5 +1,6 @@
 package com.qflow.main.usecases.user
 
+import com.qflow.main.domain.local.SharedPrefsRepository
 import com.qflow.main.repository.UserRepository
 import com.qflow.main.usecases.Either
 import kotlinx.coroutines.CoroutineScope
@@ -19,7 +20,8 @@ class LoginTest {
     @Mock
     private var userRepositoryMock: UserRepository = mock(UserRepository::class.java)
 
-    private val loginUser: LoginCase = LoginCase(userRepositoryMock)
+    private var prefsRepository: SharedPrefsRepository =mock(SharedPrefsRepository::class.java)
+    private val loginUser: LoginCase = LoginCase(userRepositoryMock, prefsRepository)
 
     private var job = Job()
     private var coroutineScope = CoroutineScope(Dispatchers.Default + job)
@@ -32,6 +34,7 @@ class LoginTest {
         val selectedPass = "TestPass"
         //En params 1º la pass y luego el email
         params = LoginCase.Params(
+            true,
             selectedPass,
             selectedEmail
         )
@@ -42,6 +45,7 @@ class LoginTest {
         val selectedEmail = "Test@mail"
         Mockito.`when`(
             userRepositoryMock.signIn(
+                true,
                 selectedEmail,
                 selectedPass
             )
@@ -62,11 +66,13 @@ class LoginTest {
         val selectedEmail = "Test@mail"
 
         val params = LoginCase.Params(
+            true,
             selectedPass,
             selectedEmail
         )
         Mockito.`when`(
             userRepositoryMock.signIn(
+                true,
                 selectedEmail,
                 selectedPass
             )

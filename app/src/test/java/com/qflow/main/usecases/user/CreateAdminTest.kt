@@ -1,5 +1,7 @@
 package com.qflow.main.usecases.user
 
+import android.content.SharedPreferences
+import com.qflow.main.domain.local.SharedPrefsRepository
 import com.qflow.main.repository.UserRepository
 import com.qflow.main.usecases.Either
 import kotlinx.coroutines.CoroutineScope
@@ -19,7 +21,8 @@ class CreateAdminTest {
     @Mock
     private var userRepositoryMock: UserRepository = mock(UserRepository::class.java)
 
-    val createAdmin: CreateAdmin = CreateAdmin(userRepositoryMock)
+    private var prefsRepository: SharedPrefsRepository =mock(SharedPrefsRepository::class.java)
+    val createAdmin: CreateAdmin = CreateAdmin(userRepositoryMock,prefsRepository)
 
     private var job = Job()
     private var coroutineScope = CoroutineScope(Dispatchers.Default + job)

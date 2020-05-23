@@ -4,11 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.qflow.main.core.BaseViewModel
 import com.qflow.main.core.ScreenState
-import com.qflow.main.domain.local.database.user.UserDB
 import com.qflow.main.domain.local.models.Queue
-import com.qflow.main.usecases.creator.FetchAdminActiveQueues
 import com.qflow.main.usecases.queue.FetchQueueById
-import com.qflow.main.views.screenstates.HomeFragmentScreenState
 import com.qflow.main.views.screenstates.InfoQueueScreenState
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
