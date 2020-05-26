@@ -21,7 +21,9 @@ import kotlinx.android.synthetic.users.fragment_home.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
-class HomeFragment : Fragment(), JoinQueueDialog.OnJoinDialogButtonClick,
+class HomeFragment : Fragment(),
+    JoinQueueDialog.OnJoinDialogButtonClick,
+    JoinQueueDialog.OnNavigateQRFragment,
     InfoQueueDialog.OnJoinClick {
 
     private val mViewModel: HomeViewModel by viewModel()
@@ -30,7 +32,6 @@ class HomeFragment : Fragment(), JoinQueueDialog.OnJoinDialogButtonClick,
 
     private var mQueueDialog: InfoQueueDialog? = null
     private var mJoinQueueDialog: JoinQueueDialog? = null
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -52,11 +53,8 @@ class HomeFragment : Fragment(), JoinQueueDialog.OnJoinDialogButtonClick,
     private fun initializeButtons() {
         btn_join_queue.setOnClickListener {
             mJoinQueueDialog = JoinQueueDialog()
-            mJoinQueueDialog!!.show(this.parentFragmentManager, "INFOQUEUEDIALOG")
-
-        }
-        btn_scan_qr.setOnClickListener {
-            view?.findNavController()?.navigate(R.id.action_homeFragment_to_QRFragment)
+            mJoinQueueDialog!!.onAttachFragment(this)
+            mJoinQueueDialog!!.show(this.childFragmentManager, "INFOQUEUEDIALOG")
         }
     }
 
@@ -70,16 +68,12 @@ class HomeFragment : Fragment(), JoinQueueDialog.OnJoinDialogButtonClick,
                 hideLoader()
                 mJoinQueueDialog?.dismiss()
                 mQueueDialog = InfoQueueDialog(renderState.queue, true)
-                mQueueDialog!!.show(this.parentFragmentManager, "JOINDIALOG")
+                mQueueDialog!!.onAttachFragment(this)
+                mQueueDialog!!.show(this.childFragmentManager, "JOINDIALOG")
             }
         }
 
     }
-
-    override fun onJoinButtonClick(joinID: Int) {
-        mViewModel.loadQueueToJoin(joinID)
-    }
-
 
     private fun updateUI(screenState: ScreenState<HomeFragmentScreenState>?) {
         when (screenState) {
@@ -120,5 +114,14 @@ class HomeFragment : Fragment(), JoinQueueDialog.OnJoinDialogButtonClick,
 
     override fun handleJoinQueueRequest(queue: Queue) {
         mViewModel.joinToQueue(queue.id)
+    }
+
+    override fun onNavigateQRFragment() {
+        mJoinQueueDialog?.dismiss()
+        view?.findNavController()?.navigate(R.id.action_homeFragment_to_QRFragment)
+    }
+
+    override fun onJoinButtonClick(joinID: Int) {
+        mViewModel.loadQueueToJoin(joinID)
     }
 }

@@ -5,10 +5,8 @@ import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKeys
+import com.qflow.main.domain.adapters.UserAdapter
 
-/**
- * Created by Rubén Izquierdo on 2/4/20
- */
 
 class SharedPrefsRepository(c : Context) {
 
@@ -33,8 +31,8 @@ class SharedPrefsRepository(c : Context) {
 
     }
 
-    fun putUserToken(id : String){
-        encryptedShared.edit().putString(ID_USER, id).apply()
+    fun putUserToken(token : String){
+        encryptedShared.edit().putString(ID_USER, token).apply()
     }
 
     fun removeUserToken(){
@@ -42,7 +40,8 @@ class SharedPrefsRepository(c : Context) {
     }
 
     fun getUserToken() : String?{
-        return encryptedShared.getString(ID_USER, null)
+        return (encryptedShared.getString(ID_USER, null))
+
     }
 
     fun clearNormal(){

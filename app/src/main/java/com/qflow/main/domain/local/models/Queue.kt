@@ -1,6 +1,7 @@
 package com.qflow.main.domain.local.models
 
 import com.google.firebase.database.IgnoreExtraProperties
+import java.sql.Timestamp
 import java.util.*
 
 /**
@@ -8,7 +9,14 @@ import java.util.*
  * */
 @IgnoreExtraProperties
 data class Queue(
-    val name: String? = null, val description: String? = null, val capacity: Int? = null,
-    val business_associated: String? = null, val id: Int? = -1, val date_created: Date? = null,
-    val date_finished: Date? = null, val is_active: Boolean = false
+    val id: Int? = -1,
+    val name: String? = null,
+    val description: String? = null,
+    val joinId: Int? = null,
+    val dateCreated: Timestamp? = null,
+    val dateFinished: Timestamp? = null,
+    val capacity: Int? = null,
+    val currentPos: Int? = null,
+    val isLock: Boolean = false,
+    val businessAssociated: String? = null
 )

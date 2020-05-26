@@ -39,10 +39,10 @@ class InfoQueueDialog(
     private fun setQueueData() {
         home_info_queue_name.text = queue.name
         home_info_description_queue.text = queue.description
-        home_info_bss_asoc_queue.text = queue.business_associated
+        home_info_bss_asoc_queue.text = queue.businessAssociated
         home_info_capacity_queue.text = queue.capacity.toString()
-        home_info_dt_created.text = queue.date_created.toString()
-        home_info_is_active.text = queue.is_active.toString()
+        home_info_dt_created.text = queue.dateCreated.toString()
+        home_info_is_active.text = queue.isLock.toString()
         if (joinable)
             btnQueueJoinQueue.visibility = View.VISIBLE
         btnQueueJoinQueue.setOnClickListener {

@@ -32,5 +32,7 @@
     <string name="join">Join</string>
     <string name="scan_qr">Scan QR </string>
     <string name="NameApp">Qflow users</string>
+    <string name="date_created">date_created</string>
+    <string name="is_active">is_active</string>
     <string name="point_at_a_qflow_qr_with_a_queue">Point at a QFlow QR to load a Queue</string>
 </resources>

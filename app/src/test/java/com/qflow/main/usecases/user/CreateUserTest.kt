@@ -1,5 +1,6 @@
 package com.qflow.main.usecases.user
 
+import com.qflow.main.domain.local.SharedPrefsRepository
 import com.qflow.main.repository.UserRepository
 import com.qflow.main.usecases.Either
 import kotlinx.coroutines.CoroutineScope
@@ -19,7 +20,8 @@ class CreateUserTest {
     @Mock
     private var userRepositoryMock: UserRepository = mock(UserRepository::class.java)
 
-    val createUser: CreateUser = CreateUser(userRepositoryMock)
+    private var prefsRepository: SharedPrefsRepository =mock(SharedPrefsRepository::class.java)
+    val createUser: CreateUser = CreateUser(userRepositoryMock, prefsRepository)
 
     private var job = Job()
     private var coroutineScope = CoroutineScope(Dispatchers.Default + job)

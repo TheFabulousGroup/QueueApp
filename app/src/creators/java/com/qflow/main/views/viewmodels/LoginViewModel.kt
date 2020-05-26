@@ -51,4 +51,12 @@ class LoginViewModel(
         super.onCleared()
         job.cancel()
     }
+
+    fun testFeature() {
+        createQueue.execute(
+            { it.either(::handleFailure, ::handleLoginSuccessful) },
+            CreateQueue.Params("Prueba1", "Soy una prueba", 1,"dec"),
+            this.coroutineScope
+        )
+    }
 }
