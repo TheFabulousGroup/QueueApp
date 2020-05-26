@@ -87,7 +87,6 @@ class HomeFragment : Fragment() {
         if (action != null) {
             view?.findNavController()?.navigate(action)
         }
-
     }
 
     private fun onClickOnQueueHistorical(queue: Queue){

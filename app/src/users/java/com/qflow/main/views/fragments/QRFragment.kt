@@ -1,5 +1,8 @@
 package com.qflow.main.views.fragments
 
+import android.Manifest
+import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.PointF
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -24,6 +27,8 @@ import java.util.concurrent.atomic.AtomicBoolean
 
 class QRFragment : Fragment(), QRCodeReaderView.OnQRCodeReadListener, InfoQueueDialog.OnJoinClick {
 
+    private val PERMISSION_CAMERA = 9999
+
     private val mViewModel: QRFragmentViewModel by viewModel()
     private var isProcessing: AtomicBoolean = AtomicBoolean(false)
     private var mQueueDialog: InfoQueueDialog? = null
@@ -37,13 +42,27 @@ class QRFragment : Fragment(), QRCodeReaderView.OnQRCodeReadListener, InfoQueueD
         return inflater.inflate(R.layout.fragment_qr, container, false)
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         initStates()
         configureQR()
+        startCamera()
     }
 
+    private fun startCamera() {
+        context?.let {
+            if (requireActivity().packageManager.checkPermission(
+                    Manifest.permission.CAMERA,
+                    it.packageName
+                ) == PackageManager.PERMISSION_GRANTED
+            ) {
+                qrDecoderView.startCamera()
+            } else {
+                requestPermissions(arrayOf(Manifest.permission.CAMERA), PERMISSION_CAMERA)
+            }
+        }
+    }
 
     private fun configureQR() {
         qrDecoderView.invalidate()
@@ -83,7 +102,8 @@ class QRFragment : Fragment(), QRCodeReaderView.OnQRCodeReadListener, InfoQueueD
         when (screenState) {
             is QRFragmentScreenState.QueueLoaded -> {
                 mQueueDialog = InfoQueueDialog(screenState.queue, true)
-                mQueueDialog!!.show(this.parentFragmentManager, "JOINDIALOG")
+                mQueueDialog!!.onAttachFragment(this)
+                mQueueDialog!!.show(this.childFragmentManager, "JOINDIALOG")
             }
             is QRFragmentScreenState.JoinedQueue ->
                 view?.findNavController()?.navigate(R.id.action_QRFragment_to_homeFragment)
@@ -126,7 +146,11 @@ class QRFragment : Fragment(), QRCodeReaderView.OnQRCodeReadListener, InfoQueueD
             } else
                 throw JSONException("QR does not contain a QFlowQueue")
         } catch (ex: JSONException) {
-            Toast.makeText(this.context, getString(R.string.QRLoadingErrorMessage), Toast.LENGTH_SHORT)
+            Toast.makeText(
+                this.context,
+                getString(R.string.QRLoadingErrorMessage),
+                Toast.LENGTH_SHORT
+            )
                 .show()
         } finally {
             isProcessing.set(false)
@@ -146,5 +170,19 @@ class QRFragment : Fragment(), QRCodeReaderView.OnQRCodeReadListener, InfoQueueD
     override fun handleJoinQueueRequest(queue: Queue) {
         mQueueDialog?.dismiss()
         mViewModel.joinToQueue(queue.id)
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        when (requestCode) {
+            PERMISSION_CAMERA -> if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)
+                qrDecoderView.startCamera()
+            else
+                view?.findNavController()?.navigate(R.id.action_QRFragment_to_homeFragment)
+        }
     }
 }

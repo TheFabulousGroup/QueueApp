@@ -33,7 +33,6 @@ class HomeFragment : Fragment(),
     private var mQueueDialog: InfoQueueDialog? = null
     private var mJoinQueueDialog: JoinQueueDialog? = null
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceSHometate: Bundle?
@@ -54,10 +53,9 @@ class HomeFragment : Fragment(),
     private fun initializeButtons() {
         btn_join_queue.setOnClickListener {
             mJoinQueueDialog = JoinQueueDialog()
-            mJoinQueueDialog!!.show(this.parentFragmentManager, "INFOQUEUEDIALOG")
-
+            mJoinQueueDialog!!.onAttachFragment(this)
+            mJoinQueueDialog!!.show(this.childFragmentManager, "INFOQUEUEDIALOG")
         }
-        
     }
 
     private fun renderScreenState(renderState: HomeFragmentScreenState) {
@@ -70,16 +68,12 @@ class HomeFragment : Fragment(),
                 hideLoader()
                 mJoinQueueDialog?.dismiss()
                 mQueueDialog = InfoQueueDialog(renderState.queue, true)
-                mQueueDialog!!.show(this.parentFragmentManager, "JOINDIALOG")
+                mQueueDialog!!.onAttachFragment(this)
+                mQueueDialog!!.show(this.childFragmentManager, "JOINDIALOG")
             }
         }
 
     }
-
-    override fun onJoinButtonClick(joinID: Int) {
-        mViewModel.loadQueueToJoin(joinID)
-    }
-
 
     private fun updateUI(screenState: ScreenState<HomeFragmentScreenState>?) {
         when (screenState) {
@@ -123,6 +117,11 @@ class HomeFragment : Fragment(),
     }
 
     override fun onNavigateQRFragment() {
+        mJoinQueueDialog?.dismiss()
         view?.findNavController()?.navigate(R.id.action_homeFragment_to_QRFragment)
+    }
+
+    override fun onJoinButtonClick(joinID: Int) {
+        mViewModel.loadQueueToJoin(joinID)
     }
 }

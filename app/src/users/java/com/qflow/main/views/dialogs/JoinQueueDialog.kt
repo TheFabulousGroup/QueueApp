@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.qflow.main.R
 import kotlinx.android.synthetic.users.dialog_join_queue.*
@@ -50,15 +51,16 @@ class JoinQueueDialog : DialogFragment(){
         }
     }
 
-    override fun onAttach(activity: Context) {
-        super.onAttach(activity)
+    override fun onAttachFragment(childFragment: Fragment) {
+        super.onAttachFragment(childFragment)
 
         try {
-            mOnNavigateQRFragment = context as OnNavigateQRFragment
-            mOnJoinButtonClick = context as OnJoinDialogButtonClick
+            mOnNavigateQRFragment = childFragment as OnNavigateQRFragment
+            mOnJoinButtonClick = childFragment as OnJoinDialogButtonClick
         } catch (e: ClassCastException){
-            throw ClassCastException("$activity must implement OnJoinQR")
+            throw ClassCastException("$activity " +
+                    "must implement OnNavigateQRFragment and OnJoinDialogButtonClick\n" +
+            e.message)
         }
     }
-
 }
