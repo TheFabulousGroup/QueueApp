@@ -21,7 +21,9 @@ import kotlinx.android.synthetic.users.fragment_home.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
-class HomeFragment : Fragment(), JoinQueueDialog.OnJoinDialogButtonClick,
+class HomeFragment : Fragment(),
+    JoinQueueDialog.OnJoinDialogButtonClick,
+    JoinQueueDialog.OnNavigateQRFragment,
     InfoQueueDialog.OnJoinClick {
 
     private val mViewModel: HomeViewModel by viewModel()
@@ -55,9 +57,7 @@ class HomeFragment : Fragment(), JoinQueueDialog.OnJoinDialogButtonClick,
             mJoinQueueDialog!!.show(this.parentFragmentManager, "INFOQUEUEDIALOG")
 
         }
-        btn_scan_qr.setOnClickListener {
-            view?.findNavController()?.navigate(R.id.action_homeFragment_to_QRFragment)
-        }
+        
     }
 
     private fun renderScreenState(renderState: HomeFragmentScreenState) {
@@ -120,5 +120,9 @@ class HomeFragment : Fragment(), JoinQueueDialog.OnJoinDialogButtonClick,
 
     override fun handleJoinQueueRequest(queue: Queue) {
         mViewModel.joinToQueue(queue.id)
+    }
+
+    override fun onNavigateQRFragment() {
+        view?.findNavController()?.navigate(R.id.action_homeFragment_to_QRFragment)
     }
 }

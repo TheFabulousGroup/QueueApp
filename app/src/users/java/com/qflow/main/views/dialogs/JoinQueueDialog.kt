@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
+import androidx.navigation.findNavController
 import com.qflow.main.R
 import kotlinx.android.synthetic.users.dialog_join_queue.*
 
@@ -16,7 +17,12 @@ class JoinQueueDialog : DialogFragment(){
         fun onJoinButtonClick(joinID: Int)
     }
 
+    interface OnNavigateQRFragment {
+        fun onNavigateQRFragment()
+    }
+
     private var mOnJoinButtonClick : OnJoinDialogButtonClick? = null
+    private var mOnNavigateQRFragment : OnNavigateQRFragment? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,12 +44,17 @@ class JoinQueueDialog : DialogFragment(){
                 mOnJoinButtonClick?.onJoinButtonClick(joinCode.toInt())
             }
         }
+
+        btn_scan_qr.setOnClickListener {
+            mOnNavigateQRFragment?.onNavigateQRFragment()
+        }
     }
 
     override fun onAttach(activity: Context) {
         super.onAttach(activity)
 
         try {
+            mOnNavigateQRFragment = context as OnNavigateQRFragment
             mOnJoinButtonClick = context as OnJoinDialogButtonClick
         } catch (e: ClassCastException){
             throw ClassCastException("$activity must implement OnJoinQR")
