@@ -7,11 +7,13 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.qflow.main.R
 import com.qflow.main.core.Failure
 import com.qflow.main.core.ScreenState
 import com.qflow.main.domain.local.models.Queue
-import com.qflow.main.views.adapters.ProfileAdapter
+import com.qflow.main.views.adapters.InfoRVAdapter
 import com.qflow.main.views.dialogs.InfoQueueDialog
 import com.qflow.main.views.dialogs.JoinQueueDialog
 import com.qflow.main.views.screenstates.HomeFragmentScreenState
@@ -28,7 +30,8 @@ class HomeFragment : Fragment(),
 
     private val mViewModel: HomeViewModel by viewModel()
 
-    val adapter = ProfileAdapter()
+    private lateinit var currentQueues: InfoRVAdapter
+    private lateinit var historyQueues: InfoRVAdapter
 
     private var mQueueDialog: InfoQueueDialog? = null
     private var mJoinQueueDialog: JoinQueueDialog? = null
@@ -44,6 +47,7 @@ class HomeFragment : Fragment(),
         super.onViewCreated(view, savedInstanceState)
         initializeObservers()
         initializeListeners()
+        initializeReclicers()
     }
 
     private fun initializeListeners() {
@@ -55,14 +59,35 @@ class HomeFragment : Fragment(),
             mJoinQueueDialog = JoinQueueDialog()
             mJoinQueueDialog!!.onAttachFragment(this)
             mJoinQueueDialog!!.show(this.childFragmentManager, "INFOQUEUEDIALOG")
+            mJoinQueueDialog!!.show(this.parentFragmentManager, "INFOQUEUEDIALOG")
         }
     }
+
+    private fun initializeReclicers() {
+        currentQueues = InfoRVAdapter(ArrayList(), ::onClickCurrentQueues)
+        rv_info_queues.adapter = currentQueues
+        rv_info_queues.layoutManager = GridLayoutManager(context, 1, RecyclerView.VERTICAL,
+            false)
+        mViewModel
+    }
+
+    private fun onClickCurrentQueues(queue: Queue) {
+        val action =
+            queue.id?.let { it1 ->
+                HomeFragmentDirections.actionHomeFragmentToJoinQueueDialog(it1)
+            }
+        if (action != null) {
+            view?.findNavController()?.navigate(action)
+        }
+    }
+
 
     private fun renderScreenState(renderState: HomeFragmentScreenState) {
         when (renderState) {
             is HomeFragmentScreenState.JoinedQueue -> {
                 mQueueDialog?.dismiss()
                 //TODO actualizar RecyclerViews con las colas y llamar a hideLoader cuando se acabe de ejecutar
+                currentQueues.setData(renderState.queues)
             }
             is HomeFragmentScreenState.QueueLoaded -> {
                 hideLoader()
@@ -74,6 +99,12 @@ class HomeFragment : Fragment(),
         }
 
     }
+
+    override fun onJoinButtonClick(joinID: Int) {
+        mViewModel.loadQueueToJoin(joinID)
+    }
+
+
 
     private fun updateUI(screenState: ScreenState<HomeFragmentScreenState>?) {
         when (screenState) {
