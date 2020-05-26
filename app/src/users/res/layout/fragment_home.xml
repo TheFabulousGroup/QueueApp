@@ -14,6 +14,20 @@
         android:background="@color/primaryLightColor"
         tools:context=".views.fragments.HomeFragment">
 
+        <TextView
+            android:id="@+id/tv_uhistorical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="65dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="65dp"
+            android:text="@string/historial_queue"
+            android:textColor="@color/primaryTextColor"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.496"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_join_queue" />
+
         <ImageView
             android:id="@+id/img_profile"
             android:layout_width="97dp"
@@ -21,11 +35,11 @@
             android:layout_marginStart="50dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="50dp"
+            android:contentDescription="@string/user_profile_picture_text"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/dummy_profile"
-            android:contentDescription="@string/user_profile_picture_text" />
+            app:srcCompat="@drawable/dummy_profile" />
 
         <TextView
             android:id="@+id/textViewQ"
@@ -45,6 +59,7 @@
             android:layout_width="385dp"
             android:layout_height="88dp"
             android:layout_marginStart="8dp"
+            android:layout_marginTop="24dp"
             android:layout_marginEnd="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -58,13 +73,28 @@
             android:id="@+id/btn_join_queue"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="16dp"
             android:background="@drawable/oval_button"
             android:text="@string/join_queue"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/rv_info_queues" />
 
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_history_queues"
+            android:layout_width="385dp"
+            android:layout_height="88dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_uhistorical"
+            tools:listitem="@layout/item_home">
+
+
+        </androidx.recyclerview.widget.RecyclerView>
 
         <include
             android:id="@+id/loading_bar_home"
@@ -74,7 +104,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

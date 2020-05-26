@@ -65,10 +65,29 @@ class HomeFragment : Fragment(),
     private fun initializeReclicers() {
         currentQueues = InfoRVAdapter(ArrayList(), ::onClickCurrentQueues)
         rv_info_queues.adapter = currentQueues
-        rv_info_queues.layoutManager = GridLayoutManager(context, 1, RecyclerView.VERTICAL,
-            false)
+        rv_info_queues.layoutManager = GridLayoutManager(
+            context, 1, RecyclerView.VERTICAL,
+            false
+        )
+        historyQueues = InfoRVAdapter(ArrayList(), ::onClickHistoryQueues)
+        rv_history_queues.adapter = historyQueues
+        rv_history_queues.layoutManager = GridLayoutManager(
+            context, 1, RecyclerView.VERTICAL,
+            false
+        )
         //TODO We need the function LoadQueuesUserJoin (las que te has unio ya, vamos)
         mViewModel
+    }
+
+    private fun onClickHistoryQueues(queue: Queue) {
+        //TODO
+        /*val action =
+            queue.id?.let { it1 ->
+                HomeFragmentDirections.actionHomeFragmentToJoinQueueDialog(it1)
+            }
+        if (action != null) {
+            view?.findNavController()?.navigate(action)
+        }*/
     }
 
     private fun onClickCurrentQueues(queue: Queue) {
