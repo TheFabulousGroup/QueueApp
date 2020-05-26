@@ -59,7 +59,6 @@ class HomeFragment : Fragment(),
             mJoinQueueDialog = JoinQueueDialog()
             mJoinQueueDialog!!.onAttachFragment(this)
             mJoinQueueDialog!!.show(this.childFragmentManager, "INFOQUEUEDIALOG")
-            mJoinQueueDialog!!.show(this.parentFragmentManager, "INFOQUEUEDIALOG")
         }
     }
 
@@ -68,6 +67,7 @@ class HomeFragment : Fragment(),
         rv_info_queues.adapter = currentQueues
         rv_info_queues.layoutManager = GridLayoutManager(context, 1, RecyclerView.VERTICAL,
             false)
+        //TODO We need the function LoadQueuesUserJoin (las que te has unio ya, vamos)
         mViewModel
     }
 
@@ -99,11 +99,6 @@ class HomeFragment : Fragment(),
         }
 
     }
-
-    override fun onJoinButtonClick(joinID: Int) {
-        mViewModel.loadQueueToJoin(joinID)
-    }
-
 
 
     private fun updateUI(screenState: ScreenState<HomeFragmentScreenState>?) {
