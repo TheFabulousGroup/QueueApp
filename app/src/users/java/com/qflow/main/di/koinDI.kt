@@ -8,10 +8,7 @@ import com.qflow.main.domain.server.ApiService
 import com.qflow.main.domain.server.HeaderInterceptor
 import com.qflow.main.repository.QueueRepository
 import com.qflow.main.repository.UserRepository
-import com.qflow.main.usecases.queue.CreateQueue
-import com.qflow.main.usecases.queue.FetchQueueById
-import com.qflow.main.usecases.queue.FetchQueueByJoinID
-import com.qflow.main.usecases.queue.JoinQueue
+import com.qflow.main.usecases.queue.*
 import com.qflow.main.usecases.user.CreateAdmin
 import com.qflow.main.usecases.user.CreateUser
 import com.qflow.main.usecases.user.LoginCase
@@ -57,7 +54,7 @@ val userModule = module {
     viewModel { LoginViewModel(get()) }
     viewModel { SignUpViewModel(get()) }
     viewModel { JoinQueueViewModel(get()) }
-    viewModel { HomeViewModel(get(), get())}
+    viewModel { HomeViewModel(get(), get(), get())}
     viewModel { SplashScreenViewModel(get()) }
     viewModel { QRFragmentViewModel(get(), get()) }
 
@@ -72,7 +69,7 @@ val useCaseModule = module {
     factory { FetchQueueById(get()) }
     factory { JoinQueue(get(), get(), get()) }
     factory { FetchQueueByJoinID(get()) }
-
+    factory { FetchQueuesByUser(get(), get()) }
 }
 
 val dataModule = module {

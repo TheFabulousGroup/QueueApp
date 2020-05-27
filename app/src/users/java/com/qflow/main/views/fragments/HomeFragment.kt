@@ -18,7 +18,6 @@ import com.qflow.main.views.dialogs.InfoQueueDialog
 import com.qflow.main.views.dialogs.JoinQueueDialog
 import com.qflow.main.views.screenstates.HomeFragmentScreenState
 import com.qflow.main.views.viewmodels.HomeViewModel
-import kotlinx.android.synthetic.users.dialog_join_queue.*
 import kotlinx.android.synthetic.users.fragment_home.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -47,7 +46,7 @@ class HomeFragment : Fragment(),
         super.onViewCreated(view, savedInstanceState)
         initializeObservers()
         initializeListeners()
-        initializeReclicers()
+        initializeRecyclers()
     }
 
     private fun initializeListeners() {
@@ -62,7 +61,7 @@ class HomeFragment : Fragment(),
         }
     }
 
-    private fun initializeReclicers() {
+    private fun initializeRecyclers() {
         currentQueues = InfoRVAdapter(ArrayList(), ::onClickCurrentQueues)
         rv_info_queues.adapter = currentQueues
         rv_info_queues.layoutManager = GridLayoutManager(
@@ -75,8 +74,10 @@ class HomeFragment : Fragment(),
             context, 1, RecyclerView.VERTICAL,
             false
         )
+
         //TODO We need the function LoadQueuesUserJoin (las que te has unio ya, vamos)
-        mViewModel
+        mViewModel.getCurrentQueues("all", false)
+        mViewModel.getHistoricalQueues("all", true)
     }
 
     private fun onClickHistoryQueues(queue: Queue) {
@@ -105,8 +106,8 @@ class HomeFragment : Fragment(),
         when (renderState) {
             is HomeFragmentScreenState.JoinedQueue -> {
                 mQueueDialog?.dismiss()
-                //TODO actualizar RecyclerViews con las colas y llamar a hideLoader cuando se acabe de ejecutar
                 currentQueues.setData(renderState.queues)
+                hideLoader()
             }
             is HomeFragmentScreenState.QueueLoaded -> {
                 hideLoader()
@@ -114,6 +115,13 @@ class HomeFragment : Fragment(),
                 mQueueDialog = InfoQueueDialog(renderState.queue, true)
                 mQueueDialog!!.onAttachFragment(this)
                 mQueueDialog!!.show(this.childFragmentManager, "JOINDIALOG")
+            }
+            is HomeFragmentScreenState.QueuesActiveObtained -> {
+                hideLoader()
+                currentQueues.setData(renderState.queues)
+            }
+            is HomeFragmentScreenState.QueuesHistoricalObtained -> {
+                historyQueues.setData(renderState.queues)
             }
         }
 

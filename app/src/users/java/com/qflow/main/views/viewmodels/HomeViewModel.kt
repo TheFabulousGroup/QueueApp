@@ -2,16 +2,15 @@ package com.qflow.main.views.viewmodels
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.qflow.main.core.BaseViewModel
 import com.qflow.main.core.ScreenState
-import com.qflow.main.domain.local.database.AppDatabase
+import com.qflow.main.core.ScreenState.Loading
 import com.qflow.main.domain.local.models.Queue
 import com.qflow.main.domain.server.models.QueueServerModel
 import com.qflow.main.usecases.queue.FetchQueueByJoinID
+import com.qflow.main.usecases.queue.FetchQueuesByUser
 import com.qflow.main.usecases.queue.JoinQueue
 import com.qflow.main.views.screenstates.HomeFragmentScreenState
-import com.qflow.main.views.screenstates.QRFragmentScreenState
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -23,7 +22,8 @@ import org.koin.core.KoinComponent
  * */
 class HomeViewModel(
     private val findQueueByJoinID: FetchQueueByJoinID,
-    private val joinQueue: JoinQueue
+    private val joinQueue: JoinQueue,
+    private val fetchQueuesByUser: FetchQueuesByUser
 ): BaseViewModel(), KoinComponent {
 
     private lateinit var info: QueueServerModel
@@ -42,20 +42,19 @@ class HomeViewModel(
 
     fun loadQueueToJoin(get: Int) {
 
-        _screenState.value = ScreenState.Loading
+        _screenState.value = Loading
         findQueueByJoinID.execute(
-            { it.either(::handleFailure, ::handleQueuesObtained) },
-            FetchQueueByJoinID.Params(get.toInt()), this.coroutineScope
+            { it.either(::handleFailure, ::handleLoadQueueObtained) },
+            FetchQueueByJoinID.Params(get), this.coroutineScope
         )
-
     }
 
-    private fun handleQueuesObtained(queue: Queue) {
+    private fun handleLoadQueueObtained(queue: Queue) {
         _screenState.value = ScreenState.Render(HomeFragmentScreenState.QueueLoaded(queue))
     }
 
     fun joinToQueue(id: Int?) {
-        _screenState.value = ScreenState.Loading
+        _screenState.value = Loading
         id?.let { JoinQueue.Params(it) }?.let { it ->
             joinQueue.execute (
                 { it.either(::handleFailure, ::handleJoinCompleted) },
@@ -66,5 +65,33 @@ class HomeViewModel(
 
     private fun handleJoinCompleted(i: Int) {
         _screenState.value = ScreenState.Render(HomeFragmentScreenState.JoinedToQueue)
+    }
+
+    fun getCurrentQueues(expand: String?, finish: Boolean?) {
+        _screenState.value = Loading
+        fetchQueuesByUser.execute(
+            { it.either(::handleFailure, ::handleQueuesObtained) },
+            FetchQueuesByUser.Params(expand, finish),
+            this.coroutineScope
+        )
+    }
+
+    private fun handleQueuesObtained(queues: List<Queue>) {
+        this._screenState.value =
+            ScreenState.Render(HomeFragmentScreenState.QueuesActiveObtained(queues))
+    }
+
+    fun getHistoricalQueues(expand: String?, finish: Boolean?) {
+        _screenState.value = Loading
+        fetchQueuesByUser.execute(
+            { it.either(::handleFailure, ::handleHistoryQueues) },
+            FetchQueuesByUser.Params(expand, finish),
+            this.coroutineScope
+        )
+    }
+
+    private fun handleHistoryQueues(queues: List<Queue>) {
+        this._screenState.value =
+            ScreenState.Render(HomeFragmentScreenState.QueuesHistoricalObtained(queues))
     }
 }
