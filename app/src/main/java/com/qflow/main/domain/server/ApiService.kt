@@ -30,7 +30,7 @@ interface ApiService {
 
 
         //URL
-        const val POST_JOIN_QUEUE = "qflow/queues/joinQueue/"
+        const val POST_JOIN_QUEUE = "qflow/queues/joinQueue/{$PARAM_JOIN_ID}"
         const val POST_CREATE_QUEUE = "qflow/queues/"
         const val GET_QUEUE_USERID = "qflow/queues/byIdUser/"
         const val GET_QUEUE_QUEUEID = "qflow/queues/byIdQueue/"
@@ -70,7 +70,7 @@ interface ApiService {
 
     @Headers("Content-type: application/json")
     @POST(POST_JOIN_QUEUE)
-    fun postJoinQueue( @Path(PARAM_JOIN_ID) joinId: Int,
+    fun postJoinQueue(@Path(PARAM_JOIN_ID) joinId: Int,
                        @Header(HEADER_TOKEN) token: String): Call<String>
 
     @Headers("Content-type: application/json")
@@ -95,7 +95,7 @@ class HeaderInterceptor : Interceptor, KoinComponent {
         Log.i(
             "REQUEST",
             String.format(
-                "Sending request %s on %s %s",
+                "Sending request %s on chain connection %s with headers: { %s }",
                 request.url(),
                 chain.connection(),
                 request.headers()

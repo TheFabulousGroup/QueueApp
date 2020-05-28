@@ -27,6 +27,7 @@
             app:destination="@id/homeFragment" />
     </fragment>
     <dialog
+        tools:layout="@layout/dialog_join_queue"
         android:id="@+id/joinQueueDialog"
         android:name="com.qflow.main.views.dialogs.JoinQueueDialog"
         android:label="JoinQueueDialog">

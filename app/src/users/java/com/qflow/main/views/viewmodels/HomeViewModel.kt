@@ -64,7 +64,7 @@ class HomeViewModel(
     }
 
     private fun handleJoinCompleted(i: Int) {
-        _screenState.value = ScreenState.Render(HomeFragmentScreenState.JoinedToQueue)
+        _screenState.value = ScreenState.Render(HomeFragmentScreenState.JoinedQueue())
     }
 
     fun getCurrentQueues(expand: String?, finish: Boolean?) {

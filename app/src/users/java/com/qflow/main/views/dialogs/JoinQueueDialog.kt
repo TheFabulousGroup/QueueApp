@@ -57,7 +57,7 @@ class JoinQueueDialog : DialogFragment(){
         try {
             mOnNavigateQRFragment = childFragment as OnNavigateQRFragment
             mOnJoinButtonClick = childFragment as OnJoinDialogButtonClick
-        } catch (e: ClassCastException){
+        } catch (e: ClassCastException) {
             throw ClassCastException("$activity " +
                     "must implement OnNavigateQRFragment and OnJoinDialogButtonClick\n" +
             e.message)
