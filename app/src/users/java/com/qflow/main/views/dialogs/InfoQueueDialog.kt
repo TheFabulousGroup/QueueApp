@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.Fragment
 import com.qflow.main.R
 import com.qflow.main.domain.local.models.Queue
 import kotlinx.android.synthetic.users.dialog_home_info_q.*
@@ -50,11 +51,11 @@ class InfoQueueDialog(
         }
     }
 
-    override fun onAttach(activity: Context) {
-        super.onAttach(activity)
+    override fun onAttachFragment(childFragment: Fragment) {
+        super.onAttachFragment(childFragment)
 
         try {
-            mOnJoinClick = context as OnJoinClick
+            mOnJoinClick = childFragment as OnJoinClick
         } catch (e: ClassCastException){
             throw ClassCastException("$activity must implement OnJoinQR")
         }

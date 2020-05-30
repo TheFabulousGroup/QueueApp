@@ -7,16 +7,17 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.qflow.main.R
 import com.qflow.main.core.Failure
 import com.qflow.main.core.ScreenState
 import com.qflow.main.domain.local.models.Queue
-import com.qflow.main.views.adapters.ProfileAdapter
+import com.qflow.main.views.adapters.InfoRVAdapter
 import com.qflow.main.views.dialogs.InfoQueueDialog
 import com.qflow.main.views.dialogs.JoinQueueDialog
 import com.qflow.main.views.screenstates.HomeFragmentScreenState
 import com.qflow.main.views.viewmodels.HomeViewModel
-import kotlinx.android.synthetic.users.dialog_join_queue.*
 import kotlinx.android.synthetic.users.fragment_home.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -28,7 +29,8 @@ class HomeFragment : Fragment(),
 
     private val mViewModel: HomeViewModel by viewModel()
 
-    val adapter = ProfileAdapter()
+    private lateinit var currentQueues: InfoRVAdapter
+    private lateinit var historyQueues: InfoRVAdapter
 
     private var mQueueDialog: InfoQueueDialog? = null
     private var mJoinQueueDialog: JoinQueueDialog? = null
@@ -44,6 +46,7 @@ class HomeFragment : Fragment(),
         super.onViewCreated(view, savedInstanceState)
         initializeObservers()
         initializeListeners()
+        initializeRecyclers()
     }
 
     private fun initializeListeners() {
@@ -58,11 +61,53 @@ class HomeFragment : Fragment(),
         }
     }
 
+    private fun initializeRecyclers() {
+        currentQueues = InfoRVAdapter(ArrayList(), ::onClickCurrentQueues)
+        rv_info_queues.adapter = currentQueues
+        rv_info_queues.layoutManager = GridLayoutManager(
+            context, 1, RecyclerView.VERTICAL,
+            false
+        )
+        historyQueues = InfoRVAdapter(ArrayList(), ::onClickHistoryQueues)
+        rv_history_queues.adapter = historyQueues
+        rv_history_queues.layoutManager = GridLayoutManager(
+            context, 1, RecyclerView.VERTICAL,
+            false
+        )
+
+        //TODO We need the function LoadQueuesUserJoin (las que te has unio ya, vamos)
+        mViewModel.getCurrentQueues("all", false)
+        mViewModel.getHistoricalQueues("all", true)
+    }
+
+    private fun onClickHistoryQueues(queue: Queue) {
+        //TODO
+        /*val action =
+            queue.id?.let { it1 ->
+                HomeFragmentDirections.actionHomeFragmentToJoinQueueDialog(it1)
+            }
+        if (action != null) {
+            view?.findNavController()?.navigate(action)
+        }*/
+    }
+
+    private fun onClickCurrentQueues(queue: Queue) {
+        val action =
+            queue.id?.let { it1 ->
+                HomeFragmentDirections.actionHomeFragmentToJoinQueueDialog(it1)
+            }
+        if (action != null) {
+            view?.findNavController()?.navigate(action)
+        }
+    }
+
+
     private fun renderScreenState(renderState: HomeFragmentScreenState) {
         when (renderState) {
             is HomeFragmentScreenState.JoinedQueue -> {
                 mQueueDialog?.dismiss()
-                //TODO actualizar RecyclerViews con las colas y llamar a hideLoader cuando se acabe de ejecutar
+                hideLoader()
+
             }
             is HomeFragmentScreenState.QueueLoaded -> {
                 hideLoader()
@@ -71,9 +116,17 @@ class HomeFragment : Fragment(),
                 mQueueDialog!!.onAttachFragment(this)
                 mQueueDialog!!.show(this.childFragmentManager, "JOINDIALOG")
             }
+            is HomeFragmentScreenState.QueuesActiveObtained -> {
+                hideLoader()
+                currentQueues.setData(renderState.queues)
+            }
+            is HomeFragmentScreenState.QueuesHistoricalObtained -> {
+                historyQueues.setData(renderState.queues)
+            }
         }
 
     }
+
 
     private fun updateUI(screenState: ScreenState<HomeFragmentScreenState>?) {
         when (screenState) {
@@ -112,8 +165,10 @@ class HomeFragment : Fragment(),
         mViewModel.failure.observe(::getLifecycle, ::handleErrors)
     }
 
+    //Cuando terminas de aceptar unirte a una cola.
     override fun handleJoinQueueRequest(queue: Queue) {
-        mViewModel.joinToQueue(queue.id)
+        mViewModel.joinToQueue(queue.joinId)
+        onDetach()
     }
 
     override fun onNavigateQRFragment() {

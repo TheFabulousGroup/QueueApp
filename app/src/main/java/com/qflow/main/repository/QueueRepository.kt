@@ -75,7 +75,9 @@ interface QueueRepository {
         }
 
         override suspend fun fetchQueueByJoinId(idJoin: Int): Either<Failure, Queue> {
-            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            return request(apiService.getQueueByJoinId(idJoin), {
+                queueAdapter.jsonStringToQueue(it)
+            }, String.empty())
         }
 
 

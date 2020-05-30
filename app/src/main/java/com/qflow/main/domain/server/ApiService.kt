@@ -17,19 +17,24 @@ interface ApiService {
 
     val prefs : SharedPrefsRepository
     companion object Factory {
+
+        //Headers & Params
         const val PARAM_QUEUE_ID = "idQueue"
         const val HEADER_IS_ADMIN = "isAdmin"
         const val HEADER_EMAIL = "mail"
         const val HEADER_PASS = "password"
         const val HEADER_TOKEN = "token"
         const val PARAM_JOIN_ID = "joinId"
-        const val POST_JOIN_QUEUE = "qflow/queues/joinQueue/{$PARAM_JOIN_ID}"
         const val PARAM_LOCKED = "locked"
         const val PARAM_EXPAND = "expand"
 
+
+        //URL
+        const val POST_JOIN_QUEUE = "qflow/queues/joinQueue/{$PARAM_JOIN_ID}"
         const val POST_CREATE_QUEUE = "qflow/queues/"
         const val GET_QUEUE_USERID = "qflow/queues/byIdUser/"
         const val GET_QUEUE_QUEUEID = "qflow/queues/byIdQueue/"
+        const val GET_QUEUE_JOINID = "qflow/queues/byIdJoin/{$PARAM_JOIN_ID}"
         const val POST_CREATE_USER = "qflow/user/"
         const val PUT_LOGIN_USER = "qflow/user/"
 
@@ -65,10 +70,12 @@ interface ApiService {
 
     @Headers("Content-type: application/json")
     @POST(POST_JOIN_QUEUE)
-    fun postJoinQueue( @Path(PARAM_JOIN_ID) joinId: Int,
+    fun postJoinQueue(@Path(PARAM_JOIN_ID) joinId: Int,
                        @Header(HEADER_TOKEN) token: String): Call<String>
 
-    fun getQueueByJoinId(idJoin: Int): Call<String>
+    @Headers("Content-type: application/json")
+    @GET(GET_QUEUE_JOINID)
+    fun getQueueByJoinId(@Path(PARAM_JOIN_ID) idJoin: Int): Call<String>
 }
 
 class HeaderInterceptor : Interceptor, KoinComponent {
@@ -88,7 +95,7 @@ class HeaderInterceptor : Interceptor, KoinComponent {
         Log.i(
             "REQUEST",
             String.format(
-                "Sending request %s on %s %s",
+                "Sending request %s on chain connection %s with headers: { %s }",
                 request.url(),
                 chain.connection(),
                 request.headers()

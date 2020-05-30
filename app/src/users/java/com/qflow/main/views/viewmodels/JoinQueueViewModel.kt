@@ -22,7 +22,7 @@ class JoinQueueViewModel(private val joinQueueUC: JoinQueue): BaseViewModel(), K
     private var job = Job()
     private var coroutineScope = CoroutineScope(Dispatchers.Default + job)
 
-    fun joinQueue(joinCode: Int, token: String){
+    fun joinQueue(joinCode: Int){
         _screenState.value = ScreenState.Loading
 
         joinQueueUC.execute(
