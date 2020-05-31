@@ -89,10 +89,11 @@ class HomeFragment : Fragment(),
 
     private fun renderScreenState(renderState: HomeFragmentScreenState) {
         when (renderState) {
+            //Antes de mostrar la info de la cola a la que te quieres unir.
             is HomeFragmentScreenState.JoinedQueue -> {
                 mQueueDialog?.dismiss()
                 hideLoader()
-
+                updateRV()
             }
             is HomeFragmentScreenState.QueueLoaded -> {
                 hideLoader()
@@ -112,7 +113,9 @@ class HomeFragment : Fragment(),
 
     }
 
-
+    private fun updateRV() {
+        mViewModel.getCurrentQueues("all", false)
+    }
     private fun updateUI(screenState: ScreenState<HomeFragmentScreenState>?) {
         when (screenState) {
             ScreenState.Loading -> {
