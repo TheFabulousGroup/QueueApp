@@ -18,7 +18,7 @@ class FetchQueuesByUser(private val prefsRepository: SharedPrefsRepository,
     override suspend fun run(params: Params): Either<Failure, List<Queue>> {
 
         return when (
-            val result = queueRepository.fetchQueuesByUser(prefsRepository.getUserToken().toString(), params.expand, params.locked)
+            val result = queueRepository.fetchQueuesByUser(prefsRepository.getUserToken().toString(), params.expand, params.finished)
             )
         {
             is Either.Left -> Either.Left(result.a)
@@ -28,7 +28,7 @@ class FetchQueuesByUser(private val prefsRepository: SharedPrefsRepository,
 
     class Params(
         val expand: String?,
-        val locked: Boolean?
+        val finished: Boolean?
     )
 
 }

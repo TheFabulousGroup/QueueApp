@@ -31,11 +31,11 @@ class HomeViewModel(
     private var coroutineScope = CoroutineScope(Dispatchers.Default + job)
 
     /*enable queues*/
-    fun getQueues(expand: String?, locked: Boolean?) {
+    fun getQueues(expand: String?, finished: Boolean?) {
         _screenState.value = Loading
         fetchQueuesByUser.execute(
             { it.either(::handleFailure, ::handleQueuesObtained) },
-            FetchQueuesByUser.Params(expand, locked),
+            FetchQueuesByUser.Params(expand, finished),
             this.coroutineScope
         )
     }
@@ -45,11 +45,11 @@ class HomeViewModel(
             ScreenState.Render(HomeFragmentScreenState.QueuesActiveObtained(queues))
     }
     /*disable queues*/
-     fun getHistory(expand: String?, locked: Boolean?) {
+     fun getHistory(expand: String?, finished: Boolean?) {
         _screenState.value = Loading
         fetchQueuesByUser.execute(
             { it.either(::handleFailure, ::handleHistoryQueues) },
-            FetchQueuesByUser.Params(expand, locked),   //TODO expand a finished
+            FetchQueuesByUser.Params(expand, finished),   //TODO expand a finished
             this.coroutineScope
         )
     }

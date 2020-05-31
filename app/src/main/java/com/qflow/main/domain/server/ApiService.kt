@@ -25,7 +25,7 @@ interface ApiService {
         const val HEADER_PASS = "password"
         const val HEADER_TOKEN = "token"
         const val PARAM_JOIN_ID = "joinId"
-        const val PARAM_LOCKED = "locked"
+        const val PARAM_FINISHED = "finished"
         const val PARAM_EXPAND = "expand"
 
 
@@ -44,7 +44,7 @@ interface ApiService {
     fun getQueuesByUser(
         @Header(HEADER_TOKEN) token: String,
         @Query(PARAM_EXPAND) expand: String?,
-        @Query(PARAM_LOCKED) locked: Boolean?
+        @Query(PARAM_FINISHED) finished: Boolean?
     ) : Call<String>
 
     @GET(GET_QUEUE_QUEUEID)

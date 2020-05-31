@@ -27,7 +27,7 @@ interface QueueRepository {
     //suspend fun fetchAdminQueuesRepository(isActive: Boolean): Either<Failure, List<Queue>>
     suspend fun fetchQueueByJoinId(idJoin: Int): Either<Failure, Queue>
     suspend fun fetchQueueById(idQueue: Int): Either<Failure, Queue>
-    suspend fun fetchQueuesByUser(token: String, expand: String?, locked: Boolean?): Either<Failure, List<Queue>>
+    suspend fun fetchQueuesByUser(token: String, expand: String?, finished: Boolean?): Either<Failure, List<Queue>>
 
     class General
     constructor(
@@ -81,12 +81,12 @@ interface QueueRepository {
         }
 
 
-        override suspend fun fetchQueuesByUser(token: String, expand: String?, locked: Boolean?): Either<Failure, List<Queue>> {
+        override suspend fun fetchQueuesByUser(token: String, expand: String?, finished: Boolean?): Either<Failure, List<Queue>> {
             return request(
                 apiService.getQueuesByUser(
                     token,
                     expand,
-                    locked
+                    finished
                 ), {
                     queueAdapter.jsonStringToQueueList(it)
                 }, String.empty()

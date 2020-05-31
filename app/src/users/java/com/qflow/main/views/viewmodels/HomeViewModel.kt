@@ -67,11 +67,11 @@ class HomeViewModel(
         _screenState.value = ScreenState.Render(HomeFragmentScreenState.JoinedQueue())
     }
 
-    fun getCurrentQueues(expand: String?, finish: Boolean?) {
+    fun getCurrentQueues(expand: String?, finished: Boolean?) {
         _screenState.value = Loading
         fetchQueuesByUser.execute(
             { it.either(::handleFailure, ::handleQueuesObtained) },
-            FetchQueuesByUser.Params(expand, finish),
+            FetchQueuesByUser.Params(expand, finished),
             this.coroutineScope
         )
     }
@@ -81,11 +81,11 @@ class HomeViewModel(
             ScreenState.Render(HomeFragmentScreenState.QueuesActiveObtained(queues))
     }
 
-    fun getHistoricalQueues(expand: String?, finish: Boolean?) {
+    fun getHistoricalQueues(expand: String?, finished: Boolean?) {
         _screenState.value = Loading
         fetchQueuesByUser.execute(
             { it.either(::handleFailure, ::handleHistoryQueues) },
-            FetchQueuesByUser.Params(expand, finish),
+            FetchQueuesByUser.Params(expand, finished),
             this.coroutineScope
         )
     }
