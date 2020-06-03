@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.Fragment
 import com.qflow.main.R
 import com.qflow.main.core.ScreenState
 import com.qflow.main.views.screenstates.InfoQueueScreenState
@@ -17,7 +18,11 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class InfoQueueDialog : DialogFragment() {
 
     private val viewModel: InfoQueueViewModel by viewModel()
+    private var mOnInfo: InfoQueueDialogonButtonClick? = null
 
+    interface InfoQueueDialogonButtonClick {
+        fun InfoQueueButtonClic(idQueue: Int)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -39,12 +44,15 @@ class InfoQueueDialog : DialogFragment() {
 
     private fun initializeObservers() {
         viewModel.screenState.observe(::getLifecycle, ::updateUI)
-        //Failure with HandleErrors?
+        //Failure with HandleErrors?*/
     }
 
     private fun initializeListeners() {
-        btn_edit_queue.setOnClickListener{
-            //TODO EditQueue CU
+        btn_edit_queue.setOnClickListener {
+            view.let {
+                val idQueue = home_info_queue_name.id
+                mOnInfo?.InfoQueueButtonClic(idQueue);
+            }
         }
     }
 
@@ -59,8 +67,10 @@ class InfoQueueDialog : DialogFragment() {
     private fun renderScreenState(renderState: InfoQueueScreenState) {
         when (renderState) {
             is InfoQueueScreenState.QueueObtained -> {
-                val myBitmap = QRCode.from("\"QflowQueue\": \""
-                        + renderState.queue.joinId + "\"").withSize(250,250).bitmap()
+                val myBitmap = QRCode.from(
+                    "\"QflowQueue\": \""
+                            + renderState.queue.joinId + "\""
+                ).withSize(250, 250).bitmap()
                 qrImageview?.setImageBitmap(myBitmap)
                 home_info_queue_name.text = renderState.queue.name
                 home_info_description_queue.text = renderState.queue.description
@@ -74,4 +84,16 @@ class InfoQueueDialog : DialogFragment() {
         }
     }
 
+    override fun onAttachFragment(childFragment: Fragment) {
+        super.onAttachFragment(childFragment)
+        try {
+            mOnInfo = childFragment as InfoQueueDialogonButtonClick
+        } catch (e: ClassCastException) {
+            throw ClassCastException(
+                "$activity " +
+                        "must implement InfoQueueDialogFragment\n" +
+                        e.message
+            )
+        }
+    }
 }
