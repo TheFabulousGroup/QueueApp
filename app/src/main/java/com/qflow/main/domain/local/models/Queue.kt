@@ -18,5 +18,7 @@ data class Queue(
     val capacity: Int? = null,
     val currentPos: Int? = null,
     val isLock: Boolean = false,
-    val businessAssociated: String? = null
+    val businessAssociated: String? = null,
+    val numPersons: Int? = null,
+    val inFrontOfUser: Int? = null
 )
