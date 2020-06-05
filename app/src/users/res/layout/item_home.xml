@@ -27,6 +27,25 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
         </TextView>
+
+        <TextView
+            android:id="@+id/tv_front_user"
+            android:layout_width="50dp"
+            android:layout_height="48dp"
+            android:layout_gravity="center|start|top|fill_vertical"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            android:background="@color/primaryTextColor"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:scrollbarThumbHorizontal="@color/primaryDarkColor"
+            android:scrollbarThumbVertical="@color/primaryDarkColor"
+            app:layout_constraintEnd_toStartOf="@+id/btn_u_view"
+            app:layout_constraintHorizontal_bias="0.908"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"></TextView>
+
         <Button
             android:id="@+id/btn_u_view"
             android:layout_width="wrap_content"

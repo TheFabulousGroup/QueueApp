@@ -35,6 +35,7 @@ class InfoRVAdapter (private var queues: List<Queue>,
     inner class ViewHolder (itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun onBind(queue: Queue) {
             itemView.tv_user_queue.text = queue.name
+            itemView.tv_front_user.text = queue.inFrontOfUser.toString()
             itemView.btn_u_view.setOnClickListener {
                 onClickItemRV(queue)
             }
