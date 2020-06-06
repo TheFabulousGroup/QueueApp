@@ -9,8 +9,9 @@ import com.qflow.main.domain.local.models.Queue
 import kotlinx.android.synthetic.users.item_home.view.*
 
 
-class InfoRVAdapter (private var queues: List<Queue>,
-                     private var onClickItemRV: (Queue) -> Unit
+class InfoRVAdapter(
+    private var queues: List<Queue>,
+    private var onClickItemRV: (Queue) -> Unit
 ) : RecyclerView.Adapter<InfoRVAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): InfoRVAdapter.ViewHolder {
@@ -32,10 +33,15 @@ class InfoRVAdapter (private var queues: List<Queue>,
         notifyDataSetChanged()
     }
 
-    inner class ViewHolder (itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun onBind(queue: Queue) {
             itemView.tv_user_queue.text = queue.name
-            itemView.tv_front_user.text = queue.inFrontOfUser.toString()
+            if (queue.inFrontOfUser.toString() == "0") {
+                itemView.tv_front_user.text = "Your turn"
+            }
+            else {
+                itemView.tv_front_user.text =  "Waiting turns: " + queue.inFrontOfUser.toString()
+            }
             itemView.btn_u_view.setOnClickListener {
                 onClickItemRV(queue)
             }

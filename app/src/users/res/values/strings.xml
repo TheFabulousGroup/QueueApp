@@ -37,4 +37,8 @@
     <string name="point_at_a_qflow_qr_with_a_queue">Point at a QFlow QR to load a Queue</string>
     <string name="info_queue">Info</string>
     <string name="historial_queue">Historial</string>
+    <string name="JoinQueue">Join Queue</string>
+    <string name="turns_wait">Waiting turn</string>
+    <string name="start">"Start "</string>
+    <string name="active">Active</string>
 </resources>
