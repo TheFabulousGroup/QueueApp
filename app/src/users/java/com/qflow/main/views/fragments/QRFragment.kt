@@ -1,7 +1,6 @@
 package com.qflow.main.views.fragments
 
 import android.Manifest
-import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.PointF
 import android.os.Bundle
@@ -46,7 +45,6 @@ class QRFragment : Fragment(), QRCodeReaderView.OnQRCodeReadListener, InfoQueueD
         super.onViewCreated(view, savedInstanceState)
 
         initStates()
-        configureQR()
         startCamera()
     }
 
@@ -57,6 +55,7 @@ class QRFragment : Fragment(), QRCodeReaderView.OnQRCodeReadListener, InfoQueueD
                     it.packageName
                 ) == PackageManager.PERMISSION_GRANTED
             ) {
+                configureQR()
                 qrDecoderView.startCamera()
             } else {
                 requestPermissions(arrayOf(Manifest.permission.CAMERA), PERMISSION_CAMERA)
@@ -107,7 +106,6 @@ class QRFragment : Fragment(), QRCodeReaderView.OnQRCodeReadListener, InfoQueueD
             }
             is QRFragmentScreenState.JoinedQueue ->
                 view?.findNavController()?.navigate(R.id.action_QRFragment_to_homeFragment)
-
         }
     }
 
@@ -179,10 +177,18 @@ class QRFragment : Fragment(), QRCodeReaderView.OnQRCodeReadListener, InfoQueueD
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         when (requestCode) {
-            PERMISSION_CAMERA -> if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)
-                qrDecoderView.startCamera()
-            else
-                view?.findNavController()?.navigate(R.id.action_QRFragment_to_homeFragment)
+            PERMISSION_CAMERA ->
+                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    view?.findNavController()?.navigate(R.id.action_QRFragment_self)
+                }
+            else {
+                    Toast.makeText(
+                        this.context,
+                        getString(R.string.NoPermissionsCamera),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    view?.findNavController()?.navigate(R.id.action_QRFragment_to_homeFragment)
+                }
         }
     }
 }

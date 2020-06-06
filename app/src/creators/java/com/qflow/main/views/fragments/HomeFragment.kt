@@ -9,17 +9,14 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.qflow.main.R
-import com.qflow.main.R.*
+import com.qflow.main.R.layout
 import com.qflow.main.core.ScreenState
 import com.qflow.main.domain.local.models.Queue
 import com.qflow.main.views.adapters.QueueAdminAdapter
 import com.qflow.main.views.dialogs.InfoQueueDialog
 import com.qflow.main.views.screenstates.HomeFragmentScreenState
 import com.qflow.main.views.viewmodels.HomeViewModel
-import com.qflow.main.views.viewmodels.InfoQueueViewModel
 import kotlinx.android.synthetic.creators.fragment_home.*
-import kotlinx.android.synthetic.creators.item_queueadmin.*
-import kotlinx.android.synthetic.main.item_home_historical.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
