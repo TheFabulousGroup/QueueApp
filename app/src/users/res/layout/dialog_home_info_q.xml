@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/dialog_home"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,8 +9,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/btn_edit_queue"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_width="426dp"
+        android:layout_height="282dp">
 
         <TextView
             android:id="@+id/home_info_queue_name"
@@ -113,7 +114,7 @@
             android:layout_marginEnd="32dp"
             android:layout_marginBottom="16dp"
             android:background="@color/primaryTextColor"
-            android:text="@string/join_code"
+            android:text="@string/persons_in_front"
             app:layout_constraintBottom_toTopOf="@+id/btnQueueJoinQueue"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
@@ -130,5 +131,132 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.499"
             app:layout_constraintStart_toStartOf="parent" />
+        <!--Tx_view for descriptions-->
+
+        <TextView
+            android:id="@+id/tx_name_dialog"
+            android:layout_width="120dp"
+            android:layout_height="15dp"
+            android:layout_marginStart="6dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="8dp"
+            android:backgroundTint="#FFFFFF"
+            android:text="@string/name"
+            android:textColor="@color/primaryTextColor"
+            android:textColorHighlight="@color/primaryTextColor"
+            android:textColorHint="@color/primaryTextColor"
+            app:layout_constraintEnd_toStartOf="@+id/home_info_queue_name"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tx_business"
+            android:layout_width="120dp"
+            android:layout_height="18dp"
+            android:layout_marginStart="6dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="8dp"
+            android:text="@string/business_associated"
+            android:textColor="@color/primaryTextColor"
+            android:textColorHighlight="@color/primaryTextColor"
+            android:textColorHint="@color/primaryTextColor"
+            app:layout_constraintEnd_toStartOf="@+id/home_info_bss_asoc_queue"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tx_name_dialog" />
+
+        <TextView
+            android:id="@+id/tx_description"
+            android:layout_width="120dp"
+            android:layout_height="20dp"
+            android:layout_marginTop="12dp"
+            android:text="@string/queue_description"
+            android:textColor="@color/primaryTextColor"
+            android:textColorHighlight="@color/primaryTextColor"
+            android:textColorHint="@color/primaryTextColor"
+            app:layout_constraintEnd_toStartOf="@+id/home_info_description_queue"
+            app:layout_constraintHorizontal_bias="0.733"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tx_business" />
+
+        <TextView
+            android:id="@+id/tx_capacity"
+            android:layout_width="119dp"
+            android:layout_height="16dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="8dp"
+            android:text="@string/capacity"
+            android:textColor="@color/primaryTextColor"
+            android:textColorHighlight="@color/primaryTextColor"
+            android:textColorHint="@color/primaryTextColor"
+            app:layout_constraintEnd_toStartOf="@+id/home_info_capacity_queue"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tx_description" />
+
+        <TextView
+            android:id="@+id/tx_dateCreated"
+            android:layout_width="119dp"
+            android:layout_height="16dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="8dp"
+            android:text="@string/start"
+            android:textColor="@color/primaryTextColor"
+            android:textColorHighlight="@color/primaryTextColor"
+            android:textColorHint="@color/primaryTextColor"
+            app:layout_constraintEnd_toStartOf="@+id/home_info_dt_created"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tx_capacity" />
+
+        <TextView
+            android:id="@+id/tx_isFinish"
+            android:layout_width="119dp"
+            android:layout_height="16dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="8dp"
+            android:text="@string/active"
+            android:textColor="@color/primaryTextColor"
+            android:textColorHighlight="@color/primaryTextColor"
+            android:textColorHint="@color/primaryTextColor"
+            app:layout_constraintEnd_toStartOf="@+id/home_info_dt_created"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tx_dateCreated" />
+
+        <TextView
+            android:id="@+id/tx_turn"
+            android:layout_width="119dp"
+            android:layout_height="16dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="12dp"
+            android:text="@string/join_code"
+            android:textColor="@color/primaryTextColor"
+            android:textColorHighlight="@color/primaryTextColor"
+            android:textColorHint="@color/primaryTextColor"
+            app:layout_constraintEnd_toStartOf="@+id/home_info_join_id"
+            app:layout_constraintHorizontal_bias="0.272"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tx_isFinish" />
+
+        <TextView
+            android:id="@+id/tx_joinQueue"
+            android:layout_width="119dp"
+            android:layout_height="16dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:text="@string/persons_in_front"
+            android:textColor="@color/primaryTextColor"
+            android:textColorHighlight="@color/primaryTextColor"
+            android:textColorHint="@color/primaryTextColor"
+            app:layout_constraintEnd_toStartOf="@+id/home_info_front_user"
+            app:layout_constraintHorizontal_bias="0.272"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tx_turn" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </LinearLayout>

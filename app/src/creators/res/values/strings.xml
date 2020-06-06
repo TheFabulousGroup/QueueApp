@@ -27,12 +27,15 @@
     <string name="date_created">date_created</string>
     <string name="date_finished">date_finished</string>
     <string name="is_active">is_active</string>
-    <string name="join_code">join_code</string>
+    <string name="join_code">Join_code</string>
     <string name="edit_queue">edit queue</string>
     <string name="create">create</string>
     <string name="show_active_queues">Show</string>
     <string name="show_disable_queues">Show</string>
     <string name="NameApp">Qflow creators</string>
+    <string name="numPersons">Numperson</string>
+    <string name="finished" translatable="false">Finish</string>
+
 
 
 </resources>

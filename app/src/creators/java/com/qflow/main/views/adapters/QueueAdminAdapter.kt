@@ -30,7 +30,7 @@ class QueueAdminAdapter(
         queues[position].let { holder.onBind(it) }
     }
 
-    fun setData(queuesUpdate: List<Queue>){
+    fun setData(queuesUpdate: List<Queue>) {
         this.queues = queuesUpdate
         notifyDataSetChanged()
     }
@@ -39,7 +39,7 @@ class QueueAdminAdapter(
     inner class ViewHolder(item: View) : RecyclerView.ViewHolder(item) {
         fun onBind(queue: Queue) = with(itemView) {
             tv_queue.text = queue.name
-
+            tv_num_persons.text = "persons:" + queue.numPersons.toString()
             btn_view.setOnClickListener {
                 onClickItemRV(queue)
             }

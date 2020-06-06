@@ -34,4 +34,8 @@
     <string name="QRLoadingErrorMessage">QR does not contain a QFlowQueue</string>
     <string name="QueueLoadingError">It was not possible to load the Qflow queue</string>
     <string name="JoinQueue">Join Queue</string>
+    <string name="turns_wait">Waiting turn</string>
+    <string name="start">"Start "</string>
+    <string name="active">Active</string>
+    <string name="persons_in_front">Persons in front you</string>
 </resources>
