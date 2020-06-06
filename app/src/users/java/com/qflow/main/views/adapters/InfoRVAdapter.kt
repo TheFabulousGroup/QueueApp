@@ -36,11 +36,10 @@ class InfoRVAdapter(
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun onBind(queue: Queue) {
             itemView.tv_user_queue.text = queue.name
-            if (queue.inFrontOfUser.toString() == "0") {
+            if (queue.inFrontOfUser == 0) {
                 itemView.tv_front_user.text = "Your turn"
-            }
-            else {
-                itemView.tv_front_user.text =  "Waiting turns: " + queue.inFrontOfUser.toString()
+            } else {
+                itemView.tv_front_user.text = "Persons in front: " + queue.inFrontOfUser.toString()
             }
             itemView.btn_u_view.setOnClickListener {
                 onClickItemRV(queue)
