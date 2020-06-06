@@ -13,7 +13,7 @@ import com.qflow.main.views.screenstates.InfoQueueScreenState
 import com.qflow.main.views.viewmodels.InfoQueueViewModel
 import kotlinx.android.synthetic.creators.dialog_home_info_q.*
 import net.glxn.qrgen.android.QRCode
-//TODO añadir numPersons
+
 class InfoQueueDialog(private val queue: Queue) : DialogFragment() {
 
     override fun onCreateView(
@@ -43,6 +43,7 @@ class InfoQueueDialog(private val queue: Queue) : DialogFragment() {
         home_info_dt_finished_queue.text = queue.dateFinished.toString()
         home_info_is_active.text = queue.isLock.toString()
         home_info_join_id.text = queue.joinId.toString()
+        home_info_num_persons.text = queue.numPersons.toString()
     }
 
     override fun onAttachFragment(childFragment: Fragment) {
