@@ -31,8 +31,8 @@ class InfoQueueDialog(private val queue: Queue) : DialogFragment() {
 
     private fun setQueueData(){
         val myBitmap = QRCode.from(
-            "\"QflowQueue\": \""
-                    + queue.joinId + "\""
+            "{\"QflowQueue\": \""
+                    + queue.joinId + "\"}"
         ).withSize(250, 250).bitmap()
         qrImageview?.setImageBitmap(myBitmap)
         home_info_queue_name.text = queue.name

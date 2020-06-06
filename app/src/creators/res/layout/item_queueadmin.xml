@@ -2,66 +2,70 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/item_current"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     android:background="@color/primaryLightColor">
 
-<androidx.constraintlayout.widget.ConstraintLayout
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-android:background="@color/primaryLightColor">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/primaryLightColor">
 
 
-    <TextView
-        android:id="@+id/tv_queue"
-        android:layout_width="262dp"
-        android:layout_height="46dp"
-        android:layout_gravity="center|start|top|fill_vertical"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="8dp"
-        android:background="@color/primaryTextColor"
-        android:paddingStart="10dp"
-        android:paddingEnd="10dp"
-        android:scrollbarThumbHorizontal="@color/primaryDarkColor"
-        android:scrollbarThumbVertical="@color/primaryDarkColor"
-        app:layout_constraintEnd_toStartOf="@+id/btn_view"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        <TextView
+            android:id="@+id/tv_queue"
+            android:layout_width="262dp"
+            android:layout_height="46dp"
+            android:layout_gravity="center|start|top|fill_vertical"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:background="@color/primaryTextColor"
+            android:gravity="center_vertical"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:scrollbarThumbHorizontal="@color/primaryDarkColor"
+            android:scrollbarThumbVertical="@color/primaryDarkColor"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/btn_view"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-    </TextView>
+        </TextView>
 
-    <TextView
-        android:id="@+id/tv_num_persons"
-        android:layout_width="105dp"
-        android:layout_height="43dp"
-        android:layout_gravity="center|start|top|fill_vertical"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="8dp"
-        android:background="@color/primaryTextColor"
-        android:paddingStart="10dp"
-        android:paddingEnd="10dp"
-        android:scrollbarThumbHorizontal="@color/primaryDarkColor"
-        android:scrollbarThumbVertical="@color/primaryDarkColor"
-        app:layout_constraintEnd_toStartOf="@+id/btn_view"
-        app:layout_constraintHorizontal_bias="0.908"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        <TextView
+            android:id="@+id/tv_num_persons"
+            android:layout_width="105dp"
+            android:layout_height="43dp"
+            android:layout_gravity="center|start|top|fill_vertical"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:background="@color/primaryTextColor"
+            android:gravity="center_vertical"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:scrollbarThumbHorizontal="@color/primaryDarkColor"
+            android:scrollbarThumbVertical="@color/primaryDarkColor"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_queue"
+            app:layout_constraintEnd_toStartOf="@+id/btn_view"
+            app:layout_constraintHorizontal_bias="0.908"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tv_queue">
 
-    </TextView>
+        </TextView>
 
-    <Button
-        android:id="@+id/btn_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:background="@drawable/oval_button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="@string/show_active_queues" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <Button
+            android:id="@+id/btn_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/oval_button"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="@string/show_active_queues" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </LinearLayout>

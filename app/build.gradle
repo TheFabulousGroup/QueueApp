@@ -33,12 +33,6 @@ android {
 
     productFlavors {
 
-        mainApp {
-            versionCode 1
-            versionName "0.0"
-            applicationId "com.qflow.main"
-        }
-
         creators {
             dimension "default"
             versionCode 1
