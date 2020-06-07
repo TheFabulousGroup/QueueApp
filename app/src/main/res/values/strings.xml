@@ -38,4 +38,9 @@
     <string name="start">"Start "</string>
     <string name="active">Active</string>
     <string name="persons_in_front">Persons in front you</string>
+    <string name="closed">Close</string>
+    <string name="stopresume">Stop/Resume</string>
+    <string name="increment">+</string>
+    <string name="sub">-</string>
+    <string name="advanced">Advance queue</string>
 </resources>

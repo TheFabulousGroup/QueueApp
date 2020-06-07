@@ -7,10 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import com.qflow.main.R
-import com.qflow.main.core.ScreenState
 import com.qflow.main.domain.local.models.Queue
-import com.qflow.main.views.screenstates.InfoQueueScreenState
-import com.qflow.main.views.viewmodels.InfoQueueViewModel
 import kotlinx.android.synthetic.creators.dialog_home_info_q.*
 import net.glxn.qrgen.android.QRCode
 
