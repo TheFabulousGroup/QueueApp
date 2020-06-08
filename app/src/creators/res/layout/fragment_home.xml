@@ -96,7 +96,7 @@
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="@+id/rv_adminqueues"
             app:layout_constraintTop_toBottomOf="@+id/historical"
-            tools:listitem="@layout/item_home_historical">
+            tools:listitem="@layout/item_queueadmin">
 
         </androidx.recyclerview.widget.RecyclerView>
 

@@ -43,4 +43,5 @@
     <string name="increment">+</string>
     <string name="sub">-</string>
     <string name="advanced">Advance queue</string>
+    <string name="advanceop">Advanced options</string>
 </resources>
