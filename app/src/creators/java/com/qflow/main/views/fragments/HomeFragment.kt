@@ -18,7 +18,6 @@ import com.qflow.main.views.dialogs.ManagementQueueDialog
 import com.qflow.main.views.screenstates.HomeFragmentScreenState
 import com.qflow.main.views.viewmodels.HomeViewModel
 import kotlinx.android.synthetic.creators.fragment_home.*
-import kotlinx.android.synthetic.main.dialog_manage_queue.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
@@ -89,7 +88,7 @@ class HomeFragment : Fragment() {
                 mInfoQueueDialog!!.show(this.childFragmentManager, "INFODIALOG")
             }
             is HomeFragmentScreenState.QueueManageDialog->{
-                mManageQueueDialog= ManagementQueueDialog(renderState.queues)
+                mManageQueueDialog= ManagementQueueDialog(renderState.queues,true)
                 mManageQueueDialog!!.onAttachFragment(this)
                 mManageQueueDialog!!.show(this.childFragmentManager, "MANAGEMENTDIALOG")
             }
@@ -124,6 +123,22 @@ class HomeFragment : Fragment() {
     private fun loadingComplete() {
         loading_bar_home.visibility = View.INVISIBLE
     }
+
+    //TODO
+  /*  override fun onStopButtonClick(){
+
+    }
+    override  fun onCloseButtonClick(){
+
+    }
+
+    override fun onAdvanceButtonClick(){
+
+    }
+
+    override fun onResumeButtonClick(){
+
+    }*/
 }
 
 
