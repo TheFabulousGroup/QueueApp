@@ -121,14 +121,15 @@
             android:id="@+id/home_info_edit_queue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="168dp"
+            android:layout_marginStart="212dp"
             android:layout_marginTop="16dp"
+            android:layout_marginBottom="4dp"
             android:background="@drawable/oval_button"
             android:text="@string/edit_queue"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/home_info_join_id"
-            app:layout_constraintVertical_bias="0.027" />
+            app:layout_constraintVertical_bias="0.095" />
 
         <ImageView
             android:id="@+id/qrImageview"
@@ -287,18 +288,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tx_numPersons" />
 
-        <Button
-            android:id="@+id/btn_advanced"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="32dp"
-            android:background="@drawable/oval_button"
-            android:text="@string/advanceop"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/home_info_join_id"
-            app:layout_constraintVertical_bias="0.016" />
+
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

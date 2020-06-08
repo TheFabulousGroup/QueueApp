@@ -10,10 +10,11 @@ import androidx.fragment.app.Fragment
 import com.qflow.main.R
 import com.qflow.main.domain.local.models.Queue
 
-class ManagmentQueueDialog(
-    private val queue: Queue,
-    private val flag: Boolean
+
+class ManagementQueueDialog(
+    private val queue: Queue
 ) : DialogFragment() {
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -29,21 +30,8 @@ class ManagmentQueueDialog(
     }
 
     private fun setQueueData() {
+
         tv_advanced.text = queue.currentPos.toString()
-        if (flag) /*btn_stop_resume.*/
-            btn_stop_resume.setOnClickListener {
-            }
-        btn_plus.setOnClickListener {
-
-        }
-
-        btn_sub.setOnClickListener {
-
-        }
-
-        btn_close.setOnClickListener {
-
-        }
 
     }
 
@@ -54,7 +42,7 @@ class ManagmentQueueDialog(
         } catch (e: ClassCastException) {
             throw ClassCastException(
                 "$activity " +
-                        "must implement ManagmentQueueDialog\n" +
+                        "must implement ManagementQueueDialog\n" +
                         e.message
             )
         }

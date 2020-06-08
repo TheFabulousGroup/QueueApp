@@ -16,6 +16,9 @@
         <action
             android:id="@+id/action_homeFragment_to_home_info_queue_dialog"
             app:destination="@id/home_info_queue_dialog" />
+        <action
+            android:id="@+id/action_homeFragment_to_dialog_manage_q"
+            app:destination="@id/dialog_manage_q" />
     </fragment>
     <fragment
         android:id="@+id/createQueueFragment"
@@ -34,13 +37,16 @@
         <argument
             android:name="idQueue"
             app:argType="integer" />
-        <action
-            android:id="@+id/action_home_info_queue_dialog_to_dialog_manage_q"
-            app:destination="@id/dialog_manage_q" />
     </dialog>
     <dialog
         android:id="@+id/dialog_manage_q"
-        android:name="com.qflow.main.views.dialogs.ManagmentQueueDialog"
-        android:label="ManagmentQueueDialog"
-        tools:layout="@layout/dialog_manage_queue"/>
+        android:name="com.qflow.main.views.dialogs.ManagementQueueDialog"
+        android:label="ManagementQueueDialog"
+        tools:layout="@layout/dialog_manage_queue">
+        <argument
+            android:name="idQueue"
+            app:argType="integer" />
+    </dialog>
+
+
 </navigation>

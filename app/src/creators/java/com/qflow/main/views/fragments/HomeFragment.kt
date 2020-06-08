@@ -14,9 +14,11 @@ import com.qflow.main.core.ScreenState
 import com.qflow.main.domain.local.models.Queue
 import com.qflow.main.views.adapters.QueueAdminAdapter
 import com.qflow.main.views.dialogs.InfoQueueDialog
+import com.qflow.main.views.dialogs.ManagementQueueDialog
 import com.qflow.main.views.screenstates.HomeFragmentScreenState
 import com.qflow.main.views.viewmodels.HomeViewModel
 import kotlinx.android.synthetic.creators.fragment_home.*
+import kotlinx.android.synthetic.main.dialog_manage_queue.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
@@ -26,6 +28,7 @@ class HomeFragment : Fragment() {
     private lateinit var queuesAdminAdapter: QueueAdminAdapter
     private lateinit var queuesAdminHistory: QueueAdminAdapter
     private var mInfoQueueDialog: InfoQueueDialog? = null
+    private var mManageQueueDialog: ManagementQueueDialog? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -46,10 +49,14 @@ class HomeFragment : Fragment() {
     }
 
     private fun initializeButtons() {
-        //img_profile.setImageResource()
+
         btn_create.setOnClickListener {
             view?.findNavController()?.navigate(R.id.action_homeFragment_to_createQueueFragment)
         }
+        btn_advanced.setOnClickListener{
+            view?.findNavController()?.navigate(R.id.action_homeFragment_to_dialog_manage_q)
+        }
+
     }
 
     private fun initializeRecycler() {
@@ -80,6 +87,11 @@ class HomeFragment : Fragment() {
                 mInfoQueueDialog = InfoQueueDialog(renderState.queues)
                 mInfoQueueDialog!!.onAttachFragment(this)
                 mInfoQueueDialog!!.show(this.childFragmentManager, "INFODIALOG")
+            }
+            is HomeFragmentScreenState.QueueManageDialog->{
+                mManageQueueDialog= ManagementQueueDialog(renderState.queues)
+                mManageQueueDialog!!.onAttachFragment(this)
+                mManageQueueDialog!!.show(this.childFragmentManager, "MANAGEMENTDIALOG")
             }
         }
     }
