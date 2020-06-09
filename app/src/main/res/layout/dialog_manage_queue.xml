@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/dialog_manage_queue"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
@@ -11,14 +12,27 @@
         android:layout_height="wrap_content">
 
         <Button
-            android:id="@+id/btn_stop_resume"
+            android:id="@+id/btn_resume"
             android:layout_width="115dp"
             android:layout_height="50dp"
             android:layout_marginStart="32dp"
             android:layout_marginEnd="32dp"
-            android:layout_marginBottom="20dp"
+            android:layout_marginBottom="8dp"
             android:background="@drawable/oval_button"
-            android:text="@string/stopresume"
+            android:text="@string/resume"
+            app:layout_constraintBottom_toTopOf="@+id/btn_stop"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <Button
+            android:id="@+id/btn_stop"
+            android:layout_width="115dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/oval_button"
+            android:text="@string/stop"
             app:layout_constraintBottom_toTopOf="@+id/btn_close"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
@@ -43,15 +57,14 @@
             android:layout_marginStart="32dp"
             android:layout_marginTop="64dp"
             android:layout_marginEnd="32dp"
-            android:layout_marginBottom="8dp"
+            android:layout_marginBottom="4dp"
             android:background="@color/primaryTextColor"
             android:text="@string/advanced"
-            app:layout_constraintBottom_toTopOf="@+id/btn_stop_resume"
+            app:layout_constraintBottom_toTopOf="@+id/btn_resume"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.491"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="1.0" />
+            app:layout_constraintVertical_bias="0.866" />
 
         <Button
             android:id="@+id/btn_plus"

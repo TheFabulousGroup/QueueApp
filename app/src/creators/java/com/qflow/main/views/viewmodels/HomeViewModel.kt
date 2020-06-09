@@ -56,7 +56,7 @@ class HomeViewModel(
         _screenState.value = Loading
         fetchQueuesByUser.execute(
             { it.either(::handleFailure, ::handleHistoryQueues) },
-            FetchQueuesByUser.Params(expand, finished), 
+            FetchQueuesByUser.Params(expand, finished),
             this.coroutineScope
         )
     }
@@ -70,7 +70,7 @@ class HomeViewModel(
 
      }
      private fun handleAdvanceQueue(queue: Queue) {
-             this._screenState.value = ScreenState.Render(ManagmentQueueScreenState.AdvancedOptions(queue))
+            this._screenState.value = ScreenState.Render(HomeFragmentScreenState.QueueAdvance(queue))
      }*/
     fun stopQueue(idQueue: Int) {
         stop.execute(
@@ -80,8 +80,8 @@ class HomeViewModel(
         )
     }
 
-    private fun handleStopQueue(Queue: Queue) {
-        //_screenState = ScreenState.Render(HomeFragmentScreenState.QueueStop(idQueue))
+    private fun handleStopQueue(queue: Queue) {
+        this._screenState.value = ScreenState.Render(HomeFragmentScreenState.QueueStop(queue))
     }
 
     fun resumeQueue(idQueue: Int) {
@@ -93,7 +93,7 @@ class HomeViewModel(
     }
 
     private fun handleResumeQueue(queue: Queue) {
-
+        this._screenState.value = ScreenState.Render(HomeFragmentScreenState.QueueResume(queue))
     }
 
     fun closeQueue(idQueue: Int) {
@@ -106,7 +106,7 @@ class HomeViewModel(
 
 
     private fun handleClosedQueue(queue: Queue) {
-        //_screenState = ScreenState.Render(HomeFragmentScreenState.QueueClose(queue))
+        this._screenState.value =ScreenState.Render(HomeFragmentScreenState.QueueClose(queue))
     }
 
 }

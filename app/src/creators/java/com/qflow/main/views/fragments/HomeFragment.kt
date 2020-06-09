@@ -84,7 +84,7 @@ class HomeFragment : Fragment() {
                 mInfoQueueDialog!!.show(this.childFragmentManager, "INFODIALOG")
             }
             is HomeFragmentScreenState.QueueManageDialog->{
-                mManageQueueDialog= ManagementQueueDialog(renderState.queues,true)
+                mManageQueueDialog= ManagementQueueDialog(renderState.queues)
                 mManageQueueDialog!!.onAttachFragment(this)
                 mManageQueueDialog!!.show(this.childFragmentManager, "MANAGEMENTDIALOG")
             }
@@ -95,6 +95,11 @@ class HomeFragment : Fragment() {
         mInfoQueueDialog = InfoQueueDialog(queue)
         mInfoQueueDialog!!.onAttachFragment(this)
         mInfoQueueDialog!!.show(this.childFragmentManager, "INFODIALOG")
+
+        mManageQueueDialog= ManagementQueueDialog(queue)
+        mManageQueueDialog!!.onAttachFragment(this)
+        mManageQueueDialog!!.show(this.childFragmentManager, "MANAGEMENTDIALOG")
+
     }
 
     private fun updateUI(screenState: ScreenState<HomeFragmentScreenState>?) {
@@ -121,19 +126,19 @@ class HomeFragment : Fragment() {
     }
 
     //TODO
-  /*  override fun onStopButtonClick(){
-
+/*   override fun onStopButtonClick(queue:Queue){
+        queue.id?.let { viewModel.stopQueue(it) }
     }
-    override  fun onCloseButtonClick(){
-
-    }
-
-    override fun onAdvanceButtonClick(){
-
+    override  fun onCloseButtonClick(queue:Queue){
+        queue.id?.let {viewModel.closeQueue(it)}
     }
 
-    override fun onResumeButtonClick(){
+    override fun onAdvanceButtonClick(queue:Queue){
+        //queue.id?.let {viewModel.closeQueue(it)}
+    }
 
+    override fun onResumeButtonClick(queue:Queue){
+        queue.id?.let {viewModel.resumeQueue(it)}
     }*/
 }
 

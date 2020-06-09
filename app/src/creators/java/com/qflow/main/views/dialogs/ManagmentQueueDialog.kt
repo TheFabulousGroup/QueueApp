@@ -12,24 +12,23 @@ import com.qflow.main.domain.local.models.Queue
 
 
 class ManagementQueueDialog(
-    private val queue: Queue,
-    private val flag: Boolean //TODO give value in hOmeFragment
+    private val queue: Queue
 ) : DialogFragment() {
 
     interface OnStopDialogButtonClick {
-        fun onStopButtonClick(queueId: Int)
+        fun onStopButtonClick(queue:Queue)
     }
 
     interface OnCloseDialogButtonClick {
-        fun onCloseButtonClick(queueId: Int)
+        fun onCloseButtonClick(queue:Queue)
     }
 
     interface OnResumeDialogButtonClick {
-        fun onResumeButtonClick(queueId: Int)
+        fun onResumeButtonClick(queue:Queue)
     }
 
     interface OnAdvanceDialogButtonClick {
-        fun onAdvanceButtonClick(queueId: Int)
+        fun onAdvanceButtonClick(queue:Queue)
     }
 
     private var mOnStopDialogButtonClick: OnStopDialogButtonClick? = null
@@ -53,19 +52,18 @@ class ManagementQueueDialog(
 
     private fun initializeListener() {
         btn_close.setOnClickListener {
-            mOnCloseDialogButtonClick?.onCloseButtonClick(1)
+            mOnCloseDialogButtonClick?.onCloseButtonClick(queue)
         }
 
         btn_plus.setOnClickListener {
-            mOnAdvanceDialogButtonClick?.onAdvanceButtonClick(1)
+            mOnAdvanceDialogButtonClick?.onAdvanceButtonClick(queue)
         }
 
-        btn_stop_resume.setOnClickListener {
-            if (flag) {
-                mOnStopDialogButtonClick?.onStopButtonClick(1)
-            } else {
-                mOnResumeDialogButtonClick?.onResumeButtonClick(1)
-            }
+        btn_stop.setOnClickListener {
+            mOnStopDialogButtonClick?.onStopButtonClick(queue)
+        }
+        btn_resume.setOnClickListener{
+            mOnResumeDialogButtonClick?.onResumeButtonClick(queue)
         }
     }
 
