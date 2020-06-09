@@ -44,4 +44,5 @@
     <string name="sub">-</string>
     <string name="advanced">Advance queue</string>
     <string name="advanceop">Advanced options</string>
+    <string name="InfoQueue">Info Queue</string>
 </resources>

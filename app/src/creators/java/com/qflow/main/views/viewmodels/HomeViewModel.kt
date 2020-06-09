@@ -7,7 +7,10 @@ import com.qflow.main.core.ScreenState
 import com.qflow.main.core.ScreenState.Loading
 import com.qflow.main.domain.local.database.user.UserDB
 import com.qflow.main.domain.local.models.Queue
+import com.qflow.main.usecases.queue.CloseQueueById
 import com.qflow.main.usecases.queue.FetchQueuesByUser
+import com.qflow.main.usecases.queue.ResumeQueueById
+import com.qflow.main.usecases.queue.StopQueueById
 import com.qflow.main.views.screenstates.HomeFragmentScreenState
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -15,7 +18,11 @@ import kotlinx.coroutines.Job
 import org.koin.core.KoinComponent
 
 class HomeViewModel(
-    private val fetchQueuesByUser: FetchQueuesByUser
+    private val fetchQueuesByUser: FetchQueuesByUser,
+    //private val advance:AdvancedQueueBy,
+    private val close: CloseQueueById,
+    private val stop: StopQueueById,
+    private val resume: ResumeQueueById
 ) : BaseViewModel(), KoinComponent {
 
     private val _currentUser = MutableLiveData<UserDB>()
@@ -49,7 +56,7 @@ class HomeViewModel(
         _screenState.value = Loading
         fetchQueuesByUser.execute(
             { it.either(::handleFailure, ::handleHistoryQueues) },
-            FetchQueuesByUser.Params(expand, finished),   //TODO expand a finished
+            FetchQueuesByUser.Params(expand, finished), 
             this.coroutineScope
         )
     }
@@ -57,6 +64,49 @@ class HomeViewModel(
     private fun handleHistoryQueues(queues: List<Queue>) {
         this._screenState.value =
             ScreenState.Render(HomeFragmentScreenState.QueuesHistoricalObtained(queues))
+    }
+    //TODO
+    /*fun advanceQueue(){
+
+     }
+     private fun handleAdvanceQueue(queue: Queue) {
+             this._screenState.value = ScreenState.Render(ManagmentQueueScreenState.AdvancedOptions(queue))
+     }*/
+    fun stopQueue(idQueue: Int) {
+        stop.execute(
+            { it.either(::handleFailure, ::handleStopQueue) },
+            StopQueueById.Params(idQueue),
+            this.coroutineScope
+        )
+    }
+
+    private fun handleStopQueue(Queue: Queue) {
+        //_screenState = ScreenState.Render(HomeFragmentScreenState.QueueStop(idQueue))
+    }
+
+    fun resumeQueue(idQueue: Int) {
+        resume.execute(
+            { it.either(::handleFailure, ::handleResumeQueue) },
+            ResumeQueueById.Params(idQueue),
+            this.coroutineScope
+        )
+    }
+
+    private fun handleResumeQueue(queue: Queue) {
+
+    }
+
+    fun closeQueue(idQueue: Int) {
+        close.execute(
+            { it.either(::handleFailure, ::handleClosedQueue) },
+            CloseQueueById.Params(idQueue),
+            this.coroutineScope
+        )
+    }
+
+
+    private fun handleClosedQueue(queue: Queue) {
+        //_screenState = ScreenState.Render(HomeFragmentScreenState.QueueClose(queue))
     }
 
 }

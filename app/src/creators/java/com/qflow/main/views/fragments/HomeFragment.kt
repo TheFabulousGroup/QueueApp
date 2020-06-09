@@ -52,10 +52,6 @@ class HomeFragment : Fragment() {
         btn_create.setOnClickListener {
             view?.findNavController()?.navigate(R.id.action_homeFragment_to_createQueueFragment)
         }
-        btn_advanced.setOnClickListener{
-            view?.findNavController()?.navigate(R.id.action_homeFragment_to_dialog_manage_q)
-        }
-
     }
 
     private fun initializeRecycler() {

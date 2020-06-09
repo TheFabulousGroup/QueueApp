@@ -42,6 +42,9 @@ class QueueAdminAdapter(
             btn_view.setOnClickListener {
                 onClickItemRV(queue)
             }
+            btn_advanced.setOnClickListener {
+                onClickItemRV(queue)
+            }
         }
     }
 
