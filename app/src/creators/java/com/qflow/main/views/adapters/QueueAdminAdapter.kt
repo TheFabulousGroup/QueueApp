@@ -3,7 +3,6 @@ package com.qflow.main.views.adapters
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import androidx.recyclerview.widget.RecyclerView
 import com.qflow.main.R
 import com.qflow.main.domain.local.models.Queue
@@ -11,7 +10,9 @@ import kotlinx.android.synthetic.creators.item_queueadmin.view.*
 
 class QueueAdminAdapter(
     private var queues: List<Queue>,
-    private var onClickItemRV: (Queue) -> Unit
+    private var onClickInfoRV: (Queue) -> Unit,
+    private var onClickManageItem: ((Queue) -> Unit)?,
+    private val isHistorical: Boolean
 ) : RecyclerView.Adapter<QueueAdminAdapter.ViewHolder>() {
 
 
@@ -45,11 +46,18 @@ class QueueAdminAdapter(
 
 
             btn_view.setOnClickListener {
-                onClickItemRV(queue)
+                onClickInfoRV(queue)
             }
-            btn_advanced.setOnClickListener {
-                onClickItemRV(queue)
+            if(!isHistorical) {
+                btn_advanced.visibility = View.VISIBLE
+                btn_advanced.setOnClickListener {
+                    onClickManageItem?.let { it1 -> it1(queue) }
+                }
             }
+            else
+                btn_advanced.visibility = View.INVISIBLE
+
+
         }
     }
 

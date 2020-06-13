@@ -9,7 +9,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@color/primaryLightColor">
+        android:background="@color/primaryDarkColor">
 
 
         <TextView
@@ -17,8 +17,7 @@
             android:layout_width="253dp"
             android:layout_height="80dp"
             android:layout_gravity="center|start|top|fill_vertical"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
+            android:layout_marginEnd="16dp"
             android:background="@color/primaryTextColor"
             android:gravity="center_vertical"
             android:paddingStart="10dp"
@@ -27,10 +26,8 @@
             android:scrollbarThumbVertical="@color/primaryDarkColor"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/btn_view"
-            app:layout_constraintHorizontal_bias="0.8"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.545">
+            app:layout_constraintTop_toTopOf="parent">
 
         </TextView>
 
@@ -57,32 +54,26 @@
 
         <Button
             android:id="@+id/btn_view"
-            android:layout_width="91dp"
+            android:layout_width="0dp"
             android:layout_height="41dp"
-            android:layout_marginEnd="36dp"
-            android:layout_marginBottom="4dp"
             android:layout_gravity="center_vertical"
-            android:layout_marginTop="4dp"
-            android:background="@drawable/oval_button"
-            app:layout_constraintBottom_toTopOf="@+id/btn_advanced"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="@string/InfoQueue" />
-        <ImageButton
-            android:id="@+id/btn_advanced"
-            android:layout_width="91dp"
-            android:layout_height="41dp"
-            android:layout_marginEnd="36dp"
-            android:layout_marginBottom="4dp"
+            android:layout_marginEnd="12dp"
             android:background="@drawable/oval_button"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toEndOf="@+id/tv_queue"
-            app:layout_constraintTop_toBottomOf="@+id/btn_view"
-            app:layout_constraintVertical_bias="0.0"
-            app:srcCompat="@drawable/ic_settings_black_24dp" />
+            app:layout_constraintEnd_toStartOf="@+id/btn_advanced"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="@string/InfoQueue" />
 
+        <ImageButton
+            android:id="@+id/btn_advanced"
+            android:layout_width="31dp"
+            android:layout_height="31dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/oval_button"
+            app:layout_constraintBottom_toBottomOf="@+id/btn_view"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/btn_view"
+            app:srcCompat="@drawable/ic_settings_black_24dp" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

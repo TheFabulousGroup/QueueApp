@@ -25,10 +25,6 @@ class HomeViewModel(
     private val resume: ResumeQueueById
 ) : BaseViewModel(), KoinComponent {
 
-    private val _currentUser = MutableLiveData<UserDB>()
-    val currentUserDB: LiveData<UserDB>
-        get() = _currentUser
-
     private val _screenState: MutableLiveData<ScreenState<HomeFragmentScreenState>> =
         MutableLiveData()
     val screenState: LiveData<ScreenState<HomeFragmentScreenState>>
@@ -65,6 +61,7 @@ class HomeViewModel(
         this._screenState.value =
             ScreenState.Render(HomeFragmentScreenState.QueuesHistoricalObtained(queues))
     }
+
     //TODO
     /*fun advanceQueue(){
 
