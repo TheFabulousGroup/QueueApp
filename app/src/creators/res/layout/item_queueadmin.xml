@@ -68,21 +68,23 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="@string/InfoQueue" />
-
-        <Button
+        <ImageButton
             android:id="@+id/btn_advanced"
             android:layout_width="91dp"
             android:layout_height="41dp"
             android:layout_marginEnd="36dp"
             android:layout_marginBottom="4dp"
             android:background="@drawable/oval_button"
-            android:text="@string/advanceop"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toEndOf="@+id/tv_queue"
             app:layout_constraintTop_toBottomOf="@+id/btn_view"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintVertical_bias="0.0"
+            app:srcCompat="@drawable/ic_settings_black_24dp" />
+
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </LinearLayout>

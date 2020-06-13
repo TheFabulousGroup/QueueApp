@@ -3,6 +3,7 @@ package com.qflow.main.views.adapters
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import androidx.recyclerview.widget.RecyclerView
 import com.qflow.main.R
 import com.qflow.main.domain.local.models.Queue
@@ -38,7 +39,11 @@ class QueueAdminAdapter(
     inner class ViewHolder(item: View) : RecyclerView.ViewHolder(item) {
         fun onBind(queue: Queue) = with(itemView) {
             tv_queue.text = queue.name
+
             tv_num_persons.text = "persons:" + queue.numPersons.toString()
+
+
+
             btn_view.setOnClickListener {
                 onClickItemRV(queue)
             }

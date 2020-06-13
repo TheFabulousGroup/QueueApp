@@ -52,6 +52,7 @@ class HomeFragment : Fragment() {
         btn_create.setOnClickListener {
             view?.findNavController()?.navigate(R.id.action_homeFragment_to_createQueueFragment)
         }
+
     }
 
     private fun initializeRecycler() {
@@ -65,8 +66,8 @@ class HomeFragment : Fragment() {
             GridLayoutManager(context, 1, RecyclerView.VERTICAL, false)
         rv_adminqueues.layoutManager =
             GridLayoutManager(context, 1, RecyclerView.VERTICAL, false)
-        viewModel.getQueues("alluser", false) //alluser, null All queues from that user
-        viewModel.getHistory("alluser", true) //history, null All queues with a dateFinished
+        viewModel.getQueues("ALL", false) //alluser, null All queues from that user
+        viewModel.getHistory("ALL", true) //history, null All queues with a dateFinished
     }
 
     private fun renderScreenState(renderState: HomeFragmentScreenState) {
@@ -83,8 +84,8 @@ class HomeFragment : Fragment() {
                 mInfoQueueDialog!!.onAttachFragment(this)
                 mInfoQueueDialog!!.show(this.childFragmentManager, "INFODIALOG")
             }
-            is HomeFragmentScreenState.QueueManageDialog->{
-                mManageQueueDialog= ManagementQueueDialog(renderState.queues)
+            is HomeFragmentScreenState.QueueManageDialog -> {
+                mManageQueueDialog = ManagementQueueDialog(renderState.queues)
                 mManageQueueDialog!!.onAttachFragment(this)
                 mManageQueueDialog!!.show(this.childFragmentManager, "MANAGEMENTDIALOG")
             }
@@ -96,9 +97,9 @@ class HomeFragment : Fragment() {
         mInfoQueueDialog!!.onAttachFragment(this)
         mInfoQueueDialog!!.show(this.childFragmentManager, "INFODIALOG")
 
-        mManageQueueDialog= ManagementQueueDialog(queue)
-        mManageQueueDialog!!.onAttachFragment(this)
-        mManageQueueDialog!!.show(this.childFragmentManager, "MANAGEMENTDIALOG")
+        /* mManageQueueDialog = ManagementQueueDialog(queue)
+         mManageQueueDialog!!.onAttachFragment(this)
+         mManageQueueDialog!!.show(this.childFragmentManager, "MANAGEMENTDIALOG")*/
 
     }
 
@@ -126,20 +127,21 @@ class HomeFragment : Fragment() {
     }
 
     //TODO
-/*   override fun onStopButtonClick(queue:Queue){
+    /*
+    override fun onStopButtonClick(queue: Queue) {
         queue.id?.let { viewModel.stopQueue(it) }
     }
     override  fun onCloseButtonClick(queue:Queue){
-        queue.id?.let {viewModel.closeQueue(it)}
-    }
+         queue.id?.let {viewModel.closeQueue(it)}
+     }
 
-    override fun onAdvanceButtonClick(queue:Queue){
-        //queue.id?.let {viewModel.closeQueue(it)}
-    }
+     override fun onAdvanceButtonClick(queue:Queue){
+         //queue.id?.let {viewModel.closeQueue(it)}
+     }
 
-    override fun onResumeButtonClick(queue:Queue){
-        queue.id?.let {viewModel.resumeQueue(it)}
-    }*/
+     override fun onResumeButtonClick(queue:Queue){
+         queue.id?.let {viewModel.resumeQueue(it)}
+     }*/
 }
 
 

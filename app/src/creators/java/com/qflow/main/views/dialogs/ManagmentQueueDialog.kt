@@ -16,19 +16,19 @@ class ManagementQueueDialog(
 ) : DialogFragment() {
 
     interface OnStopDialogButtonClick {
-        fun onStopButtonClick(queue:Queue)
+        fun onStopButtonClick(queue: Queue)
     }
 
     interface OnCloseDialogButtonClick {
-        fun onCloseButtonClick(queue:Queue)
+        fun onCloseButtonClick(queue: Queue)
     }
 
     interface OnResumeDialogButtonClick {
-        fun onResumeButtonClick(queue:Queue)
+        fun onResumeButtonClick(queue: Queue)
     }
 
     interface OnAdvanceDialogButtonClick {
-        fun onAdvanceButtonClick(queue:Queue)
+        fun onAdvanceButtonClick(queue: Queue)
     }
 
     private var mOnStopDialogButtonClick: OnStopDialogButtonClick? = null
@@ -62,7 +62,7 @@ class ManagementQueueDialog(
         btn_stop.setOnClickListener {
             mOnStopDialogButtonClick?.onStopButtonClick(queue)
         }
-        btn_resume.setOnClickListener{
+        btn_resume.setOnClickListener {
             mOnResumeDialogButtonClick?.onResumeButtonClick(queue)
         }
     }
