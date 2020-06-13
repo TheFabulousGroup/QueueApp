@@ -6,11 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
 import com.qflow.main.R
-import com.qflow.main.core.ScreenState
 import com.qflow.main.domain.local.models.Queue
-import com.qflow.main.views.screenstates.InfoQueueScreenState
-import com.qflow.main.views.viewmodels.InfoQueueViewModel
 import kotlinx.android.synthetic.creators.dialog_home_info_q.*
 import net.glxn.qrgen.android.QRCode
 
@@ -29,7 +27,7 @@ class InfoQueueDialog(private val queue: Queue) : DialogFragment() {
         setQueueData()
     }
 
-    private fun setQueueData(){
+    private fun setQueueData() {
         val myBitmap = QRCode.from(
             "{\"QflowQueue\": \""
                     + queue.joinId + "\"}"

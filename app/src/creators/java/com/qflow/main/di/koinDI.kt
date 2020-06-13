@@ -8,9 +8,7 @@ import com.qflow.main.domain.server.ApiService
 import com.qflow.main.domain.server.HeaderInterceptor
 import com.qflow.main.repository.QueueRepository
 import com.qflow.main.repository.UserRepository
-import com.qflow.main.usecases.queue.CreateQueue
-import com.qflow.main.usecases.queue.FetchQueueById
-import com.qflow.main.usecases.queue.FetchQueuesByUser
+import com.qflow.main.usecases.queue.*
 import com.qflow.main.usecases.user.CreateAdmin
 import com.qflow.main.usecases.user.CreateUser
 import com.qflow.main.usecases.user.LoginCase
@@ -48,7 +46,7 @@ val retrofitModule = module {
 val userModule = module {
 
     single<UserRepository> { UserRepository.General(get(), get()) }
-    single<QueueRepository> { QueueRepository.General(get(), get(), get()) }
+    single<QueueRepository> { QueueRepository.General(get(), get()) }
 
     single { UserAdapter }
     single { QueueAdapter }
@@ -56,8 +54,7 @@ val userModule = module {
     viewModel { LoginViewModel(get()) }
     viewModel { SignUpViewModel(get()) }
     viewModel { CreateQueueViewModel(get()) }
-    viewModel { HomeViewModel(get()) }
-    viewModel { InfoQueueViewModel(get()) }
+    viewModel { HomeViewModel(get(),get(),get(),get()) } //TODO ADD 1 MORE GET FOR ADVANCED
     viewModel { SplashScreenViewModel(get()) }
 
 }
@@ -70,8 +67,10 @@ val useCaseModule = module {
     factory { CreateQueue(get(), get()) }
     factory { FetchQueuesByUser(get(), get()) }
     factory { FetchQueueById(get()) }
-
-
+    factory { StopQueueById(get()) }
+    factory { ResumeQueueById(get()) }
+    factory { CloseQueueById(get())}
+    //TODO factory { AdvanceQueueById(get())}
 }
 
 val dataModule = module {

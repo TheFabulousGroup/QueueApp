@@ -55,18 +55,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/btn_create" />
 
-        <ImageButton
-            android:id="@+id/btn_set"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="28dp"
-            android:layout_marginBottom="200dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.034"
-            app:srcCompat="@drawable/ic_settings_black_24dp" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_adminqueues"
@@ -96,24 +84,24 @@
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="@+id/rv_adminqueues"
             app:layout_constraintTop_toBottomOf="@+id/historical"
-            tools:listitem="@layout/item_home_historical">
+            tools:listitem="@layout/item_queueadmin">
 
         </androidx.recyclerview.widget.RecyclerView>
+
 
         <Button
             android:id="@+id/btn_create"
             android:layout_width="88dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginEnd="32dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="4dp"
             android:background="@drawable/oval_button"
             android:text="create"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.6" />
+            app:layout_constraintVertical_bias="0.589" />
 
         <include
             android:id="@+id/loading_bar_home"

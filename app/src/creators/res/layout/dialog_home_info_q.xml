@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/dialog_home"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     android:background="@color/primaryLightColor">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -115,21 +115,21 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/home_info_is_active" />
 
+        <!--Definitions-->
+
         <Button
             android:id="@+id/home_info_edit_queue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="32dp"
+            android:layout_marginStart="212dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="4dp"
             android:background="@drawable/oval_button"
             android:text="@string/edit_queue"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.598"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/home_info_join_id" />
-
-        <!--Definitions-->
+            app:layout_constraintTop_toBottomOf="@+id/home_info_join_id"
+            app:layout_constraintVertical_bias="0.095" />
 
         <ImageView
             android:id="@+id/qrImageview"
@@ -287,6 +287,8 @@
             app:layout_constraintHorizontal_bias="0.31"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tx_numPersons" />
+
+
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,8 +1,6 @@
 package com.qflow.main.repository
 
-import android.util.Log
 import com.google.gson.Gson
-import com.google.gson.TypeAdapter
 import com.qflow.main.core.BaseRepository
 import com.qflow.main.core.Failure
 import com.qflow.main.core.extensions.empty
@@ -24,16 +22,22 @@ interface QueueRepository {
     ): Either<Failure, String>
 
     suspend fun joinQueue(joinId: Int, token: String): Either<Failure, String>
-    //suspend fun fetchAdminQueuesRepository(isActive: Boolean): Either<Failure, List<Queue>>
     suspend fun fetchQueueByJoinId(idJoin: Int): Either<Failure, Queue>
     suspend fun fetchQueueById(idQueue: Int): Either<Failure, Queue>
-    suspend fun fetchQueuesByUser(token: String, expand: String?, finished: Boolean?): Either<Failure, List<Queue>>
+    suspend fun fetchQueuesByUser(
+        token: String,
+        expand: String?,
+        finished: Boolean?
+    ): Either<Failure, List<Queue>>
 
+    suspend fun advanceQueue(): Either<Failure, Queue>
+    suspend fun stopQueue(idQueue: Int): Either<Failure, Queue>
+    suspend fun resumeQueue(idQueue: Int): Either<Failure, Queue>
+    suspend fun closeQueue(idQueue: Int): Either<Failure, Queue>
     class General
     constructor(
         private val queueAdapter: QueueAdapter,
-        private val apiService: ApiService,
-        private val prefsRepository: SharedPrefsRepository
+        private val apiService: ApiService
     ) : BaseRepository(), QueueRepository {
 
         override suspend fun createQueue(
@@ -62,14 +66,14 @@ interface QueueRepository {
         override suspend fun fetchQueueById(idQueue: Int): Either<Failure, Queue> {
             return request(apiService.getQueueByQueueId(idQueue), {
                 queueAdapter.jsonStringToQueue(it)
-                    }, String.empty())
+            }, String.empty())
         }
 
         override suspend fun joinQueue(
             joinId: Int,
             token: String
         ): Either<Failure, String> {
-            return request(apiService.postJoinQueue(joinId,token), {
+            return request(apiService.postJoinQueue(joinId, token), {
                 it
             }, String.empty())
         }
@@ -81,7 +85,11 @@ interface QueueRepository {
         }
 
 
-        override suspend fun fetchQueuesByUser(token: String, expand: String?, finished: Boolean?): Either<Failure, List<Queue>> {
+        override suspend fun fetchQueuesByUser(
+            token: String,
+            expand: String?,
+            finished: Boolean?
+        ): Either<Failure, List<Queue>> {
             return request(
                 apiService.getQueuesByUser(
                     token,
@@ -91,6 +99,28 @@ interface QueueRepository {
                     queueAdapter.jsonStringToQueueList(it)
                 }, String.empty()
             )
+        }
+
+        override suspend fun advanceQueue(): Either<Failure, Queue> {
+            TODO("Not yet implemented")
+        }
+
+        override suspend fun stopQueue(idQueue: Int): Either<Failure, Queue> {
+            return request(apiService.getStopQueueById(idQueue), {
+                queueAdapter.jsonStringToQueue(it)
+            }, String.empty())
+        }
+
+        override suspend fun resumeQueue(idQueue: Int): Either<Failure, Queue> {
+            return request(apiService.getResumeQueueByID(idQueue), {
+                queueAdapter.jsonStringToQueue(it)
+            }, String.empty())
+        }
+
+        override suspend fun closeQueue(idQueue: Int): Either<Failure, Queue> {
+            return request(apiService.getCloseQueueById(idQueue), {
+                queueAdapter.jsonStringToQueue(it)
+            }, String.empty())
         }
     }
 }

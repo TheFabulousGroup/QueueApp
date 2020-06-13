@@ -15,7 +15,8 @@ import java.io.IOException
 
 interface ApiService {
 
-    val prefs : SharedPrefsRepository
+    val prefs: SharedPrefsRepository
+
     companion object Factory {
 
         //Headers & Params
@@ -35,17 +36,21 @@ interface ApiService {
         const val GET_QUEUE_USERID = "qflow/queues/byIdUser/"
         const val GET_QUEUE_QUEUEID = "qflow/queues/byIdQueue/"
         const val GET_QUEUE_JOINID = "qflow/queues/byIdJoin/{$PARAM_JOIN_ID}"
+        const val GET_QUEUE_STOP = "qflow/queues/stopQueue/{$PARAM_QUEUE_ID}"
+        const val GET_QUEUE_CLOSE = "qflow/queues/closeQueue/{$PARAM_QUEUE_ID}"
+        const val GET_QUEUE_RESUME = "qflow/queues/resumeQueue/{$PARAM_QUEUE_ID}"
         const val POST_CREATE_USER = "qflow/user/"
         const val PUT_LOGIN_USER = "qflow/user/"
 
     }
+
     @Headers("Content-type: application/json")
     @GET(GET_QUEUE_USERID)
     fun getQueuesByUser(
         @Header(HEADER_TOKEN) token: String,
         @Query(PARAM_EXPAND) expand: String?,
         @Query(PARAM_FINISHED) finished: Boolean?
-    ) : Call<String>
+    ): Call<String>
 
     @GET(GET_QUEUE_QUEUEID)
     fun getQueueByQueueId(@Path(PARAM_QUEUE_ID) idQueue: Int): Call<String>
@@ -59,23 +64,42 @@ interface ApiService {
     fun postLoginUser(
         @Header(HEADER_IS_ADMIN) admin: Boolean,
         @Header(HEADER_EMAIL) email: String,
-        @Header(HEADER_PASS) password:String
+        @Header(HEADER_PASS) password: String
     ): Call<String>
 
     @Headers("Content-type: application/json")
     @POST(POST_CREATE_QUEUE)
-    fun postQueue(@Body body: String,
-                  @Header(HEADER_TOKEN) token: String
+    fun postQueue(
+        @Body body: String,
+        @Header(HEADER_TOKEN) token: String
     ): Call<String>
 
     @Headers("Content-type: application/json")
     @POST(POST_JOIN_QUEUE)
-    fun postJoinQueue(@Path(PARAM_JOIN_ID) joinId: Int,
-                       @Header(HEADER_TOKEN) token: String): Call<String>
+    fun postJoinQueue(
+        @Path(PARAM_JOIN_ID) joinId: Int,
+        @Header(HEADER_TOKEN) token: String
+    ): Call<String>
 
     @Headers("Content-type: application/json")
     @GET(GET_QUEUE_JOINID)
     fun getQueueByJoinId(@Path(PARAM_JOIN_ID) idJoin: Int): Call<String>
+    //TODO advancedQueues
+    /*@Headers("Content-type: application/json")
+    @GET(GET_QUEUE_STOP)
+    fun getAdvanceQueueById( @Path(PARAM_QUEUE_ID) idQueue: Int): Call<String>*/
+
+    @Headers("Content-type: application/json")
+    @GET(GET_QUEUE_STOP)
+    fun getStopQueueById(@Path(PARAM_QUEUE_ID) idQueue: Int): Call<String>
+
+    @Headers("Content-type: application/json")
+    @GET(GET_QUEUE_RESUME)
+    fun getResumeQueueByID(@Path(PARAM_QUEUE_ID) idQueue: Int): Call<String>
+
+    @Headers("Content-type: application/json")
+    @GET(GET_QUEUE_CLOSE)
+    fun getCloseQueueById(@Path(PARAM_QUEUE_ID) idQueue: Int): Call<String>
 }
 
 class HeaderInterceptor : Interceptor, KoinComponent {

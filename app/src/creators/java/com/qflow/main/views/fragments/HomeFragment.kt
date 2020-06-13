@@ -14,18 +14,22 @@ import com.qflow.main.core.ScreenState
 import com.qflow.main.domain.local.models.Queue
 import com.qflow.main.views.adapters.QueueAdminAdapter
 import com.qflow.main.views.dialogs.InfoQueueDialog
+import com.qflow.main.views.dialogs.ManagementQueueDialog
 import com.qflow.main.views.screenstates.HomeFragmentScreenState
 import com.qflow.main.views.viewmodels.HomeViewModel
 import kotlinx.android.synthetic.creators.fragment_home.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
-class HomeFragment : Fragment() {
+class HomeFragment : Fragment(), ManagementQueueDialog.OnAdvanceDialogButtonClick,
+    ManagementQueueDialog.OnCloseDialogButtonClick, ManagementQueueDialog.OnResumeDialogButtonClick,
+    ManagementQueueDialog.OnStopDialogButtonClick {
 
     private val viewModel: HomeViewModel by viewModel()
     private lateinit var queuesAdminAdapter: QueueAdminAdapter
     private lateinit var queuesAdminHistory: QueueAdminAdapter
     private var mInfoQueueDialog: InfoQueueDialog? = null
+    private var mManageQueueDialog: ManagementQueueDialog? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -46,16 +50,19 @@ class HomeFragment : Fragment() {
     }
 
     private fun initializeButtons() {
-        //img_profile.setImageResource()
+
         btn_create.setOnClickListener {
             view?.findNavController()?.navigate(R.id.action_homeFragment_to_createQueueFragment)
         }
+
     }
 
     private fun initializeRecycler() {
 
-        queuesAdminHistory = QueueAdminAdapter(ArrayList(), ::onClickOnQueue)
-        queuesAdminAdapter = QueueAdminAdapter(ArrayList(), ::onClickOnQueue)
+        queuesAdminHistory =
+            QueueAdminAdapter(ArrayList(), ::onClickOnQueue, ::onClickManageQueue, false)
+        queuesAdminAdapter =
+            QueueAdminAdapter(ArrayList(), ::onClickOnQueue, null, true)
 
         rv_adminqueues.adapter = queuesAdminAdapter
         rv_adminhistorial.adapter = queuesAdminHistory
@@ -63,9 +70,11 @@ class HomeFragment : Fragment() {
             GridLayoutManager(context, 1, RecyclerView.VERTICAL, false)
         rv_adminqueues.layoutManager =
             GridLayoutManager(context, 1, RecyclerView.VERTICAL, false)
-        viewModel.getQueues("alluser", false) //alluser, null All queues from that user
-        viewModel.getHistory("alluser", true) //history, null All queues with a dateFinished
+        viewModel.getQueues("ALL", false) //alluser, null All queues from that user
+        viewModel.getHistory("ALL", true) //history, null All queues with a dateFinished
     }
+
+
 
     private fun renderScreenState(renderState: HomeFragmentScreenState) {
         loadingComplete()
@@ -81,6 +90,26 @@ class HomeFragment : Fragment() {
                 mInfoQueueDialog!!.onAttachFragment(this)
                 mInfoQueueDialog!!.show(this.childFragmentManager, "INFODIALOG")
             }
+            is HomeFragmentScreenState.QueueManageDialog -> {
+                mManageQueueDialog = ManagementQueueDialog(renderState.queues)
+                mManageQueueDialog!!.onAttachFragment(this)
+                mManageQueueDialog!!.show(this.childFragmentManager, "MANAGEMENTDIALOG")
+            }
+            is HomeFragmentScreenState.QueueClose -> {
+
+            }
+
+            is HomeFragmentScreenState.QueueAdvance -> {
+
+            }
+
+            is HomeFragmentScreenState.QueueResume -> {
+
+            }
+
+            is HomeFragmentScreenState.QueueStop -> {
+
+            }
         }
     }
 
@@ -88,6 +117,12 @@ class HomeFragment : Fragment() {
         mInfoQueueDialog = InfoQueueDialog(queue)
         mInfoQueueDialog!!.onAttachFragment(this)
         mInfoQueueDialog!!.show(this.childFragmentManager, "INFODIALOG")
+    }
+
+    private fun onClickManageQueue(queue: Queue) {
+         mManageQueueDialog = ManagementQueueDialog(queue)
+         mManageQueueDialog!!.onAttachFragment(this)
+         mManageQueueDialog!!.show(this.childFragmentManager, "MANAGEMENTDIALOG")
     }
 
     private fun updateUI(screenState: ScreenState<HomeFragmentScreenState>?) {
@@ -111,6 +146,22 @@ class HomeFragment : Fragment() {
 
     private fun loadingComplete() {
         loading_bar_home.visibility = View.INVISIBLE
+    }
+
+    override fun onStopButtonClick(queue: Queue) {
+        queue.id?.let { viewModel.stopQueue(it) }
+    }
+
+    override fun onCloseButtonClick(queue: Queue) {
+        queue.id?.let { viewModel.closeQueue(it) }
+    }
+
+    override fun onAdvanceButtonClick(queue: Queue) {
+        queue.id?.let {viewModel.closeQueue(it)}
+    }
+
+    override fun onResumeButtonClick(queue: Queue) {
+        queue.id?.let { viewModel.resumeQueue(it) }
     }
 }
 
