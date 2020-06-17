@@ -88,6 +88,17 @@ interface ApiService {
     @Headers("Content-type: application/json")
     @POST(POST_QUEUE_STOP)
     fun getStopQueueById(@Path(PARAM_QUEUE_ID) idQueue: Int): Call<String>
+    @POST(POST_QUEUE_ADVANCE)
+    fun postAdvanceQueueById(
+        @Path(PARAM_QUEUE_ID) idQueue: Int,
+        @Header(HEADER_TOKEN) token: String
+    ): Call<String>
+
+    @Headers("Content-type: application/json")
+    @POST(POST_QUEUE_RESUME)
+    fun getResumeQueueByID(@Path(PARAM_QUEUE_ID) idQueue: Int): Call<String>
+    @POST(POST_QUEUE_STOP)
+    fun getStopQueueById(@Path(PARAM_QUEUE_ID) idQueue: Int): Call<String>
 
     @Headers("Content-type: application/json")
     @POST(POST_QUEUE_RESUME)
