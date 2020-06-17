@@ -16,7 +16,7 @@ import org.koin.core.KoinComponent
 
 class HomeViewModel(
     private val fetchQueuesByUser: FetchQueuesByUser,
-    private val advance:AdvancedQueueById,
+    private val advance: AdvancedQueueById,
     private val close: CloseQueueById,
     private val stop: StopQueueById,
     private val resume: ResumeQueueById
@@ -44,8 +44,9 @@ class HomeViewModel(
         this._screenState.value =
             ScreenState.Render(HomeFragmentScreenState.QueuesActiveObtained(queues))
     }
+
     /*disable queues*/
-     fun getHistory(expand: String?, finished: Boolean?) {
+    fun getHistory(expand: String?, finished: Boolean?) {
         _screenState.value = Loading
         fetchQueuesByUser.execute(
             { it.either(::handleFailure, ::handleHistoryQueues) },
@@ -60,51 +61,42 @@ class HomeViewModel(
     }
 
 
-    fun advanceQueue(idQueue: Int){
+    fun advanceQueue(idQueue: Int) {
         advance.execute(
-            { it.either(::handleFailure, ::handleAdvanceQueue) },
+            { it.either(::handleFailure, ::handleManageQueue) },
             AdvancedQueueById.Params(idQueue),
             this.coroutineScope
         )
-     }
-     private fun handleAdvanceQueue(queue: Queue) {
-            this._screenState.value = ScreenState.Render(HomeFragmentScreenState.QueueAdvance(queue))
-     }
+    }
+
+    private fun handleManageQueue(queue: Queue) {
+        this._screenState.value =
+            ScreenState.Render(HomeFragmentScreenState.QueueManageDialog(queue))
+    }
+
     fun stopQueue(idQueue: Int) {
         stop.execute(
-            { it.either(::handleFailure, ::handleStopQueue) },
+            { it.either(::handleFailure, ::handleManageQueue) },
             StopQueueById.Params(idQueue),
             this.coroutineScope
         )
     }
 
-    private fun handleStopQueue(queue: Queue) {
-        this._screenState.value = ScreenState.Render(HomeFragmentScreenState.QueueStop(queue))
-    }
-
     fun resumeQueue(idQueue: Int) {
         resume.execute(
-            { it.either(::handleFailure, ::handleResumeQueue) },
+            { it.either(::handleFailure, ::handleManageQueue) },
             ResumeQueueById.Params(idQueue),
             this.coroutineScope
         )
     }
 
-    private fun handleResumeQueue(queue: Queue) {
-        this._screenState.value = ScreenState.Render(HomeFragmentScreenState.QueueResume(queue))
-    }
-
     fun closeQueue(idQueue: Int) {
         close.execute(
-            { it.either(::handleFailure, ::handleClosedQueue) },
+            { it.either(::handleFailure, ::handleManageQueue) },
             CloseQueueById.Params(idQueue),
             this.coroutineScope
         )
     }
 
-
-    private fun handleClosedQueue(queue: Queue) {
-        this._screenState.value =ScreenState.Render(HomeFragmentScreenState.QueueClose(queue))
-    }
 
 }

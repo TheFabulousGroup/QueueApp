@@ -64,10 +64,10 @@ class HomeFragment : Fragment(), ManagementQueueDialog.OnAdvanceDialogButtonClic
 
     private fun initializeRecycler() {
 
-        queuesAdminHistory =
-            QueueAdminAdapter(ArrayList(), ::onClickOnQueue, ::onClickManageQueue, false)
         queuesAdminAdapter =
-            QueueAdminAdapter(ArrayList(), ::onClickOnQueue, null, true)
+            QueueAdminAdapter(ArrayList(), ::onClickOnQueue, ::onClickManageQueue, false)
+        queuesAdminHistory =
+            QueueAdminAdapter(ArrayList(), ::onClickHistoricalOnQueue, null, true)
 
         rv_adminqueues.adapter = queuesAdminAdapter
         rv_adminhistorial.adapter = queuesAdminHistory
@@ -89,44 +89,28 @@ class HomeFragment : Fragment(), ManagementQueueDialog.OnAdvanceDialogButtonClic
             is HomeFragmentScreenState.QueuesHistoricalObtained -> {
                 queuesAdminHistory.setData(renderState.queues)
             }
-            is HomeFragmentScreenState.QueueInfoDialog -> {
-                mInfoQueueDialog = InfoQueueDialog(renderState.queues)
-                mInfoQueueDialog!!.onAttachFragment(this)
-                mInfoQueueDialog!!.show(this.childFragmentManager, "INFODIALOG")
-            }
             is HomeFragmentScreenState.QueueManageDialog -> {
-                mManageQueueDialog = ManagementQueueDialog(renderState.queues)
-                mManageQueueDialog!!.onAttachFragment(this)
-                mManageQueueDialog!!.show(this.childFragmentManager, "MANAGEMENTDIALOG")
-            }
-            is HomeFragmentScreenState.QueueClose -> {
-                mManageQueueDialog = ManagementQueueDialog(renderState.queues)
-                mManageQueueDialog!!.onAttachFragment(this)
-                mManageQueueDialog!!.show(this.childFragmentManager, "CLOSE")
-            }
-
-            is HomeFragmentScreenState.QueueAdvance -> {
-                mManageQueueDialog = ManagementQueueDialog(renderState.queues)
-                mManageQueueDialog!!.onAttachFragment(this)
-                mManageQueueDialog!!.show(this.childFragmentManager, "ADVANCE")
-            }
-
-            is HomeFragmentScreenState.QueueResume -> {
-                mManageQueueDialog = ManagementQueueDialog(renderState.queues)
-                mManageQueueDialog!!.onAttachFragment(this)
-                mManageQueueDialog!!.show(this.childFragmentManager, "RESUME")
-            }
-
-            is HomeFragmentScreenState.QueueStop -> {
-                mManageQueueDialog = ManagementQueueDialog(renderState.queues)
-                mManageQueueDialog!!.onAttachFragment(this)
-                mManageQueueDialog!!.show(this.childFragmentManager, "STOP")
+                initializeDialogManagement(renderState.queues)
             }
         }
     }
 
+    private fun initializeDialogManagement(queue: Queue) {
+        if(mManageQueueDialog != null)
+            mManageQueueDialog!!.dismiss()
+        mManageQueueDialog = ManagementQueueDialog(queue)
+        mManageQueueDialog!!.onAttachFragment(this)
+        mManageQueueDialog!!.show(this.childFragmentManager, "MANAGEMENTDIALOG")
+    }
+
     private fun onClickOnQueue(queue: Queue) {
-        mInfoQueueDialog = InfoQueueDialog(queue)
+        mInfoQueueDialog = InfoQueueDialog(queue, false)
+        mInfoQueueDialog!!.onAttachFragment(this)
+        mInfoQueueDialog!!.show(this.childFragmentManager, "INFODIALOG")
+    }
+
+    private fun onClickHistoricalOnQueue(queue: Queue) {
+        mInfoQueueDialog = InfoQueueDialog(queue, true)
         mInfoQueueDialog!!.onAttachFragment(this)
         mInfoQueueDialog!!.show(this.childFragmentManager, "INFODIALOG")
     }
