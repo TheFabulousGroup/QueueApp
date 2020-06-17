@@ -36,9 +36,9 @@ interface ApiService {
         const val GET_QUEUE_USERID = "qflow/queues/byIdUser/"
         const val GET_QUEUE_QUEUEID = "qflow/queues/byIdQueue/"
         const val GET_QUEUE_JOINID = "qflow/queues/byIdJoin/{$PARAM_JOIN_ID}"
-        const val GET_QUEUE_STOP = "qflow/queues/stopQueue/{$PARAM_QUEUE_ID}"
-        const val GET_QUEUE_CLOSE = "qflow/queues/closeQueue/{$PARAM_QUEUE_ID}"
-        const val GET_QUEUE_RESUME = "qflow/queues/resumeQueue/{$PARAM_QUEUE_ID}"
+        const val POST_QUEUE_STOP = "qflow/queues/stopQueue/{$PARAM_QUEUE_ID}"
+        const val POST_QUEUE_CLOSE = "qflow/queues/closeQueue/{$PARAM_QUEUE_ID}"
+        const val POST_QUEUE_RESUME = "qflow/queues/resumeQueue/{$PARAM_QUEUE_ID}"
         const val POST_CREATE_USER = "qflow/user/"
         const val PUT_LOGIN_USER = "qflow/user/"
 
@@ -90,15 +90,15 @@ interface ApiService {
     fun getAdvanceQueueById( @Path(PARAM_QUEUE_ID) idQueue: Int): Call<String>*/
 
     @Headers("Content-type: application/json")
-    @GET(GET_QUEUE_STOP)
+    @POST(POST_QUEUE_STOP)
     fun getStopQueueById(@Path(PARAM_QUEUE_ID) idQueue: Int): Call<String>
 
     @Headers("Content-type: application/json")
-    @GET(GET_QUEUE_RESUME)
+    @POST(POST_QUEUE_RESUME)
     fun getResumeQueueByID(@Path(PARAM_QUEUE_ID) idQueue: Int): Call<String>
 
     @Headers("Content-type: application/json")
-    @GET(GET_QUEUE_CLOSE)
+    @GET(POST_QUEUE_CLOSE)
     fun getCloseQueueById(@Path(PARAM_QUEUE_ID) idQueue: Int): Call<String>
 }
 
