@@ -7,10 +7,7 @@ import com.qflow.main.core.ScreenState
 import com.qflow.main.core.ScreenState.Loading
 import com.qflow.main.domain.local.database.user.UserDB
 import com.qflow.main.domain.local.models.Queue
-import com.qflow.main.usecases.queue.CloseQueueById
-import com.qflow.main.usecases.queue.FetchQueuesByUser
-import com.qflow.main.usecases.queue.ResumeQueueById
-import com.qflow.main.usecases.queue.StopQueueById
+import com.qflow.main.usecases.queue.*
 import com.qflow.main.views.screenstates.HomeFragmentScreenState
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -19,7 +16,7 @@ import org.koin.core.KoinComponent
 
 class HomeViewModel(
     private val fetchQueuesByUser: FetchQueuesByUser,
-    //private val advance:AdvancedQueueBy,
+    private val advance:AdvancedQueueById,
     private val close: CloseQueueById,
     private val stop: StopQueueById,
     private val resume: ResumeQueueById
@@ -62,13 +59,17 @@ class HomeViewModel(
             ScreenState.Render(HomeFragmentScreenState.QueuesHistoricalObtained(queues))
     }
 
-    //TODO
-    /*fun advanceQueue(){
 
+    fun advanceQueue(idQueue: Int){
+        advance.execute(
+            { it.either(::handleFailure, ::handleAdvanceQueue) },
+            AdvancedQueueById.Params(idQueue),
+            this.coroutineScope
+        )
      }
      private fun handleAdvanceQueue(queue: Queue) {
             this._screenState.value = ScreenState.Render(HomeFragmentScreenState.QueueAdvance(queue))
-     }*/
+     }
     fun stopQueue(idQueue: Int) {
         stop.execute(
             { it.either(::handleFailure, ::handleStopQueue) },

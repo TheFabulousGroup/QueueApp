@@ -54,23 +54,31 @@ val userModule = module {
     viewModel { LoginViewModel(get()) }
     viewModel { SignUpViewModel(get()) }
     viewModel { CreateQueueViewModel(get()) }
-    viewModel { HomeViewModel(get(),get(),get(),get()) } //TODO ADD 1 MORE GET FOR ADVANCED
+    viewModel {
+        HomeViewModel(
+            get(),
+            get(),
+            get(),
+            get(),
+            get()
+        )
+    }
     viewModel { SplashScreenViewModel(get()) }
 
 }
 
 val useCaseModule = module {
 
-    factory { CreateUser(get(),get()) }
-    factory { CreateAdmin(get(),get()) }
-    factory { LoginCase(get(),get()) }
+    factory { CreateUser(get(), get()) }
+    factory { CreateAdmin(get(), get()) }
+    factory { LoginCase(get(), get()) }
     factory { CreateQueue(get(), get()) }
     factory { FetchQueuesByUser(get(), get()) }
     factory { FetchQueueById(get()) }
     factory { StopQueueById(get()) }
     factory { ResumeQueueById(get()) }
-    factory { CloseQueueById(get())}
-    //TODO factory { AdvanceQueueById(get())}
+    factory { CloseQueueById(get()) }
+    factory { AdvancedQueueById(get(), get()) }
 }
 
 val dataModule = module {

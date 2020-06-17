@@ -5,7 +5,6 @@ import com.qflow.main.core.BaseRepository
 import com.qflow.main.core.Failure
 import com.qflow.main.core.extensions.empty
 import com.qflow.main.domain.adapters.QueueAdapter
-import com.qflow.main.domain.local.SharedPrefsRepository
 import com.qflow.main.domain.local.models.Queue
 import com.qflow.main.domain.server.ApiService
 import com.qflow.main.domain.server.models.QueueServerModel
@@ -30,7 +29,7 @@ interface QueueRepository {
         finished: Boolean?
     ): Either<Failure, List<Queue>>
 
-    suspend fun advanceQueue(): Either<Failure, Queue>
+    suspend fun advanceQueue(idQueue: Int,token: String): Either<Failure, Queue>
     suspend fun stopQueue(idQueue: Int): Either<Failure, Queue>
     suspend fun resumeQueue(idQueue: Int): Either<Failure, Queue>
     suspend fun closeQueue(idQueue: Int): Either<Failure, Queue>
@@ -101,24 +100,27 @@ interface QueueRepository {
             )
         }
 
-        override suspend fun advanceQueue(): Either<Failure, Queue> {
-            TODO("Not yet implemented")
+        override suspend fun advanceQueue(idQueue: Int, token: String): Either<Failure, Queue> {
+            return request(apiService.postAdvanceQueueById(idQueue,token), {
+                queueAdapter.jsonStringToQueue(it)
+            }, String.empty())
         }
 
+
         override suspend fun stopQueue(idQueue: Int): Either<Failure, Queue> {
-            return request(apiService.getStopQueueById(idQueue), {
+            return request(apiService.postStopQueueById(idQueue), {
                 queueAdapter.jsonStringToQueue(it)
             }, String.empty())
         }
 
         override suspend fun resumeQueue(idQueue: Int): Either<Failure, Queue> {
-            return request(apiService.getResumeQueueByID(idQueue), {
+            return request(apiService.postResumeQueueByID(idQueue), {
                 queueAdapter.jsonStringToQueue(it)
             }, String.empty())
         }
 
         override suspend fun closeQueue(idQueue: Int): Either<Failure, Queue> {
-            return request(apiService.getCloseQueueById(idQueue), {
+            return request(apiService.postCloseQueueById(idQueue), {
                 queueAdapter.jsonStringToQueue(it)
             }, String.empty())
         }

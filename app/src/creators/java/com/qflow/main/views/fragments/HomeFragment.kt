@@ -4,12 +4,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.qflow.main.R
 import com.qflow.main.R.layout
+import com.qflow.main.core.Failure
 import com.qflow.main.core.ScreenState
 import com.qflow.main.domain.local.models.Queue
 import com.qflow.main.views.adapters.QueueAdminAdapter
@@ -47,6 +50,8 @@ class HomeFragment : Fragment(), ManagementQueueDialog.OnAdvanceDialogButtonClic
 
     private fun initializeListeners() {
         initializeButtons()
+        viewModel.screenState.observe(::getLifecycle, ::updateUI)
+        viewModel.failure.observe(::getLifecycle, ::handleErrors)
     }
 
     private fun initializeButtons() {
@@ -70,10 +75,9 @@ class HomeFragment : Fragment(), ManagementQueueDialog.OnAdvanceDialogButtonClic
             GridLayoutManager(context, 1, RecyclerView.VERTICAL, false)
         rv_adminqueues.layoutManager =
             GridLayoutManager(context, 1, RecyclerView.VERTICAL, false)
-        viewModel.getQueues("ALL", false) //alluser, null All queues from that user
-        viewModel.getHistory("ALL", true) //history, null All queues with a dateFinished
+        viewModel.getQueues("all", false) //alluser, null All queues from that user
+        viewModel.getHistory("all", true) //history, null All queues with a dateFinished
     }
-
 
 
     private fun renderScreenState(renderState: HomeFragmentScreenState) {
@@ -96,19 +100,27 @@ class HomeFragment : Fragment(), ManagementQueueDialog.OnAdvanceDialogButtonClic
                 mManageQueueDialog!!.show(this.childFragmentManager, "MANAGEMENTDIALOG")
             }
             is HomeFragmentScreenState.QueueClose -> {
-
+                mManageQueueDialog = ManagementQueueDialog(renderState.queues)
+                mManageQueueDialog!!.onAttachFragment(this)
+                mManageQueueDialog!!.show(this.childFragmentManager, "CLOSE")
             }
 
             is HomeFragmentScreenState.QueueAdvance -> {
-
+                mManageQueueDialog = ManagementQueueDialog(renderState.queues)
+                mManageQueueDialog!!.onAttachFragment(this)
+                mManageQueueDialog!!.show(this.childFragmentManager, "ADVANCE")
             }
 
             is HomeFragmentScreenState.QueueResume -> {
-
+                mManageQueueDialog = ManagementQueueDialog(renderState.queues)
+                mManageQueueDialog!!.onAttachFragment(this)
+                mManageQueueDialog!!.show(this.childFragmentManager, "RESUME")
             }
 
             is HomeFragmentScreenState.QueueStop -> {
-
+                mManageQueueDialog = ManagementQueueDialog(renderState.queues)
+                mManageQueueDialog!!.onAttachFragment(this)
+                mManageQueueDialog!!.show(this.childFragmentManager, "STOP")
             }
         }
     }
@@ -120,9 +132,27 @@ class HomeFragment : Fragment(), ManagementQueueDialog.OnAdvanceDialogButtonClic
     }
 
     private fun onClickManageQueue(queue: Queue) {
-         mManageQueueDialog = ManagementQueueDialog(queue)
-         mManageQueueDialog!!.onAttachFragment(this)
-         mManageQueueDialog!!.show(this.childFragmentManager, "MANAGEMENTDIALOG")
+        mManageQueueDialog = ManagementQueueDialog(queue)
+        mManageQueueDialog!!.onAttachFragment(this)
+        mManageQueueDialog!!.show(this.childFragmentManager, "MANAGEMENTDIALOG")
+    }
+
+    private fun handleErrors(failure: Failure?) {
+        /*is Failure.ValidationFailure -> {
+            //Remember to stop loading when you need to
+            loadingComplete()
+            when (failure.validationFailureType) {
+                ValidationFailureType.EMAIL_OR_PASSWORD_EMPTY -> {
+                    Toast.makeText(
+                        this.context, "Email or password empty", Toast.LENGTH_LONG
+                    ).show()
+                    this.context?.let { ContextCompat.getColor(it, R.color.errorRedColor) }
+                        ?.let {
+                            inputPass.background.setTint(it)
+                            inputEmail.background.setTint(it)
+                        }
+                }
+            }*/
     }
 
     private fun updateUI(screenState: ScreenState<HomeFragmentScreenState>?) {
@@ -157,7 +187,7 @@ class HomeFragment : Fragment(), ManagementQueueDialog.OnAdvanceDialogButtonClic
     }
 
     override fun onAdvanceButtonClick(queue: Queue) {
-        queue.id?.let {viewModel.closeQueue(it)}
+        queue.id?.let { viewModel.advanceQueue(it) }
     }
 
     override fun onResumeButtonClick(queue: Queue) {
