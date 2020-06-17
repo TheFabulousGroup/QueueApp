@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
@@ -15,6 +14,7 @@ import com.qflow.main.R.layout
 import com.qflow.main.core.Failure
 import com.qflow.main.core.ScreenState
 import com.qflow.main.domain.local.models.Queue
+import com.qflow.main.utils.enums.ValidationFailureType
 import com.qflow.main.views.adapters.QueueAdminAdapter
 import com.qflow.main.views.dialogs.InfoQueueDialog
 import com.qflow.main.views.dialogs.ManagementQueueDialog
@@ -96,7 +96,7 @@ class HomeFragment : Fragment(), ManagementQueueDialog.OnAdvanceDialogButtonClic
     }
 
     private fun initializeDialogManagement(queue: Queue) {
-        if(mManageQueueDialog != null)
+        if (mManageQueueDialog != null)
             mManageQueueDialog!!.dismiss()
         mManageQueueDialog = ManagementQueueDialog(queue)
         mManageQueueDialog!!.onAttachFragment(this)
@@ -122,21 +122,41 @@ class HomeFragment : Fragment(), ManagementQueueDialog.OnAdvanceDialogButtonClic
     }
 
     private fun handleErrors(failure: Failure?) {
-        /*is Failure.ValidationFailure -> {
-            //Remember to stop loading when you need to
-            loadingComplete()
-            when (failure.validationFailureType) {
-                ValidationFailureType.EMAIL_OR_PASSWORD_EMPTY -> {
-                    Toast.makeText(
-                        this.context, "Email or password empty", Toast.LENGTH_LONG
-                    ).show()
-                    this.context?.let { ContextCompat.getColor(it, R.color.errorRedColor) }
-                        ?.let {
-                            inputPass.background.setTint(it)
-                            inputEmail.background.setTint(it)
-                        }
+        when (failure) {
+            is Failure.ValidationFailure -> {
+                when (failure.validationFailureType) {
+                    ValidationFailureType.FULL_CAPACITY -> {
+                        Toast.makeText(
+                            this.context, "Queue is full", Toast.LENGTH_LONG
+                        ).show()
+                    }
+                    ValidationFailureType.QUEUE_CLOSE -> {
+                        Toast.makeText(
+                            this.context,
+                            "You can´t advance a queue that has been closed",
+                            Toast.LENGTH_LONG
+                        ).show()
+                    }
+                    ValidationFailureType.QUEUE_LOCK -> {
+                        Toast.makeText(
+                            this.context,
+                            "You can´t advance a queue that has been stopped",
+                            Toast.LENGTH_LONG
+                        ).show()
+                    }
+                    ValidationFailureType.QUEUE_RESUME -> {
+                        Toast.makeText(
+                            this.context,
+                            "You can´t advance a queue that has been resumed",
+                            Toast.LENGTH_LONG
+                        ).show()
+                    }
                 }
-            }*/
+            }
+            is Failure.ServerException -> {
+
+            }
+        }
     }
 
     private fun updateUI(screenState: ScreenState<HomeFragmentScreenState>?) {
@@ -163,19 +183,57 @@ class HomeFragment : Fragment(), ManagementQueueDialog.OnAdvanceDialogButtonClic
     }
 
     override fun onStopButtonClick(queue: Queue) {
-        queue.id?.let { viewModel.stopQueue(it) }
+        if(!queue.isLock) {
+            queue.id?.let {
+                viewModel.stopQueue(it)
+                Toast.makeText(
+                    this.context,
+                    "Queue has been stopped",
+                    Toast.LENGTH_SHORT
+                ).show()
+
+            }
+        }
     }
 
     override fun onCloseButtonClick(queue: Queue) {
-        queue.id?.let { viewModel.closeQueue(it) }
+        queue.id?.let {
+            viewModel.closeQueue(it)
+            Toast.makeText(
+                this.context,
+                "Queue has been closed",
+                Toast.LENGTH_SHORT
+            ).show()
+
+        }
     }
 
     override fun onAdvanceButtonClick(queue: Queue) {
-        queue.id?.let { viewModel.advanceQueue(it) }
+        if(!queue.isLock) {
+            queue.id?.let {
+                viewModel.advanceQueue(it)
+            }
+        }
+        else{
+            Toast.makeText(
+                this.context,
+                "You can´t advance a queue that is stopped",
+                Toast.LENGTH_SHORT
+            ).show()
+        }
     }
 
     override fun onResumeButtonClick(queue: Queue) {
-        queue.id?.let { viewModel.resumeQueue(it) }
+        queue.id?.let {
+            viewModel.resumeQueue(it)
+            Toast.makeText(
+                this.context,
+                "Queue has been resumed",
+                Toast.LENGTH_SHORT
+            ).show()
+        }
+
+
     }
 }
 
