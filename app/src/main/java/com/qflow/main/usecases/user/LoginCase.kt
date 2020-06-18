@@ -7,6 +7,7 @@ import com.qflow.main.domain.local.SharedPrefsRepository
 import com.qflow.main.repository.UserRepository
 import com.qflow.main.usecases.Either
 import com.qflow.main.usecases.UseCase
+import com.qflow.main.utils.MD5Creator
 import com.qflow.main.utils.enums.ValidationFailureType
 import kotlinx.coroutines.CoroutineScope
 
@@ -23,7 +24,7 @@ class LoginCase(
         return when (val res = validate(params.selectedMail, params.selectedPass)) {
             is Either.Left -> res
             is Either.Right ->
-                when (val res = userRepository.signIn(params.isAdmin,params.selectedMail, params.selectedPass)) {
+                when (val res = userRepository.signIn(params.isAdmin,params.selectedMail, MD5Creator.md5(params.selectedPass))) {
                     is Either.Left -> Either.Left(res.a)
                     is Either.Right -> {
                         val userDTO = UserAdapter.jsonStringToUserDTO(res.b)
