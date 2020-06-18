@@ -8,11 +8,6 @@ import com.qflow.main.domain.adapters.UserAdapter
 import com.qflow.main.domain.server.ApiService
 import com.qflow.main.usecases.Either
 
-
-/**
- * UserRepository, connects with firebase and the database to gets us what we need related
- * to the user
- * */
 interface UserRepository {
     suspend fun createUser(
         username: String,

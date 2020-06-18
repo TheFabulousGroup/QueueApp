@@ -33,7 +33,7 @@ class CreateAdmin(
         }
     }
 
-    fun validPassword(selectedPass: String, repeatPass: String): Either<Failure, Unit> {
+    private fun validPassword(selectedPass: String, repeatPass: String): Either<Failure, Unit> {
         return if (selectedPass == repeatPass)
             Either.Right(Unit)
         else
@@ -42,10 +42,10 @@ class CreateAdmin(
 
     class Params(
         val username: String,
+        val selectedEmail: String,
         val selectedPass: String,
         val selectedRepeatPass: String,
-        val selectedNameLastName: String,
-        val selectedEmail: String
+        val selectedNameLastName: String
     )
 
 }
