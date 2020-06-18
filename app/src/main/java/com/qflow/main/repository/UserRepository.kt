@@ -15,7 +15,9 @@ import com.qflow.main.usecases.Either
  * */
 interface UserRepository {
     suspend fun createUser(
-        username: String, selectedPass: String, email: String,
+        username: String,
+        selectedPass: String,
+        email: String,
         nameLastName: String
     ): Either<Failure, String>
 
