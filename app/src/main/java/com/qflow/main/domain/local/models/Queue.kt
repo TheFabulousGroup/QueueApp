@@ -20,5 +20,7 @@ data class Queue(
     val isLock: Boolean = false,
     val businessAssociated: String? = null,
     val numPersons: Int? = null,
-    val inFrontOfUser: Int? = null
+    val inFrontOfUser: Int? = null,
+    val avgServiceTime: Int? = null,
+    val waitingTimeForUser: Int? = null
 )

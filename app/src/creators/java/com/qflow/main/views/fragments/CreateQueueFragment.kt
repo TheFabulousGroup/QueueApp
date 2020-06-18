@@ -42,8 +42,9 @@ class CreateQueueFragment : Fragment() {
             val businessAssociated = business_associated.text.toString()
             val queueDescription = queue_description_create_queue.text.toString()
             val cap = Integer.parseInt(capacity.text.toString())
+            val avgServiceTime = Integer.parseInt(avg_service_time.text.toString())
             mViewModel.createQueueInDatabase(
-                nameCreateQueue,queueDescription, cap,businessAssociated
+                nameCreateQueue,queueDescription, cap,businessAssociated, avgServiceTime
             )
         }
 

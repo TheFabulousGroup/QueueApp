@@ -10,7 +10,8 @@ class QueueServerModel(
     var name: String,
     var description: String?,
     var capacity: Int,
-    var businessAssociated: String
+    var businessAssociated: String,
+    var avgServiceTime: Int
 
     ) {
     fun createMap(): Map<String, String> {
@@ -20,6 +21,7 @@ class QueueServerModel(
         task["description"] = this.description ?: ""
         task["capacity"] = this.capacity.toString()
         task["businessAssociated"] = this.businessAssociated
+        task["avgServiceTime"] = this.avgServiceTime.toString()
 
         return task;
     }

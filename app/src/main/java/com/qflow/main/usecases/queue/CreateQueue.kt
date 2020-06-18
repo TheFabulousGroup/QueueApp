@@ -28,7 +28,8 @@ class CreateQueue(
                     params.nameCreateQueue,
                     params.queueDescription,
                     params.capacity,
-                    params.businessAssociated
+                    params.businessAssociated,
+                    params.avgServiceTime
                 )) {
                     is Either.Left -> Either.Left(res.a)
                     is Either.Right -> {
@@ -50,7 +51,8 @@ class CreateQueue(
         val nameCreateQueue: String,
         val queueDescription: String,
         val capacity: Int,
-        val businessAssociated: String
+        val businessAssociated: String,
+        val avgServiceTime: Int
     )
 
 

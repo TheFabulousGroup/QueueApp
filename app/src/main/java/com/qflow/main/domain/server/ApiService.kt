@@ -35,6 +35,9 @@ interface ApiService {
         const val GET_QUEUE_USERID = "qflow/queues/byIdUser/"
         const val GET_QUEUE_QUEUEID = "qflow/queues/byIdQueue/"
         const val GET_QUEUE_JOINID = "qflow/queues/byIdJoin/{$PARAM_JOIN_ID}"
+        const val POST_QUEUE_STOP = "qflow/queues/stopQueue/{$PARAM_QUEUE_ID}"
+        const val POST_QUEUE_CLOSE = "qflow/queues/closeQueue/{$PARAM_QUEUE_ID}"
+        const val POST_QUEUE_RESUME = "qflow/queues/resumeQueue/{$PARAM_QUEUE_ID}"
         const val POST_CREATE_USER = "qflow/user/"
         const val PUT_LOGIN_USER = "qflow/user/"
 
