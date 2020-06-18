@@ -149,7 +149,12 @@ class HomeFragment : Fragment(), ManagementQueueDialog.OnAdvanceDialogButtonClic
                 }
             }
             is Failure.ServerException -> {
-
+                loadingComplete()
+                Toast.makeText(
+                    this.context,
+                    getString(R.string.LoadQueue),
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         }
     }

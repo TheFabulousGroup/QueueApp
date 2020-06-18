@@ -6,6 +6,7 @@ import com.qflow.main.domain.local.models.Queue
 import com.qflow.main.repository.QueueRepository
 import com.qflow.main.usecases.Either
 import com.qflow.main.usecases.UseCase
+import com.qflow.main.utils.enums.ValidationFailureType
 import kotlinx.coroutines.CoroutineScope
 
 class AdvancedQueueById(

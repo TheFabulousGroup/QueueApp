@@ -69,7 +69,7 @@ class ManagementQueueDialog(
 
     private fun setQueueData() {
 
-        tv_advanced.text = "current position" +queue.currentPos.toString() + "of"
+        tv_advanced.text = "current position " +queue.currentPos.toString() + " of"
 
     }
 

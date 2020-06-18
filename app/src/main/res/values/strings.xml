@@ -46,4 +46,5 @@
     <string name="advanced">Advance queue</string>
     <string name="advanceop">Advanced options</string>
     <string name="InfoQueue">Info Queue</string>
+    <string name="LoadQueue">Load queue was not successful</string>
 </resources>
