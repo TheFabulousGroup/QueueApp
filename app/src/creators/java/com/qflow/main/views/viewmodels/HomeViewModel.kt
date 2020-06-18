@@ -1,5 +1,6 @@
 package com.qflow.main.views.viewmodels
 
+import android.app.Person
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.qflow.main.core.BaseViewModel
@@ -13,6 +14,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import org.koin.core.KoinComponent
+import java.sql.Timestamp
 
 class HomeViewModel(
     private val fetchQueuesByUser: FetchQueuesByUser,
@@ -61,10 +63,16 @@ class HomeViewModel(
     }
 
 
-    fun advanceQueue(idQueue: Int) {
+    fun advanceQueue(
+        idQueue: Int,
+        isLock: Boolean,
+        date: Timestamp,
+        numPerson: Int,
+        capacity: Int
+    ) {
         advance.execute(
             { it.either(::handleFailure, ::handleManageQueue) },
-            AdvancedQueueById.Params(idQueue),
+            AdvancedQueueById.Params(idQueue, isLock, date, numPerson, capacity),
             this.coroutineScope
         )
     }

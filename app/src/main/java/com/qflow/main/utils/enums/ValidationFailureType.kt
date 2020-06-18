@@ -6,8 +6,11 @@ enum class ValidationFailureType {
     EMAIL_OR_PASSWORD_EMPTY,
     CAPACITY_TOO_SMALL,
     QUEUE_LOCK,
-    FULL_CAPACITY, //si esta llena no puedes avanzar
-    QUEUE_STOP, // si esta parada no puedes avanzar
-    QUEUE_CLOSE,//si esta cerrada no puedes avanzar
-    QUEUE_RESUME// SI LA COLA ESTA EN PAUSA NO SE PUEDE AVANZAR
+    QUEUE_CLOSE,
+    FULL_CAPACITY,
+    QUEUE_ADVANCE_STOP,
+    QUEUE_ADVANCE_CLOSE,
+    QUEUE_CLOSE_CLOSED
+
+
 }

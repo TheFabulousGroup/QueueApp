@@ -146,6 +146,27 @@ class HomeFragment : Fragment(), ManagementQueueDialog.OnAdvanceDialogButtonClic
                             Toast.LENGTH_LONG
                         ).show()
                     }
+                    ValidationFailureType.QUEUE_ADVANCE_STOP -> {
+                        Toast.makeText(
+                            this.context,
+                            "If you want advance the queue that is stopped, first resume queue",
+                            Toast.LENGTH_LONG
+                        ).show()
+                    }
+                    ValidationFailureType.QUEUE_ADVANCE_CLOSE -> {
+                        Toast.makeText(
+                            this.context,
+                            "You can´t advance a queue which has been closed",
+                            Toast.LENGTH_LONG
+                        ).show()
+                    }
+                    ValidationFailureType.QUEUE_CLOSE_CLOSED -> {
+                        Toast.makeText(
+                            this.context,
+                            "You can´t close a queue which has been closed",
+                            Toast.LENGTH_LONG
+                        ).show()
+                    }
                 }
             }
             is Failure.ServerException -> {
@@ -183,9 +204,8 @@ class HomeFragment : Fragment(), ManagementQueueDialog.OnAdvanceDialogButtonClic
     }
 
 
-
     override fun onStopButtonClick(queue: Queue) {
-        if(!queue.isLock){
+        if (!queue.isLock) {
             queue.id?.let {
                 viewModel.stopQueue(it)
                 Toast.makeText(
@@ -210,17 +230,21 @@ class HomeFragment : Fragment(), ManagementQueueDialog.OnAdvanceDialogButtonClic
     }
 
     override fun onAdvanceButtonClick(queue: Queue) {
-        if(!queue.isLock) {
-            queue.id?.let {
-                viewModel.advanceQueue(it)
+
+        queue.id?.let {
+            queue.dateFinished?.let { it1 ->
+                queue.numPersons?.let { it2 ->
+                    queue.capacity?.let { it3 ->
+                        viewModel.advanceQueue(
+                            queue.id,
+                            queue.isLock,
+                            it1,
+                            it2,
+                            it3
+                        )
+                    }
+                }
             }
-        }
-        else{
-            Toast.makeText(
-                this.context,
-                "You can´t advance a queue that is stopped",
-                Toast.LENGTH_SHORT
-            ).show()
         }
     }
 
