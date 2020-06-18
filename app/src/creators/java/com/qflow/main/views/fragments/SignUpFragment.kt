@@ -44,8 +44,11 @@ class SignUpFragment : Fragment() {
             val selectedEmail = email_SignUp.text.toString()
             val selectedNameLastName = name_lastName.text.toString()
             viewModel.saveUserInDatabase(
-                selectedUsername, selectedPass, selectedRepeatPass,
-                selectedEmail, selectedNameLastName
+                selectedUsername,
+                selectedEmail,
+                selectedPass,
+                selectedRepeatPass,
+                selectedNameLastName
             )
         }
     }
