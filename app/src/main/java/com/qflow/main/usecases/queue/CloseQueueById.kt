@@ -15,24 +15,30 @@ class CloseQueueById (private val queueRepository: QueueRepository) :
         return when ( val resD = tryCloseWhenIsClosed(params.dateFinish)){
             is Either.Left -> Either.Left(resD.a)
             is Either.Right -> {
-                when (val result = queueRepository.closeQueue(params.idQueue)
-                ) {
-                    is Either.Left -> Either.Left(result.a)
-                    is Either.Right -> Either.Right(result.b)
+                when (val resAdClose = tryAdvanceCloseQueue(params.numPerson)) {
+                    is Either.Left -> Either.Left(resAdClose.a)
+                    is Either.Right -> {
+                        when (val result = queueRepository.closeQueue(params.idQueue)
+                            ) {
+                            is Either.Left -> Either.Left(result.a)
+                            is Either.Right -> Either.Right(result.b)
+                        }
+                    }
                 }
             }
         }
     }
-    //TODO return "something"
-    private fun tryAdvanceCloseQueue(currentPos:Int): Either<Failure, Unit>{
 
+    private fun tryAdvanceCloseQueue(numPerson:Int): Either<Failure, Unit>{
+        return if(numPerson > 1) Either.Left(Failure.ValidationFailure(ValidationFailureType.QUEUE_ADVANCE_CLOSE))
+        else Either.Right(Unit)
     }
 
     private fun tryCloseWhenIsClosed(dateFinish:Timestamp): Either<Failure, Unit>{
-        return if (dateFinish != null) Either.Left(Failure.ValidationFailure(ValidationFailureType.QUEUE_CLOSE))
+        return if (dateFinish != null) Either.Left(Failure.ValidationFailure(ValidationFailureType.QUEUE_CLOSE_CLOSED))
         else Either.Right(Unit)
     }
     class Params(
-        val idQueue: Int, val currentPos: Int, val dateFinish:Timestamp
+        val idQueue: Int, val numPerson: Int, val dateFinish:Timestamp
     )
 }

@@ -10,7 +10,7 @@ enum class ValidationFailureType {
     FULL_CAPACITY,
     QUEUE_ADVANCE_STOP,
     QUEUE_ADVANCE_CLOSE,
-    QUEUE_CLOSE_CLOSED
+    QUEUE_CLOSE_CLOSED,
 
 
 }

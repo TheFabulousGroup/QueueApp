@@ -205,21 +205,28 @@ class HomeFragment : Fragment(), ManagementQueueDialog.OnAdvanceDialogButtonClic
 
 
     override fun onStopButtonClick(queue: Queue) {
-        if (!queue.isLock) {
             queue.id?.let {
-                viewModel.stopQueue(it)
+                queue.numPersons?.let { it1 ->
+                    viewModel.stopQueue(it, it1)
+                }
                 Toast.makeText(
                     this.context,
                     "Queue has been stopped",
                     Toast.LENGTH_SHORT
                 ).show()
             }
-        }
     }
 
     override fun onCloseButtonClick(queue: Queue) {
         queue.id?.let {
-            viewModel.closeQueue(it)
+            queue.numPersons?.let { it1 ->
+                queue.dateFinished?.let { it2 ->
+                    viewModel.closeQueue(
+                        it, it1,
+                        it2
+                    )
+                }
+            }
             Toast.makeText(
                 this.context,
                 "Queue has been closed",

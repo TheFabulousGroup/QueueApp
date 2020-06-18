@@ -82,10 +82,10 @@ class HomeViewModel(
             ScreenState.Render(HomeFragmentScreenState.QueueManageDialog(queue))
     }
 
-    fun stopQueue(idQueue: Int) {
+    fun stopQueue(idQueue: Int, numPerson:Int) {
         stop.execute(
             { it.either(::handleFailure, ::handleManageQueue) },
-            StopQueueById.Params(idQueue),
+            StopQueueById.Params(idQueue,numPerson),
             this.coroutineScope
         )
     }
@@ -98,10 +98,10 @@ class HomeViewModel(
         )
     }
 
-    fun closeQueue(idQueue: Int) {
+    fun closeQueue(idQueue: Int,numPerson:Int,dateFinish:Timestamp) {
         close.execute(
             { it.either(::handleFailure, ::handleManageQueue) },
-            CloseQueueById.Params(idQueue),
+            CloseQueueById.Params(idQueue,numPerson,dateFinish),
             this.coroutineScope
         )
     }
