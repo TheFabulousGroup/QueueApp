@@ -86,13 +86,13 @@ interface ApiService {
     fun getQueueByJoinId(@Path(PARAM_JOIN_ID) idJoin: Int): Call<String>
 
 
-
+    @Headers("Content-type: application/json")
     @POST(POST_QUEUE_ADVANCE)
     fun postAdvanceQueueById(
         @Path(PARAM_QUEUE_ID) idQueue: Int,
         @Header(HEADER_TOKEN) token: String
     ): Call<String>
-
+    @Headers("Content-type: application/json")
     @POST(POST_QUEUE_STOP)
     fun postStopQueueById(@Path(PARAM_QUEUE_ID) idQueue: Int): Call<String>
 
@@ -101,7 +101,7 @@ interface ApiService {
     fun postResumeQueueByID(@Path(PARAM_QUEUE_ID) idQueue: Int): Call<String>
 
     @Headers("Content-type: application/json")
-    @GET(POST_QUEUE_CLOSE)
+    @POST(POST_QUEUE_CLOSE)
     fun postCloseQueueById(@Path(PARAM_QUEUE_ID) idQueue: Int): Call<String>
 }
 

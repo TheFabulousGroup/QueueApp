@@ -22,6 +22,8 @@ import com.qflow.main.views.screenstates.HomeFragmentScreenState
 import com.qflow.main.views.viewmodels.HomeViewModel
 import kotlinx.android.synthetic.creators.fragment_home.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import java.util.*
+import kotlin.collections.ArrayList
 
 
 class HomeFragment : Fragment(), ManagementQueueDialog.OnAdvanceDialogButtonClick,
@@ -144,13 +146,6 @@ class HomeFragment : Fragment(), ManagementQueueDialog.OnAdvanceDialogButtonClic
                             Toast.LENGTH_LONG
                         ).show()
                     }
-                    ValidationFailureType.QUEUE_RESUME -> {
-                        Toast.makeText(
-                            this.context,
-                            "You can´t advance a queue that has been resumed",
-                            Toast.LENGTH_LONG
-                        ).show()
-                    }
                 }
             }
             is Failure.ServerException -> {
@@ -182,8 +177,10 @@ class HomeFragment : Fragment(), ManagementQueueDialog.OnAdvanceDialogButtonClic
         loading_bar_home.visibility = View.INVISIBLE
     }
 
+
+
     override fun onStopButtonClick(queue: Queue) {
-        if(!queue.isLock) {
+        if(!queue.isLock){
             queue.id?.let {
                 viewModel.stopQueue(it)
                 Toast.makeText(
@@ -191,7 +188,6 @@ class HomeFragment : Fragment(), ManagementQueueDialog.OnAdvanceDialogButtonClic
                     "Queue has been stopped",
                     Toast.LENGTH_SHORT
                 ).show()
-
             }
         }
     }
