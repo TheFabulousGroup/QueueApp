@@ -1,25 +1,22 @@
 package com.qflow.main.views.fragments
 
 import android.annotation.SuppressLint
-import android.opengl.Visibility
 import android.os.Bundle
-import android.view.*
-import androidx.fragment.app.Fragment
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.ContextCompat
-import androidx.lifecycle.Observer
+import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.qflow.main.R
 import com.qflow.main.core.Failure
 import com.qflow.main.core.ScreenState
-import com.qflow.main.domain.adapters.QueueAdapter
-import com.qflow.main.domain.server.models.QueueServerModel
 import com.qflow.main.utils.enums.ValidationFailureType
+import com.qflow.main.views.screenstates.LoginFragmentScreenState
 import com.qflow.main.views.viewmodels.LoginViewModel
 import kotlinx.android.synthetic.creators.fragment_login.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import com.qflow.main.views.screenstates.LoginFragmentScreenState
-
 
 
 class LoginFragment : Fragment() {
@@ -75,7 +72,7 @@ class LoginFragment : Fragment() {
                     }
                 }
             }
-            is Failure.ServerException -> {
+            else -> {
                 loadingComplete()
                 Toast.makeText(
                     this.context,

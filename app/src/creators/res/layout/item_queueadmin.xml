@@ -35,7 +35,7 @@
 
         <TextView
             android:id="@+id/tv_num_persons"
-            android:layout_width="160dp"
+            android:layout_width="0dp"
             android:layout_height="37dp"
             android:layout_gravity="center|start|top|fill_vertical"
             android:layout_marginTop="8dp"
@@ -60,13 +60,11 @@
             android:layout_width="0dp"
             android:layout_height="41dp"
             android:layout_gravity="center_vertical"
-            android:layout_marginTop="8dp"
             android:layout_marginEnd="12dp"
-            android:layout_marginBottom="8dp"
             android:background="@drawable/oval_button"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_num_persons"
             app:layout_constraintEnd_toStartOf="@+id/btn_advanced"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tv_num_persons"
             tools:text="@string/InfoQueue" />
 
         <ImageButton

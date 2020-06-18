@@ -53,20 +53,25 @@ class ManagementQueueDialog(
 
     private fun initializeListener() {
         btn_close.setOnClickListener {
+            loading_bar_manage.visibility = View.VISIBLE
             mOnCloseDialogButtonClick?.onCloseButtonClick(queue)
         }
 
         btn_plus.setOnClickListener {
+            loading_bar_manage.visibility = View.VISIBLE
             mOnAdvanceDialogButtonClick?.onAdvanceButtonClick(queue)
         }
 
         btn_stop.setOnClickListener {
+            loading_bar_manage.visibility = View.VISIBLE
             mOnStopDialogButtonClick?.onStopButtonClick(queue)
         }
 
-        if(queue.dateFinished!=null)
+        if (queue.dateFinished != null)
             btn_resume.visibility = INVISIBLE
+
         btn_resume.setOnClickListener {
+            loading_bar_manage.visibility = View.VISIBLE
             mOnResumeDialogButtonClick?.onResumeButtonClick(queue)
         }
     }
@@ -74,6 +79,9 @@ class ManagementQueueDialog(
     private fun setQueueData() {
 
         tv_advanced.text = "current position " + queue.currentPos.toString() + " of"
+
+        //TODO check queue y bloquear lo que haga falta
+
 
     }
 
