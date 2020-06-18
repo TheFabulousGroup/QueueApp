@@ -105,6 +105,17 @@
             app:layout_constraintTop_toBottomOf="@+id/home_info_num_persons" />
 
         <TextView
+            android:id="@+id/home_info_avg_service_time"
+            android:layout_width="126dp"
+            android:layout_height="22dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="116dp"
+            android:background="@color/primaryTextColor"
+            android:text="@string/avg_service_time"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/home_info_join_id" />
+
+        <TextView
             android:id="@+id/home_info_num_persons"
             android:layout_width="126dp"
             android:layout_height="22dp"
@@ -127,7 +138,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.598"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/home_info_join_id" />
+            app:layout_constraintTop_toBottomOf="@+id/avg_service_time" />
 
         <!--Definitions-->
 
@@ -287,6 +298,22 @@
             app:layout_constraintHorizontal_bias="0.31"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tx_numPersons" />
+
+        <TextView
+            android:id="@+id/tx_avg_service_time"
+            android:layout_width="119dp"
+            android:layout_height="16dp"
+            android:layout_marginStart="6dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="8dp"
+            android:text="@string/avg_service_time"
+            android:textColor="@color/primaryTextColor"
+            android:textColorHighlight="@color/primaryTextColor"
+            android:textColorHint="@color/primaryTextColor"
+            app:layout_constraintEnd_toStartOf="@+id/home_info_join_id"
+            app:layout_constraintHorizontal_bias="0.31"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tx_join_queue" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
