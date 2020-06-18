@@ -32,7 +32,6 @@ interface UserRepository {
 
     class General
     constructor(
-        private val userAdapter: UserAdapter,
         private val apiService: ApiService
     ) : BaseRepository(), UserRepository {
         override suspend fun createUser(
@@ -52,10 +51,6 @@ interface UserRepository {
         }
 
         override suspend fun signIn(isAdmin: Boolean, email: String, pass: String): Either<Failure, String> {
-            val task = HashMap<String, String>()
-            task["email"] = email
-            task["pass"] = pass
-            task["isAdmin"] = isAdmin.toString()
 
             return request(apiService.postLoginUser(isAdmin,email,pass), {
                 it
