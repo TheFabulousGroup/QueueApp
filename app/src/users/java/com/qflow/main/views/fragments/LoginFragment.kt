@@ -71,7 +71,7 @@ class LoginFragment : Fragment() {
                     }
                 }
             }
-            is Failure.LoginNotSuccessful -> {
+            else -> {
                 loadingComplete()
                 Toast.makeText(this.context, "Login was not successful", Toast.LENGTH_SHORT).show()
             }

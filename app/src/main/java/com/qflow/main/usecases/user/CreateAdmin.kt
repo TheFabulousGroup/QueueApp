@@ -5,6 +5,7 @@ import com.qflow.main.domain.local.SharedPrefsRepository
 import com.qflow.main.repository.UserRepository
 import com.qflow.main.usecases.Either
 import com.qflow.main.usecases.UseCase
+import com.qflow.main.utils.MD5Creator
 import com.qflow.main.utils.enums.ValidationFailureType
 import kotlinx.coroutines.CoroutineScope
 
@@ -20,7 +21,7 @@ class CreateAdmin(
             is Either.Right -> {
                 when (val res= userRepository.createAdmin(
                     params.username,
-                    params.selectedPass,
+                    MD5Creator.md5(params.selectedPass),
                     params.selectedEmail,
                     params.selectedNameLastName)){
                     is Either.Left -> Either.Left(res.a)
