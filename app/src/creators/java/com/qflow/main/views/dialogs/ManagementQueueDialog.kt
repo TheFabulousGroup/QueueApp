@@ -4,6 +4,7 @@ import android.os.Bundle
 import kotlinx.android.synthetic.main.dialog_manage_queue.*
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.INVISIBLE
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
@@ -62,6 +63,9 @@ class ManagementQueueDialog(
         btn_stop.setOnClickListener {
             mOnStopDialogButtonClick?.onStopButtonClick(queue)
         }
+
+        if(queue.dateFinished!=null)
+            btn_resume.visibility = INVISIBLE
         btn_resume.setOnClickListener {
             mOnResumeDialogButtonClick?.onResumeButtonClick(queue)
         }
@@ -69,7 +73,7 @@ class ManagementQueueDialog(
 
     private fun setQueueData() {
 
-        tv_advanced.text = "current position " +queue.currentPos.toString() + " of"
+        tv_advanced.text = "current position " + queue.currentPos.toString() + " of"
 
     }
 

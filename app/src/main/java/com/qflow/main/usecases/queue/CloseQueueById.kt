@@ -30,7 +30,7 @@ class CloseQueueById (private val queueRepository: QueueRepository) :
     }
 
     private fun tryAdvanceCloseQueue(numPerson:Int): Either<Failure, Unit>{
-        return if(numPerson > 1) Either.Left(Failure.ValidationFailure(ValidationFailureType.QUEUE_ADVANCE_CLOSE))
+        return if(numPerson > 0) Either.Left(Failure.ValidationFailure(ValidationFailureType.QUEUE_ADVANCE_CLOSE))
         else Either.Right(Unit)
     }
 

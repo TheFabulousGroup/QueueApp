@@ -23,8 +23,7 @@ class StopQueueById(private val queueRepository: QueueRepository) :
         }
     }
     private fun tryAdvanceWhenIsStop(numPerson:Int): Either<Failure, Unit>{
-        //El 1º siempre es el creador
-        return if(numPerson > 1) Either.Left(Failure.ValidationFailure(ValidationFailureType.QUEUE_ADVANCE_STOP))
+        return if(numPerson > 0) Either.Left(Failure.ValidationFailure(ValidationFailureType.QUEUE_ADVANCE_STOP))
         else Either.Right(Unit)
     }
     class Params(
