@@ -1,5 +1,6 @@
 package com.qflow.main.views.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,6 +14,7 @@ import com.qflow.main.R
 import com.qflow.main.core.Failure
 import com.qflow.main.core.ScreenState
 import com.qflow.main.domain.local.models.Queue
+import com.qflow.main.views.activities.LoginActivity
 import com.qflow.main.views.adapters.InfoRVAdapter
 import com.qflow.main.views.dialogs.InfoQueueDialog
 import com.qflow.main.views.dialogs.JoinQueueDialog
@@ -61,6 +63,13 @@ class HomeFragment : Fragment(),
             mJoinQueueDialog = JoinQueueDialog()
             mJoinQueueDialog!!.onAttachFragment(this)
             mJoinQueueDialog!!.show(this.childFragmentManager, "INFOQUEUEDIALOG")
+        }
+        btn_logout.setOnClickListener{
+            mViewModel.logout()
+            val intent = Intent(this.context, LoginActivity::class.java).apply {
+                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+            }
+            startActivity(intent)
         }
     }
 
