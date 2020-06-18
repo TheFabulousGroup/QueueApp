@@ -54,6 +54,9 @@ class HomeFragment : Fragment(),
     }
 
     private fun initializeButtons() {
+        btn_refresh.setOnClickListener {
+            updateRV()
+        }
         btn_join_queue.setOnClickListener {
             mJoinQueueDialog = JoinQueueDialog()
             mJoinQueueDialog!!.onAttachFragment(this)

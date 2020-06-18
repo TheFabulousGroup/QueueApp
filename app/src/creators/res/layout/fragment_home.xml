@@ -96,7 +96,7 @@
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="@+id/rv_adminqueues"
             app:layout_constraintTop_toBottomOf="@+id/historical"
-            tools:listitem="@layout/item_home_historical">
+            tools:listitem="@layout/item_queueadmin">
 
         </androidx.recyclerview.widget.RecyclerView>
 
@@ -104,16 +104,13 @@
             android:id="@+id/btn_create"
             android:layout_width="88dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginEnd="32dp"
+            android:layout_marginStart="112dp"
             android:background="@drawable/oval_button"
             android:text="create"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.6" />
+            app:layout_constraintVertical_bias="0.575" />
 
         <include
             android:id="@+id/loading_bar_home"
@@ -123,6 +120,18 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/btn_arefresh"
+            android:layout_width="88dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="92dp"
+            android:background="@drawable/oval_button"
+            android:text="@string/Refresh"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.575" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </LinearLayout>

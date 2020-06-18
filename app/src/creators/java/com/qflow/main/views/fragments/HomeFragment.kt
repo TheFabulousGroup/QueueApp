@@ -46,7 +46,9 @@ class HomeFragment : Fragment() {
     }
 
     private fun initializeButtons() {
-        //img_profile.setImageResource()
+        btn_arefresh.setOnClickListener {
+            updateRV()
+        }
         btn_create.setOnClickListener {
             view?.findNavController()?.navigate(R.id.action_homeFragment_to_createQueueFragment)
         }
@@ -99,6 +101,9 @@ class HomeFragment : Fragment() {
         }
     }
 
+    private fun updateRV() {
+        viewModel.getQueues("all", false)
+    }
 
     private fun initializeObservers() {
         viewModel.screenState.observe(::getLifecycle, ::updateUI)
