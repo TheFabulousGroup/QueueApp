@@ -47,8 +47,11 @@ class SignUpFragment : Fragment() {
             val selectedEmail = email_SignUp.text.toString()
             val selectedNameLastName = name_lastName.text.toString()
             viewModel.saveUserInDatabase(
-                selectedUsername, selectedPass, selectedRepeatPass,
-                selectedEmail, selectedNameLastName
+                selectedUsername,
+                selectedEmail,
+                selectedPass,
+                selectedRepeatPass,
+                selectedNameLastName
             )
         }
     }
@@ -66,11 +69,13 @@ class SignUpFragment : Fragment() {
                 when (failure.validationFailureType) {
                     ValidationFailureType.PASSWORDS_NOT_THE_SAME -> {
                         Toast.makeText(
-                            this.context, "Passwords do not match", Toast.LENGTH_LONG).show()
-                        this.context?.let { ContextCompat.getColor(it, R.color.errorRedColor) }?.let {
-                            password.background.setTint(it)
-                            repeat_Password.background.setTint(it)
-                        }
+                            this.context, "Passwords do not match", Toast.LENGTH_LONG
+                        ).show()
+                        this.context?.let { ContextCompat.getColor(it, R.color.errorRedColor) }
+                            ?.let {
+                                password.background.setTint(it)
+                                repeat_Password.background.setTint(it)
+                            }
                     }
                 }
             }
@@ -92,7 +97,7 @@ class SignUpFragment : Fragment() {
 
         when (renderState) {
             is SignUpFragmentScreenState.UserCreatedCorrectly -> {
-                //Toast.makeText(this.context, renderState.id.toString(), Toast.LENGTH_LONG).show()
+
                 view?.findNavController()?.navigate(R.id.action_SignUpFragment_to_navigation_home)
             }
         }
@@ -100,13 +105,12 @@ class SignUpFragment : Fragment() {
     }
 
 
-
-    private fun loading(){
+    private fun loading() {
         //Make sure you've added the loader to the view
         loading_bar.visibility = View.VISIBLE
     }
 
-    private fun loadingComplete(){
+    private fun loadingComplete() {
         loading_bar.visibility = View.INVISIBLE
     }
 

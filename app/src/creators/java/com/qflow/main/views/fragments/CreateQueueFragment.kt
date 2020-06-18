@@ -43,7 +43,7 @@ class CreateQueueFragment : Fragment() {
             val queueDescription = queue_description_create_queue.text.toString()
             val cap = Integer.parseInt(capacity.text.toString())
             mViewModel.createQueueInDatabase(
-                nameCreateQueue,queueDescription, cap,businessAssociated
+                nameCreateQueue, queueDescription, cap, businessAssociated
             )
         }
 
@@ -59,7 +59,9 @@ class CreateQueueFragment : Fragment() {
             is Failure.ValidationFailure -> {
                 when (failure.validationFailureType) {
                     ValidationFailureType.CAPACITY_TOO_SMALL -> {
-                        //TODO añadir aqui que hacer cuando el validador de fallo
+                        Toast.makeText(
+                            this.context, "Capacity must be greater than 0", Toast.LENGTH_LONG
+                        ).show()
 
                     }
                 }
@@ -87,12 +89,13 @@ class CreateQueueFragment : Fragment() {
         }
 
     }
-    private fun loading(){
+
+    private fun loading() {
         //Make sure you've added the loader to the view
         loading_bar_create_queue.visibility = View.VISIBLE
     }
 
-    private fun loadingComplete(){
+    private fun loadingComplete() {
         loading_bar_create_queue.visibility = View.INVISIBLE
     }
 }

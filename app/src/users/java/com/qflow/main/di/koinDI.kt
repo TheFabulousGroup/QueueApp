@@ -45,8 +45,8 @@ val retrofitModule = module {
 
 val userModule = module {
 
-    single<UserRepository> { UserRepository.General(get(), get()) }
-    single<QueueRepository> { QueueRepository.General(get(), get()) }
+    single<UserRepository> { UserRepository.General(get()) }
+    single<QueueRepository> { QueueRepository.General(get(), get(), get()) }
 
     single { UserAdapter }
     single { QueueAdapter }

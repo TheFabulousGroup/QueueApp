@@ -15,21 +15,21 @@ import kotlinx.coroutines.CoroutineScope
 class CreateUser(
     private val userRepository: UserRepository,
     private val sharedPrefsRepository: SharedPrefsRepository
-    ) :
+) :
     UseCase<String, CreateUser.Params, CoroutineScope>() {
     override suspend fun run(params: Params): Either<Failure, String> {
 
         return when (val result = validPassword(params.selectedPass, params.selectedRepeatPass)) {
             is Either.Left -> Either.Left(result.a)
             is Either.Right -> {
-                when(val res = userRepository.createUser(
+                when (val res = userRepository.createUser(
                     params.username,
                     params.selectedPass,
                     params.selectedEmail,
                     params.selectedNameLastName
-                )){
+                )) {
                     is Either.Left -> Either.Left(res.a)
-                    is Either.Right ->{
+                    is Either.Right -> {
                         val userDTO = UserAdapter.jsonStringToUserDTO(res.b)
                         sharedPrefsRepository.putUserToken(userDTO.token.toString())
                         Either.Right(res.b)
@@ -39,7 +39,7 @@ class CreateUser(
         }
     }
 
-    fun validPassword(selectedPass: String, repeatPass: String): Either<Failure, Unit> {
+    private fun validPassword(selectedPass: String, repeatPass: String): Either<Failure, Unit> {
         return if (selectedPass == repeatPass)
             Either.Right(Unit)
         else
@@ -47,8 +47,10 @@ class CreateUser(
     }
 
     class Params(
-        val username: String, val selectedPass: String, val selectedRepeatPass: String,
-        val selectedNameLastName: String, val selectedEmail: String
+        val username: String,
+        val selectedEmail: String,
+        val selectedPass: String,
+        val selectedRepeatPass: String,
+        val selectedNameLastName: String
     )
-
 }
