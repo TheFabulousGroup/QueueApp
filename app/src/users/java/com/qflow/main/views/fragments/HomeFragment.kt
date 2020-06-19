@@ -88,8 +88,8 @@ class HomeFragment : Fragment(),
         )
 
         //TODO We need the function LoadQueuesUserJoin (las que te has unio ya, vamos)
-        mViewModel.getCurrentQueues("user", false)
-        mViewModel.getHistoricalQueues("user", true)
+        mViewModel.getCurrentQueues("all", false)
+        mViewModel.getHistoricalQueues("all", true)
     }
 
     private fun onClickQueues(queue: Queue) {
@@ -128,8 +128,8 @@ class HomeFragment : Fragment(),
     private fun updateRV() {
         showLoader()
 
-        mViewModel.getCurrentQueues("user", false)
-        mViewModel.getHistoricalQueues("user", true)
+        mViewModel.getCurrentQueues("all", false)
+        mViewModel.getHistoricalQueues("all", true)
     }
     private fun updateUI(screenState: ScreenState<HomeFragmentScreenState>?) {
         when (screenState) {

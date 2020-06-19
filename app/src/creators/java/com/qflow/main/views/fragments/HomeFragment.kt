@@ -77,8 +77,8 @@ class HomeFragment : Fragment() {
             GridLayoutManager(context, 1, RecyclerView.VERTICAL, false)
         rv_adminqueues.layoutManager =
             GridLayoutManager(context, 1, RecyclerView.VERTICAL, false)
-        viewModel.getQueues("creator", false) //alluser, null All queues from that user
-        viewModel.getHistory("creator", true) //history, null All queues with a dateFinished
+        viewModel.getQueues("alluser", false) //alluser, null All queues from that user
+        viewModel.getHistory("alluser", true) //history, null All queues with a dateFinished
         loadingComplete()
     }
 
@@ -117,8 +117,8 @@ class HomeFragment : Fragment() {
     private fun updateRV() {
         loading()
 
-        viewModel.getQueues("creator", false) //alluser, null All queues from that user
-        viewModel.getHistory("creator", true) //history, null All queues with a dateFinished
+        viewModel.getQueues("alluser", false) //alluser, null All queues from that user
+        viewModel.getHistory("alluser", true) //history, null All queues with a dateFinished
     }
 
     private fun initializeObservers() {
