@@ -1,5 +1,6 @@
 package com.qflow.main.views.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,6 +15,7 @@ import com.qflow.main.R.layout
 import com.qflow.main.core.Failure
 import com.qflow.main.core.ScreenState
 import com.qflow.main.domain.local.models.Queue
+import com.qflow.main.views.activities.LoginActivity
 import com.qflow.main.utils.enums.ValidationFailureType
 import com.qflow.main.views.adapters.QueueAdminAdapter
 import com.qflow.main.views.dialogs.InfoQueueDialog
@@ -52,12 +54,20 @@ class HomeFragment : Fragment(), ManagementQueueDialog.OnAdvanceDialogButtonClic
 
     private fun initializeListeners() {
         initializeButtons()
-        viewModel.screenState.observe(::getLifecycle, ::updateUI)
         viewModel.failure.observe(::getLifecycle, ::handleErrors)
     }
 
     private fun initializeButtons() {
-
+        btn_alogout.setOnClickListener{
+            viewModel.logout()
+            val intent = Intent(this.context, LoginActivity::class.java).apply {
+                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+            }
+            startActivity(intent)
+        }
+        btn_arefresh.setOnClickListener {
+            updateRV()
+        }
         btn_create.setOnClickListener {
             view?.findNavController()?.navigate(R.id.action_homeFragment_to_createQueueFragment)
         }
@@ -77,19 +87,25 @@ class HomeFragment : Fragment(), ManagementQueueDialog.OnAdvanceDialogButtonClic
             GridLayoutManager(context, 1, RecyclerView.VERTICAL, false)
         rv_adminqueues.layoutManager =
             GridLayoutManager(context, 1, RecyclerView.VERTICAL, false)
-        viewModel.getQueues("all", false) //alluser, null All queues from that user
-        viewModel.getHistory("all", true) //history, null All queues with a dateFinished
+        viewModel.getQueues("alluser", false) //alluser, null All queues from that user
+        viewModel.getHistory("alluser", true) //history, null All queues with a dateFinished
+        loadingComplete()
     }
 
 
     private fun renderScreenState(renderState: HomeFragmentScreenState) {
-        loadingComplete()
         when (renderState) {
             is HomeFragmentScreenState.QueuesActiveObtained -> {
                 queuesAdminAdapter.setData(renderState.queues)
             }
             is HomeFragmentScreenState.QueuesHistoricalObtained -> {
                 queuesAdminHistory.setData(renderState.queues)
+                loadingComplete()
+             }
+            is HomeFragmentScreenState.QueueInfoDialog -> {
+                mInfoQueueDialog = InfoQueueDialog(renderState.queues)
+                mInfoQueueDialog!!.onAttachFragment(this)
+                mInfoQueueDialog!!.show(this.childFragmentManager, "INFODIALOG")
             }
             is HomeFragmentScreenState.QueueManageDialog -> {
                 initializeDialogManagement(renderState.queues)
@@ -189,6 +205,12 @@ class HomeFragment : Fragment(), ManagementQueueDialog.OnAdvanceDialogButtonClic
         }
     }
 
+    private fun updateRV() {
+        loading()
+
+        viewModel.getQueues("alluser", false) //alluser, null All queues from that user
+        viewModel.getHistory("alluser", true) //history, null All queues with a dateFinished
+    }
 
     private fun initializeObservers() {
         viewModel.screenState.observe(::getLifecycle, ::updateUI)
@@ -265,6 +287,21 @@ class HomeFragment : Fragment(), ManagementQueueDialog.OnAdvanceDialogButtonClic
             ).show()
         }
 
+
+    }
+
+    private fun handleErrors(failure: Failure) {
+
+        when (failure) {
+            is Failure.QueuesNotFound -> {
+                loadingComplete()
+                Toast.makeText(
+                    this.context,
+                    getString(R.string.queues_not_found),
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        }
 
     }
 }

@@ -17,7 +17,8 @@ interface QueueRepository {
         name: String,
         description: String,
         capacity: Int,
-        business_associated: String
+        business_associated: String,
+        avg_service_time: Int
     ): Either<Failure, String>
 
     suspend fun joinQueue(joinId: Int, token: String): Either<Failure, String>
@@ -44,11 +45,12 @@ interface QueueRepository {
             name: String,
             description: String,
             capacity: Int,
-            business_associated: String
+            business_associated: String,
+            avg_service_time: Int
         ): Either<Failure, String> {
 
             val queueMap =
-                QueueServerModel(name, description, capacity, business_associated).createMap()
+                QueueServerModel(name, description, capacity, business_associated, avg_service_time).createMap()
             val prueba = Gson().toJson(queueMap)
 
             return request(

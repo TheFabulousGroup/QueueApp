@@ -47,4 +47,11 @@
     <string name="advanceop">Advanced options</string>
     <string name="InfoQueue">Info Queue</string>
     <string name="LoadQueue">Load queue was not successful</string>
+    <string name="refresh">Refresh</string>
+    <string name="logout">Logout</string>
+    <string name="current_queues">Current queues</string>
+    <string name="historical_queues">Historical queues</string>
+    <string name="avg_service_time">Average service time (minutes)</string>
+    <string name="queues_not_found">You don\'t have any current/historical queues</string>
+
 </resources>

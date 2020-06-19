@@ -60,9 +60,12 @@ val userModule = module {
             get(),
             get(),
             get(),
-            get()
+            get(),
+            ger()
         )
     }
+    viewModel { HomeViewModel(get(),get()) }
+    viewModel { InfoQueueViewModel(get()) }
     viewModel { SplashScreenViewModel(get()) }
 
 }

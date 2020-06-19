@@ -5,6 +5,7 @@ import com.qflow.main.domain.local.SharedPrefsRepository
 import com.qflow.main.repository.UserRepository
 import com.qflow.main.usecases.Either
 import com.qflow.main.usecases.UseCase
+import com.qflow.main.utils.MD5Creator
 import com.qflow.main.utils.enums.ValidationFailureType
 import kotlinx.coroutines.CoroutineScope
 
@@ -20,7 +21,7 @@ class CreateAdmin(
             is Either.Right -> {
                 when (val res= userRepository.createAdmin(
                     params.username,
-                    params.selectedPass,
+                    MD5Creator.md5(params.selectedPass),
                     params.selectedEmail,
                     params.selectedNameLastName)){
                     is Either.Left -> Either.Left(res.a)
@@ -33,7 +34,7 @@ class CreateAdmin(
         }
     }
 
-    fun validPassword(selectedPass: String, repeatPass: String): Either<Failure, Unit> {
+    private fun validPassword(selectedPass: String, repeatPass: String): Either<Failure, Unit> {
         return if (selectedPass == repeatPass)
             Either.Right(Unit)
         else
@@ -42,10 +43,10 @@ class CreateAdmin(
 
     class Params(
         val username: String,
+        val selectedEmail: String,
         val selectedPass: String,
         val selectedRepeatPass: String,
-        val selectedNameLastName: String,
-        val selectedEmail: String
+        val selectedNameLastName: String
     )
 
 }

@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import com.qflow.main.core.BaseViewModel
 import com.qflow.main.core.ScreenState
 import com.qflow.main.core.ScreenState.Loading
+import com.qflow.main.domain.local.SharedPrefsRepository
 import com.qflow.main.domain.local.models.Queue
 import com.qflow.main.domain.server.models.QueueServerModel
 import com.qflow.main.usecases.queue.FetchQueueByJoinID
@@ -23,7 +24,8 @@ import org.koin.core.KoinComponent
 class HomeViewModel(
     private val findQueueByJoinID: FetchQueueByJoinID,
     private val joinQueue: JoinQueue,
-    private val fetchQueuesByUser: FetchQueuesByUser
+    private val fetchQueuesByUser: FetchQueuesByUser,
+    private val sharedPrefsRepository: SharedPrefsRepository
 ): BaseViewModel(), KoinComponent {
 
     private lateinit var info: QueueServerModel
@@ -93,5 +95,9 @@ class HomeViewModel(
     private fun handleHistoryQueues(queues: List<Queue>) {
         this._screenState.value =
             ScreenState.Render(HomeFragmentScreenState.QueuesHistoricalObtained(queues))
+    }
+
+    fun logout() {
+        sharedPrefsRepository.putUserToken(null)
     }
 }

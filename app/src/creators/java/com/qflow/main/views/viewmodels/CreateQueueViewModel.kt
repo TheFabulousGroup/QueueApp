@@ -29,7 +29,8 @@ class CreateQueueViewModel(
         nameCreateQueue: String,
         queueDescription: String,
         capacity: Int,
-        businessAssociated: String
+        businessAssociated: String,
+        avgServiceTime: Int
     ) {
         _screenState.value = Loading
         //Execute create queue
@@ -37,7 +38,7 @@ class CreateQueueViewModel(
             { it.either(::handleFailure, ::handleQueueCreated) },
             CreateQueue.Params(
                 nameCreateQueue, queueDescription,
-                capacity, businessAssociated
+                capacity, businessAssociated, avgServiceTime
             ), this.coroutineScope
         )
 

@@ -31,7 +31,7 @@ class SharedPrefsRepository(c : Context) {
 
     }
 
-    fun putUserToken(token : String){
+    fun putUserToken(token : String?){
         encryptedShared.edit().putString(ID_USER, token).apply()
     }
 
@@ -44,11 +44,4 @@ class SharedPrefsRepository(c : Context) {
 
     }
 
-    fun clearNormal(){
-        prefs.edit().clear().apply()
-    }
-
-    fun clearEncrypter(){
-        encryptedShared.edit().clear().apply()
-    }
 }

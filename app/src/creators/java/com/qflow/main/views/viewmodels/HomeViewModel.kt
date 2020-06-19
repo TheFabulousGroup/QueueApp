@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import com.qflow.main.core.BaseViewModel
 import com.qflow.main.core.ScreenState
 import com.qflow.main.core.ScreenState.Loading
+import com.qflow.main.domain.local.SharedPrefsRepository
 import com.qflow.main.domain.local.database.user.UserDB
 import com.qflow.main.domain.local.models.Queue
 import com.qflow.main.usecases.queue.*
@@ -17,6 +18,7 @@ import org.koin.core.KoinComponent
 import java.sql.Timestamp
 
 class HomeViewModel(
+    private val sharedPrefsRepository: SharedPrefsRepository
     private val fetchQueuesByUser: FetchQueuesByUser,
     private val advance: AdvancedQueueById,
     private val close: CloseQueueById,
@@ -106,5 +108,9 @@ class HomeViewModel(
         )
     }
 
+
+    fun logout() {
+        sharedPrefsRepository.putUserToken(null)
+    }
 
 }
