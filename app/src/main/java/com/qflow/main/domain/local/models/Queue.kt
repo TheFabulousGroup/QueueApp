@@ -22,5 +22,6 @@ data class Queue(
     val numPersons: Int? = null,
     val inFrontOfUser: Int? = null,
     val avgServiceTime: Int? = null,
-    val waitingTimeForUser: Int? = null
+    val waitingTimeForUser: Int? = null,
+    val nextPerson: String? = null
 )
