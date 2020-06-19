@@ -21,7 +21,7 @@ class FetchQueuesByUser(private val prefsRepository: SharedPrefsRepository,
             val result = queueRepository.fetchQueuesByUser(prefsRepository.getUserToken().toString(), params.expand, params.finished)
             )
         {
-            is Either.Left -> Either.Left(result.a)
+            is Either.Left -> Either.Left(Failure.QueuesNotFound)
             is Either.Right -> Either.Right(result.b)
         }
     }
