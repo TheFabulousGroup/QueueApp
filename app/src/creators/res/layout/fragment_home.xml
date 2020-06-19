@@ -13,6 +13,29 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/primaryLightColor">
+        <ImageButton
+            android:id="@+id/btn_alogout"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:background="@drawable/oval_button"
+            android:src="@drawable/ic_exit_to_app_black_24dp"
+            android:tint="@color/primaryTextColor"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.050000012" />
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/logout"
+            android:textColor="@color/primaryTextColor"
+            app:layout_constraintEnd_toEndOf="@+id/btn_alogout"
+            app:layout_constraintStart_toStartOf="@+id/btn_alogout"
+            app:layout_constraintTop_toBottomOf="@+id/btn_alogout" />
 
         <ImageView
             android:id="@+id/img_profile"
@@ -31,9 +54,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="65dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="30dp"
             android:layout_marginEnd="65dp"
-            android:text="Queues"
+            android:text="@string/current_queues"
             android:textColor="@color/primaryTextColor"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -48,25 +71,14 @@
             android:layout_marginEnd="32dp"
             android:gravity="center"
             android:scrollbars="vertical"
-            android:text="Historical"
+            android:text="@string/historical_queues"
             android:textColor="@color/primaryTextColor"
             android:textColorHighlight="@color/primaryTextColor"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/btn_create" />
 
-        <ImageButton
-            android:id="@+id/btn_set"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="28dp"
-            android:layout_marginBottom="200dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.034"
-            app:srcCompat="@drawable/ic_settings_black_24dp" />
+
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_adminqueues"
@@ -104,13 +116,15 @@
             android:id="@+id/btn_create"
             android:layout_width="88dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="112dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="40dp"
             android:background="@drawable/oval_button"
             android:text="create"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.575" />
+            app:layout_constraintVertical_bias="0.644" />
 
         <include
             android:id="@+id/loading_bar_home"
@@ -121,17 +135,29 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <Button
+        <ImageButton
             android:id="@+id/btn_arefresh"
-            android:layout_width="88dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="92dp"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
             android:background="@drawable/oval_button"
-            android:text="@string/Refresh"
+            android:src="@drawable/ic_autorenew_black_24dp"
+            android:tint="@color/primaryTextColor"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.89"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.575" />
+            app:layout_constraintVertical_bias="0.050000012" />
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/refresh"
+            android:textColor="@color/primaryTextColor"
+            app:layout_constraintEnd_toEndOf="@+id/btn_arefresh"
+            app:layout_constraintStart_toStartOf="@+id/btn_arefresh"
+            app:layout_constraintTop_toBottomOf="@+id/btn_arefresh" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </LinearLayout>

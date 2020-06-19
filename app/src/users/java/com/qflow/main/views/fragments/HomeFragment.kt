@@ -126,7 +126,10 @@ class HomeFragment : Fragment(),
     }
 
     private fun updateRV() {
+        showLoader()
+
         mViewModel.getCurrentQueues("all", false)
+        mViewModel.getHistoricalQueues("all", true)
     }
     private fun updateUI(screenState: ScreenState<HomeFragmentScreenState>?) {
         when (screenState) {
@@ -145,6 +148,14 @@ class HomeFragment : Fragment(),
                 Toast.makeText(
                     this.context,
                     getString(R.string.QueueLoadingError),
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+            is Failure.QueuesNotFound -> {
+                hideLoader()
+                Toast.makeText(
+                    this.context,
+                    getString(R.string.queues_not_found),
                     Toast.LENGTH_SHORT
                 ).show()
             }

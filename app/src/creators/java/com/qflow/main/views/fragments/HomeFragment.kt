@@ -1,5 +1,6 @@
 package com.qflow.main.views.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,6 +15,7 @@ import com.qflow.main.R.layout
 import com.qflow.main.core.Failure
 import com.qflow.main.core.ScreenState
 import com.qflow.main.domain.local.models.Queue
+import com.qflow.main.views.activities.LoginActivity
 import com.qflow.main.views.adapters.QueueAdminAdapter
 import com.qflow.main.views.dialogs.InfoQueueDialog
 import com.qflow.main.views.screenstates.HomeFragmentScreenState
@@ -49,6 +51,13 @@ class HomeFragment : Fragment() {
     }
 
     private fun initializeButtons() {
+        btn_alogout.setOnClickListener{
+            viewModel.logout()
+            val intent = Intent(this.context, LoginActivity::class.java).apply {
+                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+            }
+            startActivity(intent)
+        }
         btn_arefresh.setOnClickListener {
             updateRV()
         }
@@ -106,7 +115,10 @@ class HomeFragment : Fragment() {
     }
 
     private fun updateRV() {
-        viewModel.getQueues("all", false)
+        loading()
+
+        viewModel.getQueues("alluser", false) //alluser, null All queues from that user
+        viewModel.getHistory("alluser", true) //history, null All queues with a dateFinished
     }
 
     private fun initializeObservers() {
@@ -129,7 +141,7 @@ class HomeFragment : Fragment() {
                 loadingComplete()
                 Toast.makeText(
                     this.context,
-                    getString(R.string.QueueLoadingError),
+                    getString(R.string.queues_not_found),
                     Toast.LENGTH_SHORT
                 ).show()
             }
