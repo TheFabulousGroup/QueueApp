@@ -5,6 +5,7 @@ import kotlinx.android.synthetic.main.dialog_manage_queue.*
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.INVISIBLE
+import android.view.View.VISIBLE
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
@@ -57,7 +58,7 @@ class ManagementQueueDialog(
             mOnCloseDialogButtonClick?.onCloseButtonClick(queue)
         }
 
-        btn_plus.setOnClickListener {
+        btn_advance.setOnClickListener {
             loading_bar_manage.visibility = View.VISIBLE
             mOnAdvanceDialogButtonClick?.onAdvanceButtonClick(queue)
         }
@@ -67,18 +68,30 @@ class ManagementQueueDialog(
             mOnStopDialogButtonClick?.onStopButtonClick(queue)
         }
 
-        if (queue.dateFinished != null)
-            btn_resume.visibility = INVISIBLE
-
         btn_resume.setOnClickListener {
             loading_bar_manage.visibility = View.VISIBLE
             mOnResumeDialogButtonClick?.onResumeButtonClick(queue)
         }
+
+        checkQueues()
     }
 
+    private fun checkQueues() {
+        if (queue.dateFinished != null)
+            btn_close.visibility = VISIBLE
+        if(queue.isLock) {
+            btn_resume.visibility = VISIBLE
+            btn_stop.visibility = INVISIBLE
+        }
+        else {
+            btn_resume.visibility = INVISIBLE
+            btn_stop.visibility = VISIBLE
+        }
+    }
     private fun setQueueData() {
 
-        tv_advanced.text = "current position " + queue.currentPos.toString() + " of"
+        //TODO add correct text
+        tv_advance.text = "Next person: "
 
         //TODO check queue y bloquear lo que haga falta
 
