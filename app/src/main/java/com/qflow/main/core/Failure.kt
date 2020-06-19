@@ -20,5 +20,6 @@ sealed class Failure {
     class ValidationFailure(val validationFailureType: ValidationFailureType) : FeatureFailure()
     object LoginNotSuccessful : FeatureFailure()
     object JoinNotSuccessful : FeatureFailure()
+    object QueuesNotFound : FeatureFailure()
 
 }

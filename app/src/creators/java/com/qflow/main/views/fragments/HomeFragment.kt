@@ -4,12 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.qflow.main.R
 import com.qflow.main.R.layout
+import com.qflow.main.core.Failure
 import com.qflow.main.core.ScreenState
 import com.qflow.main.domain.local.models.Queue
 import com.qflow.main.views.adapters.QueueAdminAdapter
@@ -43,6 +45,7 @@ class HomeFragment : Fragment() {
 
     private fun initializeListeners() {
         initializeButtons()
+        viewModel.failure.observe(::getLifecycle, ::handleErrors)
     }
 
     private fun initializeButtons() {
@@ -67,17 +70,18 @@ class HomeFragment : Fragment() {
             GridLayoutManager(context, 1, RecyclerView.VERTICAL, false)
         viewModel.getQueues("alluser", false) //alluser, null All queues from that user
         viewModel.getHistory("alluser", true) //history, null All queues with a dateFinished
+        loadingComplete()
     }
 
     private fun renderScreenState(renderState: HomeFragmentScreenState) {
-        loadingComplete()
         when (renderState) {
             is HomeFragmentScreenState.QueuesActiveObtained -> {
                 queuesAdminAdapter.setData(renderState.queues)
             }
             is HomeFragmentScreenState.QueuesHistoricalObtained -> {
                 queuesAdminHistory.setData(renderState.queues)
-            }
+                loadingComplete()
+             }
             is HomeFragmentScreenState.QueueInfoDialog -> {
                 mInfoQueueDialog = InfoQueueDialog(renderState.queues)
                 mInfoQueueDialog!!.onAttachFragment(this)
@@ -116,6 +120,21 @@ class HomeFragment : Fragment() {
 
     private fun loadingComplete() {
         loading_bar_home.visibility = View.INVISIBLE
+    }
+
+    private fun handleErrors(failure: Failure) {
+
+        when (failure) {
+            is Failure.QueuesNotFound -> {
+                loadingComplete()
+                Toast.makeText(
+                    this.context,
+                    getString(R.string.QueueLoadingError),
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        }
+
     }
 }
 
