@@ -18,7 +18,7 @@ import org.koin.core.KoinComponent
 import java.sql.Timestamp
 
 class HomeViewModel(
-    private val sharedPrefsRepository: SharedPrefsRepository
+    private val sharedPrefsRepository: SharedPrefsRepository,
     private val fetchQueuesByUser: FetchQueuesByUser,
     private val advance: AdvancedQueueById,
     private val close: CloseQueueById,

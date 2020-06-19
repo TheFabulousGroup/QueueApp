@@ -103,7 +103,7 @@ class HomeFragment : Fragment(), ManagementQueueDialog.OnAdvanceDialogButtonClic
                 loadingComplete()
              }
             is HomeFragmentScreenState.QueueInfoDialog -> {
-                mInfoQueueDialog = InfoQueueDialog(renderState.queues)
+                mInfoQueueDialog = InfoQueueDialog(renderState.queues,false)
                 mInfoQueueDialog!!.onAttachFragment(this)
                 mInfoQueueDialog!!.show(this.childFragmentManager, "INFODIALOG")
             }
@@ -190,6 +190,17 @@ class HomeFragment : Fragment(), ManagementQueueDialog.OnAdvanceDialogButtonClic
                 Toast.makeText(
                     this.context,
                     getString(R.string.LoadQueue),
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        }
+
+        when (failure) {
+            is Failure.QueuesNotFound -> {
+                loadingComplete()
+                Toast.makeText(
+                    this.context,
+                    getString(R.string.queues_not_found),
                     Toast.LENGTH_SHORT
                 ).show()
             }
@@ -290,20 +301,6 @@ class HomeFragment : Fragment(), ManagementQueueDialog.OnAdvanceDialogButtonClic
 
     }
 
-    private fun handleErrors(failure: Failure) {
-
-        when (failure) {
-            is Failure.QueuesNotFound -> {
-                loadingComplete()
-                Toast.makeText(
-                    this.context,
-                    getString(R.string.queues_not_found),
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
-        }
-
-    }
 }
 
 

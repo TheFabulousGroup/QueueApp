@@ -7,7 +7,6 @@ import android.view.View.INVISIBLE
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
-import androidx.navigation.findNavController
 import com.qflow.main.R
 import com.qflow.main.domain.local.models.Queue
 import kotlinx.android.synthetic.creators.dialog_home_info_q.*
