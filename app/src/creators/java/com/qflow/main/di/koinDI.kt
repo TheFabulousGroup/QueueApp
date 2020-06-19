@@ -56,7 +56,7 @@ val userModule = module {
     viewModel { LoginViewModel(get()) }
     viewModel { SignUpViewModel(get()) }
     viewModel { CreateQueueViewModel(get()) }
-    viewModel { HomeViewModel(get()) }
+    viewModel { HomeViewModel(get(),get()) }
     viewModel { InfoQueueViewModel(get()) }
     viewModel { SplashScreenViewModel(get()) }
 
