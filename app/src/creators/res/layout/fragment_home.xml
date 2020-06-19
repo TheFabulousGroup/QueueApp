@@ -26,6 +26,16 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.050000012" />
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/logout"
+            android:textColor="@color/primaryTextColor"
+            app:layout_constraintEnd_toEndOf="@+id/btn_alogout"
+            app:layout_constraintStart_toStartOf="@+id/btn_alogout"
+            app:layout_constraintTop_toBottomOf="@+id/btn_alogout" />
 
         <ImageView
             android:id="@+id/img_profile"
@@ -138,6 +148,16 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.050000012" />
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/refresh"
+            android:textColor="@color/primaryTextColor"
+            app:layout_constraintEnd_toEndOf="@+id/btn_arefresh"
+            app:layout_constraintStart_toStartOf="@+id/btn_arefresh"
+            app:layout_constraintTop_toBottomOf="@+id/btn_arefresh" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </LinearLayout>
