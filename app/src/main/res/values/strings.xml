@@ -38,6 +38,17 @@
     <string name="start">"Start "</string>
     <string name="active">Active</string>
     <string name="persons_in_front">People in front you</string>
+    <string name="locked">Locked</string>
+    <string name="persons_in_front">Persons in front you</string>
+    <string name="closed">Finish Queue</string>
+    <string name="stop">Stop</string>
+    <string name="resume">Resume</string>
+    <string name="increment">+</string>
+    <string name="sub">-</string>
+    <string name="advanced">Advance queue</string>
+    <string name="advanceop">Advanced options</string>
+    <string name="InfoQueue">Info Queue</string>
+    <string name="LoadQueue">Load queue was not successful</string>
     <string name="refresh">Refresh</string>
     <string name="logout">Logout</string>
     <string name="current_queues">Current queues</string>
@@ -45,5 +56,6 @@
     <string name="avg_service_time">Average service time (minutes)</string>
     <string name="queues_not_found">You don\'t have any current/historical queues</string>
     <string name="minutes_to_wait">Minutes to wait</string>
+    <string name="queues_not_advance">Error advancing queue</string>
 
 </resources>

@@ -10,7 +10,9 @@ import kotlinx.android.synthetic.creators.item_queueadmin.view.*
 
 class QueueAdminAdapter(
     private var queues: List<Queue>,
-    private var onClickItemRV: (Queue) -> Unit
+    private var onClickInfoRV: (Queue) -> Unit,
+    private var onClickManageItem: ((Queue) -> Unit)?,
+    private val isHistorical: Boolean
 ) : RecyclerView.Adapter<QueueAdminAdapter.ViewHolder>() {
 
 
@@ -40,8 +42,16 @@ class QueueAdminAdapter(
             tv_queue.text = queue.name
             tv_num_persons.text = "persons:" + queue.numPersons.toString()
             btn_view.setOnClickListener {
-                onClickItemRV(queue)
+                onClickInfoRV(queue)
             }
+            if(!isHistorical) {
+                btn_manage.visibility = View.VISIBLE
+                btn_manage.setOnClickListener {
+                    onClickManageItem?.let { it1 -> it1(queue) }
+                }
+            }
+            else
+                btn_manage.visibility = View.INVISIBLE
         }
     }
 
