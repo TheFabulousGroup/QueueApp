@@ -43,7 +43,7 @@ class InfoQueueDialog(
         home_info_bss_asoc_queue.text = queue.businessAssociated
         home_info_capacity_queue.text = queue.capacity.toString()
         home_info_dt_created.text = queue.dateCreated.toString()
-        home_info_is_active.text = queue.isLock.toString()
+        home_info_is_active.text = queue.lock.toString()
         home_info_join_id.text = queue.joinId.toString()
         home_info_front_user.text = queue.inFrontOfUser.toString()
 

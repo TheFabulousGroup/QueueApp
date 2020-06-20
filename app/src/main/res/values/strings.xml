@@ -53,5 +53,6 @@
     <string name="historical_queues">Historical queues</string>
     <string name="avg_service_time">Average service time (minutes)</string>
     <string name="queues_not_found">You don\'t have any current/historical queues</string>
+    <string name="queues_not_advance">Error advancing queue</string>
 
 </resources>

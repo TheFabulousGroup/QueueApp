@@ -85,8 +85,8 @@ class HomeFragment : Fragment(), ManagementQueueDialog.OnAdvanceDialogButtonClic
             GridLayoutManager(context, 1, RecyclerView.VERTICAL, false)
         rv_adminqueues.layoutManager =
             GridLayoutManager(context, 1, RecyclerView.VERTICAL, false)
-        viewModel.getQueues("alluser", false) //alluser, null All queues from that user
-        viewModel.getHistory("alluser", true) //history, null All queues with a dateFinished
+        viewModel.getQueues("creator", false) //alluser, null All queues from that user
+        viewModel.getHistory("creator", true) //history, null All queues with a dateFinished
         loadingComplete()
     }
 
@@ -202,9 +202,6 @@ class HomeFragment : Fragment(), ManagementQueueDialog.OnAdvanceDialogButtonClic
                     Toast.LENGTH_SHORT
                 ).show()
             }
-        }
-
-        when (failure) {
             is Failure.QueuesNotFound -> {
                 loadingComplete()
                 Toast.makeText(
@@ -228,8 +225,8 @@ class HomeFragment : Fragment(), ManagementQueueDialog.OnAdvanceDialogButtonClic
     private fun updateRV() {
         loading()
 
-        viewModel.getQueues("alluser", false) //alluser, null All queues from that user
-        viewModel.getHistory("alluser", true) //history, null All queues with a dateFinished
+        viewModel.getQueues("creator", false) //alluser, null All queues from that user
+        viewModel.getHistory("creator", true) //history, null All queues with a dateFinished
     }
 
     private fun initializeObservers() {
