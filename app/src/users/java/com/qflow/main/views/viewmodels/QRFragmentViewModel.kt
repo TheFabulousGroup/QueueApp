@@ -36,8 +36,8 @@ class QRFragmentViewModel(
 
     }
 
-    private fun handleQueuesObtained(queue: Queue) {
-        _screenState.value = ScreenState.Render(QRFragmentScreenState.QueueLoaded(queue))
+    private fun handleQueuesObtained(returnParams: FetchQueueByJoinID.ReturnParams) {
+        _screenState.value = ScreenState.Render(QRFragmentScreenState.QueueToJoinLoaded(returnParams.queue, returnParams.alreadyInQueue))
     }
 
     fun joinToQueue(id: Int?) {

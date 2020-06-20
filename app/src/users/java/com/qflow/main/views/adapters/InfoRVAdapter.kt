@@ -11,7 +11,8 @@ import kotlinx.android.synthetic.users.item_home.view.*
 
 class InfoRVAdapter(
     private var queues: List<Queue>,
-    private var onClickItemRV: (Queue) -> Unit
+    private var onClickItemRV: (Queue, Boolean) -> Unit,
+    private val isActive: Boolean
 ) : RecyclerView.Adapter<InfoRVAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): InfoRVAdapter.ViewHolder {
@@ -38,11 +39,11 @@ class InfoRVAdapter(
             itemView.tv_user_queue.text = queue.name
             if (queue.inFrontOfUser == 0) {
                 itemView.tv_front_user.text = "Your turn"
-            } else {
+            } else if(isActive){
                 itemView.tv_front_user.text = "Persons in front: " + queue.inFrontOfUser.toString()
             }
             itemView.btn_u_view.setOnClickListener {
-                onClickItemRV(queue)
+                onClickItemRV(queue, isActive)
             }
         }
     }

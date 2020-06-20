@@ -4,5 +4,5 @@ import com.qflow.main.domain.local.models.Queue
 
 sealed class QRFragmentScreenState {
     object JoinedQueue : QRFragmentScreenState()
-    class QueueLoaded(val queue: Queue): QRFragmentScreenState()
+    class QueueToJoinLoaded(val queue: Queue, val isAlreadyInQueue: Boolean): QRFragmentScreenState()
 }

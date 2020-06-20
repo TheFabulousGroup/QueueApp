@@ -17,10 +17,11 @@ data class Queue(
     val dateFinished: Timestamp? = null,
     val capacity: Int? = null,
     val currentPos: Int? = null,
-    val isLock: Boolean = false,
+    val lock: Boolean? = null,
     val businessAssociated: String? = null,
     val numPersons: Int? = null,
     val inFrontOfUser: Int? = null,
     val avgServiceTime: Int? = null,
-    val waitingTimeForUser: Int? = null
+    val waitingTimeForUser: Int? = null,
+    val nextPerson: String? = null
 )

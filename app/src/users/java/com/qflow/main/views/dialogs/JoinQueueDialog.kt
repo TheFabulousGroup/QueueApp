@@ -12,7 +12,7 @@ import com.qflow.main.R
 import kotlinx.android.synthetic.users.dialog_join_queue.*
 
 
-class JoinQueueDialog : DialogFragment(){
+class JoinQueueDialog : DialogFragment() {
 
     interface OnJoinDialogButtonClick {
         fun onJoinButtonClick(joinID: Int)
@@ -22,8 +22,8 @@ class JoinQueueDialog : DialogFragment(){
         fun onNavigateQRFragment()
     }
 
-    private var mOnJoinButtonClick : OnJoinDialogButtonClick? = null
-    private var mOnNavigateQRFragment : OnNavigateQRFragment? = null
+    private var mOnJoinButtonClick: OnJoinDialogButtonClick? = null
+    private var mOnNavigateQRFragment: OnNavigateQRFragment? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,10 +39,12 @@ class JoinQueueDialog : DialogFragment(){
     }
 
     private fun initializeListeners() {
-        btn_join_queue_by_code.setOnClickListener{
+        btn_join_queue_by_code.setOnClickListener {
             view.let {
                 val joinCode = dialog_join_code.text.toString()
-                mOnJoinButtonClick?.onJoinButtonClick(joinCode.toInt())
+                if (joinCode != "") {
+                    mOnJoinButtonClick?.onJoinButtonClick(joinCode.toInt())
+                }
             }
         }
 
@@ -58,9 +60,11 @@ class JoinQueueDialog : DialogFragment(){
             mOnNavigateQRFragment = childFragment as OnNavigateQRFragment
             mOnJoinButtonClick = childFragment as OnJoinDialogButtonClick
         } catch (e: ClassCastException) {
-            throw ClassCastException("$activity " +
-                    "must implement OnNavigateQRFragment and OnJoinDialogButtonClick\n" +
-            e.message)
+            throw ClassCastException(
+                "$activity " +
+                        "must implement OnNavigateQRFragment and OnJoinDialogButtonClick\n" +
+                        e.message
+            )
         }
     }
 }

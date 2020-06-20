@@ -1,9 +1,9 @@
 package com.qflow.main.views.dialogs
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.INVISIBLE
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
@@ -14,7 +14,8 @@ import kotlinx.android.synthetic.users.dialog_home_info_q.*
 
 class InfoQueueDialog(
     private val queue: Queue,
-    private val joinable: Boolean
+    private val joinable: Boolean,
+    private val showPeopleInFront: Boolean
 ) : DialogFragment() {
 
     interface OnJoinClick {
@@ -43,13 +44,21 @@ class InfoQueueDialog(
         home_info_bss_asoc_queue.text = queue.businessAssociated
         home_info_capacity_queue.text = queue.capacity.toString()
         home_info_dt_created.text = queue.dateCreated.toString()
-        home_info_is_active.text = queue.isLock.toString()
+        home_info_is_active.text = queue.lock.toString()
         home_info_join_id.text = queue.joinId.toString()
         home_info_front_user.text = queue.inFrontOfUser.toString()
 
+        if (!showPeopleInFront){
+            home_info_front_user.visibility = INVISIBLE
+            tx_joinQueue.visibility = INVISIBLE
+        }
+
         if (joinable)
             btnQueueJoinQueue.visibility = View.VISIBLE
+        else
+            btnQueueJoinQueue.visibility = View.INVISIBLE
         btnQueueJoinQueue.setOnClickListener {
+            loading_info_dialog.visibility = View.VISIBLE
             mOnJoinClick?.handleJoinQueueRequest(queue)
         }
     }
@@ -59,7 +68,7 @@ class InfoQueueDialog(
 
         try {
             mOnJoinClick = childFragment as OnJoinClick
-        } catch (e: ClassCastException){
+        } catch (e: ClassCastException) {
             throw ClassCastException("$activity must implement OnJoinQR")
         }
     }

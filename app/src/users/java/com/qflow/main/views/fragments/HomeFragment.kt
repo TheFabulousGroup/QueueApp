@@ -74,13 +74,13 @@ class HomeFragment : Fragment(),
     }
 
     private fun initializeRecyclers() {
-        currentQueues = InfoRVAdapter(ArrayList(), ::onClickQueues)
+        currentQueues = InfoRVAdapter(ArrayList(), ::onClickQueues, true)
         rv_info_queues.adapter = currentQueues
         rv_info_queues.layoutManager = GridLayoutManager(
             context, 1, RecyclerView.VERTICAL,
             false
         )
-        historyQueues = InfoRVAdapter(ArrayList(), ::onClickQueues)
+        historyQueues = InfoRVAdapter(ArrayList(), ::onClickQueues, false)
         rv_history_queues.adapter = historyQueues
         rv_history_queues.layoutManager = GridLayoutManager(
             context, 1, RecyclerView.VERTICAL,
@@ -88,12 +88,12 @@ class HomeFragment : Fragment(),
         )
 
         //TODO We need the function LoadQueuesUserJoin (las que te has unio ya, vamos)
-        mViewModel.getCurrentQueues("all", false)
-        mViewModel.getHistoricalQueues("all", true)
+        mViewModel.getCurrentQueues("user", false)
+        mViewModel.getHistoricalQueues("user", true)
     }
 
-    private fun onClickQueues(queue: Queue) {
-        mQueueDialog = InfoQueueDialog(queue, false)
+    private fun onClickQueues(queue: Queue, isActive: Boolean) {
+        mQueueDialog = InfoQueueDialog(queue, false, isActive)
         mQueueDialog!!.onAttachFragment(this)
         mQueueDialog!!.show(this.childFragmentManager, "JOINDIALOG")
     }
@@ -107,10 +107,10 @@ class HomeFragment : Fragment(),
                 hideLoader()
                 updateRV()
             }
-            is HomeFragmentScreenState.QueueLoaded -> {
+            is HomeFragmentScreenState.QueueToJoinLoaded -> {
                 hideLoader()
                 mJoinQueueDialog?.dismiss()
-                mQueueDialog = InfoQueueDialog(renderState.queue, true)
+                mQueueDialog = InfoQueueDialog(renderState.queue, !renderState.isAlreadyInQueue, false)
                 mQueueDialog!!.onAttachFragment(this)
                 mQueueDialog!!.show(this.childFragmentManager, "JOINDIALOG")
             }
@@ -128,8 +128,8 @@ class HomeFragment : Fragment(),
     private fun updateRV() {
         showLoader()
 
-        mViewModel.getCurrentQueues("all", false)
-        mViewModel.getHistoricalQueues("all", true)
+        mViewModel.getCurrentQueues("user", false)
+        mViewModel.getHistoricalQueues("user", true)
     }
     private fun updateUI(screenState: ScreenState<HomeFragmentScreenState>?) {
         when (screenState) {
@@ -176,10 +176,8 @@ class HomeFragment : Fragment(),
         mViewModel.failure.observe(::getLifecycle, ::handleErrors)
     }
 
-    //Cuando terminas de aceptar unirte a una cola.
     override fun handleJoinQueueRequest(queue: Queue) {
         mViewModel.joinToQueue(queue.joinId)
-        onDetach()
     }
 
     override fun onNavigateQRFragment() {
