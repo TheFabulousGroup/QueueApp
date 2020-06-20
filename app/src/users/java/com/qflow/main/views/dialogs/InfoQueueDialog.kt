@@ -49,7 +49,10 @@ class InfoQueueDialog(
 
         if (joinable)
             btnQueueJoinQueue.visibility = View.VISIBLE
+        else
+            btnQueueJoinQueue.visibility = View.INVISIBLE
         btnQueueJoinQueue.setOnClickListener {
+            loading_info_dialog.visibility = View.VISIBLE
             mOnJoinClick?.handleJoinQueueRequest(queue)
         }
     }
@@ -59,7 +62,7 @@ class InfoQueueDialog(
 
         try {
             mOnJoinClick = childFragment as OnJoinClick
-        } catch (e: ClassCastException){
+        } catch (e: ClassCastException) {
             throw ClassCastException("$activity must implement OnJoinQR")
         }
     }

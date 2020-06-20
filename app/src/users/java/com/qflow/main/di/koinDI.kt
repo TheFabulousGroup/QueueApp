@@ -68,7 +68,7 @@ val useCaseModule = module {
     factory { CreateQueue(get(), get()) }
     factory { FetchQueueById(get()) }
     factory { JoinQueue(get(), get(), get()) }
-    factory { FetchQueueByJoinID(get()) }
+    factory { FetchQueueByJoinID(get(), get()) }
     factory { FetchQueuesByUser(get(), get()) }
 }
 

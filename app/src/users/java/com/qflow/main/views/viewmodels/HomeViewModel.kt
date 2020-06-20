@@ -51,8 +51,8 @@ class HomeViewModel(
         )
     }
 
-    private fun handleLoadQueueObtained(queue: Queue) {
-        _screenState.value = ScreenState.Render(HomeFragmentScreenState.QueueLoaded(queue))
+    private fun handleLoadQueueObtained(returnParams : FetchQueueByJoinID.ReturnParams) {
+        _screenState.value = ScreenState.Render(HomeFragmentScreenState.QueueToJoinLoaded(returnParams.queue, returnParams.alreadyInQueue))
     }
 
     fun joinToQueue(id: Int?) {
@@ -66,7 +66,7 @@ class HomeViewModel(
     }
 
     private fun handleJoinCompleted(i: Int) {
-        _screenState.value = ScreenState.Render(HomeFragmentScreenState.JoinedQueue())
+        _screenState.value = ScreenState.Render(HomeFragmentScreenState.JoinedQueue)
     }
 
     fun getCurrentQueues(expand: String?, finished: Boolean?) {

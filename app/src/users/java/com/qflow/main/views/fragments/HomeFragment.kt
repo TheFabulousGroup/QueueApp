@@ -107,10 +107,10 @@ class HomeFragment : Fragment(),
                 hideLoader()
                 updateRV()
             }
-            is HomeFragmentScreenState.QueueLoaded -> {
+            is HomeFragmentScreenState.QueueToJoinLoaded -> {
                 hideLoader()
                 mJoinQueueDialog?.dismiss()
-                mQueueDialog = InfoQueueDialog(renderState.queue, true)
+                mQueueDialog = InfoQueueDialog(renderState.queue, !renderState.isAlreadyInQueue)
                 mQueueDialog!!.onAttachFragment(this)
                 mQueueDialog!!.show(this.childFragmentManager, "JOINDIALOG")
             }
@@ -176,10 +176,8 @@ class HomeFragment : Fragment(),
         mViewModel.failure.observe(::getLifecycle, ::handleErrors)
     }
 
-    //Cuando terminas de aceptar unirte a una cola.
     override fun handleJoinQueueRequest(queue: Queue) {
         mViewModel.joinToQueue(queue.joinId)
-        onDetach()
     }
 
     override fun onNavigateQRFragment() {

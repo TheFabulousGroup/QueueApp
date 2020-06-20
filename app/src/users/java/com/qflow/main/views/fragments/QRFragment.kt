@@ -99,8 +99,8 @@ class QRFragment : Fragment(), QRCodeReaderView.OnQRCodeReadListener, InfoQueueD
     private fun renderScreenState(screenState: QRFragmentScreenState) {
         hideLoader()
         when (screenState) {
-            is QRFragmentScreenState.QueueLoaded -> {
-                mQueueDialog = InfoQueueDialog(screenState.queue, true)
+            is QRFragmentScreenState.QueueToJoinLoaded -> {
+                mQueueDialog = InfoQueueDialog(screenState.queue, !screenState.isAlreadyInQueue)
                 mQueueDialog!!.onAttachFragment(this)
                 mQueueDialog!!.show(this.childFragmentManager, "JOINDIALOG")
             }
@@ -128,7 +128,10 @@ class QRFragment : Fragment(), QRCodeReaderView.OnQRCodeReadListener, InfoQueueD
     }
 
     override fun onQRCodeRead(text: String?, points: Array<out PointF>?) {
-        if (isProcessing.compareAndSet(false, true)) {
+        var isDialogShowing = mQueueDialog != null
+        if(isDialogShowing)
+            isDialogShowing = mQueueDialog!!.isVisible
+        if (isProcessing.compareAndSet(false, true) && !isDialogShowing ) {
             if (text != null)
                 handleQRQueue(text)
             else
