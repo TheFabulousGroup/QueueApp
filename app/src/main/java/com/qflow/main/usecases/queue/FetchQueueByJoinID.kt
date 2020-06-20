@@ -25,12 +25,14 @@ class FetchQueueByJoinID(
                     "user",
                     false
                 )) {
-                    is Either.Left -> Either.Left(res.a)
+                    is Either.Left ->
+                        Either.Right(ReturnParams(result.b, false))
                     is Either.Right -> {
                         if (res.b.isEmpty())
                             Either.Right(ReturnParams(result.b, false))
                         else {
-                            if(res.b.stream().anyMatch { it.id == result.b.id
+                            if (res.b.stream().anyMatch {
+                                    it.id == result.b.id
 //                                        && it.inFrontOfUser != -1
                                 })
                                 Either.Right(ReturnParams(result.b, true))
