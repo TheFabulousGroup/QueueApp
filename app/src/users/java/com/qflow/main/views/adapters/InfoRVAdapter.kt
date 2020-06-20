@@ -40,7 +40,7 @@ class InfoRVAdapter(
             if (queue.inFrontOfUser == 0) {
                 itemView.tv_front_user.text = "Your turn"
             } else if(isActive){
-                itemView.tv_front_user.text = "Persons in front: " + queue.inFrontOfUser.toString()
+                itemView.tv_front_user.text = "Minutes to wait: " + queue.waitingTimeForUser.toString()
             }
             itemView.btn_u_view.setOnClickListener {
                 onClickItemRV(queue, isActive)

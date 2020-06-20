@@ -47,10 +47,13 @@ class InfoQueueDialog(
         home_info_is_active.text = queue.lock.toString()
         home_info_join_id.text = queue.joinId.toString()
         home_info_front_user.text = queue.inFrontOfUser.toString()
+        home_info_minutes_to_wait.text = queue.avgServiceTime.toString()
 
         if (!showPeopleInFront){
             home_info_front_user.visibility = INVISIBLE
             tx_joinQueue.visibility = INVISIBLE
+            home_info_minutes_to_wait.visibility = INVISIBLE
+            tx_waitingTime.visibility = INVISIBLE
         }
 
         if (joinable)

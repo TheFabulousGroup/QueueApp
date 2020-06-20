@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.VISIBLE
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
@@ -43,6 +44,7 @@ class JoinQueueDialog : DialogFragment() {
             view.let {
                 val joinCode = dialog_join_code.text.toString()
                 if (joinCode != "") {
+                    loading_join_dialog.visibility = VISIBLE
                     mOnJoinButtonClick?.onJoinButtonClick(joinCode.toInt())
                 }
             }

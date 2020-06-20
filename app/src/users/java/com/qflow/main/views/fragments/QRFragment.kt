@@ -103,6 +103,9 @@ class QRFragment : Fragment(), QRCodeReaderView.OnQRCodeReadListener, InfoQueueD
                 mQueueDialog = InfoQueueDialog(screenState.queue, !screenState.isAlreadyInQueue, false)
                 mQueueDialog!!.onAttachFragment(this)
                 mQueueDialog!!.show(this.childFragmentManager, "JOINDIALOG")
+                mQueueDialog!!.dialog?.setOnDismissListener {
+                    isProcessing.set(false)
+                }
             }
             is QRFragmentScreenState.JoinedQueue ->
                 view?.findNavController()?.navigate(R.id.action_QRFragment_to_homeFragment)
@@ -153,13 +156,12 @@ class QRFragment : Fragment(), QRCodeReaderView.OnQRCodeReadListener, InfoQueueD
                 Toast.LENGTH_SHORT
             )
                 .show()
-        } finally {
-            isProcessing.set(false)
         }
     }
 
     override fun onResume() {
         super.onResume()
+        isProcessing.set(false)
         qrDecoderView.startCamera()
     }
 
