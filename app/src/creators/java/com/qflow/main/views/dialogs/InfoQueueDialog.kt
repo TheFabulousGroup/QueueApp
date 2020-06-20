@@ -41,7 +41,7 @@ class InfoQueueDialog(private val queue: Queue) : DialogFragment() {
         home_info_capacity_queue.text = queue.capacity.toString()
         home_info_dt_created.text = queue.dateCreated.toString()
         home_info_dt_finished_queue.text = queue.dateFinished.toString()
-        home_info_is_active.text = queue.isLock.toString()
+        home_info_is_active.text = queue.lock.toString()
         home_info_join_id.text = queue.joinId.toString()
         home_info_num_persons.text = queue.numPersons.toString()
         home_info_avg_service_time.text = queue.avgServiceTime.toString()
