@@ -100,7 +100,7 @@ class QRFragment : Fragment(), QRCodeReaderView.OnQRCodeReadListener, InfoQueueD
         hideLoader()
         when (screenState) {
             is QRFragmentScreenState.QueueToJoinLoaded -> {
-                mQueueDialog = InfoQueueDialog(screenState.queue, !screenState.isAlreadyInQueue)
+                mQueueDialog = InfoQueueDialog(screenState.queue, !screenState.isAlreadyInQueue, false)
                 mQueueDialog!!.onAttachFragment(this)
                 mQueueDialog!!.show(this.childFragmentManager, "JOINDIALOG")
             }

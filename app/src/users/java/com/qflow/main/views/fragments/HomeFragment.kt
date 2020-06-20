@@ -74,13 +74,13 @@ class HomeFragment : Fragment(),
     }
 
     private fun initializeRecyclers() {
-        currentQueues = InfoRVAdapter(ArrayList(), ::onClickQueues)
+        currentQueues = InfoRVAdapter(ArrayList(), ::onClickQueues, true)
         rv_info_queues.adapter = currentQueues
         rv_info_queues.layoutManager = GridLayoutManager(
             context, 1, RecyclerView.VERTICAL,
             false
         )
-        historyQueues = InfoRVAdapter(ArrayList(), ::onClickQueues)
+        historyQueues = InfoRVAdapter(ArrayList(), ::onClickQueues, false)
         rv_history_queues.adapter = historyQueues
         rv_history_queues.layoutManager = GridLayoutManager(
             context, 1, RecyclerView.VERTICAL,
@@ -92,8 +92,8 @@ class HomeFragment : Fragment(),
         mViewModel.getHistoricalQueues("user", true)
     }
 
-    private fun onClickQueues(queue: Queue) {
-        mQueueDialog = InfoQueueDialog(queue, false)
+    private fun onClickQueues(queue: Queue, isActive: Boolean) {
+        mQueueDialog = InfoQueueDialog(queue, false, isActive)
         mQueueDialog!!.onAttachFragment(this)
         mQueueDialog!!.show(this.childFragmentManager, "JOINDIALOG")
     }
@@ -110,7 +110,7 @@ class HomeFragment : Fragment(),
             is HomeFragmentScreenState.QueueToJoinLoaded -> {
                 hideLoader()
                 mJoinQueueDialog?.dismiss()
-                mQueueDialog = InfoQueueDialog(renderState.queue, !renderState.isAlreadyInQueue)
+                mQueueDialog = InfoQueueDialog(renderState.queue, !renderState.isAlreadyInQueue, false)
                 mQueueDialog!!.onAttachFragment(this)
                 mQueueDialog!!.show(this.childFragmentManager, "JOINDIALOG")
             }
