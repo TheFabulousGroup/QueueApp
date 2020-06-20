@@ -48,7 +48,7 @@ class ManagementQueueDialog(
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setQueueData()
+
         initializeListener()
     }
 
@@ -72,29 +72,28 @@ class ManagementQueueDialog(
             loading_bar_manage.visibility = View.VISIBLE
             mOnResumeDialogButtonClick?.onResumeButtonClick(queue)
         }
-
+        setQueueData()
         checkQueues()
     }
 
     private fun checkQueues() {
-        if (queue.dateFinished != null)
+        if (queue.dateFinished != null) {
             btn_close.visibility = VISIBLE
-        if(queue.isLock) {
+        }
+        if (queue.lock!!) {
             btn_resume.visibility = VISIBLE
             btn_stop.visibility = INVISIBLE
-        }
-        else {
+            btn_advance.visibility = INVISIBLE
+        } else {
             btn_resume.visibility = INVISIBLE
             btn_stop.visibility = VISIBLE
+            btn_advance.visibility = VISIBLE
         }
     }
-    private fun setQueueData() {
 
+    private fun setQueueData() {
         //TODO add correct text
         tv_advance.text = "Next person: "
-
-        //TODO check queue y bloquear lo que haga falta
-
 
     }
 

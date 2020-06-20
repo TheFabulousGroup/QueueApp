@@ -40,24 +40,18 @@ class QueueAdminAdapter(
     inner class ViewHolder(item: View) : RecyclerView.ViewHolder(item) {
         fun onBind(queue: Queue) = with(itemView) {
             tv_queue.text = queue.name
-
             tv_num_persons.text = "persons:" + queue.numPersons.toString()
-
-
-
             btn_view.setOnClickListener {
                 onClickInfoRV(queue)
             }
             if(!isHistorical) {
-                btn_advanced.visibility = View.VISIBLE
-                btn_advanced.setOnClickListener {
+                btn_manage.visibility = View.VISIBLE
+                btn_manage.setOnClickListener {
                     onClickManageItem?.let { it1 -> it1(queue) }
                 }
             }
             else
-                btn_advanced.visibility = View.INVISIBLE
-
-
+                btn_manage.visibility = View.INVISIBLE
         }
     }
 

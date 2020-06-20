@@ -103,7 +103,7 @@ interface QueueRepository {
         }
 
         override suspend fun advanceQueue(idQueue: Int, token: String): Either<Failure, Queue> {
-            return request(apiService.postAdvanceQueueById(idQueue,token), {
+            return request(apiService.postAdvanceQueueById(idQueue, token), {
                 queueAdapter.jsonStringToQueue(it)
             }, String.empty())
         }

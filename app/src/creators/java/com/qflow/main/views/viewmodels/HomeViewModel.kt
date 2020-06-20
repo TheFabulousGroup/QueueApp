@@ -66,15 +66,11 @@ class HomeViewModel(
 
 
     fun advanceQueue(
-        idQueue: Int,
-        isLock: Boolean,
-        date: Timestamp,
-        numPerson: Int,
-        capacity: Int
+        idQueue: Int
     ) {
         advance.execute(
             { it.either(::handleFailure, ::handleManageQueue) },
-            AdvancedQueueById.Params(idQueue, isLock, date, numPerson, capacity),
+            AdvancedQueueById.Params(idQueue),
             this.coroutineScope
         )
     }
@@ -84,26 +80,31 @@ class HomeViewModel(
             ScreenState.Render(HomeFragmentScreenState.QueueManageDialog(queue))
     }
 
-    fun stopQueue(idQueue: Int, numPerson:Int) {
+    private fun handleCloseQueue(queue: Queue) {
+        this._screenState.value =
+            ScreenState.Render(HomeFragmentScreenState.QueueClosed(queue))
+    }
+
+    fun stopQueue(idQueue: Int, isLocked: Boolean) {
         stop.execute(
             { it.either(::handleFailure, ::handleManageQueue) },
-            StopQueueById.Params(idQueue,numPerson),
+            StopQueueById.Params(idQueue, isLocked),
             this.coroutineScope
         )
     }
 
-    fun resumeQueue(idQueue: Int) {
+    fun resumeQueue(idQueue: Int, isLocked: Boolean) {
         resume.execute(
             { it.either(::handleFailure, ::handleManageQueue) },
-            ResumeQueueById.Params(idQueue),
+            ResumeQueueById.Params(idQueue, isLocked),
             this.coroutineScope
         )
     }
 
-    fun closeQueue(idQueue: Int,numPerson:Int,dateFinish:Timestamp) {
+    fun closeQueue(idQueue: Int) {
         close.execute(
-            { it.either(::handleFailure, ::handleManageQueue) },
-            CloseQueueById.Params(idQueue,numPerson,dateFinish),
+            { it.either(::handleFailure, ::handleCloseQueue) },
+            CloseQueueById.Params(idQueue),
             this.coroutineScope
         )
     }

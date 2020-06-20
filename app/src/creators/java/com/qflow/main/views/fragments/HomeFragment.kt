@@ -24,7 +24,6 @@ import com.qflow.main.views.screenstates.HomeFragmentScreenState
 import com.qflow.main.views.viewmodels.HomeViewModel
 import kotlinx.android.synthetic.creators.fragment_home.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import java.util.*
 import kotlin.collections.ArrayList
 
 
@@ -75,7 +74,6 @@ class HomeFragment : Fragment(), ManagementQueueDialog.OnAdvanceDialogButtonClic
     }
 
     private fun initializeRecycler() {
-
         queuesAdminAdapter =
             QueueAdminAdapter(ArrayList(), ::onClickOnQueue, ::onClickManageQueue, false)
         queuesAdminHistory =
@@ -101,7 +99,7 @@ class HomeFragment : Fragment(), ManagementQueueDialog.OnAdvanceDialogButtonClic
             is HomeFragmentScreenState.QueuesHistoricalObtained -> {
                 queuesAdminHistory.setData(renderState.queues)
                 loadingComplete()
-             }
+            }
             is HomeFragmentScreenState.QueueInfoDialog -> {
                 mInfoQueueDialog = InfoQueueDialog(renderState.queues,false)
                 mInfoQueueDialog!!.onAttachFragment(this)
@@ -109,13 +107,17 @@ class HomeFragment : Fragment(), ManagementQueueDialog.OnAdvanceDialogButtonClic
             }
             is HomeFragmentScreenState.QueueManageDialog -> {
                 initializeDialogManagement(renderState.queues)
+                loadingComplete()
+                updateRV()
+            }
+            is HomeFragmentScreenState.QueueClosed -> {
+                mManageQueueDialog?.dismiss()
+                updateRV()
             }
         }
     }
 
     private fun initializeDialogManagement(queue: Queue) {
-        if (mManageQueueDialog != null)
-            mManageQueueDialog!!.dismiss()
         mManageQueueDialog = ManagementQueueDialog(queue)
         mManageQueueDialog!!.onAttachFragment(this)
         mManageQueueDialog!!.show(this.childFragmentManager, "MANAGEMENTDIALOG")
@@ -158,14 +160,21 @@ class HomeFragment : Fragment(), ManagementQueueDialog.OnAdvanceDialogButtonClic
                     ValidationFailureType.QUEUE_LOCK -> {
                         Toast.makeText(
                             this.context,
-                            "You can´t advance a queue that has been stopped",
+                            "If you want advance the queue that is stopped, first resume queue",
                             Toast.LENGTH_LONG
                         ).show()
                     }
-                    ValidationFailureType.QUEUE_ADVANCE_STOP -> {
+                    ValidationFailureType.QUEUE_STOP -> {
                         Toast.makeText(
                             this.context,
-                            "If you want advance the queue that is stopped, first resume queue",
+                            "The queue is already stopped",
+                            Toast.LENGTH_LONG
+                        ).show()
+                    }
+                    ValidationFailureType.QUEUE_RESUME -> {
+                        Toast.makeText(
+                            this.context,
+                            "The queue is already on",
                             Toast.LENGTH_LONG
                         ).show()
                     }
@@ -238,62 +247,44 @@ class HomeFragment : Fragment(), ManagementQueueDialog.OnAdvanceDialogButtonClic
 
 
     override fun onStopButtonClick(queue: Queue) {
-            queue.id?.let {
-                queue.numPersons?.let { it1 ->
-                    viewModel.stopQueue(it, it1)
-                }
-                Toast.makeText(
-                    this.context,
-                    "Queue has been stopped",
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
+        queue.id?.let {
+            queue.lock?.let { it1 -> viewModel.stopQueue(it, it1) }
+            Toast.makeText(
+                this.context,
+                "Queue" + queue.name + "has been stopped",
+                Toast.LENGTH_SHORT
+            ).show()
+        }
     }
 
     override fun onCloseButtonClick(queue: Queue) {
         queue.id?.let {
-            queue.numPersons?.let { it1 ->
-                queue.dateFinished?.let { it2 ->
-                    viewModel.closeQueue(
-                        it, it1,
-                        it2
-                    )
-                }
+                    viewModel.closeQueue(it)
             }
             Toast.makeText(
                 this.context,
-                "Queue has been closed",
+                "Queue" + queue.name + "has been closed",
                 Toast.LENGTH_SHORT
             ).show()
-
-        }
     }
 
     override fun onAdvanceButtonClick(queue: Queue) {
-
         queue.id?.let {
-            queue.dateFinished?.let { it1 ->
-                queue.numPersons?.let { it2 ->
-                    queue.capacity?.let { it3 ->
-                        viewModel.advanceQueue(
-                            queue.id,
-                            queue.isLock,
-                            it1,
-                            it2,
-                            it3
-                        )
-                    }
-                }
-            }
+            viewModel.advanceQueue(queue.id)
         }
+        Toast.makeText(
+            this.context,
+            "Queue" + queue.name + "has been advanced",
+            Toast.LENGTH_SHORT
+        ).show()
     }
 
     override fun onResumeButtonClick(queue: Queue) {
         queue.id?.let {
-            viewModel.resumeQueue(it)
+            queue.lock?.let { it1 -> viewModel.resumeQueue(it, it1) }
             Toast.makeText(
                 this.context,
-                "Queue has been resumed",
+                "Queue" + queue.name + "has been resumed",
                 Toast.LENGTH_SHORT
             ).show()
         }

@@ -8,9 +8,9 @@ enum class ValidationFailureType {
     QUEUE_LOCK,
     QUEUE_CLOSE,
     FULL_CAPACITY,
-    QUEUE_ADVANCE_STOP,
+    QUEUE_STOP,
     QUEUE_ADVANCE_CLOSE,
     QUEUE_CLOSE_CLOSED,
-
+    QUEUE_RESUME
 
 }
