@@ -90,6 +90,12 @@ class QRFragment : Fragment(), QRCodeReaderView.OnQRCodeReadListener, InfoQueueD
                     Toast.LENGTH_SHORT
                 ).show()
             }
+            is Failure.ServerErrorCode ->
+                Toast.makeText(
+                    this.context,
+                    getString(R.string.QueueJoiningError),
+                    Toast.LENGTH_SHORT
+                ).show()
         }
         isProcessing.set(false)
 
@@ -103,6 +109,9 @@ class QRFragment : Fragment(), QRCodeReaderView.OnQRCodeReadListener, InfoQueueD
                 mQueueDialog = InfoQueueDialog(screenState.queue, !screenState.isAlreadyInQueue, false)
                 mQueueDialog!!.onAttachFragment(this)
                 mQueueDialog!!.show(this.childFragmentManager, "JOINDIALOG")
+                mQueueDialog!!.dialog?.setOnDismissListener {
+                    isProcessing.set(false)
+                }
             }
             is QRFragmentScreenState.JoinedQueue ->
                 view?.findNavController()?.navigate(R.id.action_QRFragment_to_homeFragment)
@@ -153,13 +162,12 @@ class QRFragment : Fragment(), QRCodeReaderView.OnQRCodeReadListener, InfoQueueD
                 Toast.LENGTH_SHORT
             )
                 .show()
-        } finally {
-            isProcessing.set(false)
         }
     }
 
     override fun onResume() {
         super.onResume()
+        isProcessing.set(false)
         qrDecoderView.startCamera()
     }
 
@@ -170,7 +178,7 @@ class QRFragment : Fragment(), QRCodeReaderView.OnQRCodeReadListener, InfoQueueD
 
     override fun handleJoinQueueRequest(queue: Queue) {
         mQueueDialog?.dismiss()
-        mViewModel.joinToQueue(queue.id)
+        mViewModel.joinToQueue(queue.joinId)
     }
 
     override fun onRequestPermissionsResult(

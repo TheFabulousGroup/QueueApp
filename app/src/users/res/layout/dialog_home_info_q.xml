@@ -102,6 +102,17 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/tx_joinQueue" />
 
+        <TextView
+            android:id="@+id/home_info_minutes_to_wait"
+            android:layout_width="126dp"
+            android:layout_height="22dp"
+            android:layout_marginEnd="16dp"
+            android:background="@color/primaryTextColor"
+            android:text="@string/minutes_to_wait"
+            app:layout_constraintBottom_toBottomOf="@+id/tx_waitingTime"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tx_waitingTime" />
+
         <!--Tx_view for descriptions-->
 
         <Button
@@ -118,7 +129,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tx_joinQueue" />
+            app:layout_constraintTop_toBottomOf="@+id/tx_waitingTime" />
 
         <TextView
             android:id="@+id/tx_name_dialog"
@@ -223,10 +234,22 @@
             android:layout_marginTop="16dp"
             android:text="@string/persons_in_front"
             android:textColor="@color/primaryTextColor"
-            android:textColorHighlight="@color/primaryTextColor"
             android:textColorHint="@color/primaryTextColor"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tx_turn" />
+
+        <TextView
+            android:id="@+id/tx_waitingTime"
+            android:layout_width="119dp"
+            android:layout_height="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/minutes_to_wait"
+            android:textColor="@color/primaryTextColor"
+            android:textColorHint="@color/primaryTextColor"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tx_joinQueue" />
+
 
         <include
             android:id="@+id/loading_info_dialog"

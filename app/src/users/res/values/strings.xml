@@ -40,6 +40,6 @@
     <string name="JoinQueue">Join Queue</string>
     <string name="turns_wait">Waiting turn</string>
     <string name="start">"Start "</string>
-    <string name="active">Active</string>
+    <string name="active">Locked </string>
     <string name="NoPermissionsCamera">You need to give camera permissions in order to scan QRs</string>
 </resources>

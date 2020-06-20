@@ -21,5 +21,6 @@ sealed class Failure {
     object LoginNotSuccessful : FeatureFailure()
     object JoinNotSuccessful : FeatureFailure()
     object QueuesNotFound : FeatureFailure()
+    object CantAdvanceQueue: FeatureFailure()
 
 }
