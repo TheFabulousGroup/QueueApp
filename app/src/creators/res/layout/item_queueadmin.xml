@@ -65,7 +65,7 @@
             app:layout_constraintBottom_toBottomOf="@+id/tv_num_persons"
             app:layout_constraintEnd_toStartOf="@+id/btn_manage"
             app:layout_constraintTop_toTopOf="@+id/tv_num_persons"
-            tools:text="@string/InfoQueue" />
+            android:text="@string/InfoQueue" />
 
         <ImageButton
             android:id="@+id/btn_manage"

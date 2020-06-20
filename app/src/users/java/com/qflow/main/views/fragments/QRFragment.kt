@@ -90,6 +90,12 @@ class QRFragment : Fragment(), QRCodeReaderView.OnQRCodeReadListener, InfoQueueD
                     Toast.LENGTH_SHORT
                 ).show()
             }
+            is Failure.ServerErrorCode ->
+                Toast.makeText(
+                    this.context,
+                    getString(R.string.QueueJoiningError),
+                    Toast.LENGTH_SHORT
+                ).show()
         }
         isProcessing.set(false)
 
@@ -172,7 +178,7 @@ class QRFragment : Fragment(), QRCodeReaderView.OnQRCodeReadListener, InfoQueueD
 
     override fun handleJoinQueueRequest(queue: Queue) {
         mQueueDialog?.dismiss()
-        mViewModel.joinToQueue(queue.id)
+        mViewModel.joinToQueue(queue.joinId)
     }
 
     override fun onRequestPermissionsResult(

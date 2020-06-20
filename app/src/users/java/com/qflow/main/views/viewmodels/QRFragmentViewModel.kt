@@ -47,10 +47,10 @@ class QRFragmentViewModel(
 
     fun joinToQueue(id: Int?) {
         _screenState.value = ScreenState.Loading
-        id?.let {
-            joinQueue.execute(
+        id?.let { JoinQueue.Params(it) }?.let { it ->
+            joinQueue.execute (
                 { it.either(::handleFailure, ::handleJoinCompleted) },
-                JoinQueue.Params(id), this.coroutineScope
+                it, this.coroutineScope
             )
         }
     }

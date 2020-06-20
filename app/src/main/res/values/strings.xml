@@ -36,10 +36,9 @@
     <string name="JoinQueue">Join Queue</string>
     <string name="turns_wait">Waiting turn</string>
     <string name="start">"Start "</string>
-    <string name="active">Active</string>
+    <string name="active">Locked</string>
     <string name="persons_in_front">People in front you</string>
     <string name="locked">Locked</string>
-    <string name="persons_in_front">Persons in front you</string>
     <string name="closed">Finish Queue</string>
     <string name="stop">Stop</string>
     <string name="resume">Resume</string>
@@ -57,5 +56,6 @@
     <string name="queues_not_found">You don\'t have any current/historical queues</string>
     <string name="minutes_to_wait">Minutes to wait</string>
     <string name="queues_not_advance">Error advancing queue</string>
+    <string name="QueueJoiningError">It was not possible to join to that queue</string>
 
 </resources>
