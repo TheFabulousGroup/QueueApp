@@ -128,20 +128,6 @@
 
         <!--Definitions-->
 
-        <Button
-            android:id="@+id/home_info_edit_queue"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="212dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="4dp"
-            android:background="@drawable/oval_button"
-            android:text="@string/edit_queue"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/avg_service_time" />
-            app:layout_constraintVertical_bias="0.095" />
-
         <ImageView
             android:id="@+id/qrImageview"
             android:layout_width="wrap_content"
