@@ -53,19 +53,19 @@ class CreateQueue(
         businessAssociated: String,
         avgServiceTime: Int
     ): Either<Failure, Unit> {
-        return when(capacity.toString().isEmpty() || nameCreateQueue.isEmpty() ||
+        return when (capacity.toString().isEmpty() || nameCreateQueue.isEmpty() ||
                 queueDescription.isEmpty() || businessAssociated.isEmpty() ||
                 avgServiceTime.toString().isEmpty()) {
-                true -> Either.Left(Failure.ValidationFailure(ValidationFailureType.FIELDS_EMPTY))
-                false->{
-                    when(capacity <= 0 ) {
-                        true -> Either.Left(Failure.ValidationFailure(ValidationFailureType.CAPACITY_TOO_SMALL))
-                        false -> when(avgServiceTime <=0){
-                            true -> Either.Left(Failure.ValidationFailure(ValidationFailureType.AVG_TIME))
-                            false ->Either.Right(Unit)
-                        }
+            true -> Either.Left(Failure.ValidationFailure(ValidationFailureType.FIELDS_EMPTY))
+            false -> {
+                when (capacity <= 0) {
+                    true -> Either.Left(Failure.ValidationFailure(ValidationFailureType.CAPACITY_TOO_SMALL))
+                    false -> when (avgServiceTime <= 0) {
+                        true -> Either.Left(Failure.ValidationFailure(ValidationFailureType.AVG_TIME))
+                        false -> Either.Right(Unit)
                     }
                 }
+            }
         }
     }
 
