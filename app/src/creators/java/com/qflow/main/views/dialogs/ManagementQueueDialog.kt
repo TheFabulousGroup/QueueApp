@@ -93,7 +93,7 @@ class ManagementQueueDialog(
 
     private fun setQueueData() {
         //TODO add correct text
-        tv_advance.text = "Next person: "
+        tv_advance.text = "Next person: " + queue.nextPerson
 
     }
 
