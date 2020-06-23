@@ -25,7 +25,8 @@
             app:layout_constraintBottom_toTopOf="@+id/home_info_bss_asoc_queue"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/qrImageview"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintVertical_bias="0.0"
+            android:gravity="center"/>
 
         <TextView
             android:id="@+id/home_info_bss_asoc_queue"
@@ -36,7 +37,9 @@
             android:background="@color/primaryTextColor"
             android:text="@string/business_associated"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/home_info_queue_name" />
+            app:layout_constraintTop_toBottomOf="@+id/home_info_queue_name"
+            android:gravity="center"/>
+
 
         <TextView
             android:id="@+id/home_info_description_queue"
@@ -47,7 +50,8 @@
             android:background="@color/primaryTextColor"
             android:text="@string/queue_description"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/home_info_bss_asoc_queue" />
+            app:layout_constraintTop_toBottomOf="@+id/home_info_bss_asoc_queue"
+            android:gravity="center"/>
 
         <TextView
             android:id="@+id/home_info_capacity_queue"
@@ -58,7 +62,8 @@
             android:background="@color/primaryTextColor"
             android:text="@string/capacity"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/home_info_description_queue" />
+            app:layout_constraintTop_toBottomOf="@+id/home_info_description_queue"
+            android:gravity="center"/>
 
         <TextView
             android:id="@+id/home_info_dt_created"
@@ -69,7 +74,8 @@
             android:background="@color/primaryTextColor"
             android:text="@string/date_created"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/home_info_capacity_queue" />
+            app:layout_constraintTop_toBottomOf="@+id/home_info_capacity_queue"
+            android:gravity="center"/>
 
         <TextView
             android:id="@+id/home_info_dt_finished_queue"
@@ -80,7 +86,8 @@
             android:background="@color/primaryTextColor"
             android:text="@string/date_finished"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/home_info_dt_created" />
+            app:layout_constraintTop_toBottomOf="@+id/home_info_dt_created"
+            android:gravity="center"/>
 
         <TextView
             android:id="@+id/home_info_is_active"
@@ -91,7 +98,8 @@
             android:background="@color/primaryTextColor"
             android:text="@string/is_active"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/home_info_dt_finished_queue" />
+            app:layout_constraintTop_toBottomOf="@+id/home_info_dt_finished_queue"
+            android:gravity="center"/>
 
         <TextView
             android:id="@+id/home_info_join_id"
@@ -102,7 +110,8 @@
             android:background="@color/primaryTextColor"
             android:text="@string/join_code"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/home_info_num_persons" />
+            app:layout_constraintTop_toBottomOf="@+id/home_info_num_persons"
+            android:gravity="center"/>
 
         <TextView
             android:id="@+id/home_info_avg_service_time"
@@ -113,7 +122,8 @@
             android:background="@color/primaryTextColor"
             android:text="@string/avg_service_time"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/home_info_join_id" />
+            app:layout_constraintTop_toBottomOf="@+id/home_info_join_id"
+            android:gravity="center"/>
 
         <TextView
             android:id="@+id/home_info_num_persons"
@@ -124,7 +134,8 @@
             android:background="@color/primaryTextColor"
             android:text="@string/numPersons"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/home_info_is_active" />
+            app:layout_constraintTop_toBottomOf="@+id/home_info_is_active"
+            android:gravity="center"/>
 
         <!--Definitions-->
 

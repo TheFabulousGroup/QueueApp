@@ -44,8 +44,15 @@ class CreateQueueFragment : Fragment() {
             val nameCreateQueue = name_create_queue.text.toString()
             val businessAssociated = business_associated.text.toString()
             val queueDescription = queue_description_create_queue.text.toString()
-            val cap = Integer.parseInt(capacity.text.toString())
-            val avgServiceTime = Integer.parseInt(avg_service_time.text.toString())
+            var cap = -1
+            if(capacity.text.toString() != "") {
+                cap = Integer.parseInt(capacity.text.toString())
+            }
+            var avgServiceTime = -1
+            if(capacity.text.toString() != "") {
+                avgServiceTime = Integer.parseInt(avg_service_time.text.toString())
+            }
+
             mViewModel.createQueueInDatabase(
                 nameCreateQueue, queueDescription, cap, businessAssociated, avgServiceTime
             )
@@ -67,18 +74,17 @@ class CreateQueueFragment : Fragment() {
                     ValidationFailureType.CAPACITY_TOO_SMALL -> {
                         Toast.makeText(
                             this.context,
-                            "Capacity time must be greater than 0",
+                            "Capacity must be greater than 0",
                             Toast.LENGTH_LONG
                         ).show()
                         this.context?.let { ContextCompat.getColor(it, R.color.errorRedColor) }
                             ?.let {
                                 capacity.background.setTint(it)
                             }
-
                     }
                     ValidationFailureType.FIELDS_EMPTY -> {
                         Toast.makeText(
-                            this.context, "The field are empty", Toast.LENGTH_LONG
+                            this.context, "Some fields may be empty", Toast.LENGTH_LONG
                         ).show()
                         this.context?.let { ContextCompat.getColor(it, R.color.errorRedColor) }
                             ?.let {

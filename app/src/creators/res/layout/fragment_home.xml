@@ -37,30 +37,31 @@
             app:layout_constraintStart_toStartOf="@+id/btn_alogout"
             app:layout_constraintTop_toBottomOf="@+id/btn_alogout" />
 
-        <ImageView
-            android:id="@+id/img_profile"
-            android:layout_width="121dp"
-            android:layout_height="67dp"
-            android:layout_marginStart="50dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="50dp"
+        <TextView
+            android:id="@+id/tv_user_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="42dp"
+            android:text="@string/username"
+            android:textColor="@color/primaryTextColor"
+            android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/dummy_profile" />
+            tools:ignore="UnknownId" />
 
         <TextView
             android:id="@+id/textViewQ"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="65dp"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="32dp"
             android:layout_marginEnd="65dp"
             android:text="@string/current_queues"
             android:textColor="@color/primaryTextColor"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/img_profile" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_user_name" />
 
         <TextView
             android:id="@+id/historical"

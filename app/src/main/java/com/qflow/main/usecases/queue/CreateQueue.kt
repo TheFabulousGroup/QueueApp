@@ -55,7 +55,7 @@ class CreateQueue(
     ): Either<Failure, Unit> {
         return when (capacity.toString().isEmpty() || nameCreateQueue.isEmpty() ||
                 queueDescription.isEmpty() || businessAssociated.isEmpty() ||
-                avgServiceTime.toString().isEmpty()) {
+                avgServiceTime.toString().isEmpty() || avgServiceTime == -1 || capacity == -1) {
             true -> Either.Left(Failure.ValidationFailure(ValidationFailureType.FIELDS_EMPTY))
             false -> {
                 when (capacity <= 0) {

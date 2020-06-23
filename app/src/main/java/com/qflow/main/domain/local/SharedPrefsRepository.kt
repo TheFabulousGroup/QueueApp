@@ -12,6 +12,7 @@ class SharedPrefsRepository(c : Context) {
 
     companion object{
         const val ID_USER = "ID_USER"
+        const val USER_NAME = "USER_NAME"
     }
 
     private val prefs : SharedPreferences = c.getSharedPreferences("prefs", MODE_PRIVATE)
@@ -35,13 +36,20 @@ class SharedPrefsRepository(c : Context) {
         encryptedShared.edit().putString(ID_USER, token).apply()
     }
 
+    fun putUserName(userName : String?){
+        encryptedShared.edit().putString(USER_NAME, userName).apply()
+    }
+
     fun removeUserToken(){
         encryptedShared.edit().remove(ID_USER).apply()
     }
 
     fun getUserToken() : String?{
         return (encryptedShared.getString(ID_USER, null))
+    }
 
+    fun getUserName() : String?{
+        return (encryptedShared.getString(USER_NAME, null))
     }
 
 }
