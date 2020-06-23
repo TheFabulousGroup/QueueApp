@@ -15,37 +15,41 @@
         <TextView
             android:id="@+id/home_info_queue_name"
             android:layout_width="126dp"
-            android:layout_height="22dp"
+            android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
-            android:layout_marginBottom="8dp"
             android:background="@color/primaryTextColor"
+            android:gravity="center"
+            android:paddingHorizontal="2dp"
+            android:paddingVertical="2dp"
             android:text="@string/name"
-            app:layout_constraintBottom_toTopOf="@+id/home_info_bss_asoc_queue"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/tx_name_dialog"
-            app:layout_constraintVertical_bias="1.0" />
+            app:layout_constraintTop_toTopOf="@+id/tx_name_dialog" />
 
         <TextView
             android:id="@+id/home_info_bss_asoc_queue"
             android:layout_width="126dp"
-            android:layout_height="22dp"
+            android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
             android:background="@color/primaryTextColor"
             android:text="@string/business_associated"
-            app:layout_constraintBottom_toBottomOf="@+id/tx_business"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/tx_business" />
+            app:layout_constraintTop_toTopOf="@+id/tx_business"
+            android:gravity="center"
+            android:paddingHorizontal="2dp"
+            android:paddingVertical="2dp"/>
 
         <TextView
             android:id="@+id/home_info_description_queue"
             android:layout_width="126dp"
-            android:layout_height="22dp"
+            android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
             android:background="@color/primaryTextColor"
             android:text="@string/queue_description"
-            app:layout_constraintBottom_toBottomOf="@+id/tx_description"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/tx_description" />
+            app:layout_constraintTop_toTopOf="@+id/tx_description"
+            android:gravity="center"
+            android:paddingHorizontal="2dp"
+            android:paddingVertical="2dp"/>
 
         <TextView
             android:id="@+id/home_info_capacity_queue"
@@ -56,18 +60,23 @@
             android:text="@string/capacity"
             app:layout_constraintBottom_toBottomOf="@+id/tx_capacity"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/tx_capacity" />
+            app:layout_constraintTop_toTopOf="@+id/tx_capacity"
+            android:gravity="center"
+            android:paddingHorizontal="2dp"
+            android:paddingVertical="2dp"/>
 
         <TextView
             android:id="@+id/home_info_dt_created"
             android:layout_width="126dp"
-            android:layout_height="22dp"
+            android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
             android:background="@color/primaryTextColor"
             android:text="@string/date_created"
-            app:layout_constraintBottom_toBottomOf="@+id/tx_dateCreated"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/tx_dateCreated" />
+            app:layout_constraintTop_toTopOf="@+id/tx_dateCreated"
+            android:gravity="center"
+            android:paddingHorizontal="2dp"
+            android:paddingVertical="2dp"/>
 
         <TextView
             android:id="@+id/home_info_is_active"
@@ -78,7 +87,10 @@
             android:text="@string/is_active"
             app:layout_constraintBottom_toBottomOf="@+id/tx_isFinish"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/tx_isFinish" />
+            app:layout_constraintTop_toTopOf="@+id/tx_isFinish"
+            android:gravity="center"
+            android:paddingHorizontal="2dp"
+            android:paddingVertical="2dp"/>
 
         <TextView
             android:id="@+id/home_info_join_id"
@@ -89,7 +101,10 @@
             android:text="@string/join_code"
             app:layout_constraintBottom_toBottomOf="@+id/tx_turn"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/tx_turn" />
+            app:layout_constraintTop_toTopOf="@+id/tx_turn"
+            android:gravity="center"
+            android:paddingHorizontal="2dp"
+            android:paddingVertical="2dp"/>
 
         <TextView
             android:id="@+id/home_info_front_user"
@@ -100,7 +115,10 @@
             android:text="@string/persons_in_front"
             app:layout_constraintBottom_toBottomOf="@+id/tx_joinQueue"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/tx_joinQueue" />
+            app:layout_constraintTop_toTopOf="@+id/tx_joinQueue"
+            android:gravity="center"
+            android:paddingHorizontal="2dp"
+            android:paddingVertical="2dp"/>
 
         <TextView
             android:id="@+id/home_info_minutes_to_wait"
@@ -111,7 +129,8 @@
             android:text="@string/minutes_to_wait"
             app:layout_constraintBottom_toBottomOf="@+id/tx_waitingTime"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/tx_waitingTime" />
+            app:layout_constraintTop_toTopOf="@+id/tx_waitingTime"
+            android:gravity="center"/>
 
         <!--Tx_view for descriptions-->
 
@@ -159,20 +178,20 @@
             android:textColorHighlight="@color/primaryTextColor"
             android:textColorHint="@color/primaryTextColor"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tx_name_dialog" />
+            app:layout_constraintTop_toBottomOf="@+id/home_info_queue_name" />
 
         <TextView
             android:id="@+id/tx_description"
             android:layout_width="120dp"
             android:layout_height="20dp"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="16dp"
             android:text="@string/queue_description"
             android:textColor="@color/primaryTextColor"
             android:textColorHighlight="@color/primaryTextColor"
             android:textColorHint="@color/primaryTextColor"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tx_business" />
+            app:layout_constraintTop_toBottomOf="@+id/home_info_bss_asoc_queue" />
 
         <TextView
             android:id="@+id/tx_capacity"
@@ -185,7 +204,7 @@
             android:textColorHighlight="@color/primaryTextColor"
             android:textColorHint="@color/primaryTextColor"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tx_description" />
+            app:layout_constraintTop_toBottomOf="@+id/home_info_description_queue" />
 
         <TextView
             android:id="@+id/tx_dateCreated"
@@ -198,7 +217,7 @@
             android:textColorHighlight="@color/primaryTextColor"
             android:textColorHint="@color/primaryTextColor"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tx_capacity" />
+            app:layout_constraintTop_toBottomOf="@+id/home_info_capacity_queue" />
 
         <TextView
             android:id="@+id/tx_isFinish"
@@ -211,7 +230,7 @@
             android:textColorHighlight="@color/primaryTextColor"
             android:textColorHint="@color/primaryTextColor"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tx_dateCreated" />
+            app:layout_constraintTop_toBottomOf="@+id/home_info_dt_created" />
 
         <TextView
             android:id="@+id/tx_turn"

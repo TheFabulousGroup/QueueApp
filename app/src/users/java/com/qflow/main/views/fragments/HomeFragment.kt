@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.qflow.main.R
 import com.qflow.main.core.Failure
 import com.qflow.main.core.ScreenState
+import com.qflow.main.domain.local.SharedPrefsRepository
 import com.qflow.main.domain.local.models.Queue
 import com.qflow.main.views.activities.LoginActivity
 import com.qflow.main.views.adapters.InfoRVAdapter
@@ -21,6 +22,7 @@ import com.qflow.main.views.dialogs.JoinQueueDialog
 import com.qflow.main.views.screenstates.HomeFragmentScreenState
 import com.qflow.main.views.viewmodels.HomeViewModel
 import kotlinx.android.synthetic.users.fragment_home.*
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
@@ -30,6 +32,7 @@ class HomeFragment : Fragment(),
     InfoQueueDialog.OnJoinClick {
 
     private val mViewModel: HomeViewModel by viewModel()
+    private val sharedPrefsRepository : SharedPrefsRepository by inject()
 
     private lateinit var currentQueues: InfoRVAdapter
     private lateinit var historyQueues: InfoRVAdapter
@@ -49,6 +52,8 @@ class HomeFragment : Fragment(),
         initializeObservers()
         initializeListeners()
         initializeRecyclers()
+
+        tv_user_name.text = sharedPrefsRepository.getUserName()
     }
 
     private fun initializeListeners() {

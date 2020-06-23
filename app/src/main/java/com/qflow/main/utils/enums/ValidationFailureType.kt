@@ -11,6 +11,8 @@ enum class ValidationFailureType {
     QUEUE_STOP,
     QUEUE_ADVANCE_CLOSE,
     QUEUE_CLOSE_CLOSED,
-    QUEUE_RESUME
+    QUEUE_RESUME,
+    AVG_TIME,
+    FIELDS_EMPTY 
 
 }

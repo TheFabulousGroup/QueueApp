@@ -1,6 +1,8 @@
 package com.qflow.main.views.fragments
 
+import android.app.SharedElementCallback
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,6 +16,7 @@ import com.qflow.main.R
 import com.qflow.main.R.layout
 import com.qflow.main.core.Failure
 import com.qflow.main.core.ScreenState
+import com.qflow.main.domain.local.SharedPrefsRepository
 import com.qflow.main.domain.local.models.Queue
 import com.qflow.main.views.activities.LoginActivity
 import com.qflow.main.utils.enums.ValidationFailureType
@@ -23,6 +26,7 @@ import com.qflow.main.views.dialogs.ManagementQueueDialog
 import com.qflow.main.views.screenstates.HomeFragmentScreenState
 import com.qflow.main.views.viewmodels.HomeViewModel
 import kotlinx.android.synthetic.creators.fragment_home.*
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import kotlin.collections.ArrayList
 
@@ -32,6 +36,8 @@ class HomeFragment : Fragment(), ManagementQueueDialog.OnAdvanceDialogButtonClic
     ManagementQueueDialog.OnStopDialogButtonClick {
 
     private val viewModel: HomeViewModel by viewModel()
+    private val sharedPrefsRepository : SharedPrefsRepository by inject()
+
     private lateinit var queuesAdminAdapter: QueueAdminAdapter
     private lateinit var queuesAdminHistory: QueueAdminAdapter
     private var mInfoQueueDialog: InfoQueueDialog? = null
@@ -49,6 +55,8 @@ class HomeFragment : Fragment(), ManagementQueueDialog.OnAdvanceDialogButtonClic
         initializeObservers()
         initializeListeners()
         initializeRecycler()
+
+        tv_user_name.text = sharedPrefsRepository.getUserName()
     }
 
     private fun initializeListeners() {
