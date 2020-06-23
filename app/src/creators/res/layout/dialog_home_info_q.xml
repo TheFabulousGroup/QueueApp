@@ -5,12 +5,14 @@
     android:id="@+id/dialog_home"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:background="@color/primaryLightColor">
+    android:background="@color/primaryLightColor"
+    android:radius="50dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/btn_edit_queue"
-        android:layout_width="431dp"
-        android:layout_height="480dp">
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="8dp">
 
 
         <TextView
@@ -18,124 +20,117 @@
             android:layout_width="126dp"
             android:layout_height="22dp"
             android:layout_marginTop="20dp"
-            android:layout_marginEnd="116dp"
-            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="16dp"
             android:background="@color/primaryTextColor"
+            android:gravity="center"
             android:text="@string/name"
-            app:layout_constraintBottom_toTopOf="@+id/home_info_bss_asoc_queue"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/qrImageview"
-            app:layout_constraintVertical_bias="0.0"
-            android:gravity="center"/>
+            />
 
         <TextView
             android:id="@+id/home_info_bss_asoc_queue"
             android:layout_width="126dp"
-            android:layout_height="22dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="116dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
             android:background="@color/primaryTextColor"
+            android:gravity="center"
             android:text="@string/business_associated"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/home_info_queue_name"
-            android:gravity="center"/>
+            app:layout_constraintTop_toTopOf="@+id/tx_business" />
 
 
         <TextView
             android:id="@+id/home_info_description_queue"
             android:layout_width="126dp"
-            android:layout_height="22dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="116dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
             android:background="@color/primaryTextColor"
+            android:gravity="center"
             android:text="@string/queue_description"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/home_info_bss_asoc_queue"
-            android:gravity="center"/>
+            app:layout_constraintTop_toTopOf="@+id/tx_description" />
 
         <TextView
             android:id="@+id/home_info_capacity_queue"
             android:layout_width="126dp"
             android:layout_height="22dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="116dp"
+            android:layout_marginEnd="16dp"
             android:background="@color/primaryTextColor"
+            android:gravity="center"
             android:text="@string/capacity"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/home_info_description_queue"
-            android:gravity="center"/>
+            app:layout_constraintTop_toTopOf="@+id/tx_capacity" />
 
         <TextView
             android:id="@+id/home_info_dt_created"
             android:layout_width="126dp"
-            android:layout_height="22dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="116dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
             android:background="@color/primaryTextColor"
+            android:gravity="center"
             android:text="@string/date_created"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/home_info_capacity_queue"
-            android:gravity="center"/>
+            app:layout_constraintTop_toTopOf="@+id/tx_dateCreated" />
 
         <TextView
             android:id="@+id/home_info_dt_finished_queue"
             android:layout_width="126dp"
-            android:layout_height="22dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="116dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
             android:background="@color/primaryTextColor"
+            android:gravity="center"
             android:text="@string/date_finished"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/home_info_dt_created"
-            android:gravity="center"/>
+            app:layout_constraintTop_toTopOf="@+id/tx_dateFinished" />
 
         <TextView
             android:id="@+id/home_info_is_active"
             android:layout_width="126dp"
             android:layout_height="22dp"
             android:layout_marginTop="4dp"
-            android:layout_marginEnd="116dp"
+            android:layout_marginEnd="16dp"
             android:background="@color/primaryTextColor"
+            android:gravity="center"
             android:text="@string/is_active"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/home_info_dt_finished_queue"
-            android:gravity="center"/>
+            app:layout_constraintTop_toBottomOf="@+id/home_info_dt_finished_queue" />
 
         <TextView
             android:id="@+id/home_info_join_id"
             android:layout_width="126dp"
             android:layout_height="22dp"
             android:layout_marginTop="4dp"
-            android:layout_marginEnd="116dp"
+            android:layout_marginEnd="16dp"
             android:background="@color/primaryTextColor"
+            android:gravity="center"
             android:text="@string/join_code"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/home_info_num_persons"
-            android:gravity="center"/>
+            app:layout_constraintTop_toBottomOf="@+id/home_info_num_persons" />
 
         <TextView
             android:id="@+id/home_info_avg_service_time"
             android:layout_width="126dp"
             android:layout_height="22dp"
             android:layout_marginTop="4dp"
-            android:layout_marginEnd="116dp"
+            android:layout_marginEnd="16dp"
             android:background="@color/primaryTextColor"
+            android:gravity="center"
             android:text="@string/avg_service_time"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/home_info_join_id"
-            android:gravity="center"/>
+            app:layout_constraintTop_toBottomOf="@+id/home_info_join_id" />
 
         <TextView
             android:id="@+id/home_info_num_persons"
             android:layout_width="126dp"
             android:layout_height="22dp"
             android:layout_marginTop="4dp"
-            android:layout_marginEnd="116dp"
+            android:layout_marginEnd="16dp"
             android:background="@color/primaryTextColor"
+            android:gravity="center"
             android:text="@string/numPersons"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/home_info_is_active"
-            android:gravity="center"/>
+            app:layout_constraintTop_toBottomOf="@+id/home_info_is_active" />
 
         <!--Definitions-->
 
@@ -143,11 +138,8 @@
             android:id="@+id/qrImageview"
             android:layout_width="60dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="24dp"
-            android:layout_marginEnd="32dp"
+            android:layout_marginTop="16dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.586"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/circle" />
@@ -174,7 +166,7 @@
             android:layout_width="122dp"
             android:layout_height="20dp"
             android:layout_marginStart="6dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="8dp"
             android:text="@string/business_associated"
             android:textColor="@color/primaryTextColor"
@@ -183,14 +175,14 @@
             app:layout_constraintEnd_toStartOf="@+id/home_info_bss_asoc_queue"
             app:layout_constraintHorizontal_bias="0.321"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tx_name_dialog" />
+            app:layout_constraintTop_toBottomOf="@+id/home_info_queue_name" />
 
         <TextView
             android:id="@+id/tx_description"
             android:layout_width="126dp"
             android:layout_height="22dp"
             android:layout_marginStart="6dp"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="8dp"
             android:text="@string/queue_description"
             android:textColor="@color/primaryTextColor"
@@ -199,14 +191,14 @@
             app:layout_constraintEnd_toStartOf="@+id/home_info_description_queue"
             app:layout_constraintHorizontal_bias="0.339"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tx_business" />
+            app:layout_constraintTop_toBottomOf="@+id/home_info_bss_asoc_queue" />
 
         <TextView
             android:id="@+id/tx_capacity"
             android:layout_width="126dp"
             android:layout_height="22dp"
             android:layout_marginStart="6dp"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="8dp"
             android:text="@string/capacity"
             android:textColor="@color/primaryTextColor"
@@ -215,14 +207,14 @@
             app:layout_constraintEnd_toStartOf="@+id/home_info_capacity_queue"
             app:layout_constraintHorizontal_bias="0.344"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tx_description" />
+            app:layout_constraintTop_toBottomOf="@+id/home_info_description_queue" />
 
         <TextView
             android:id="@+id/tx_dateCreated"
             android:layout_width="126dp"
             android:layout_height="22dp"
             android:layout_marginStart="6dp"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="8dp"
             android:text="@string/start"
             android:textColor="@color/primaryTextColor"
@@ -231,14 +223,14 @@
             app:layout_constraintEnd_toStartOf="@+id/home_info_dt_created"
             app:layout_constraintHorizontal_bias="0.344"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tx_capacity" />
+            app:layout_constraintTop_toBottomOf="@+id/home_info_capacity_queue" />
 
         <TextView
             android:id="@+id/tx_dateFinished"
             android:layout_width="126dp"
             android:layout_height="22dp"
             android:layout_marginStart="6dp"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="16dp"
             android:text="@string/finished"
             android:textColor="@color/primaryTextColor"
             android:textColorHighlight="@color/primaryTextColor"
@@ -246,7 +238,7 @@
             app:layout_constraintEnd_toStartOf="@+id/home_info_dt_finished_queue"
             app:layout_constraintHorizontal_bias="0.303"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tx_dateCreated" />
+            app:layout_constraintTop_toBottomOf="@+id/home_info_dt_created" />
 
         <TextView
             android:id="@+id/tx_isFinish"
