@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/dialog_manage_queue"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@color/primaryLightColor">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="324dp"
+        android:layout_height="262dp">
+
+        <Button
+            android:id="@+id/btn_resume"
+            android:layout_width="115dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="32dp"
+            android:background="@drawable/oval_button"
+            android:text="@string/resume"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_advance" />
+
+        <Button
+            android:id="@+id/btn_stop"
+            android:layout_width="115dp"
+            android:layout_height="50dp"
+            android:layout_marginEnd="32dp"
+            android:background="@drawable/oval_button"
+            android:text="@string/stop"
+            app:layout_constraintBottom_toBottomOf="@+id/btn_resume"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/btn_resume" />
+
+        <Button
+            android:id="@+id/btn_close"
+            android:layout_width="115dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/oval_button"
+            android:text="@string/closed"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_resume" />
+
+        <TextView
+            android:id="@+id/tv_advance"
+            android:layout_width="150dp"
+            android:layout_height="50dp"
+            android:background="@color/primaryTextColor"
+            android:gravity="center"
+            android:text="@string/advanced"
+            app:layout_constraintBottom_toBottomOf="@+id/btn_advance"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/btn_advance"
+            app:layout_constraintTop_toTopOf="@+id/btn_advance" />
+
+        <Button
+            android:id="@+id/btn_advance"
+            android:layout_width="115dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="32dp"
+            android:background="@drawable/oval_button"
+            android:padding="4dp"
+            android:text="@string/advanced"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <include
+            android:id="@+id/loading_bar_manage"
+            layout="@layout/layout_progress_bar"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

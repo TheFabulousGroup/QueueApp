@@ -1,16 +1,26 @@
 package com.qflow.main.core
-/*
-* @author  Iván Fernández Rico, Globalincubator
-*/
+
+import com.qflow.main.utils.enums.ValidationFailureType
+
+
+/**
+ * The type of failures we can find in our model
+ * */
 sealed class Failure {
     object NetworkConnection : Failure()
-    class ServerErrorCode(val code: Int): Failure()
-    class ServerException(val throwable: Throwable): Failure()
+    class ServerErrorCode(val code: Int) : Failure()
+    class ServerException(val throwable: Throwable) : Failure()
 
     /** * Extend this class for feature specific failures.*/
-    abstract class FeatureFailure: Failure()
+    abstract class FeatureFailure : Failure()
 
-    class NullResult: FeatureFailure()
 
+    //Todo Ruben: Feature failure
+    class NullResult : FeatureFailure()
+    class ValidationFailure(val validationFailureType: ValidationFailureType) : FeatureFailure()
+    object LoginNotSuccessful : FeatureFailure()
+    object JoinNotSuccessful : FeatureFailure()
+    object QueuesNotFound : FeatureFailure()
+    object CantAdvanceQueue: FeatureFailure()
 
 }

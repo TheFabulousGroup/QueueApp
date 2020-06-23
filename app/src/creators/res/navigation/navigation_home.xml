@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_home"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.qflow.main.views.fragments.HomeFragment"
+        android:label="HomeFragment"
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_homeFragment_to_createQueueFragment"
+            app:destination="@id/createQueueFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/createQueueFragment"
+        android:name="com.qflow.main.views.fragments.CreateQueueFragment"
+        android:label="CreateQueueFragment"
+        tools:layout="@layout/fragment_create_queue">
+        <action
+            android:id="@+id/action_createQueueFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
+
+
+</navigation>

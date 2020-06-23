@@ -1,8 +1,10 @@
 package com.qflow.main.utils
 
+/**
+ * Our constants
+ * */
 object Constants {
 
-    const val END_POINT_URL = "Queueapp.com"
-    const val EXAMPLE= "Exemplo"
+    const val END_POINT_URL = "https://heroku-qflow.herokuapp.com/"
 
 }

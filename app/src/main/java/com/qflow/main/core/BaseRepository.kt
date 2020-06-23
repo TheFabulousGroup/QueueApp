@@ -1,13 +1,16 @@
 package com.qflow.main.core
 
+import com.google.android.gms.tasks.Task
+import com.google.firebase.FirebaseException
+import com.google.firebase.functions.FirebaseFunctionsException
 import com.qflow.main.usecases.Either
+import kotlinx.coroutines.tasks.await
+import retrofit2.Call
+import java.lang.ClassCastException
 
-/*
-* @author  Iván Fernández Rico, Globalincubator
-*/
 abstract class BaseRepository
 {
-    fun <T, R> request(call: retrofit2.Call<T>, transform: (T) -> R, default: T): Either<Failure, R> {
+    fun <T, R> request(call: Call<T>, transform: (T) -> R, default: T): Either<Failure,R> {
         return try {
             val response = call.execute()
             when (response.isSuccessful) {

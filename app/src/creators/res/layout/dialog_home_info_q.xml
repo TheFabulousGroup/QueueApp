@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/dialog_home"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@color/primaryLightColor">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/btn_edit_queue"
+        android:layout_width="431dp"
+        android:layout_height="480dp">
+
+
+        <TextView
+            android:id="@+id/home_info_queue_name"
+            android:layout_width="126dp"
+            android:layout_height="22dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="116dp"
+            android:layout_marginBottom="8dp"
+            android:background="@color/primaryTextColor"
+            android:text="@string/name"
+            app:layout_constraintBottom_toTopOf="@+id/home_info_bss_asoc_queue"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/qrImageview"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <TextView
+            android:id="@+id/home_info_bss_asoc_queue"
+            android:layout_width="126dp"
+            android:layout_height="22dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="116dp"
+            android:background="@color/primaryTextColor"
+            android:text="@string/business_associated"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/home_info_queue_name" />
+
+        <TextView
+            android:id="@+id/home_info_description_queue"
+            android:layout_width="126dp"
+            android:layout_height="22dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="116dp"
+            android:background="@color/primaryTextColor"
+            android:text="@string/queue_description"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/home_info_bss_asoc_queue" />
+
+        <TextView
+            android:id="@+id/home_info_capacity_queue"
+            android:layout_width="126dp"
+            android:layout_height="22dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="116dp"
+            android:background="@color/primaryTextColor"
+            android:text="@string/capacity"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/home_info_description_queue" />
+
+        <TextView
+            android:id="@+id/home_info_dt_created"
+            android:layout_width="126dp"
+            android:layout_height="22dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="116dp"
+            android:background="@color/primaryTextColor"
+            android:text="@string/date_created"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/home_info_capacity_queue" />
+
+        <TextView
+            android:id="@+id/home_info_dt_finished_queue"
+            android:layout_width="126dp"
+            android:layout_height="22dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="116dp"
+            android:background="@color/primaryTextColor"
+            android:text="@string/date_finished"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/home_info_dt_created" />
+
+        <TextView
+            android:id="@+id/home_info_is_active"
+            android:layout_width="126dp"
+            android:layout_height="22dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="116dp"
+            android:background="@color/primaryTextColor"
+            android:text="@string/is_active"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/home_info_dt_finished_queue" />
+
+        <TextView
+            android:id="@+id/home_info_join_id"
+            android:layout_width="126dp"
+            android:layout_height="22dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="116dp"
+            android:background="@color/primaryTextColor"
+            android:text="@string/join_code"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/home_info_num_persons" />
+
+        <TextView
+            android:id="@+id/home_info_avg_service_time"
+            android:layout_width="126dp"
+            android:layout_height="22dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="116dp"
+            android:background="@color/primaryTextColor"
+            android:text="@string/avg_service_time"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/home_info_join_id" />
+
+        <TextView
+            android:id="@+id/home_info_num_persons"
+            android:layout_width="126dp"
+            android:layout_height="22dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="116dp"
+            android:background="@color/primaryTextColor"
+            android:text="@string/numPersons"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/home_info_is_active" />
+
+        <!--Definitions-->
+
+        <ImageView
+            android:id="@+id/qrImageview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="32dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.586"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/circle" />
+
+        <TextView
+            android:id="@+id/tx_name_dialog"
+            android:layout_width="120dp"
+            android:layout_height="15dp"
+            android:layout_marginStart="6dp"
+            android:layout_marginTop="108dp"
+            android:layout_marginEnd="8dp"
+            android:backgroundTint="#FFFFFF"
+            android:text="@string/name"
+            android:textColor="@color/primaryTextColor"
+            android:textColorHighlight="@color/primaryTextColor"
+            android:textColorHint="@color/primaryTextColor"
+            app:layout_constraintEnd_toStartOf="@+id/home_info_queue_name"
+            app:layout_constraintHorizontal_bias="0.309"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tx_business"
+            android:layout_width="119dp"
+            android:layout_height="16dp"
+            android:layout_marginStart="6dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            android:text="@string/business_associated"
+            android:textColor="@color/primaryTextColor"
+            android:textColorHighlight="@color/primaryTextColor"
+            android:textColorHint="@color/primaryTextColor"
+            app:layout_constraintEnd_toStartOf="@+id/home_info_bss_asoc_queue"
+            app:layout_constraintHorizontal_bias="0.321"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tx_name_dialog" />
+
+        <TextView
+            android:id="@+id/tx_description"
+            android:layout_width="119dp"
+            android:layout_height="16dp"
+            android:layout_marginStart="6dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="8dp"
+            android:text="@string/queue_description"
+            android:textColor="@color/primaryTextColor"
+            android:textColorHighlight="@color/primaryTextColor"
+            android:textColorHint="@color/primaryTextColor"
+            app:layout_constraintEnd_toStartOf="@+id/home_info_description_queue"
+            app:layout_constraintHorizontal_bias="0.342"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tx_business" />
+
+        <TextView
+            android:id="@+id/tx_capacity"
+            android:layout_width="119dp"
+            android:layout_height="16dp"
+            android:layout_marginStart="6dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="8dp"
+            android:text="@string/capacity"
+            android:textColor="@color/primaryTextColor"
+            android:textColorHighlight="@color/primaryTextColor"
+            android:textColorHint="@color/primaryTextColor"
+            app:layout_constraintEnd_toStartOf="@+id/home_info_capacity_queue"
+            app:layout_constraintHorizontal_bias="0.344"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tx_description" />
+
+        <TextView
+            android:id="@+id/tx_dateCreated"
+            android:layout_width="119dp"
+            android:layout_height="16dp"
+            android:layout_marginStart="6dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="8dp"
+            android:text="@string/start"
+            android:textColor="@color/primaryTextColor"
+            android:textColorHighlight="@color/primaryTextColor"
+            android:textColorHint="@color/primaryTextColor"
+            app:layout_constraintEnd_toStartOf="@+id/home_info_dt_created"
+            app:layout_constraintHorizontal_bias="0.344"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tx_capacity" />
+
+        <TextView
+            android:id="@+id/tx_dateFinished"
+            android:layout_width="119dp"
+            android:layout_height="16dp"
+            android:layout_marginStart="6dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/finished"
+            android:textColor="@color/primaryTextColor"
+            android:textColorHighlight="@color/primaryTextColor"
+            android:textColorHint="@color/primaryTextColor"
+            app:layout_constraintEnd_toStartOf="@+id/home_info_dt_finished_queue"
+            app:layout_constraintHorizontal_bias="0.303"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tx_dateCreated" />
+
+        <TextView
+            android:id="@+id/tx_isFinish"
+            android:layout_width="119dp"
+            android:layout_height="16dp"
+            android:layout_marginStart="6dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="8dp"
+            android:text="@string/locked"
+            android:textColor="@color/primaryTextColor"
+            android:textColorHighlight="@color/primaryTextColor"
+            android:textColorHint="@color/primaryTextColor"
+            app:layout_constraintEnd_toStartOf="@+id/home_info_is_active"
+            app:layout_constraintHorizontal_bias="0.287"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tx_dateFinished" />
+
+        <TextView
+            android:id="@+id/tx_numPersons"
+            android:layout_width="119dp"
+            android:layout_height="16dp"
+            android:layout_marginStart="6dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="8dp"
+            android:text="@string/numPersons"
+            android:textColor="@color/primaryTextColor"
+            android:textColorHighlight="@color/primaryTextColor"
+            android:textColorHint="@color/primaryTextColor"
+            app:layout_constraintEnd_toStartOf="@+id/home_info_num_persons"
+            app:layout_constraintHorizontal_bias="0.31"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tx_isFinish" />
+
+        <TextView
+            android:id="@+id/tx_join_queue"
+            android:layout_width="119dp"
+            android:layout_height="16dp"
+            android:layout_marginStart="6dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="8dp"
+            android:text="@string/join_code"
+            android:textColor="@color/primaryTextColor"
+            android:textColorHighlight="@color/primaryTextColor"
+            android:textColorHint="@color/primaryTextColor"
+            app:layout_constraintEnd_toStartOf="@+id/home_info_join_id"
+            app:layout_constraintHorizontal_bias="0.31"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tx_numPersons" />
+
+        <TextView
+            android:id="@+id/tx_avg_service_time"
+            android:layout_width="119dp"
+            android:layout_height="16dp"
+            android:layout_marginStart="6dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="8dp"
+            android:text="@string/avg_service_time"
+            android:textColor="@color/primaryTextColor"
+            android:textColorHighlight="@color/primaryTextColor"
+            android:textColorHint="@color/primaryTextColor"
+            app:layout_constraintEnd_toStartOf="@+id/home_info_join_id"
+            app:layout_constraintHorizontal_bias="0.31"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tx_join_queue" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

@@ -4,31 +4,25 @@ import android.app.Activity
 import android.app.Application
 import android.os.Bundle
 import android.os.Handler
-import com.qflow.main.dinjector.dataModule
+import com.qflow.main.di.*
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.KoinComponent
 import org.koin.core.context.startKoin
-import com.qflow.main.dinjector.retrofitModule
-import com.qflow.main.dinjector.useCaseModule
-import com.qflow.main.dinjector.userModule
 
 
+/**
+ * This class gets called at the startup of the application, for now it loads the DI
+ * */
 class App : Application(), KoinComponent, Application.ActivityLifecycleCallbacks
 {
-
-
     private lateinit var handlerPost: Handler
 
     override fun onCreate() {
         super.onCreate()
-
-
         registerActivityLifecycleCallbacks(this)
 
-
         handlerPost = Handler()
-
 
         startKoin {
             androidLogger()

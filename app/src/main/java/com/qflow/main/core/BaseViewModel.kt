@@ -4,11 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-//Iván Fernández Rico, Globalincubator
-
-/*
-* @author  Iván Fernández Rico, Globalincubator
-*/
+/**
+ * The main structure of our viewModels, is used to treat failures
+ * */
 abstract class BaseViewModel: ViewModel()
 {
 

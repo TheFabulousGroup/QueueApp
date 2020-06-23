@@ -1,118 +1,142 @@
 package com.qflow.main.domain.server
 
 import android.util.Log
+import com.qflow.main.domain.local.SharedPrefsRepository
 import okhttp3.Interceptor
 import okhttp3.Request
 import okhttp3.Response
 import okhttp3.ResponseBody
 import org.koin.core.KoinComponent
+import org.koin.core.get
 import retrofit2.Call
-import retrofit2.http.DELETE
-import retrofit2.http.GET
-import retrofit2.http.Path
+import retrofit2.http.*
 import java.io.IOException
 
-/*
-* @author  Iván Fernández Rico, Globalincubator
-*/
 interface ApiService {
 
+    val prefs: SharedPrefsRepository
 
     companion object Factory {
 
-        const val USERS_ENDPOINT = "users/"
+        //Headers & Params
+        const val PARAM_QUEUE_ID = "idQueue"
+        const val HEADER_IS_ADMIN = "isAdmin"
+        const val HEADER_EMAIL = "mail"
+        const val HEADER_PASS = "password"
+        const val HEADER_TOKEN = "token"
+        const val PARAM_JOIN_ID = "joinId"
+        const val PARAM_FINISHED = "finished"
+        const val PARAM_EXPAND = "expand"
 
-        const val PARAM_PROFILE_CODE = "profileCode"
-        const val PARAM_DEVICE_CODE = "deviceCode"
 
-        const val PUT_USER_EDIT = "profiles/{$PARAM_PROFILE_CODE}"
-
-        const val POST_SIGNUP = "signup"
-        const val POST_SIGNIN = "login"
-        const val POST_DATA = "profiles/{$PARAM_PROFILE_CODE}/devices/{$PARAM_DEVICE_CODE}/data"
+        //URL
+        const val POST_JOIN_QUEUE = "qflow/queues/joinQueue/{$PARAM_JOIN_ID}"
+        const val POST_CREATE_QUEUE = "qflow/queues/"
+        const val GET_QUEUE_USERID = "qflow/queues/byIdUser/"
+        const val GET_QUEUE_QUEUEID = "qflow/queues/byIdQueue/"
+        const val GET_QUEUE_JOINID = "qflow/queues/byIdJoin/{$PARAM_JOIN_ID}"
+        const val POST_QUEUE_STOP = "qflow/queues/stopQueue/{$PARAM_QUEUE_ID}"
+        const val POST_QUEUE_CLOSE = "qflow/queues/closeQueue/{$PARAM_QUEUE_ID}"
+        const val POST_QUEUE_RESUME = "qflow/queues/resumeQueue/{$PARAM_QUEUE_ID}"
+        const val POST_QUEUE_ADVANCE = "qflow/queues/advanceQueue/{$PARAM_QUEUE_ID}"
+        const val POST_CREATE_USER = "qflow/user/"
+        const val PUT_LOGIN_USER = "qflow/user/"
 
     }
 
+    @Headers("Content-type: application/json")
+    @GET(GET_QUEUE_USERID)
+    fun getQueuesByUser(
+        @Header(HEADER_TOKEN) token: String,
+        @Query(PARAM_EXPAND) expand: String?,
+        @Query(PARAM_FINISHED) finished: Boolean?
+    ): Call<String>
 
-    /*USER*/
+    @GET(GET_QUEUE_QUEUEID)
+    fun getQueueByQueueId(@Path(PARAM_QUEUE_ID) idQueue: Int): Call<String>
 
-    @GET("profiles/{profileCode}")
-    fun getProfile(@Path("profileCode") profileCode: Int): Call<String>
+    @Headers("Content-type: application/json")
+    @POST(POST_CREATE_USER)
+    fun postCreateUser(@Body body: String, @Header(HEADER_IS_ADMIN) admin: Boolean): Call<String>
 
-    @DELETE("profiles/{profileCode}")
-    fun deleteProfile(@Path("profileCode") profileCode: Int): Call<String>
+    @Headers("Content-type: application/json")
+    @PUT(PUT_LOGIN_USER)
+    fun postLoginUser(
+        @Header(HEADER_IS_ADMIN) admin: Boolean,
+        @Header(HEADER_EMAIL) email: String,
+        @Header(HEADER_PASS) password: String
+    ): Call<String>
 
-//    @POST(ACCOUNTS_ENDPOINT + POST_SIGNUP)
-//    fun postSignUp(@Body body: String): Call<String>
-//
-//    @FormUrlEncoded
-//    @POST(ACCOUNTS_ENDPOINT + POST_SIGNIN)
-//    fun postSignin(@FieldMap body: Map<String, String>): Call<String>
-//
-//    @FormUrlEncoded
-//    @POST(PROFILES_ENDPOINT)
-//    fun postProfile(@FieldMap body: Map<String, String>): Call<String>
-//
-//    @FormUrlEncoded
-//    @PUT(PUT_USER_EDIT)
-//    fun putUserEdit(@Path(PARAM_PROFILE_CODE) profileCode: Int, @FieldMap body: Map<String, String>): Call<String>
-//
-//    @Multipart
-//    @retrofit2.http.PUT(PUT_USER_EDIT)
-//    fun putUploadAvatar(@Path(PARAM_PROFILE_CODE) profileCode: Int, @Part map: MultipartBody.Part): Call<String>
+    @Headers("Content-type: application/json")
+    @POST(POST_CREATE_QUEUE)
+    fun postQueue(
+        @Body body: String,
+        @Header(HEADER_TOKEN) token: String
+    ): Call<String>
 
-//    @FormUrlEncoded
-//    @POST(PROFILES_ENDPOINT + SUPERVISORS_ENDPOINT)
-//    fun postSupervisor(@FieldMap body: Map<String, String>): Call<String>
-//
-//    @POST(POST_ACCEPT_RECALIBRATION)
-//    fun postAcceptRecalibration(@Path(PARAM_PROFILE_CODE) profileCode: Int): Call<String>
-//
-//    @POST(POST_ACCEPT_LOGOUT)
-//    fun postAcceptLogout(@Path(PARAM_PROFILE_CODE) profileCode: Int): Call<String>
-//
-//
-//    @POST(POST_LOGOUT_PETITION)
-//    fun postLogoutPetition(@Path(PARAM_PROFILE_CODE) profileCode: Int): Call<String>
-//
-//    @POST(POST_RECALIBRATION_PETITION)
-//    fun postRecalibrationPetition(@Path(PARAM_PROFILE_CODE) profileCode: Int): Call<String
+    @Headers("Content-type: application/json")
+    @POST(POST_JOIN_QUEUE)
+    fun postJoinQueue(
+        @Path(PARAM_JOIN_ID) joinId: Int,
+        @Header(HEADER_TOKEN) token: String
+    ): Call<String>
+
+    @Headers("Content-type: application/json")
+    @GET(GET_QUEUE_JOINID)
+    fun getQueueByJoinId(@Path(PARAM_JOIN_ID) idJoin: Int): Call<String>
 
 
+    @Headers("Content-type: application/json")
+    @POST(POST_QUEUE_ADVANCE)
+    fun postAdvanceQueueById(
+        @Path(PARAM_QUEUE_ID) idQueue: Int,
+        @Header(HEADER_TOKEN) token: String
+    ): Call<String>
+
+    @Headers("Content-type: application/json")
+    @POST(POST_QUEUE_STOP)
+    fun postStopQueueById(@Path(PARAM_QUEUE_ID) idQueue: Int): Call<String>
+
+    @Headers("Content-type: application/json")
+    @POST(POST_QUEUE_RESUME)
+    fun postResumeQueueByID(@Path(PARAM_QUEUE_ID) idQueue: Int): Call<String>
+
+    @Headers("Content-type: application/json")
+    @POST(POST_QUEUE_CLOSE)
+    fun postCloseQueueById(@Path(PARAM_QUEUE_ID) idQueue: Int): Call<String>
 }
 
 class HeaderInterceptor : Interceptor, KoinComponent {
 
     @Throws(IOException::class)
     override fun intercept(chain: Interceptor.Chain): Response {
-        var request = chain.request()
-        var requestBuilder: Request.Builder
+        val request = chain.request()
+        val requestBuilder: Request.Builder
+        val serverSharedPreferencesManager: SharedPrefsRepository = get()
 
-
-//        var sessionCode: String? = user?.secret
-//        var sessionUser: Int? = user?.userCode
-
-
+        val userToken = serverSharedPreferencesManager.getUserToken()
 
         requestBuilder = request.newBuilder()
-//                .addHeader("Secret", Constants.CREDENTIALS.SECRET)
-//                .addHeader("Token", Constants.CREDENTIALS.TOKEN)
-                .addHeader("API-apptype", "android")
-                .addHeader("Content-Type", "application/json")
-
-//        if (sessionUser != null && sessionCode != null)
-//            requestBuilder.addHeader("SESSION-GI", "$sessionUser.$sessionCode")
-
+            .addHeader("Authorization", "Bearer $userToken")
 
 //UNCOMMENT TO SEE WHAT ARE WE SENDING
-        Log.i("REQUEST",
-                String.format("Sending request %s on %s %s", request.url(), chain.connection(), request.headers()))
+        Log.i(
+            "REQUEST",
+            String.format(
+                "Sending request %s on chain connection %s with headers: { %s }",
+                request.url(),
+                chain.connection(),
+                request.headers()
+            )
+        )
 
         val response = chain.proceed(requestBuilder.build())
 
-//UNCOMMENT TO SEE WHAT ARE WE RECEIVING
-        Log.i("REQUEST",
-                String.format("Received response for %s, headers: %s", request.url(), response.body()))
+        //UNCOMMENT TO SEE WHAT ARE WE RECEIVING
+        Log.i(
+            "REQUEST",
+            String.format("Received response for %s, headers: %s", request.url(), response.body())
+        )
 
         val body = ResponseBody.create(response.body()?.contentType(), response.body()!!.string())
         return response.newBuilder().body(body).build()
