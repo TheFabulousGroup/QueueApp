@@ -20,7 +20,7 @@ class JoinQueue(private val queueRepository: QueueRepository,
         //TODO change id to get with shared
         return when (val res = queueRepository.joinQueue(params.joinCode,
             sharedPrefsRepository.getUserToken().toString())) {
-            is Either.Left -> Either.Left(res.a)
+            is Either.Left -> Either.Left(Failure.JoinNotSuccessful)
             is Either.Right -> {
                 val idQueue = queueAdapter.jsonStringToQueueId(res.b)
 

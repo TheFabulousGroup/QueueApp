@@ -90,7 +90,7 @@ class QRFragment : Fragment(), QRCodeReaderView.OnQRCodeReadListener, InfoQueueD
                     Toast.LENGTH_SHORT
                 ).show()
             }
-            is Failure.ServerErrorCode ->
+            is Failure.JoinNotSuccessful ->
                 Toast.makeText(
                     this.context,
                     getString(R.string.QueueJoiningError),

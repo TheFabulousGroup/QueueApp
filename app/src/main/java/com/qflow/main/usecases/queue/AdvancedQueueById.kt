@@ -22,7 +22,7 @@ class AdvancedQueueById(
                 prefsRepository.getUserToken().toString()
             )
             ) {
-            is Either.Left -> Either.Left(result.a)
+            is Either.Left -> Either.Left(Failure.CantAdvanceQueue)
             is Either.Right -> Either.Right(result.b)
         }
     }
