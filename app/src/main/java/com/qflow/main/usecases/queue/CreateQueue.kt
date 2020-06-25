@@ -20,7 +20,13 @@ class CreateQueue(
     UseCase<String, CreateQueue.Params, CoroutineScope>() {
     override suspend fun run(params: Params): Either<Failure, String> {
 
-        return when (val result = validQueue(params.capacity)) {
+        return when (val result = validQueue(
+            params.nameCreateQueue,
+            params.queueDescription,
+            params.capacity,
+            params.businessAssociated,
+            params.avgServiceTime
+        )) {
             is Either.Left -> Either.Left(result.a)
             is Either.Right -> {
                 when (val res = queueRepository.createQueue(
@@ -40,11 +46,27 @@ class CreateQueue(
         }
     }
 
-    private fun validQueue(capacity: Int): Either<Failure, Unit> {
-        return if (capacity > 0)
-            Either.Right(Unit)
-        else
-            Either.Left(Failure.ValidationFailure(ValidationFailureType.CAPACITY_TOO_SMALL))
+    private fun validQueue(
+        nameCreateQueue: String,
+        queueDescription: String,
+        capacity: Int,
+        businessAssociated: String,
+        avgServiceTime: Int
+    ): Either<Failure, Unit> {
+        return when (capacity.toString().isEmpty() || nameCreateQueue.isEmpty() ||
+                queueDescription.isEmpty() || businessAssociated.isEmpty() ||
+                avgServiceTime.toString().isEmpty() || avgServiceTime == -1 || capacity == -1) {
+            true -> Either.Left(Failure.ValidationFailure(ValidationFailureType.FIELDS_EMPTY))
+            false -> {
+                when (capacity <= 0) {
+                    true -> Either.Left(Failure.ValidationFailure(ValidationFailureType.CAPACITY_TOO_SMALL))
+                    false -> when (avgServiceTime <= 0) {
+                        true -> Either.Left(Failure.ValidationFailure(ValidationFailureType.AVG_TIME))
+                        false -> Either.Right(Unit)
+                    }
+                }
+            }
+        }
     }
 
     class Params(

@@ -1,6 +1,8 @@
 package com.qflow.main.views.fragments
 
+import android.app.SharedElementCallback
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,6 +16,7 @@ import com.qflow.main.R
 import com.qflow.main.R.layout
 import com.qflow.main.core.Failure
 import com.qflow.main.core.ScreenState
+import com.qflow.main.domain.local.SharedPrefsRepository
 import com.qflow.main.domain.local.models.Queue
 import com.qflow.main.views.activities.LoginActivity
 import com.qflow.main.utils.enums.ValidationFailureType
@@ -23,6 +26,7 @@ import com.qflow.main.views.dialogs.ManagementQueueDialog
 import com.qflow.main.views.screenstates.HomeFragmentScreenState
 import com.qflow.main.views.viewmodels.HomeViewModel
 import kotlinx.android.synthetic.creators.fragment_home.*
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import kotlin.collections.ArrayList
 
@@ -32,6 +36,8 @@ class HomeFragment : Fragment(), ManagementQueueDialog.OnAdvanceDialogButtonClic
     ManagementQueueDialog.OnStopDialogButtonClick {
 
     private val viewModel: HomeViewModel by viewModel()
+    private val sharedPrefsRepository: SharedPrefsRepository by inject()
+
     private lateinit var queuesAdminAdapter: QueueAdminAdapter
     private lateinit var queuesAdminHistory: QueueAdminAdapter
     private var mInfoQueueDialog: InfoQueueDialog? = null
@@ -49,6 +55,8 @@ class HomeFragment : Fragment(), ManagementQueueDialog.OnAdvanceDialogButtonClic
         initializeObservers()
         initializeListeners()
         initializeRecycler()
+
+        tv_user_name.text = sharedPrefsRepository.getUserName()
     }
 
     private fun initializeListeners() {
@@ -57,7 +65,7 @@ class HomeFragment : Fragment(), ManagementQueueDialog.OnAdvanceDialogButtonClic
     }
 
     private fun initializeButtons() {
-        btn_alogout.setOnClickListener{
+        btn_alogout.setOnClickListener {
             viewModel.logout()
             val intent = Intent(this.context, LoginActivity::class.java).apply {
                 addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
@@ -101,11 +109,15 @@ class HomeFragment : Fragment(), ManagementQueueDialog.OnAdvanceDialogButtonClic
                 loadingComplete()
             }
             is HomeFragmentScreenState.QueueInfoDialog -> {
-                mInfoQueueDialog = InfoQueueDialog(renderState.queues,false)
+                mInfoQueueDialog = InfoQueueDialog(renderState.queues, false)
                 mInfoQueueDialog!!.onAttachFragment(this)
                 mInfoQueueDialog!!.show(this.childFragmentManager, "INFODIALOG")
             }
             is HomeFragmentScreenState.QueueManageDialog -> {
+                mManageQueueDialog?.dialog?.let {
+                    if (it.isShowing)
+                        mManageQueueDialog!!.dismiss()
+                }
                 initializeDialogManagement(renderState.queues)
                 loadingComplete()
                 updateRV()
@@ -210,6 +222,18 @@ class HomeFragment : Fragment(), ManagementQueueDialog.OnAdvanceDialogButtonClic
                     Toast.LENGTH_SHORT
                 ).show()
             }
+            is Failure.CantAdvanceQueue -> {
+                loadingComplete()
+                mManageQueueDialog?.dialog?.let {
+                    if (it.isShowing)
+                        mManageQueueDialog!!.dismiss()
+                }
+                Toast.makeText(
+                    this.context,
+                    getString(R.string.queues_not_advance),
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
         }
     }
 
@@ -248,7 +272,7 @@ class HomeFragment : Fragment(), ManagementQueueDialog.OnAdvanceDialogButtonClic
             queue.lock?.let { it1 -> viewModel.stopQueue(it, it1) }
             Toast.makeText(
                 this.context,
-                "Queue" + queue.name + "has been stopped",
+                "Queue " + queue.name + " has been stopped",
                 Toast.LENGTH_SHORT
             ).show()
         }
@@ -256,13 +280,13 @@ class HomeFragment : Fragment(), ManagementQueueDialog.OnAdvanceDialogButtonClic
 
     override fun onCloseButtonClick(queue: Queue) {
         queue.id?.let {
-                    viewModel.closeQueue(it)
-            }
-            Toast.makeText(
-                this.context,
-                "Queue" + queue.name + "has been closed",
-                Toast.LENGTH_SHORT
-            ).show()
+            viewModel.closeQueue(it)
+        }
+        Toast.makeText(
+            this.context,
+            "Queue  " + queue.name + "has been closed",
+            Toast.LENGTH_SHORT
+        ).show()
     }
 
     override fun onAdvanceButtonClick(queue: Queue) {

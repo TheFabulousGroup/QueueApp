@@ -89,11 +89,18 @@ class ManagementQueueDialog(
             btn_stop.visibility = VISIBLE
             btn_advance.visibility = VISIBLE
         }
+
+        if (queue.nextPerson == null)
+            btn_advance.visibility = INVISIBLE
     }
 
     private fun setQueueData() {
-        //TODO add correct text
-        tv_advance.text = "Next person: "
+
+        tv_advance.text =
+            if (queue.nextPerson != null)
+                "Next person: " + queue.nextPerson
+            else "Queue empty"
+        tv_queue_name_d.text = queue.name
 
     }
 

@@ -1,5 +1,6 @@
 package com.qflow.main.views.viewmodels
 
+import android.os.Handler
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.qflow.main.core.BaseViewModel
@@ -28,6 +29,8 @@ class HomeViewModel(
     private val sharedPrefsRepository: SharedPrefsRepository
 ): BaseViewModel(), KoinComponent {
 
+    val UPDATE_PERCENTAGE_TIME = 60* 1000L
+
     private lateinit var info: QueueServerModel
     private val _screenState: MutableLiveData<ScreenState<HomeFragmentScreenState>> =
         MutableLiveData()
@@ -37,9 +40,25 @@ class HomeViewModel(
     private var job = Job()
     private var coroutineScope = CoroutineScope(Dispatchers.Default + job)
 
+    private val mainHandler = Handler()
+
+    private val timerUpdatePercent = object : Runnable {
+        override fun run() {
+            getCurrentQueues("user", false)
+            getHistoricalQueues("user", true)
+            mainHandler.postDelayed(this, UPDATE_PERCENTAGE_TIME)
+        }
+    }
+
+    init {
+        mainHandler.postDelayed(timerUpdatePercent, UPDATE_PERCENTAGE_TIME)
+    }
+
+
     override fun onCleared() {
         super.onCleared()
         job.cancel()
+        mainHandler.removeCallbacks(timerUpdatePercent)
     }
 
     fun loadQueueToJoin(get: Int) {

@@ -56,6 +56,8 @@
     <string name="queues_not_found">You don\'t have any current/historical queues</string>
     <string name="minutes_to_wait">Minutes to wait</string>
     <string name="queues_not_advance">Error advancing queue</string>
-    <string name="QueueJoiningError">It was not possible to join to that queue</string>
+    <string name="QueueJoiningError">It was not possible to join to that queue, maybe it is full</string>
+    <string name="create_queue_not_successful">Create queue not successful</string>
+    <string name="queuename">queuename</string>
 
 </resources>

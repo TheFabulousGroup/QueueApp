@@ -1,10 +1,12 @@
 package com.qflow.main.views.fragments
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.observe
 import androidx.navigation.findNavController
@@ -15,6 +17,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import com.qflow.main.core.Failure
 import com.qflow.main.utils.enums.ValidationFailureType
 import com.qflow.main.views.screenstates.HomeFragmentScreenState
+import kotlinx.android.synthetic.creators.fragment_login.*
 import kotlinx.android.synthetic.main.fragment_create_queue.*
 
 
@@ -41,10 +44,17 @@ class CreateQueueFragment : Fragment() {
             val nameCreateQueue = name_create_queue.text.toString()
             val businessAssociated = business_associated.text.toString()
             val queueDescription = queue_description_create_queue.text.toString()
-            val cap = Integer.parseInt(capacity.text.toString())
-            val avgServiceTime = Integer.parseInt(avg_service_time.text.toString())
+            var cap = -1
+            if(capacity.text.toString() != "") {
+                cap = Integer.parseInt(capacity.text.toString())
+            }
+            var avgServiceTime = -1
+            if(capacity.text.toString() != "") {
+                avgServiceTime = Integer.parseInt(avg_service_time.text.toString())
+            }
+
             mViewModel.createQueueInDatabase(
-                nameCreateQueue,queueDescription, cap,businessAssociated, avgServiceTime
+                nameCreateQueue, queueDescription, cap, businessAssociated, avgServiceTime
             )
         }
 
@@ -55,19 +65,60 @@ class CreateQueueFragment : Fragment() {
         mViewModel.failure.observe(::getLifecycle, ::handleErrors)
     }
 
+    @SuppressLint("ResourceAsColor")
     private fun handleErrors(failure: Failure?) {
         when (failure) {
             is Failure.ValidationFailure -> {
+                loadingComplete()
                 when (failure.validationFailureType) {
                     ValidationFailureType.CAPACITY_TOO_SMALL -> {
                         Toast.makeText(
-                            this.context, "Capacity must be greater than 0", Toast.LENGTH_LONG
+                            this.context,
+                            "Capacity must be greater than 0",
+                            Toast.LENGTH_LONG
                         ).show()
+                        this.context?.let { ContextCompat.getColor(it, R.color.errorRedColor) }
+                            ?.let {
+                                capacity.background.setTint(it)
+                            }
+                    }
+                    ValidationFailureType.FIELDS_EMPTY -> {
+                        Toast.makeText(
+                            this.context, "Some fields may be empty", Toast.LENGTH_LONG
+                        ).show()
+                        this.context?.let { ContextCompat.getColor(it, R.color.errorRedColor) }
+                            ?.let {
+                                name_create_queue.background.setTint(it)
+                                business_associated.background.setTint(it)
+                                queue_description_create_queue.background.setTint(it)
+                                capacity.background.setTint(it)
+                                avg_service_time.background.setTint(it)
+                            }
+                        }
 
+                ValidationFailureType.AVG_TIME -> {
+                    Toast.makeText(
+                        this.context,
+                        "Average time must be greater than 0",
+                        Toast.LENGTH_LONG
+                    ).show()
+                    this.context?.let { ContextCompat.getColor(it, R.color.errorRedColor) }
+                        ?.let {
+                            avg_service_time.background.setTint(it)
+                        }
                     }
                 }
             }
+            else->{
+                loadingComplete()
+                Toast.makeText(
+                    this.context,
+                    getString(R.string.create_queue_not_successful),
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
         }
+
     }
 
     private fun updateUI(screenState: ScreenState<HomeFragmentScreenState>?) {

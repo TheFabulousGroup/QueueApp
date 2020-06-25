@@ -29,6 +29,7 @@ class CreateAdmin(
                     is Either.Right ->{
                         val userDTO = UserAdapter.jsonStringToUserDTO(res.b)
                         sharedPrefsRepository.putUserToken(userDTO.token.toString())
+                        sharedPrefsRepository.putUserName(userDTO.username.toString())
                         Either.Right(res.b)
                     }
                 }

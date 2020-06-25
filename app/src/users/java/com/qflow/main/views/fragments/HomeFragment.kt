@@ -2,6 +2,7 @@ package com.qflow.main.views.fragments
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.qflow.main.R
 import com.qflow.main.core.Failure
 import com.qflow.main.core.ScreenState
+import com.qflow.main.domain.local.SharedPrefsRepository
 import com.qflow.main.domain.local.models.Queue
 import com.qflow.main.views.activities.LoginActivity
 import com.qflow.main.views.adapters.InfoRVAdapter
@@ -21,6 +23,7 @@ import com.qflow.main.views.dialogs.JoinQueueDialog
 import com.qflow.main.views.screenstates.HomeFragmentScreenState
 import com.qflow.main.views.viewmodels.HomeViewModel
 import kotlinx.android.synthetic.users.fragment_home.*
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
@@ -30,6 +33,7 @@ class HomeFragment : Fragment(),
     InfoQueueDialog.OnJoinClick {
 
     private val mViewModel: HomeViewModel by viewModel()
+    private val sharedPrefsRepository: SharedPrefsRepository by inject()
 
     private lateinit var currentQueues: InfoRVAdapter
     private lateinit var historyQueues: InfoRVAdapter
@@ -49,6 +53,8 @@ class HomeFragment : Fragment(),
         initializeObservers()
         initializeListeners()
         initializeRecyclers()
+
+        tv_user_name.text = sharedPrefsRepository.getUserName()
     }
 
     private fun initializeListeners() {
@@ -64,7 +70,7 @@ class HomeFragment : Fragment(),
             mJoinQueueDialog!!.onAttachFragment(this)
             mJoinQueueDialog!!.show(this.childFragmentManager, "INFOQUEUEDIALOG")
         }
-        btn_logout.setOnClickListener{
+        btn_logout.setOnClickListener {
             mViewModel.logout()
             val intent = Intent(this.context, LoginActivity::class.java).apply {
                 addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
@@ -110,7 +116,8 @@ class HomeFragment : Fragment(),
             is HomeFragmentScreenState.QueueToJoinLoaded -> {
                 hideLoader()
                 mJoinQueueDialog?.dismiss()
-                mQueueDialog = InfoQueueDialog(renderState.queue, !renderState.isAlreadyInQueue, false)
+                mQueueDialog =
+                    InfoQueueDialog(renderState.queue, !renderState.isAlreadyInQueue, false)
                 mQueueDialog!!.onAttachFragment(this)
                 mQueueDialog!!.show(this.childFragmentManager, "JOINDIALOG")
             }
@@ -131,6 +138,7 @@ class HomeFragment : Fragment(),
         mViewModel.getCurrentQueues("user", false)
         mViewModel.getHistoricalQueues("user", true)
     }
+
     private fun updateUI(screenState: ScreenState<HomeFragmentScreenState>?) {
         when (screenState) {
             ScreenState.Loading -> {
@@ -159,9 +167,20 @@ class HomeFragment : Fragment(),
                     Toast.LENGTH_SHORT
                 ).show()
             }
+            is Failure.JoinNotSuccessful -> {
+                mQueueDialog?.dialog?.let {
+                    if (it.isShowing)
+                        mQueueDialog!!.dismiss()
+                }
+                Toast.makeText(
+                    this.context,
+                    getString(R.string.QueueJoiningError),
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
         }
-
     }
+
 
     private fun showLoader() {
         loading_bar_home.visibility = View.VISIBLE
