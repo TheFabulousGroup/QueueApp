@@ -2,6 +2,7 @@ package com.qflow.main.views.fragments
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -32,7 +33,7 @@ class HomeFragment : Fragment(),
     InfoQueueDialog.OnJoinClick {
 
     private val mViewModel: HomeViewModel by viewModel()
-    private val sharedPrefsRepository : SharedPrefsRepository by inject()
+    private val sharedPrefsRepository: SharedPrefsRepository by inject()
 
     private lateinit var currentQueues: InfoRVAdapter
     private lateinit var historyQueues: InfoRVAdapter
@@ -69,7 +70,7 @@ class HomeFragment : Fragment(),
             mJoinQueueDialog!!.onAttachFragment(this)
             mJoinQueueDialog!!.show(this.childFragmentManager, "INFOQUEUEDIALOG")
         }
-        btn_logout.setOnClickListener{
+        btn_logout.setOnClickListener {
             mViewModel.logout()
             val intent = Intent(this.context, LoginActivity::class.java).apply {
                 addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
@@ -115,7 +116,8 @@ class HomeFragment : Fragment(),
             is HomeFragmentScreenState.QueueToJoinLoaded -> {
                 hideLoader()
                 mJoinQueueDialog?.dismiss()
-                mQueueDialog = InfoQueueDialog(renderState.queue, !renderState.isAlreadyInQueue, false)
+                mQueueDialog =
+                    InfoQueueDialog(renderState.queue, !renderState.isAlreadyInQueue, false)
                 mQueueDialog!!.onAttachFragment(this)
                 mQueueDialog!!.show(this.childFragmentManager, "JOINDIALOG")
             }
@@ -136,6 +138,7 @@ class HomeFragment : Fragment(),
         mViewModel.getCurrentQueues("user", false)
         mViewModel.getHistoricalQueues("user", true)
     }
+
     private fun updateUI(screenState: ScreenState<HomeFragmentScreenState>?) {
         when (screenState) {
             ScreenState.Loading -> {
@@ -164,9 +167,20 @@ class HomeFragment : Fragment(),
                     Toast.LENGTH_SHORT
                 ).show()
             }
+            is Failure.JoinNotSuccessful -> {
+                mQueueDialog?.dialog?.let {
+                    if (it.isShowing)
+                        mQueueDialog!!.dismiss()
+                }
+                Toast.makeText(
+                    this.context,
+                    getString(R.string.QueueJoiningError),
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
         }
-
     }
+
 
     private fun showLoader() {
         loading_bar_home.visibility = View.VISIBLE

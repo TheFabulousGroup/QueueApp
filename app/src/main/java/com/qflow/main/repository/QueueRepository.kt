@@ -30,7 +30,7 @@ interface QueueRepository {
         finished: Boolean?
     ): Either<Failure, List<Queue>>
 
-    suspend fun advanceQueue(idQueue: Int,token: String): Either<Failure, Queue>
+    suspend fun advanceQueue(idQueue: Int, token: String): Either<Failure, Queue>
     suspend fun stopQueue(idQueue: Int): Either<Failure, Queue>
     suspend fun resumeQueue(idQueue: Int): Either<Failure, Queue>
     suspend fun closeQueue(idQueue: Int): Either<Failure, Queue>
@@ -50,7 +50,13 @@ interface QueueRepository {
         ): Either<Failure, String> {
 
             val queueMap =
-                QueueServerModel(name, description, capacity, business_associated, avg_service_time).createMap()
+                QueueServerModel(
+                    name,
+                    description,
+                    capacity,
+                    business_associated,
+                    avg_service_time
+                ).createMap()
             val prueba = Gson().toJson(queueMap)
 
             return request(
@@ -97,7 +103,10 @@ interface QueueRepository {
                     expand,
                     finished
                 ), {
-                    queueAdapter.jsonStringToQueueList(it)
+                    if (it == "")
+                        ArrayList()
+                    else
+                        queueAdapter.jsonStringToQueueList(it)
                 }, String.empty()
             )
         }
